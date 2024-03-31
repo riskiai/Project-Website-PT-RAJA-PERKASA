@@ -1,5 +1,12 @@
 <?php
 
+use App\Http\Controllers\Autentikasi\LoginController;
+use App\Http\Controllers\Autentikasi\RegisterController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\JasaController;
+use App\Http\Controllers\KontakController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TentangController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +21,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/home');
 });
+
+/* Pengunjung Website */
+Route::get('/login', [LoginController::class, 'index']);
+Route::get('/register', [RegisterController::class, 'index']);
+Route::get('/home', [HomeController::class, 'index']);
+Route::get('/tentang', [TentangController::class, 'index']);
+Route::get('/jasa', [JasaController::class, 'index']);
+Route::get('/project', [ProjectController::class, 'index']);
+Route::get('/kontak', [KontakController::class, 'index']);
