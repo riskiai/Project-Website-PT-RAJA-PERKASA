@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Adminstrator\DashboardController;
 use App\Http\Controllers\Autentikasi\LoginController;
 use App\Http\Controllers\Autentikasi\RegisterController;
 use App\Http\Controllers\HomeController;
@@ -32,3 +33,6 @@ Route::get('/tentang', [TentangController::class, 'index']);
 Route::get('/jasa', [JasaController::class, 'index']);
 Route::get('/project', [ProjectController::class, 'index']);
 Route::get('/kontak', [KontakController::class, 'index']);
+
+/* Adminstrator */
+Route::get('/adminstrator/dashboard', [DashboardController::class, 'index'])->name('dashboard');

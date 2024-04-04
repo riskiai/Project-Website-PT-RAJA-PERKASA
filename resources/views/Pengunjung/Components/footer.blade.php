@@ -3,7 +3,7 @@
     <div class="container py-5">
         <div class="row g-5">
             <div class="col-lg-3 col-md-6">
-                <h5 class="text-light mb-4">Address</h5>
+                <h5 class="text-light mb-4">Alamat PT Raja Perkasa</h5>
                 <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Indramayu, Jawa Barat</p>
                 <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
                 <p class="mb-2"><i class="fa fa-envelope me-3"></i>rajaperkasa@gmail.com</p>
@@ -15,20 +15,18 @@
                 </div>
             </div>
             <div class="col-lg-3 col-md-6">
-                <h5 class="text-light mb-4">Services</h5>
-                <a class="btn btn-link" href="">Business Security</a>
-                <a class="btn btn-link" href="">Fire Detection</a>
-                <a class="btn btn-link" href="">Alarm Systems</a>
-                <a class="btn btn-link" href="">CCTV & Video</a>
-                <a class="btn btn-link" href="">Smart Home</a>
+                <h5 class="text-light mb-4">Jasa Kami</h5>
+                <a class="btn btn-link" href="">Manajemen Proyek</a>
+                <a class="btn btn-link" href="">Desain & Rekayasa</a>
+                <a class="btn btn-link" href="">Konstruksi Umum</a>
+                <a class="btn btn-link" href="">Konsultasi Proyek</a>
             </div>
             <div class="col-lg-3 col-md-6">
                 <h5 class="text-light mb-4">Quick Links</h5>
-                <a class="btn btn-link" href="">About Us</a>
-                <a class="btn btn-link" href="">Contact Us</a>
-                <a class="btn btn-link" href="">Our Services</a>
-                <a class="btn btn-link" href="">Terms & Condition</a>
-                <a class="btn btn-link" href="">Support</a>
+                <a class="btn btn-link" href="">Tentang</a>
+                <a class="btn btn-link" href="">Jasa Kami</a>
+                <a class="btn btn-link" href="">Project</a>
+                <a class="btn btn-link" href="">Kontak</a>
             </div>
             <div class="col-lg-3 col-md-6">
                 <h5 class="text-light mb-4">Newsletter</h5>

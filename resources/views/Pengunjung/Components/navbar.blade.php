@@ -50,7 +50,8 @@
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 px-4 px-lg-5">
         <a href="index.html" class="navbar-brand d-flex align-items-center">
-            <h2 class="m-0 text-orange">PT. RAJA PERKASA</h2>
+            {{-- <h2 class="m-0 text-orange">PT. RAJA PERKASA</h2> --}}
+          <img src="{{ asset('img/logo3.png') }}" style="height: 40px; width: 200px;" alt="">
         </a>
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>

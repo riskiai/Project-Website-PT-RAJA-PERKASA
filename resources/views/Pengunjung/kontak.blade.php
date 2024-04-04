@@ -15,7 +15,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
                     <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
-                    <li class="breadcrumb-item text-white active" aria-current="page">Contact</li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">Kontak</li>
                 </ol>
             </nav>
         </div>
@@ -32,19 +32,19 @@
                         <div class="section-title text-start">
                             <h1 class="display-5 mb-4">Kontak Kami</h1>
                         </div>
-                        <p class="mb-4">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolore quam harum natus dicta, mollitia tempore!</p>
+                        <p class="mb-4">Hubungi kami untuk informasi lebih lanjut tentang layanan kami. Kami siap membantu Anda!</p>
                         <form>
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <input type="text" class="form-control" id="name" placeholder="Your Name">
-                                        <label for="name">Your Name</label>
+                                        <label for="name">Nama Anda</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <input type="email" class="form-control" id="email" placeholder="Your Email">
-                                        <label for="email">Your Email</label>
+                                        <label for="email">Email Anda</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -56,7 +56,7 @@
                                 <div class="col-12">
                                     <div class="form-floating">
                                         <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 100px"></textarea>
-                                        <label for="message">Message</label>
+                                        <label for="message">Pesan</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
