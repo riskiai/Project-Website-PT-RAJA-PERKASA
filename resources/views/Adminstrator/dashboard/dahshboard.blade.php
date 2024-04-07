@@ -4,8 +4,9 @@
 
 <div class="page-wrapper">
     <div class="content">
+
       <div class="row">
-        <div class="col-lg-3 col-sm-6 col-12">
+        {{-- <div class="col-lg-3 col-sm-6 col-12">
           <div class="dash-widget">
             <div class="dash-widgetimg">
               <span
@@ -21,8 +22,8 @@
               <h6>Total Purchase Due</h6>
             </div>
           </div>
-        </div>
-        <div class="col-lg-3 col-sm-6 col-12">
+        </div> --}}
+        {{-- <div class="col-lg-3 col-sm-6 col-12">
           <div class="dash-widget dash1">
             <div class="dash-widgetimg">
               <span
@@ -38,8 +39,8 @@
               <h6>Total Sales Due</h6>
             </div>
           </div>
-        </div>
-        <div class="col-lg-3 col-sm-6 col-12">
+        </div> --}}
+        {{-- <div class="col-lg-3 col-sm-6 col-12">
           <div class="dash-widget dash2">
             <div class="dash-widgetimg">
               <span
@@ -55,8 +56,8 @@
               <h6>Total Sale Amount</h6>
             </div>
           </div>
-        </div>
-        <div class="col-lg-3 col-sm-6 col-12">
+        </div> --}}
+        {{-- <div class="col-lg-3 col-sm-6 col-12">
           <div class="dash-widget dash3">
             <div class="dash-widgetimg">
               <span
@@ -70,12 +71,12 @@
               <h6>Total Sale Amount</h6>
             </div>
           </div>
-        </div>
+        </div> --}}
         <div class="col-lg-3 col-sm-6 col-12 d-flex">
           <div class="dash-count">
             <div class="dash-counts">
-              <h4>100</h4>
-              <h5>Customers</h5>
+              <h4>50</h4>
+              <h5>Total Karyawan</h5>
             </div>
             <div class="dash-imgs">
               <i data-feather="user"></i>
@@ -85,8 +86,8 @@
         <div class="col-lg-3 col-sm-6 col-12 d-flex">
           <div class="dash-count das1">
             <div class="dash-counts">
-              <h4>100</h4>
-              <h5>Suppliers</h5>
+              <h4>55</h4>
+              <h5>Total Client</h5>
             </div>
             <div class="dash-imgs">
               <i data-feather="user-check"></i>
@@ -96,8 +97,8 @@
         <div class="col-lg-3 col-sm-6 col-12 d-flex">
           <div class="dash-count das2">
             <div class="dash-counts">
-              <h4>100</h4>
-              <h5>Purchase Invoice</h5>
+              <h4>40</h4>
+              <h5>Total Mitra Kerja</h5>
             </div>
             <div class="dash-imgs">
               <i data-feather="file-text"></i>
@@ -107,8 +108,8 @@
         <div class="col-lg-3 col-sm-6 col-12 d-flex">
           <div class="dash-count das3">
             <div class="dash-counts">
-              <h4>105</h4>
-              <h5>Sales Invoice</h5>
+              <h4>80</h4>
+              <h5>Total Project Selesai</h5>
             </div>
             <div class="dash-imgs">
               <i data-feather="file"></i>
@@ -123,14 +124,14 @@
             <div
               class="card-header pb-0 d-flex justify-content-between align-items-center"
             >
-              <h5 class="card-title mb-0">Purchase & Sales</h5>
+              <h5 class="card-title mb-0">Rekap Proyek Yang Di Selesaikan</h5>
               <div class="graph-sets">
                 <ul>
                   <li>
-                    <span>Sales</span>
+                    <span>On Going</span>
                   </li>
                   <li>
-                    <span>Purchase</span>
+                    <span>Complete Proyek</span>
                   </li>
                 </ul>
                 <div class="dropdown">
@@ -141,7 +142,7 @@
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    2022
+                    2024
                     <img
                       src="{{ asset('assets/img/icons/dropdown.svg') }}"
                       alt="img"
@@ -154,17 +155,17 @@
                   >
                     <li>
                       <a href="javascript:void(0);" class="dropdown-item"
+                        >2024</a
+                      >
+                    </li>
+                    <li>
+                      <a href="javascript:void(0);" class="dropdown-item"
                         >2022</a
                       >
                     </li>
                     <li>
                       <a href="javascript:void(0);" class="dropdown-item"
-                        >2021</a
-                      >
-                    </li>
-                    <li>
-                      <a href="javascript:void(0);" class="dropdown-item"
-                        >2020</a
+                        >2023</a
                       >
                     </li>
                   </ul>
@@ -181,7 +182,7 @@
             <div
               class="card-header pb-0 d-flex justify-content-between align-items-center"
             >
-              <h4 class="card-title mb-0">Recently Added Products</h4>
+              <h4 class="card-title mb-0">Testimoni Client Untuk PT Raja Perkasa</h4>
               <div class="dropdown">
                 <a
                   href="javascript:void(0);"
@@ -197,7 +198,7 @@
                 >
                   <li>
                     <a href="productlist.html" class="dropdown-item"
-                      >Product List</a
+                      >Name List</a
                     >
                   </li>
                   <li>
@@ -213,9 +214,9 @@
                 <table class="table datatable">
                   <thead>
                     <tr>
-                      <th>Sno</th>
-                      <th>Products</th>
-                      <th>Price</th>
+                      <th>No</th>
+                      <th>Nama Client</th>
+                      <th>Komentar</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -224,52 +225,52 @@
                       <td class="productimgname">
                         <a href="productlist.html" class="product-img">
                           <img
-                            src="{{ asset('assets/img/product/product22.jpg') }}"
+                            src="{{ asset('assets/img/product/about.jpg') }}"
                             alt="product"
                           />
                         </a>
-                        <a href="productlist.html">Apple Earpods</a>
+                        <a href="productlist.html">Riski Haidar</a>
                       </td>
-                      <td>$891.2</td>
+                      <td>PT Raja Perkasa Perusahaan <br> Konstruksi Rekomended</td>
                     </tr>
                     <tr>
                       <td>2</td>
                       <td class="productimgname">
                         <a href="productlist.html" class="product-img">
                           <img
-                            src="{{ asset('assets/img/product/product23.jpg') }}"
+                          src="{{ asset('assets/img/product/about.jpg') }}"
                             alt="product"
                           />
                         </a>
-                        <a href="productlist.html">iPhone 11</a>
+                        <a href="productlist.html">Riski Haidar</a>
                       </td>
-                      <td>$668.51</td>
+                      <td>PT Raja Perkasa Perusahaan <br> Konstruksi Rekomended</td>
                     </tr>
                     <tr>
                       <td>3</td>
                       <td class="productimgname">
                         <a href="productlist.html" class="product-img">
                           <img
-                            src="{{ asset('assets/img/product/product24.jpg') }}"
+                          src="{{ asset('assets/img/product/about.jpg') }}"
                             alt="product"
                           />
                         </a>
-                        <a href="productlist.html">samsung</a>
+                        <a href="productlist.html">Riski Haidar</a>
                       </td>
-                      <td>$522.29</td>
+                      <td>PT Raja Perkasa Perusahaan <br> Konstruksi Rekomended</td>
                     </tr>
                     <tr>
                       <td>4</td>
                       <td class="productimgname">
                         <a href="productlist.html" class="product-img">
                           <img
-                            src="{{ asset('assets/img/product/product6.jpg') }}"
+                          src="{{ asset('assets/img/product/about.jpg') }}"
                             alt="product"
                           />
                         </a>
-                        <a href="productlist.html">Macbook Pro</a>
+                        <a href="productlist.html">Riski Haidar</a>
                       </td>
-                      <td>$291.01</td>
+                      <td>PT Raja Perkasa Perusahaan <br> Konstruksi Rekomended</td>
                     </tr>
                   </tbody>
                 </table>
@@ -280,17 +281,17 @@
       </div>
       <div class="card mb-0">
         <div class="card-body">
-          <h4 class="card-title">Expired Products</h4>
+          <h4 class="card-title">PROYEK PT RAJA PERKASA</h4>
           <div class="table-responsive dataview">
             <table class="table datatable">
               <thead>
                 <tr>
-                  <th>SNo</th>
-                  <th>Product Code</th>
-                  <th>Product Name</th>
-                  <th>Brand Name</th>
-                  <th>Category Name</th>
-                  <th>Expiry Date</th>
+                  <th>No</th>
+                  <th>Nama Proyek</th>
+                  <th>File Proyek</th>
+                  <th>Nama Alat Yang Di Beli</th>
+                  <th>Status Proyek</th>
+                  <th>Tanggal Proyek Selesai</th>
                 </tr>
               </thead>
               <tbody>
@@ -300,15 +301,15 @@
                   <td class="productimgname">
                     <a class="product-img" href="productlist.html">
                       <img
-                        src="{{ asset('assets/img/product/product2.jpg') }}"
+                        src="{{ asset('assets/img/product/gambar20.png') }}"
                         alt="product"
                       />
                     </a>
-                    <a href="productlist.html">Orange</a>
+                    <a href="productlist.html">Tangki</a>
                   </td>
-                  <td>N/D</td>
-                  <td>Fruits</td>
-                  <td>12-12-2022</td>
+                  <td>Tower Crane</td>
+                  <td>Complete Proyek</td>
+                  <td>12-12-2024</td>
                 </tr>
                 <tr>
                   <td>2</td>
@@ -316,15 +317,15 @@
                   <td class="productimgname">
                     <a class="product-img" href="productlist.html">
                       <img
-                        src="{{ asset('assets/img/product/product3.jpg') }}"
+                        src="{{ asset('assets/img/product/gambar20.png') }}"
                         alt="product"
                       />
                     </a>
-                    <a href="productlist.html">Pineapple</a>
+                    <a href="productlist.html">Tangki</a>
                   </td>
-                  <td>N/D</td>
-                  <td>Fruits</td>
-                  <td>25-11-2022</td>
+                  <td>Tower Crane</td>
+                  <td>Complete Proyek</td>
+                  <td>12-12-2024</td>
                 </tr>
                 <tr>
                   <td>3</td>
@@ -332,15 +333,15 @@
                   <td class="productimgname">
                     <a class="product-img" href="productlist.html">
                       <img
-                        src="{{ asset('assets/img/product/product4.jpg') }}"
+                        src="{{ asset('assets/img/product/gambar20.png') }}"
                         alt="product"
                       />
                     </a>
-                    <a href="productlist.html">Stawberry</a>
+                    <a href="productlist.html">Tangki</a>
                   </td>
-                  <td>N/D</td>
-                  <td>Fruits</td>
-                  <td>19-11-2022</td>
+                  <td>Tower Crane</td>
+                  <td>Complete Proyek</td>
+                  <td>12-12-2024</td>
                 </tr>
                 <tr>
                   <td>4</td>
@@ -348,15 +349,15 @@
                   <td class="productimgname">
                     <a class="product-img" href="productlist.html">
                       <img
-                        src="{{ asset('assets/img/product/product5.jpg') }}"
+                        src="{{ asset('assets/img/product/gambar20.png') }}"
                         alt="product"
                       />
                     </a>
-                    <a href="productlist.html">Avocat</a>
+                    <a href="productlist.html">Tangki</a>
                   </td>
-                  <td>N/D</td>
-                  <td>Fruits</td>
-                  <td>20-11-2022</td>
+                  <td>Tower Crane</td>
+                  <td>Complete Proyek</td>
+                  <td>12-12-2024</td>
                 </tr>
               </tbody>
             </table>

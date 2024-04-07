@@ -92,7 +92,7 @@
                   <a href="activities.html">
                     <div class="media d-flex">
                       <span class="avatar flex-shrink-0">
-                        <img alt="" src="assets/img/profiles/avatar-02.jpg" />
+                        <img alt="" src="{{ asset('assets/img/profiles/avatar-02.jpg') }}" />
                       </span>
                       <div class="media-body flex-grow-1">
                         <p class="noti-details">

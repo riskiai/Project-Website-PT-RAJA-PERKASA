@@ -43,7 +43,7 @@
                                         <img class="img-fluid" src="img/icon/happy-client.png" alt="Icon">
                                     </div>
                                     <div class="ms-4">
-                                        <h2 class="mb-1" data-toggle="counter-up">1234</h2>
+                                        <h2 class="mb-1" data-toggle="counter-up">20</h2>
                                         <p class="fw-medium text-orange mb-0">Happy Clients</p>
                                     </div>
                                 </div>
@@ -74,11 +74,22 @@
                                         <img class="img-fluid" src="img/icon/checkmark.png" alt="Icon">
                                     </div>
                                     <div class="ms-4">
-                                        <h2 class="mb-1" data-toggle="counter-up">1234</h2>
+                                        <h2 class="mb-1" data-toggle="counter-up">20</h2>
                                         <p class="fw-medium text-orange mb-0">Projects Done</p>
                                     </div>
                                 </div>
                             </div>
+
+                            <p class="mb-0 pb-2" style="text-align: justify;">PT Raja Perkasa memiliki anak perusahaan yang berdedikasi untuk memberikan layanan terbaik kepada Anda. Mereka siap bekerja sama dan berkomunikasi secara efektif untuk memastikan kepuasan klien. Anak perusahaan kami antara lain:
+                                <ul class="" style="text-align: justify; margin-left:20px;">
+                                    <li>PT BINTANG MAS BERSAMA</li>
+                                    <li>PT. RATIKA FEBRIAN ABADI</li>
+                                    <li>PT. TAHTA JAYA ABADI</li>
+                                </ul>
+                            
+                            </p>
+                            
+
                         </div>
                     </div>
                 </div>

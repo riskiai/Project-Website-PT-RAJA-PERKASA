@@ -47,7 +47,7 @@
         <div class="container py-1">
             <div class="row g-5">
                 <div class="col-lg-3 col-md-6">
-                    <h5 class="text-light mb-4">Alamat PT Raja Perkasa</h5>
+                    <h5 class="text-light mb-4" style="font-size:15px;">Alamat PT Raja Perkasa</h5>
                     <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Indramayu, Jawa Barat</p>
                     <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
                     <p class="mb-2"><i class="fa fa-envelope me-3"></i>rajaperkasa@gmail.com</p>
@@ -59,25 +59,25 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <h5 class="text-light mb-4">Jasa Kami</h5>
+                    <h5 class="text-light mb-4" style="font-size:15px;">Jasa Kami</h5>
                     <a class="btn btn-link" href="">Manajemen Proyek</a>
                     <a class="btn btn-link" href="">Desain & Rekayasa</a>
                     <a class="btn btn-link" href="">Konstruksi Umum</a>
                     <a class="btn btn-link" href="">Konsultasi Proyek</a>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <h5 class="text-light mb-4">Quick Links</h5>
+                    <h5 class="text-light mb-4" style="font-size:15px;">Quick Links</h5>
                     <a class="btn btn-link" href="">Tentang</a>
                     <a class="btn btn-link" href="">Jasa Kami</a>
                     <a class="btn btn-link" href="">Project</a>
                     <a class="btn btn-link" href="">Kontak</a>
                 </div>
                 <div class="col-lg-3 col-md-6">
-                    <h5 class="text-light mb-4">Newsletter</h5>
-                    <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+                    <h5 class="text-light mb-4" style="font-size:15px;">Hubungi Kami</h5>
+                    <p>Hubungi kami untuk informasi lebih lanjut tentang layanan kami.</p>
                     <div class="position-relative w-100">
-                        <input class="form-control bg-transparent border-secondary w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
-                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                        <input class="form-control bg-transparent border-secondary w-100 py-3 ps-4 pe-5" type="text" placeholder="Email Anda">
+                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">Register</button>
                     </div>
                 </div>
             </div>

@@ -39,15 +39,17 @@
                 <div class="portfolio-inner">
                     <img class="img-fluid w-100" src="img/service-1.jpg" alt="">
                     <div class="text-center p-4">
-                        <p class="text-orange mb-2">Business Konstruksi</p>
-                        <h5 class="lh-base mb-0">Building Construction</h5>
+                        <p class="text-orange mb-2">Proyek Konstruksi</p>
+                        <h5 class="lh-base mb-0">OVERHAUL TANKI 42-T-501 A</h5>
                     </div>
                     <div class="portfolio-text text-center bg-white p-4">
-                        <p class="text-orange mb-2">Business Konstruksi</p>
-                        <h5 class="lh-base mb-3">Building Construction</h5>
+                        <p class="text-orange mb-2">Proyek Konstruksi</p>
+                        <h5 class="lh-base mb-3">OVERHAUL TANKI 42-T-501 A</h5>
                         <div class="d-flex justify-content-center">
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/portfolio-1.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
+                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar1.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar2.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar3.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar4.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
                     </div>
                 </div>
@@ -56,15 +58,17 @@
                 <div class="portfolio-inner">
                     <img class="img-fluid w-100" src="img/service-1.jpg" alt="">
                     <div class="text-center p-4">
-                        <p class="text-orange mb-2">Business Konstruksi</p>
-                        <h5 class="lh-base mb-0">Building Construction</h5>
+                        <p class="text-orange mb-2">Proyek Konstruksi</p>
+                        <h5 class="lh-base mb-0">PATCHING BOTTOM TANK 42-T-107 C</h5>
                     </div>
                     <div class="portfolio-text text-center bg-white p-4">
-                        <p class="text-orange mb-2">Business Konstruksi</p>
-                        <h5 class="lh-base mb-3">Building Construction</h5>
+                        <p class="text-orange mb-2">Proyek Konstruksi</p>
+                        <h5 class="lh-base mb-5">PATCHING BOTTOM TANK 42-T-107 C</h5>
                         <div class="d-flex justify-content-center">
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/portfolio-2.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
+                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar5.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar6.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar7.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar8.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
                     </div>
                 </div>
@@ -73,15 +77,19 @@
                 <div class="portfolio-inner">
                     <img class="img-fluid w-100" src="img/service-1.jpg" alt="">
                     <div class="text-center p-4">
-                        <p class="text-orange mb-2">Business Konstruksi</p>
-                        <h5 class="lh-base mb-0">Building Construction</h5>
+                        <p class="text-orange mb-2">Proyek Konstruksi</p>
+                        <h5 class="lh-base mb-0">PENGGANTIAN COLUMN GRIDER DAN PENGECATAN INTERNATIONAL ROOF (BACK SIDE) 42-T-304 B
+                        </h5>
                     </div>
                     <div class="portfolio-text text-center bg-white p-4">
-                        <p class="text-orange mb-2">Business Konstruksi</p>
-                        <h5 class="lh-base mb-3">Building Construction</h5>
+                        <p class="text-orange mb-2">Proyek Konstruksi</p>
+                        <h5 class="lh-base mb-3">PENGGANTIAN COLUMN GRIDER DAN PENGECATAN INTERNATIONAL ROOF (BACK SIDE) 42-T-304 B
+                        </h5>
                         <div class="d-flex justify-content-center">
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/portfolio-3.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
+                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar9.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar10.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar11.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar12.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
                     </div>
                 </div>
@@ -90,15 +98,15 @@
                 <div class="portfolio-inner">
                     <img class="img-fluid w-100" src="img/service-1.jpg" alt="">
                     <div class="text-center p-4">
-                        <p class="text-orange mb-2">Business Konstruksi</p>
-                        <h5 class="lh-base mb-0">Building Construction</h5>
+                        <p class="text-orange mb-2">Proyek Konstruksi</p>
+                        <h5 class="lh-base mb-0">PENGGANTIAN PARTIAL ROOF & NOZZLE 24-T-102</h5>
                     </div>
                     <div class="portfolio-text text-center bg-white p-4">
-                        <p class="text-orange mb-2">Business Konstruksi</p>
-                        <h5 class="lh-base mb-3">Building Construction</h5>
+                        <p class="text-orange mb-2">Proyek Konstruksi</p>
+                        <h5 class="lh-base mb-3">PENGGANTIAN PARTIAL ROOF & NOZZLE 24-T-102</h5>
                         <div class="d-flex justify-content-center">
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/portfolio-4.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
+                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar13.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar14.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
                     </div>
                 </div>
@@ -107,15 +115,18 @@
                 <div class="portfolio-inner">
                     <img class="img-fluid w-100" src="img/service-1.jpg" alt="">
                     <div class="text-center p-4">
-                        <p class="text-orange mb-2">Business Konstruksi</p>
-                        <h5 class="lh-base mb-0">Building Construction</h5>
+                        <p class="text-orange mb-2">Proyek Konstruksi</p>
+                        <h5 class="lh-base mb-0">RECOATING TANGKI DEMIN WATER 55-T-101 A,B, & C DI PERTAMINA RU VI BALONGAN
+                        </h5>
                     </div>
                     <div class="portfolio-text text-center bg-white p-4">
-                        <p class="text-orange mb-2">Business Konstruksi</p>
-                        <h5 class="lh-base mb-3">Building Construction</h5>
+                        <p class="text-orange mb-2">Proyek Konstruksi</p>
+                        <h5 class="lh-base mb-3">RECOATING TANGKI DEMIN WATER 55-T-101 A,B, & C DI PERTAMINA RU VI BALONGAN
+                        </h5>
                         <div class="d-flex justify-content-center">
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/portfolio-5.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
+                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar15.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar16.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar17.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
                     </div>
                 </div>
@@ -124,15 +135,19 @@
                 <div class="portfolio-inner">
                     <img class="img-fluid w-100" src="img/service-1.jpg" alt="">
                     <div class="text-center p-4">
-                        <p class="text-orange mb-2">Business Konstruksi</p>
-                        <h5 class="lh-base mb-0">Building Construction</h5>
+                        <p class="text-orange mb-2">Proyek Konstruksi</p>
+                        <h5 class="lh-base mb-0">REPAINTING SPERICAL TANK D-2101 A/B DAN REPAINTING PIPING
+                        </h5>
                     </div>
                     <div class="portfolio-text text-center bg-white p-4">
-                        <p class="text-orange mb-2">Business Konstruksi</p>
-                        <h5 class="lh-base mb-3">Building Construction</h5>
+                        <p class="text-orange mb-2">Proyek Konstruksi</p>
+                        <h5 class="lh-base mb-3">REPAINTING SPERICAL TANK D-2101 A/B DAN REPAINTING PIPING
+                        </h5>
                         <div class="d-flex justify-content-center">
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/portfolio-6.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
+                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar18.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar19.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar20.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar21.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                         </div>
                     </div>
                 </div>

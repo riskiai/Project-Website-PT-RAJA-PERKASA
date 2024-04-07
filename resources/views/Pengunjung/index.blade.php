@@ -132,7 +132,7 @@
                                         <img class="img-fluid" src="{{ asset('img/icon/happy-client.png') }}" alt="Icon">
                                     </div>
                                     <div class="ms-4">
-                                        <h2 class="mb-1" data-toggle="counter-up">1234</h2>
+                                        <h2 class="mb-1" data-toggle="counter-up">20</h2>
                                         <p class="fw-medium text-orange mb-0">Happy Clients</p>
                                     </div>
                                 </div>
@@ -143,13 +143,13 @@
                                         <img class="img-fluid" src="{{ asset('img/icon/checkmark.png') }}" alt="Icon">
                                     </div>
                                     <div class="ms-4">
-                                        <h2 class="mb-1" data-toggle="counter-up">1234</h2>
+                                        <h2 class="mb-1" data-toggle="counter-up">20</h2>
                                         <p class="fw-medium text-orange mb-0">Projects Done</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <a href="about.html" class="btn btn-primary rounded-pill py-3 px-5">Baca Selangkapnya</a>
+                        <a href="{{ route('tentang') }}" class="btn btn-primary rounded-pill py-3 px-5">Baca Selangkapnya</a>
                     </div>
                 </div>
             </div>
@@ -158,7 +158,7 @@
     <!-- About End -->
 
 
-    <!-- Service Start -->
+    <!-- Jasa Start -->
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center">
@@ -173,7 +173,7 @@
                         </div>
                         <h4 class="mb-3">Manajemen Proyek</h4>
                         <p class="mb-4">Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem</p>
-                        <a class="btn" href=""><i class="fa fa-arrow-right text-white me-3"></i>Baca Selengkapnya</a>
+                        <a class="btn" href="{{ route('jasa') }}"><i class="fa fa-arrow-right text-white me-3"></i>Baca Selengkapnya</a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.3s">
@@ -183,7 +183,7 @@
                         </div>
                         <h4 class="mb-3">Desain & Rekayasa</h4>
                         <p class="mb-4">Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem</p>
-                        <a class="btn" href=""><i class="fa fa-arrow-right text-white me-3"></i>Baca Selengkapnya</a>
+                        <a class="btn" href="{{ route('jasa') }}"><i class="fa fa-arrow-right text-white me-3"></i>Baca Selengkapnya</a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.5s">
@@ -193,7 +193,7 @@
                         </div>
                         <h4 class="mb-3">Konstruksi Umum</h4>
                         <p class="mb-4">Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem</p>
-                        <a class="btn" href=""><i class="fa fa-arrow-right text-white me-3"></i>Baca Selengkapnya</a>
+                        <a class="btn" href="{{ route('jasa') }}"><i class="fa fa-arrow-right text-white me-3"></i>Baca Selengkapnya</a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.7s">
@@ -203,13 +203,13 @@
                         </div>
                         <h4 class="mb-3">Konsultasi Proyek</h4>
                         <p class="mb-4">Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem</p>
-                        <a class="btn" href=""><i class="fa fa-arrow-right text-white me-3"></i>Baca Selengkapnya</a>
+                        <a class="btn" href="{{ route('jasa') }}"><i class="fa fa-arrow-right text-white me-3"></i>Baca Selengkapnya</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Service End -->
+    <!-- Jasa End -->
 
 
     <!-- Feature Start -->
@@ -289,7 +289,7 @@
                 <div class="mb-3 mx-auto" style="width: 60px; height: 2px; background-color: #FE7A36;"></div>
                 <h1 class="display-5 mb-5">Project Kami</h1>
             </div>
-            <div class="row mt-n2 wow fadeInUp" data-wow-delay="0.3s">
+            <div class="row mt-n2 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="col-12 text-center">
                     <ul class="list-inline mb-5" id="portfolio-flters">
                         <li class="mx-2 active" data-filter="*">All</li>
@@ -301,51 +301,19 @@
             <div class="row g-4 portfolio-container">
                 <div class="col-lg-4 col-md-6 portfolio-item first wow fadeInUp" data-wow-delay="0.1s">
                     <div class="portfolio-inner">
-                        <img class="img-fluid w-100" src="{{ asset('img/service-1.jpg') }}" alt="">
-                        <div class="text-center p-4">
-                            <p class="text-orange mb-2">Business Konstruksi</p>
-                            <h5 class="lh-base mb-0">Building Construction</h5>
-                        </div>
-                        <div class="portfolio-text text-center bg-white p-4">
-                            <p class="text-orange mb-2">Business Konstruksi</p>
-                            <h5 class="lh-base mb-3">Building Construction</h5>
-                            <div class="d-flex justify-content-center">
-                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/portfolio-1.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                <a class="btn btn-square btn-primary rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="portfolio-inner">
-                        <img class="img-fluid w-100" src="{{ asset('img/service-1.jpg') }}" alt="">
-                        <div class="text-center p-4">
-                            <p class="text-orange mb-2">Business Konstruksi</p>
-                            <h5 class="lh-base mb-0">Building Construction</h5>
-                        </div>
-                        <div class="portfolio-text text-center bg-white p-4">
-                            <p class="text-orange mb-2">Business Konstruksi</p>
-                            <h5 class="lh-base mb-3">Building Construction</h5>
-                            <div class="d-flex justify-content-center">
-                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/portfolio-2.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                <a class="btn btn-square btn-primary rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 portfolio-item first wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="portfolio-inner">
                         <img class="img-fluid w-100" src="img/service-1.jpg" alt="">
                         <div class="text-center p-4">
-                            <p class="text-orange mb-2">Business Konstruksi</p>
-                            <h5 class="lh-base mb-0">Building Construction</h5>
+                            <p class="text-orange mb-2">Proyek Konstruksi</p>
+                            <h5 class="lh-base mb-0">OVERHAUL TANKI 42-T-501 A</h5>
                         </div>
                         <div class="portfolio-text text-center bg-white p-4">
-                            <p class="text-orange mb-2">Business Konstruksi</p>
-                            <h5 class="lh-base mb-3">Building Construction</h5>
+                            <p class="text-orange mb-2">Proyek Konstruksi</p>
+                            <h5 class="lh-base mb-3">OVERHAUL TANKI 42-T-501 A</h5>
                             <div class="d-flex justify-content-center">
-                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/portfolio-3.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                <a class="btn btn-square btn-primary rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
+                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar1.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar2.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar3.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar4.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                             </div>
                         </div>
                     </div>
@@ -354,49 +322,96 @@
                     <div class="portfolio-inner">
                         <img class="img-fluid w-100" src="img/service-1.jpg" alt="">
                         <div class="text-center p-4">
-                            <p class="text-orange mb-2">Business Konstruksi</p>
-                            <h5 class="lh-base mb-0">Building Construction</h5>
+                            <p class="text-orange mb-2">Proyek Konstruksi</p>
+                            <h5 class="lh-base mb-0">PATCHING BOTTOM TANK 42-T-107 C</h5>
                         </div>
                         <div class="portfolio-text text-center bg-white p-4">
-                            <p class="text-orange mb-2">Business Konstruksi</p>
-                            <h5 class="lh-base mb-3">Building Construction</h5>
+                            <p class="text-orange mb-2">Proyek Konstruksi</p>
+                            <h5 class="lh-base mb-5">PATCHING BOTTOM TANK 42-T-107 C</h5>
                             <div class="d-flex justify-content-center">
-                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/portfolio-4.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                <a class="btn btn-square btn-primary rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
+                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar5.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar6.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar7.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar8.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 portfolio-item first wow fadeInUp" data-wow-delay="0.3s">
+                <div class="col-lg-4 col-md-6 portfolio-item first wow fadeInUp" data-wow-delay="0.1s">
                     <div class="portfolio-inner">
                         <img class="img-fluid w-100" src="img/service-1.jpg" alt="">
                         <div class="text-center p-4">
-                            <p class="text-orange mb-2">Business Konstruksi</p>
-                            <h5 class="lh-base mb-0">Building Construction</h5>
+                            <p class="text-orange mb-2">Proyek Konstruksi</p>
+                            <h5 class="lh-base mb-0">PENGGANTIAN COLUMN GRIDER DAN PENGECATAN INTERNATIONAL ROOF (BACK SIDE) 42-T-304 B
+                            </h5>
                         </div>
                         <div class="portfolio-text text-center bg-white p-4">
-                            <p class="text-orange mb-2">Business Konstruksi</p>
-                            <h5 class="lh-base mb-3">Building Construction</h5>
+                            <p class="text-orange mb-2">Proyek Konstruksi</p>
+                            <h5 class="lh-base mb-3">PENGGANTIAN COLUMN GRIDER DAN PENGECATAN INTERNATIONAL ROOF (BACK SIDE) 42-T-304 B
+                            </h5>
                             <div class="d-flex justify-content-center">
-                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/portfolio-5.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                <a class="btn btn-square btn-primary rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
+                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar9.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar10.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar11.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar12.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.5s">
+                <div class="col-lg-4 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
                     <div class="portfolio-inner">
                         <img class="img-fluid w-100" src="img/service-1.jpg" alt="">
                         <div class="text-center p-4">
-                            <p class="text-orange mb-2">Business Konstruksi</p>
-                            <h5 class="lh-base mb-0">Building Construction</h5>
+                            <p class="text-orange mb-2">Proyek Konstruksi</p>
+                            <h5 class="lh-base mb-0">PENGGANTIAN PARTIAL ROOF & NOZZLE 24-T-102</h5>
                         </div>
                         <div class="portfolio-text text-center bg-white p-4">
-                            <p class="text-orange mb-2">Business Konstruksi</p>
-                            <h5 class="lh-base mb-3">Building Construction</h5>
+                            <p class="text-orange mb-2">Proyek Konstruksi</p>
+                            <h5 class="lh-base mb-3">PENGGANTIAN PARTIAL ROOF & NOZZLE 24-T-102</h5>
                             <div class="d-flex justify-content-center">
-                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/portfolio-6.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                                <a class="btn btn-square btn-primary rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
+                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar13.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar14.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 portfolio-item first wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="portfolio-inner">
+                        <img class="img-fluid w-100" src="img/service-1.jpg" alt="">
+                        <div class="text-center p-4">
+                            <p class="text-orange mb-2">Proyek Konstruksi</p>
+                            <h5 class="lh-base mb-0">RECOATING TANGKI DEMIN WATER 55-T-101 A,B, & C DI PERTAMINA RU VI BALONGAN
+                            </h5>
+                        </div>
+                        <div class="portfolio-text text-center bg-white p-4">
+                            <p class="text-orange mb-2">Proyek Konstruksi</p>
+                            <h5 class="lh-base mb-3">RECOATING TANGKI DEMIN WATER 55-T-101 A,B, & C DI PERTAMINA RU VI BALONGAN
+                            </h5>
+                            <div class="d-flex justify-content-center">
+                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar15.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar16.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar17.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="portfolio-inner">
+                        <img class="img-fluid w-100" src="img/service-1.jpg" alt="">
+                        <div class="text-center p-4">
+                            <p class="text-orange mb-2">Proyek Konstruksi</p>
+                            <h5 class="lh-base mb-0">REPAINTING SPERICAL TANK D-2101 A/B DAN REPAINTING PIPING
+                            </h5>
+                        </div>
+                        <div class="portfolio-text text-center bg-white p-4">
+                            <p class="text-orange mb-2">Proyek Konstruksi</p>
+                            <h5 class="lh-base mb-3">REPAINTING SPERICAL TANK D-2101 A/B DAN REPAINTING PIPING
+                            </h5>
+                            <div class="d-flex justify-content-center">
+                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar18.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar19.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar20.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                                <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar21.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                             </div>
                         </div>
                     </div>
@@ -404,56 +419,7 @@
             </div>
         </div>
     </div>
-    <!-- Projects End -->
-
-
-    <!-- Quote Start -->
-   <!--  <div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
-        <div class="container quote px-lg-0">
-            <div class="row g-0 mx-lg-0">
-                <div class="col-lg-6 ps-lg-0" style="min-height: 400px;">
-                    <div class="position-relative h-100">
-                        <img class="position-absolute img-fluid w-100 h-100" src="img/service-4.jpg" style="object-fit: cover;" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-6 quote-text py-5 wow fadeIn" data-wow-delay="0.5s">
-                    <div class="p-lg-5 pe-lg-0">
-                        <div class="bg-primary mb-3" style="width: 60px; height: 2px;"></div>
-                        <h1 class="display-5 mb-5">If You Have Any Query, Please Contact Us</h1>
-                        <p class="mb-4 pb-2">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat amet</p>
-                        <form>
-                            <div class="row g-3">
-                                <div class="col-12 col-sm-6">
-                                    <input type="text" class="form-control border-0" placeholder="Your Name" style="height: 55px;">
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <input type="email" class="form-control border-0" placeholder="Your Email" style="height: 55px;">
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <input type="text" class="form-control border-0" placeholder="Your Mobile" style="height: 55px;">
-                                </div>
-                                <div class="col-12 col-sm-6">
-                                    <select class="form-select border-0" style="height: 55px;">
-                                        <option selected>Select A Service</option>
-                                        <option value="1">Service 1</option>
-                                        <option value="2">Service 2</option>
-                                        <option value="3">Service 3</option>
-                                    </select>
-                                </div>
-                                <div class="col-12">
-                                    <textarea class="form-control border-0" placeholder="Special Note"></textarea>
-                                </div>
-                                <div class="col-12">
-                                    <button class="btn btn-primary w-100 py-3" type="submit">Get A Free Quote</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- Quote End -->
+<!-- Projects End -->
 
 
     <!-- Team Start -->
@@ -480,7 +446,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="team-item">
                         <div class="overflow-hidden position-relative">
                             <img class="img-fluid" src="img/team-2.jpg" alt="">
@@ -496,7 +462,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="team-item">
                         <div class="overflow-hidden position-relative">
                             <img class="img-fluid" src="img/team-3.jpg" alt="">
@@ -512,7 +478,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="team-item">
                         <div class="overflow-hidden position-relative">
                             <img class="img-fluid" src="img/team-2.jpg" alt="">
