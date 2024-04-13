@@ -208,7 +208,7 @@
             data-bs-toggle="dropdown"
           >
             <span class="user-img"
-              ><img src="{{ asset('assets/img/profiles/avator1.jpg') }}" alt="" />
+              ><img src="{{ asset('assets/img/customer/customer5.jpg') }}" alt="" />
               <span class="status online"></span
             ></span>
           </a>
@@ -216,7 +216,7 @@
             <div class="profilename">
               <div class="profileset">
                 <span class="user-img"
-                  ><img src="{{ asset('assets/img/profiles/avator1.jpg') }}" alt="" />
+                  ><img src="{{ asset('assets/img/customer/customer5.jpg') }}" alt="" />
                   <span class="status online"></span
                 ></span>
                 <div class="profilesets">
@@ -225,10 +225,10 @@
                 </div>
               </div>
               <hr class="m-0" />
-              <a class="dropdown-item" href="profile.html">
+              <a class="dropdown-item" href="{{ route('usersprofile') }}">
                 <i class="me-2" data-feather="user"></i> My Profile</a
               >
-              <a class="dropdown-item" href="generalsettings.html"
+              <a class="dropdown-item" href="{{ route('settings') }}"
                 ><i class="me-2" data-feather="settings"></i>Settings</a
               >
               <hr class="m-0" />

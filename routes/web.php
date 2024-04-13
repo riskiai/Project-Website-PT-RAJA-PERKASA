@@ -8,6 +8,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TentangController;
 use App\Http\Controllers\Autentikasi\LoginController;
 use App\Http\Controllers\Autentikasi\RegisterController;
+use App\Http\Controllers\Adminstrator\SettingsController;
 use App\Http\Controllers\Adminstrator\DashboardController;
 use App\Http\Controllers\Adminstrator\JasaAdminController;
 use App\Http\Controllers\Adminstrator\MitraAdminController;
@@ -33,7 +34,7 @@ Route::get('/', function () {
     return redirect('/home');
 });
 
-/* Pengunjung Website */
+/* Pengunjung */
 // Login Dan Register
 Route::get('/login', [LoginController::class, 'index']);
 Route::get('/register', [RegisterController::class, 'index']);
@@ -91,6 +92,7 @@ Route::get('/adminstrator/testimoniedit', [TestimoniAdminController::class, 'edi
 Route::get('/adminstrator/users', [UsersAdminController::class, 'index'])->name('userslist');
 Route::get('/adminstrator/userscreate', [UsersAdminController::class, 'store'])->name('userscreate');
 Route::get('/adminstrator/usersedit', [UsersAdminController::class, 'edit'])->name('usersedit');
+Route::get('/adminstrator/users/profile', [UsersAdminController::class, 'editProfile'])->name('usersprofile');
 
 // ReportData
 Route::get('/adminstrator/report/proyek', [ReportAdminController::class, 'reportproyek'])->name('reportproyek');
@@ -98,3 +100,7 @@ Route::get('/adminstrator/report/jasa', [ReportAdminController::class, 'reportja
 Route::get('/adminstrator/report/mitra', [ReportAdminController::class, 'reportmitra'])->name('reportmitra');
 Route::get('/adminstrator/report/testimoni', [ReportAdminController::class, 'reporttestimoni'])->name('reporttestimoni');
 Route::get('/adminstrator/report/users', [ReportAdminController::class, 'reportusers'])->name('reportusers');
+
+// Settings
+Route::get('/adminstrator/settings', [SettingsController::class, 'index'])->name('settings');
+

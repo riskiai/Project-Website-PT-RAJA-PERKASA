@@ -23,8 +23,8 @@
                 <hr><p>Or Connect With</p><hr>
                 <ul>
                     <li><i class="fab fa-facebook-f fa-2x"></i></li>
-                    <li><i class="fab fa-twitter fa-2x"></i></li>
-                    <li><i class="fab fa-github fa-2x"></i></li>
+                    {{-- <li><i class="fab fa-twitter fa-2x"></i></li> --}}
+                    <li><i class="fas fa-envelope fa-2x"></i></li>
                     <li><i class="fab fa-linkedin-in fa-2x"></i></li>
                 </ul>
                 <div class="clearfix"></div>
@@ -54,7 +54,7 @@
                     <div class="d-flex pt-2">
                         <a class="btn btn-square btn-outline-secondary rounded-circle me-2" href=""><i class="fab fa-twitter"></i></a>
                         <a class="btn btn-square btn-outline-secondary rounded-circle me-2" href=""><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-square btn-outline-secondary rounded-circle me-2" href=""><i class="fab fa-youtube"></i></a>
+                        <a class="btn btn-square btn-outline-secondary rounded-circle me-2" href=""><i class="fas fa-envelope"></i></a>
                         <a class="btn btn-square btn-outline-secondary rounded-circle me-2" href=""><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>

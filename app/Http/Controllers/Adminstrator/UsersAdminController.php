@@ -11,6 +11,11 @@ class UsersAdminController extends Controller
         return view('Adminstrator.users.list');
     }
 
+    public function editProfile() {
+        return view('Adminstrator.users.profile');
+    }
+
+
     public function store()
     {
         return view('Adminstrator.users.create');

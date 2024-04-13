@@ -13,7 +13,7 @@
         <li class="submenu">
             <a href="javascript:void(0);"
                 ><img src="{{ asset('assets/img/icons/product.svg') }}" alt="img" /><span>
-                   Manage Tentang PT </span>
+                  Tentang PT Raja Perkasa </span>
                 <span class="menu-arrow"></span
             ></a>
             <ul>
@@ -25,7 +25,7 @@
 
           <li class="submenu">
             <a href="javascript:void(0);"
-              ><i data-feather="award"></i><span>Manage Jasa </span>
+              ><i data-feather="award"></i><span>Jasa </span>
               <span class="menu-arrow"></span
             ></a>
             <ul>
@@ -36,7 +36,7 @@
 
           <li class="submenu">
             <a href="javascript:void(0);"
-              ><i data-feather="bar-chart-2"></i> <span>Manage Proyek </span>
+              ><i data-feather="bar-chart-2"></i> <span>Project Proyek </span>
               <span class="menu-arrow"></span
             ></a>
             <ul>
@@ -48,7 +48,7 @@
           <li class="submenu">
             <a href="javascript:void(0);"
               ><img src="{{ asset('assets/img/icons/purchase1.svg') }}" alt="img" /><span>
-                Manage Kontak</span
+                Kontak</span
               >
               <span class="menu-arrow"></span
             ></a>
@@ -61,7 +61,7 @@
           <li class="submenu">
             <a href="javascript:void(0);"
               ><img src="{{ asset('assets/img/icons/expense1.svg') }}" alt="img" /><span>
-                Manage Mitra</span
+                Mitra</span
               >
               <span class="menu-arrow"></span
             ></a>
@@ -74,7 +74,7 @@
           <li class="submenu">
             <a href="javascript:void(0);"
               ><img src="{{ asset('assets/img/icons/places.svg') }}" alt="img" /><span>
-                Manage Testimoni</span
+                Testimoni</span
               >
               <span class="menu-arrow"></span
             ></a>
@@ -87,7 +87,7 @@
           <li class="submenu">
             <a href="javascript:void(0);"
               ><img src="{{ asset('assets/img/icons/users1.svg') }}" alt="img" /><span>
-               Manage Users</span
+               Users</span
               >
               <span class="menu-arrow"></span
             ></a>
@@ -100,7 +100,7 @@
           <li class="submenu">
             <a href="javascript:void(0);"
               ><img src="{{ asset('assets/img/icons/time.svg') }}" alt="img" /><span>
-                Manage Report Data</span
+                Report Data</span
               >
               <span class="menu-arrow"></span
             ></a>
@@ -111,6 +111,18 @@
               <li class="{{ Request::is('reportusers*') ? 'active' : '' }}"><a href="{{ route('reportusers') }}">Report Data Users</a></li>
               <li class="{{ Request::is('reportmitra*') ? 'active' : '' }}"><a href="{{ route('reportmitra') }}">Report Data Mitra</a></li>
               <li class="{{ Request::is('reporttestimoni*') ? 'active' : '' }}"><a href="{{ route('reporttestimoni') }}">Report Data Testimoni</a></li>
+            </ul>
+          </li>
+
+          <li class="submenu">
+            <a href="javascript:void(0);"
+              ><img src="{{ asset('assets/img/icons/settings.svg') }}" alt="img" /><span>
+               Settings</span
+              >
+              <span class="menu-arrow"></span
+            ></a>
+            <ul>
+              <li class="{{ Request::is('settings*') ? 'active' : '' }}"><a href="{{ route('settings') }}">General Settings </a></li>
             </ul>
           </li>
 

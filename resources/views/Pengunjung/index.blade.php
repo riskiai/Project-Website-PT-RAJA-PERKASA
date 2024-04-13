@@ -510,18 +510,18 @@
             <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
                 <div class="testimonial-item text-center" data-dot="<img class='img-fluid' src='img/testimonial-1.jpg' alt=''>">
                     <p class="fs-5">Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
-                    <h4>Leonardi</h4>
-                    <span class="text-orange">Profession</span>
+                    <h4>Riski Ahmad Ilham</h4>
+                    <span class="text-orange">Manager PT Pertamina</span>
                 </div>
                 <div class="testimonial-item text-center" data-dot="<img class='img-fluid' src='img/testimonial-2.jpg' alt=''>">
                     <p class="fs-5">Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
-                    <h4>Leonardi</h4>
-                    <span class="text-orange">Profession</span>
+                    <h4>Saeful Rahman</h4>
+                    <span class="text-orange">CEO PT Elnusa</span>
                 </div>
                 <div class="testimonial-item text-center" data-dot="<img class='img-fluid' src='img/testimonial-3.jpg' alt=''>">
                     <p class="fs-5">Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
-                    <h4>Leonardi</h4>
-                    <span class="text-orange">Profession</span>
+                    <h4>Samsul Rahman</h4>
+                    <span class="text-orange">CEO PT IndoPelita</span>
                 </div>
             </div>
         </div>
