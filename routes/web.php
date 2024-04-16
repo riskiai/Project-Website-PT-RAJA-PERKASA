@@ -18,6 +18,7 @@ use App\Http\Controllers\Adminstrator\ProyekAdminController;
 use App\Http\Controllers\Adminstrator\ReportAdminController;
 use App\Http\Controllers\Adminstrator\TentangAdminController;
 use App\Http\Controllers\Adminstrator\TestimoniAdminController;
+use App\Http\Controllers\Owner\DashboardController as OwnerDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,73 +35,101 @@ Route::get('/', function () {
     return redirect('/home');
 });
 
-/* Pengunjung */
+
 // Login Dan Register
-Route::get('/login', [LoginController::class, 'index']);
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/loginproses', [LoginController::class, 'loginproses'])->name('login-proses');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'index']);
 
-// Beranda Home
-Route::get('/home', [HomeController::class, 'index']);
 
-// Tentang PT Raja Perkasa
-Route::get('/tentang', [TentangController::class, 'index'])->name('tentang');
 
-// Jasa PT Raja Perkasa
-Route::get('/jasa', [JasaController::class, 'index'])->name('jasa');
+/* Pengunjung */
+    // Beranda Home
+    Route::get('/home', [HomeController::class, 'index']);
 
-// Project PT Raja Perkasa
-Route::get('/project', [ProjectController::class, 'index']);
+    // Tentang PT Raja Perkasa
+    Route::get('/tentang', [TentangController::class, 'index'])->name('tentang');
 
-// Kontak PT Raja Perkasa
-Route::get('/kontak', [KontakController::class, 'index']);
+    // Jasa PT Raja Perkasa
+    Route::get('/jasa', [JasaController::class, 'index'])->name('jasa');
+
+    // Project PT Raja Perkasa
+    Route::get('/project', [ProjectController::class, 'index']);
+
+    // Kontak PT Raja Perkasa
+    Route::get('/kontak', [KontakController::class, 'index']);
 
 
 /* Adminstrator */
-Route::get('/adminstrator/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::middleware(['auth', 'user-access:admin'])->group(function () {
+    Route::get('/adminstrator/dashboard', [DashboardController::class, 'index'])->name('dashboardadmin');
 
-// Tentang
-Route::get('/adminstrator/tentang', [TentangAdminController::class, 'index'])->name('tentanglist');
-Route::get('/adminstrator/tentangcreate', [TentangAdminController::class, 'store'])->name('tentangcreate');
-Route::get('/adminstrator/tentangedit', [TentangAdminController::class, 'edit'])->name('tentangedit');
+    // Tentang
+    Route::get('/adminstrator/tentang', [TentangAdminController::class, 'index'])->name('tentanglist');
+    Route::get('/adminstrator/tentangcreate', [TentangAdminController::class, 'store'])->name('tentangcreate');
+    Route::get('/adminstrator/tentangedit', [TentangAdminController::class, 'edit'])->name('tentangedit');
 
-// Jasa 
-Route::get('/adminstrator/jasa', [JasaAdminController::class, 'index'])->name('jasalist');
-Route::get('/adminstrator/jasacreate', [JasaAdminController::class, 'store'])->name('jasacreate');
-Route::get('/adminstrator/jasaedit', [JasaAdminController::class, 'edit'])->name('jasaedit');
+    // Jasa 
+    Route::get('/adminstrator/jasa', [JasaAdminController::class, 'index'])->name('jasalist');
+    Route::get('/adminstrator/jasacreate', [JasaAdminController::class, 'store'])->name('jasacreate');
+    Route::get('/adminstrator/jasaedit', [JasaAdminController::class, 'edit'])->name('jasaedit');
 
-// Proyek
-Route::get('/adminstrator/proyek', [ProyekAdminController::class, 'index'])->name('proyeklist');
-Route::get('/adminstrator/proyekcreate', [ProyekAdminController::class, 'store'])->name('proyekcreate');
-Route::get('/adminstrator/proyekedit', [ProyekAdminController::class, 'edit'])->name('proyekedit');
+    // Proyek
+    Route::get('/adminstrator/proyek', [ProyekAdminController::class, 'index'])->name('proyeklist');
+    Route::get('/adminstrator/proyekcreate', [ProyekAdminController::class, 'store'])->name('proyekcreate');
+    Route::get('/adminstrator/proyekedit', [ProyekAdminController::class, 'edit'])->name('proyekedit');
 
-// Kontak
-Route::get('/adminstrator/kontak', [KontakAdminController::class, 'index'])->name('kontaklist');
-Route::get('/adminstrator/kontakcreate', [KontakAdminController::class, 'store'])->name('kontakcreate');
-Route::get('/adminstrator/kontakedit', [KontakAdminController::class, 'edit'])->name('kontakedit');
+    // Kontak
+    Route::get('/adminstrator/kontak', [KontakAdminController::class, 'index'])->name('kontaklist');
+    Route::get('/adminstrator/kontakcreate', [KontakAdminController::class, 'store'])->name('kontakcreate');
+    Route::get('/adminstrator/kontakedit', [KontakAdminController::class, 'edit'])->name('kontakedit');
 
-// Mitra
-Route::get('/adminstrator/mitra', [MitraAdminController::class, 'index'])->name('mitralist');
-Route::get('/adminstrator/mitracreate', [MitraAdminController::class, 'store'])->name('mitracreate');
-Route::get('/adminstrator/mitraedit', [MitraAdminController::class, 'edit'])->name('mitraedit');
+    // Mitra
+    Route::get('/adminstrator/mitra', [MitraAdminController::class, 'index'])->name('mitralist');
+    Route::get('/adminstrator/mitracreate', [MitraAdminController::class, 'store'])->name('mitracreate');
+    Route::get('/adminstrator/mitraedit', [MitraAdminController::class, 'edit'])->name('mitraedit');
 
-// Testimoni
-Route::get('/adminstrator/testimoni', [TestimoniAdminController::class, 'index'])->name('testimonilist');
-Route::get('/adminstrator/testimonicreate', [TestimoniAdminController::class, 'store'])->name('testimonicreate');
-Route::get('/adminstrator/testimoniedit', [TestimoniAdminController::class, 'edit'])->name('testimoniedit');
+    // Testimoni
+    Route::get('/adminstrator/testimoni', [TestimoniAdminController::class, 'index'])->name('testimonilist');
+    Route::get('/adminstrator/testimonicreate', [TestimoniAdminController::class, 'store'])->name('testimonicreate');
+    Route::get('/adminstrator/testimoniedit', [TestimoniAdminController::class, 'edit'])->name('testimoniedit');
 
-// Users
-Route::get('/adminstrator/users', [UsersAdminController::class, 'index'])->name('userslist');
-Route::get('/adminstrator/userscreate', [UsersAdminController::class, 'store'])->name('userscreate');
-Route::get('/adminstrator/usersedit', [UsersAdminController::class, 'edit'])->name('usersedit');
-Route::get('/adminstrator/users/profile', [UsersAdminController::class, 'editProfile'])->name('usersprofile');
+    // Users
+    Route::get('/adminstrator/users', [UsersAdminController::class, 'index'])->name('userslist');
+    Route::get('/adminstrator/userscreate', [UsersAdminController::class, 'store'])->name('userscreate');
+    Route::get('/adminstrator/usersedit', [UsersAdminController::class, 'edit'])->name('usersedit');
+    Route::get('/adminstrator/users/profile', [UsersAdminController::class, 'editProfile'])->name('usersprofile');
 
-// ReportData
-Route::get('/adminstrator/report/proyek', [ReportAdminController::class, 'reportproyek'])->name('reportproyek');
-Route::get('/adminstrator/report/jasa', [ReportAdminController::class, 'reportjasa'])->name('reportjasa');
-Route::get('/adminstrator/report/mitra', [ReportAdminController::class, 'reportmitra'])->name('reportmitra');
-Route::get('/adminstrator/report/testimoni', [ReportAdminController::class, 'reporttestimoni'])->name('reporttestimoni');
-Route::get('/adminstrator/report/users', [ReportAdminController::class, 'reportusers'])->name('reportusers');
+    // ReportData
+    Route::get('/adminstrator/report/proyek', [ReportAdminController::class, 'reportproyek'])->name('reportproyek');
+    Route::get('/adminstrator/report/jasa', [ReportAdminController::class, 'reportjasa'])->name('reportjasa');
+    Route::get('/adminstrator/report/mitra', [ReportAdminController::class, 'reportmitra'])->name('reportmitra');
+    Route::get('/adminstrator/report/testimoni', [ReportAdminController::class, 'reporttestimoni'])->name('reporttestimoni');
+    Route::get('/adminstrator/report/users', [ReportAdminController::class, 'reportusers'])->name('reportusers');
 
-// Settings
-Route::get('/adminstrator/settings', [SettingsController::class, 'index'])->name('settings');
+    // Settings
+    Route::get('/adminstrator/settings', [SettingsController::class, 'index'])->name('settings');
+});
 
+/* Owner */
+Route::middleware(['auth', 'user-access:owner'])->group(function () {
+    Route::get('/owner/dashboard', [OwnerDashboardController::class, 'index'])->name('dashboardowner');
+
+});
+
+/* HRD */
+Route::middleware(['auth', 'user-access:hrd'])->group(function () {
+    Route::get('/hrd/dashboard', [OwnerDashboardController::class, 'index'])->name('dashboardhrd');
+});
+
+
+/* Manajer */
+Route::middleware(['auth', 'user-access:manajer'])->group(function () {
+    Route::get('/manajer/dashboard', [OwnerDashboardController::class, 'index'])->name('dashboardmanajer');
+});
+
+/* Karyawan */
+Route::middleware(['auth', 'user-access:karyawan'])->group(function () {
+    Route::get('/karyawan/dashboard', [OwnerDashboardController::class, 'index'])->name('dashboardkaryawan');
+});

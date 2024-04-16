@@ -72,6 +72,15 @@
 <script src="{{ asset('assets/plugins/sweetalert/sweetalert2.all.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/sweetalert/sweetalerts.min.js') }}"></script>
 
+@if ($message = Session::get('success'))
+    <script>
+        Swal.fire({
+        icon: "success",
+        title: "Berhasil",
+        text: "{{ $message }}",
+        });
+    </script>
+@endif
 
 
 <script src="{{ asset('assets/js/script.js') }}"></script>

@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers\Autentikasi;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function index()
-    {
+    public function index(){
         return view('Autentikasi.login');
     }
 
-    public function login(Request $request)
+    public function loginproses(Request $request)
     {
         $credentials = $request->only('email', 'password');
+        $remember = $request->has('remember');
 
         $validationRules = [
             'email' => 'required|email',
@@ -23,65 +24,39 @@ class LoginController extends Controller
 
         $request->validate($validationRules);
 
-        if (auth()->attempt($credentials)) {
+        if (Auth::attempt($credentials, $remember)) {
             $request->session()->regenerate();
 
-            // Assuming the role is directly accessible from the User model
-            $userRole = auth()->user()->role->name;
-
             // Redirect based on role
-            if ($userRole === 'Admin') {
-                return redirect()->intended('admin/dashboard');
-            } elseif ($userRole === 'User') {
-                return redirect()->intended('user/dashboard');
+            $userRole = Auth::user()->role->role_name;
+
+            if ($userRole === 'admin') {
+                return redirect()->intended('/adminstrator/dashboard')->with('success', 'Login successful');
+            } elseif ($userRole === 'owner') {
+                return redirect()->intended('/owner/dashboard')->with('success', 'Login successful');
+            } elseif ($userRole === 'hrd') {
+                return redirect()->intended('/hrd/dashboard')->with('success', 'Login successful');
+            } elseif ($userRole === 'karyawan') {
+                return redirect()->intended('/karyawan/dashboard')->with('success', 'Login successful');
+            } elseif ($userRole === 'manajer') {
+                return redirect()->intended('/manajer/dashboard')->with('success', 'Login successful');
             }
 
-            return redirect()->intended('/');
+            // Handle other roles here
         }
 
-        // Check if the email exists
-        $emailExists = \App\Models\User::where('email', $request->email)->exists();
-        if (!$emailExists) {
-            return back()->withErrors([
-                'email' => 'The email you entered does not exist.',
-            ]);
-        }
-
-        // If email exists but password is wrong
+        // If authentication fails
         return back()->withErrors([
-            'password' => 'The password you entered is incorrect.',
+            'email' => 'The email or password you entered is incorrect.',
         ]);
     }
 
-    public function register()
-    {
-        return view('Autentikasi.register');
-    }
-
-    public function store(Request $request)
-    {
-        $validationRules = [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
-        ];
-        $request->validate($validationRules);
-
-        $user = new \App\Models\User;
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->save();
-
-        return redirect()->route('login');
-        
-    }
 
     public function logout(Request $request) {
         auth()->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/login');
+        return redirect('/login')->with('success', 'Logout successfu');
     }
 
 }

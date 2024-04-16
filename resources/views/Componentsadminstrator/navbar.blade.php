@@ -220,9 +220,9 @@
                   <span class="status online"></span
                 ></span>
                 <div class="profilesets">
-                  <h6>John Doe</h6>
-                  <h5>Admin</h5>
-                </div>
+                  <h6>{{ auth()->user()->name }}</h6>
+                  <h5>{{ auth()->user()->role->role_name }}</h5>
+              </div>              
               </div>
               <hr class="m-0" />
               <a class="dropdown-item" href="{{ route('usersprofile') }}">
@@ -232,13 +232,14 @@
                 ><i class="me-2" data-feather="settings"></i>Settings</a
               >
               <hr class="m-0" />
-              <a class="dropdown-item logout pb-0" href="signin.html"
-                ><img
-                  src="{{ asset('assets/img/icons/log-out.svg') }}"
-                  class="me-2"
-                  alt="img"
-                />Logout</a
-              >
+              <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="dropdown-item logout pb-0">
+                  <img src="{{ asset('assets/img/icons/log-out.svg') }}" class="me-2" alt="img" />
+                  Logout
+                </button>
+              </form>        
+                  
             </div>
           </div>
         </li>

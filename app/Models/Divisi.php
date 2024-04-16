@@ -10,6 +10,8 @@ class Divisi extends Model
     use HasFactory;
 
     protected $table = 'divisis';
+    
+
 
     protected $fillable = [
         'divisi_name'

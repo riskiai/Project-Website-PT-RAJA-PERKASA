@@ -13,13 +13,14 @@
         <div class="login">
            <div class="container">
                 <h1>Log in</h1>
-              <form action="">
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Password"><br>
-                <input type="checkbox"><span>Remember me</span>
-                <a href="#">Forgot password?</a>
-                <button>log in</button>
-              </form>
+                <form action="{{ route('login-proses') }}" method="POST">
+                    @csrf
+                    <input type="email" name="email" placeholder="Email"> <!-- Tambahkan name="email" -->
+                    <input type="password" name="password" placeholder="Password"><br> <!-- Tambahkan name="password" -->
+                    <input type="checkbox" name="remember"><span>Remember me</span>
+                    <a href="#">Forgot password?</a>
+                    <button type="submit">log in</button>
+                </form>                
                 <hr><p>Or Connect With</p><hr>
                 <ul>
                     <li><i class="fab fa-facebook-f fa-2x"></i></li>

@@ -15,7 +15,7 @@ class RoleSeeder extends Seeder
     public function run()
     {
         // Array of role names
-        $roles = [ 'owner', 'admin', 'client', 'hrd', 'karyawan', 'manajer'];
+        $roles = [ 'owner', 'admin', 'pengunjung',  'client', 'hrd', 'karyawan', 'manajer'];
 
         // Iterate through each role name
         foreach ($roles as $roleName) {

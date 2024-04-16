@@ -9,7 +9,11 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="{{ asset('assets/img/logofix.png') }}"
+    />
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,6 +66,17 @@
 
 <!-- Template Javascript -->
 <script src="{{ asset('js/main.js') }}"></script>
+
+@if ($message = Session::get('success'))
+    <script>
+        Swal.fire({
+        icon: "success",
+        title: "Mantap",
+        text: "{{ $message }}",
+        });
+    </script>
+@endif
+
 @yield('script')
 </body>
 
