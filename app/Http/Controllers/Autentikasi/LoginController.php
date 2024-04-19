@@ -40,8 +40,9 @@ class LoginController extends Controller
                 return redirect()->intended('/karyawan/dashboard')->with('success', 'Login successful');
             } elseif ($userRole === 'manajer') {
                 return redirect()->intended('/manajer/dashboard')->with('success', 'Login successful');
+            }elseif ($userRole === 'client') {
+                return redirect()->intended('/client/profile')->with('success', 'Login successful');
             }
-
             // Handle other roles here
         }
 

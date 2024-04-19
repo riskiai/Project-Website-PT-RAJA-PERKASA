@@ -35,7 +35,8 @@
             <div class="container">
                 <i class="fas fa-user-plus fa-5x"></i>
                 <h2>Selamat Datang Di Website PT Raja Perkasa</h2>
-                <p>Sudah Punya Akun ? Silahkan Login Terlebih Dahulu!</p>
+             
+                <p>Daftarkan Segera Sebagai Calon Mitra Kami! <br> Sudah Punya Akun ? Silahkan Login Terlebih Dahulu!</p>
                 <a href="login.html"><button>Login <i class="fas fa-arrow-circle-right"></i></button></a> 
             </div>
         </div>  

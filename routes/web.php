@@ -18,6 +18,8 @@ use App\Http\Controllers\Adminstrator\ProyekAdminController;
 use App\Http\Controllers\Adminstrator\ReportAdminController;
 use App\Http\Controllers\Adminstrator\TentangAdminController;
 use App\Http\Controllers\Adminstrator\TestimoniAdminController;
+use App\Http\Controllers\Client\ProfileClientController;
+use App\Http\Controllers\Client\ProposalMitraClientController;
 use App\Http\Controllers\Owner\DashboardController as OwnerDashboardController;
 
 /*
@@ -132,4 +134,27 @@ Route::middleware(['auth', 'user-access:manajer'])->group(function () {
 /* Karyawan */
 Route::middleware(['auth', 'user-access:karyawan'])->group(function () {
     Route::get('/karyawan/dashboard', [OwnerDashboardController::class, 'index'])->name('dashboardkaryawan');
+});
+
+
+
+/* Client */
+Route::middleware(['auth', 'user-access:client'])->group(function () {
+    Route::get('/client/profile', [ProfileClientController::class, 'index'])->name('profileclient');
+
+    Route::get('/client/kerjasama', [ProposalMitraClientController::class, 'index'])->name('kerjasamaclient');
+
+    Route::get('/client/home', [HomeController::class, 'index']);
+
+    // Tentang PT Raja Perkasa
+    Route::get('/client/tentang', [TentangController::class, 'index'])->name('tentang');
+
+    // Jasa PT Raja Perkasa
+    Route::get('/client/jasa', [JasaController::class, 'index'])->name('jasa');
+
+    // Project PT Raja Perkasa
+    Route::get('/client/project', [ProjectController::class, 'index']);
+
+    // Kontak PT Raja Perkasa
+    Route::get('/client/kontak', [KontakController::class, 'index']);
 });

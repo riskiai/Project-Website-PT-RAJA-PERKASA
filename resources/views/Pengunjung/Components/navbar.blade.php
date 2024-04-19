@@ -21,7 +21,7 @@
   }
 
   .card1 {
-    margin-left: -25px !important;
+    margin-left: -26px !important;
   }
 
   .profilesets h5 {
@@ -96,38 +96,45 @@
             <a href="{{ url('/home') }}" class="nav-item nav-link">Beranda</a>
             <a href="{{ url('/tentang') }}" class="nav-item nav-link">Tentang</a>
             <a href="{{ url('/jasa') }}" class="nav-item nav-link">Jasa</a>
-            <a href="{{ url('/project') }}" class="nav-item nav-link">Project</a>
+            <a href="{{ url('/project') }}" class="nav-item nav-link">Projec</a>
             <a href="{{ url('/kontak') }}" class="nav-item nav-link">Kontak</a>
-            <a href="{{ url('/login') }}" class="nav-item nav-link">Login</a>
-            <a href="{{ url('register') }}" class="nav-item nav-link">Register</a>
-
-            <div class="nav-item dropdown">
-              <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-               <img src="assets/img/profiles/avator1.jpg" style="width: 40px; height: 40px; border-radius: 50%; min-width: 20px;" alt="">
-              </a>
-              <div class="card1"> <!-- Updated class name to match the style -->
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li>
-                      <div class="profilesets dropdown-item">
-                          <span class="user-img">
-                              <img src="assets/img/profiles/avator1.jpg" alt="" />
-                              <span class="status online"></span>
-                          </span>
-                          <h6>John Doe</h6>
-                          <h5>Admin</h5>
-                      </div>
-                  </li>
-                  <li><a class="dropdown-item" href="profile.html">My Profile</a></li>
-                  <li><a class="dropdown-item" href="generalsettings.html">Status <br> Kerja Sama</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li>
-                      <a class="dropdown-item logout pb-0" href="signin.html">
-                          <img src="assets/img/icons/log-out.svg" class="me-2" alt="img" />Logout
-                      </a>
-                  </li>
-              </ul>
-            </div>
-            </div>
+            @auth
+                @if(Auth::user()->role->role_name === 'client')
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{ asset('assets/img/profiles/avator1.jpg') }}" style="width: 40px; height: 40px; border-radius: 50%; min-width: 20px;" alt="">
+                        </a>
+                        <div class="card1"> <!-- Updated class name to match the style -->
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <div class="profilesets dropdown-item">
+                                        <span class="user-img">
+                                            <img src="{{ asset('assets/img/profiles/avator1.jpg') }}" alt="" />
+                                            <span class="status online"></span>
+                                        </span>
+                                        <h6>John Doe</h6>
+                                        <h5>Admin</h5>
+                                    </div>
+                                </li>
+                                <li><a class="dropdown-item" href="{{ route('profileclient') }}">My Profile</a></li>
+                                <li><a class="dropdown-item" href="{{ route('kerjasamaclient') }}">Status <br> Kerja Sama</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item logout pb-0">
+                                            <img src="{{ asset('assets/img/icons/log-out.svg') }}" class="me-2" alt="img" />Logout
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                @endif
+            @else
+                <a href="{{ url('/login') }}" class="nav-item nav-link">Login</a>
+                <a href="{{ url('register') }}" class="nav-item nav-link">Register</a>
+            @endauth
 
         </div>
     </div>
