@@ -61,7 +61,7 @@
         <div class="container">
             <div class="text-center project-unggulan wow fadeInUp" data-wow-delay="0.1s">
                 <div class="mb-3 mx-auto" style="width: 60px; height: 2px; background-color: #FE7A36;"></div>
-                <h1 class="display-5 mb-5">Project Unggulan</h1>
+                <h1 class="display-5 mb-5">Proyek Unggulan Kami</h1>
             </div>
             <div class="row g-4">
                 <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.1s">
@@ -287,7 +287,7 @@
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                 <div class="mb-3 mx-auto" style="width: 60px; height: 2px; background-color: #FE7A36;"></div>
-                <h1 class="display-5 mb-5">Project Kami</h1>
+                <h1 class="display-5 mb-5">Project Proyek Kami</h1>
             </div>
             <div class="row mt-n2 wow fadeInUp" data-wow-delay="0.1s">
                 <div class="col-12 text-center">

@@ -142,7 +142,9 @@ Route::middleware(['auth', 'user-access:karyawan'])->group(function () {
 Route::middleware(['auth', 'user-access:client'])->group(function () {
     Route::get('/client/profile', [ProfileClientController::class, 'index'])->name('profileclient');
 
-    Route::get('/client/kerjasama', [ProposalMitraClientController::class, 'index'])->name('kerjasamaclient');
+    Route::get('/client/kerjasama', [ProposalMitraClientController::class, 'index'])->name('pengajuankerjasama');
+
+    Route::get('/client/statuskerjasama', [ProposalMitraClientController::class, 'statuskerjasama'])->name('statuskerjasama');
 
     Route::get('/client/home', [HomeController::class, 'index']);
 

@@ -96,7 +96,7 @@
             <a href="{{ url('/home') }}" class="nav-item nav-link">Beranda</a>
             <a href="{{ url('/tentang') }}" class="nav-item nav-link">Tentang</a>
             <a href="{{ url('/jasa') }}" class="nav-item nav-link">Jasa</a>
-            <a href="{{ url('/project') }}" class="nav-item nav-link">Projec</a>
+            <a href="{{ url('/project') }}" class="nav-item nav-link">Project</a>
             <a href="{{ url('/kontak') }}" class="nav-item nav-link">Kontak</a>
             @auth
                 @if(Auth::user()->role->role_name === 'client')
@@ -117,7 +117,8 @@
                                     </div>
                                 </li>
                                 <li><a class="dropdown-item" href="{{ route('profileclient') }}">My Profile</a></li>
-                                <li><a class="dropdown-item" href="{{ route('kerjasamaclient') }}">Status <br> Kerja Sama</a></li>
+                                <li><a class="dropdown-item" href="{{ route('pengajuankerjasama') }}">Pengajuan <br> Kerja Sama</a></li>
+                                <li><a class="dropdown-item" href="{{ route('statuskerjasama') }}">Status <br> Kerja Sama</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <form action="{{ route('logout') }}" method="POST">

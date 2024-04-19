@@ -33,24 +33,32 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" placeholder="Your Name">
+                            <label for="name" class="form-label">Nama PIC</label>
+                            <input type="text" class="form-control" id="name" placeholder="Your Name PIC">
                         </div>
                         <div class="mb-3">
-                            <label for="address" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="address" placeholder="Your Address">
+                            <label for="name" class="form-label">Email PIC</label>
+                            <input type="text" class="form-control" id="name" placeholder="Your Email PIC">
                         </div>
                         <div class="mb-3">
-                            <label for="ktp" class="form-label">File KTP</label>
-                            <input class="form-control" type="file" id="ktp">
+                            <label for="phone" class="form-label">Nomor Handphone</label>
+                            <input type="tel" class="form-control" id="phone" placeholder="Your Phone Number">
                         </div>
                         <div class="mb-3">
                             <label for="nik" class="form-label">NIK</label>
                             <input type="text" class="form-control" id="nik" placeholder="Your NIK">
                         </div>
                         <div class="mb-3">
-                            <label for="phone" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" id="phone" placeholder="Your Phone Number">
+                            <label for="ktp" class="form-label">File KTP</label>
+                            <input class="form-control" type="file" id="ktp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nama Perusahaan</label>
+                            <input type="text" class="form-control" id="name" placeholder="Your Name Perusahaan">
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Alamat Perusahaan</label>
+                            <textarea class="form-control" id="address" placeholder="Alamat Perusahaan"></textarea>
                         </div>
                         <div class="mb-3">
                             <p class="form-label">*Lengkapi Data Profil Anda Jika Ingin Melanjutkan Kerja Sama dengan Mitra PT Raja Perkasa!</p>
@@ -63,39 +71,7 @@
     </div>
 </div>
 
-@php
-$profileCompleted = true;
-@endphp
 
-@if ($profileCompleted)
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <div class="card">
-                <div class="card-header">
-                    <h4 style="text-profile">Form Calon Mitra PT Raja Perkasa</h4>
-                </div>
-                <div class="card-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="ktp" class="form-label">File Colaboration Mitra</label>
-                            <input class="form-control" type="file" id="ktp">
-                        </div>
-                        <div class="mb-3">
-                            <label for="nik" class="form-label">Tanggal Kirim</label>
-                            <input type="date" class="form-control" id="nik" >
-                        </div>
-                        <div class="mb-3">
-                            <p class="form-label">*Pastikan File Colaboration Mitra Dapat Dilihat Oleh Pihak PT Raja Perkasa</p>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Kirim Formulir</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endif
 
 @endsection
 

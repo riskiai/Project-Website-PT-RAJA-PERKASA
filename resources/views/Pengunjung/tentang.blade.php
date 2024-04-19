@@ -79,7 +79,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <p class="mb-0 pb-2" style="text-align: justify;">PT Raja Perkasa memiliki anak perusahaan yang berdedikasi untuk memberikan layanan terbaik kepada Anda. Mereka siap bekerja sama dan berkomunikasi secara efektif untuk memastikan kepuasan klien. Anak perusahaan kami antara lain:
                                 <ul class="" style="text-align: justify; margin-left:20px;">
                                     <li>PT BINTANG MAS BERSAMA</li>
@@ -87,8 +86,10 @@
                                     <li>PT. TAHTA JAYA ABADI</li>
                                 </ul>
                             
-                            </p>
-                            
+                                <p>
+                                    Jika masih kurang informasi, Anda dapat mengunduh CV lengkap dari PT Raja Perkasa <a href="#" class="text-orange "><u>Klik CV PT Raja Perkasa</u></a>.
+                                </p>
+                            </p>            
 
                         </div>
                     </div>
