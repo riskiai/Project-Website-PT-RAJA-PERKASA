@@ -87,7 +87,7 @@
                                 </ul>
                             
                                 <p>
-                                    Jika masih kurang informasi, Anda dapat mengunduh CV lengkap dari PT Raja Perkasa <a href="#" class="text-orange "><u>Klik CV PT Raja Perkasa</u></a>.
+                                    Jika masih kurang informasi, Anda dapat mengunduh CV lengkap dari PT Raja Perkasa <a href="https://docs.google.com/presentation/d/1tCgQE4kh8XORP_lpYXe9UAURTXL7z_5O/edit?usp=sharing&ouid=101356198688871281323&rtpof=true&sd=true" class="text-orange " target="_blank"><u>Klik CV PT Raja Perkasa</u></a>.
                                 </p>
                             </p>            
 

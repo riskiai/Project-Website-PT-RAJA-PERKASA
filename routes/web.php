@@ -43,6 +43,7 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/loginproses', [LoginController::class, 'loginproses'])->name('login-proses');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'index']);
+Route::post('/register_prosess', [RegisterController::class, 'registerproses'])->name('registerproses');
 
 
 
@@ -51,7 +52,7 @@ Route::get('/register', [RegisterController::class, 'index']);
     Route::get('/home', [HomeController::class, 'index']);
 
     // Tentang PT Raja Perkasa
-    Route::get('/tentang', [TentangController::class, 'index'])->name('tentang');
+    Route::get('/tentang', [TentangController::class, 'index'])->name('tentangpengunjung');
 
     // Jasa PT Raja Perkasa
     Route::get('/jasa', [JasaController::class, 'index'])->name('jasa');

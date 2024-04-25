@@ -11,15 +11,17 @@
         <div class="login">
            <div class="container">
                 <h1>Register</h1>
-              <form action="">
-                <input type="name" placeholder="Nama">
-                <input type="nohp" placeholder="No Handphone">
-                <input type="email" placeholder="Email">
-                <input type="password" placeholder="Password"><br>
-                <input type="checkbox"><span>Remember me</span>
-                <a href="#">Forgot password?</a>
-                <button>Register</button>
-              </form>
+                <form action="{{ route('registerproses') }}" method="POST">
+                    @csrf 
+                    <input type="text" name="name" class="input-field" placeholder="Nama">
+                    <input type="number" name="no_hp" class="input-field" placeholder="No Handphone">
+                    <input type="email" name="email" class="input-field" placeholder="Email">
+                    <input type="password" name="password" class="input-field" placeholder="Password"><br>
+                    <input type="checkbox"><span>Remember me</span>
+                    <a href="#">Forgot password?</a>
+                    <button class="btn-register">Register</button> 
+                </form>
+                
                 <hr><p>Or Connect With</p><hr>
                 <ul>
                     <li><i class="fab fa-facebook-f fa-2x"></i></li>

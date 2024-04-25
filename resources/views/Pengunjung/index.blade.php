@@ -149,7 +149,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="{{ route('tentang') }}" class="btn btn-primary rounded-pill py-3 px-5">Baca Selangkapnya</a>
+                        <a href="{{ route('tentangpengunjung') }}" class="btn btn-primary rounded-pill py-3 px-5">Baca Selangkapnya</a>
                     </div>
                 </div>
             </div>
