@@ -20,7 +20,7 @@
         <div class="col-md-8 offset-md-2">
             <div class="card">
                 <div class="card-header">
-                    <h4 style="text-profile">My Profile</h4>
+                    <h4 style="text-profile">Data Diri</h4>
                 </div>
                 <div class="card-body">
                     <form>
@@ -52,6 +52,7 @@
                             <label for="ktp" class="form-label">File KTP</label>
                             <input class="form-control" type="file" id="ktp">
                         </div>
+                       {{--  
                         <div class="mb-3">
                             <label for="name" class="form-label">Nama Perusahaan</label>
                             <input type="text" class="form-control" id="name" placeholder="Your Name Perusahaan">
@@ -59,9 +60,10 @@
                         <div class="mb-3">
                             <label for="address" class="form-label">Alamat Perusahaan</label>
                             <textarea class="form-control" id="address" placeholder="Alamat Perusahaan"></textarea>
-                        </div>
+                        </div> 
+                        --}}
                         <div class="mb-3">
-                            <p class="form-label">*Lengkapi Data Profil Anda Jika Ingin Melanjutkan Kerja Sama dengan Mitra PT Raja Perkasa!</p>
+                            <p class="form-label">*Lengkapi Data Diri Anda Jika Ingin Melanjutkan Kerja Sama dengan Mitra PT Raja Perkasa!</p>
                         </div>
                         <button type="submit" class="btn btn-primary">Update Profile</button>
                     </form>

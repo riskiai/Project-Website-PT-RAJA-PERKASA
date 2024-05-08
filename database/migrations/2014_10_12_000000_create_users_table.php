@@ -29,6 +29,7 @@ return new class extends Migration
             $table->enum('jk', ['L', 'P'])->nullable();
             $table->string('file_ktp')->nullable();
             $table->enum('status_user', ['active', 'nonactive'])->nullable()->default('active');
+            $table->enum('status_kerjasama', ['menunggu', 'diterima', 'tidakmenerima'])->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

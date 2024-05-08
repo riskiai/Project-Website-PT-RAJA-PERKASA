@@ -112,11 +112,11 @@
                                             <img src="{{ asset('assets/img/profiles/avator1.jpg') }}" alt="" />
                                             <span class="status online"></span>
                                         </span>
-                                        <h6>John Doe</h6>
-                                        <h5>Admin</h5>
+                                        <h6>{{ auth()->user()->name }}</h6>
+                                        <h5>{{ auth()->user()->role->role_name }} mitra</h5>
                                     </div>
                                 </li>
-                                <li><a class="dropdown-item" href="{{ route('profileclient') }}">My Profile</a></li>
+                                <li><a class="dropdown-item" href="{{ route('profileclient') }}">Data Diri Pribadi</a></li>
                                 <li><a class="dropdown-item" href="{{ route('pengajuankerjasama') }}">Pengajuan <br> Kerja Sama</a></li>
                                 <li><a class="dropdown-item" href="{{ route('statuskerjasama') }}">Status <br> Kerja Sama</a></li>
                                 <li><hr class="dropdown-divider"></li>

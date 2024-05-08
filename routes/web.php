@@ -42,7 +42,7 @@ Route::get('/', function () {
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/loginproses', [LoginController::class, 'loginproses'])->name('login-proses');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('/register', [RegisterController::class, 'index']);
+Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register_prosess', [RegisterController::class, 'registerproses'])->name('registerproses');
 
 
@@ -70,8 +70,11 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
     // Tentang
     Route::get('/adminstrator/tentang', [TentangAdminController::class, 'index'])->name('tentanglist');
-    Route::get('/adminstrator/tentangcreate', [TentangAdminController::class, 'store'])->name('tentangcreate');
-    Route::get('/adminstrator/tentangedit', [TentangAdminController::class, 'edit'])->name('tentangedit');
+    Route::get('/adminstrator/tentangcreate', [TentangAdminController::class, 'create'])->name('tentangcreate');
+    Route::post('/adminstrator/tentangcreateproses', [TentangAdminController::class, 'createproses'])->name('tentangcreateproses');
+    Route::get('/administrator/tentang/{id}/edit', [TentangAdminController::class, 'edit'])->name('tentangedit');
+    Route::post('/administrator/tentang/update/{id}', [TentangAdminController::class, 'update'])->name('tentang.update');
+    Route::delete('/adminstratortentang/delete/{id}', [TentangAdminController::class, 'delete'])->name('tentangdelete');
 
     // Jasa 
     Route::get('/adminstrator/jasa', [JasaAdminController::class, 'index'])->name('jasalist');

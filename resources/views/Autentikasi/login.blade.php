@@ -37,7 +37,7 @@
                 <i class="fas fa-user-plus fa-5x"></i>
                 <h2>Selamat Datang Di Website PT Raja Perkasa</h2>
                 <p>Belum Punya Akun ? Silahkan Register Terlebih Dahulu</p>
-                <a href="register.html"> <button>Register <i class="fas fa-arrow-circle-right"></i></button></a>
+                <a href="{{ route('register') }}"> <button>Register <i class="fas fa-arrow-circle-right"></i></button></a>
             </div>
         </div>  
       </div>

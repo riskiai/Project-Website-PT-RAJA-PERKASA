@@ -1,7 +1,27 @@
 @extends('Pengunjung.Components.app')
 
 @section('style')
+    <style>
+        .btn-one {
+            background-color: orange;
+            color: white;
+            width: 200px;
+            font-size: 20px;
+            font-weight: bold;
+            margin-left: 0px;
+        }
 
+        .text-one {
+            margin-left: 0px;
+        }
+
+        u {
+        display: inline-block; /* Mengubah tata letak menjadi inline-block */
+        text-decoration: none; /* Menghapus garis bawah default */
+        border-bottom: 2px solid grey; /* Menambahkan garis bawah dengan warna biru */
+        margin-top: 2px; /* Mengatur jarak atas dari teks */
+        }
+    </style>
 
 @endsection
 
@@ -33,37 +53,17 @@
                             <h1 class="display-5 mb-4">Kontak Kami</h1>
                         </div>
                         <p class="mb-4">Hubungi kami untuk informasi lebih lanjut tentang layanan kami. Kami siap membantu Anda!</p>
-                        <form>
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="name" placeholder="Your Name">
-                                        <label for="name">Nama Anda</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input type="email" class="form-control" id="email" placeholder="Your Email">
-                                        <label for="email">Email Anda</label>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="subject" placeholder="Subject">
-                                        <label for="subject">Subject</label>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 100px"></textarea>
-                                        <label for="message">Pesan</label>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <button class="btn btn-primary w-100 py-3" type="submit">Send Message</button>
-                                </div>
-                            </div>
-                        </form>
+                        <ul class="list-unstyled">
+                            <button class="btn btn-one">Email</button>
+                            <li class="mb-4 text-one"><u>rajaperkasa@gmail.com</u></li>
+                            <button class="btn btn-one">Telefon</button>
+                            <li class="mb-4"><u>+012 345 67890</u></li>
+                            <button class="btn btn-one">Alamat</button>
+                            <li class="mb-4 text-one"><u> Sukareja, Balongan, Indramayu Regency</u></li>
+                           
+                        </ul>
+
+
                     </div>
                 </div>
                 <div class="col-lg-6 pe-lg-0" style="min-height: 400px;">

@@ -7,71 +7,50 @@
       <div class="page-header">
         <div class="page-title">
           <h4>Update Data Tentang PT Raja Perkasa</h4>
-          {{-- <h6>Add/Update Expenses</h6> --}}
         </div>
       </div>
       <div class="card">
         <div class="card-body">
-          <form action="" method="POST">
+          <form action="{{ route('tentang.update', $data->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
               <div class="col-lg-3 col-sm-6 col-12">
                 <div class="form-group">
                   <label>Status PT Raja Perkasa</label>
-                  <select name="expense_category" class="select">
-                    <option value="">Active</option>
-                    <option value="Category">In Active</option>
+                  <select name="status_user" class="select">
+                    <option value="active" {{ $data->status_user == 'active' ? 'selected' : '' }}>Active</option>
+                    <option value="nonactive" {{ $data->status_user == 'nonactive' ? 'selected' : '' }}>In Active</option>
                   </select>
                 </div>
               </div>
               <div class="col-lg-3 col-sm-6 col-12">
                 <div class="form-group">
-                  <label>Date</label>
-                  <div class="input-groupicon">
-                    <input
-                      type="text"
-                      name="expense_date"
-                      placeholder="Choose Date"
-                      class="datetimepicker"
-                    />
-                    <div class="addonset">
-                      <img src="{{ asset('assets/img/icons/calendars.svg') }}" alt="img" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3 col-sm-6 col-12">
-                <div class="form-group">
                   <label>Title</label>
-                  <div class="input-groupicon">
-                    <input type="text" name="" />
-                    {{-- <div class="addonset">
-                      <img src="{{ asset('assets/img/icons/dollar.svg') }}" alt="img" />
-                    </div> --}}
-                  </div>
+                  <input type="text" name="title" class="form-control" value="{{ $data->title }}" />
                 </div>
               </div>
               <div class="col-lg-3 col-sm-6 col-12">
                 <div class="form-group">
-                  <label>File Image</label>
-                  <input type="file" name="reference_no" />
+                    <label>File Image</label>
+                    <input type="file" name="image[]" class="form-control" multiple />
                 </div>
-              </div>
+            </div>
               <div class="col-lg-12">
                 <div class="form-group">
                   <label>Short Description</label>
-                  <input type="text" name="expense_for" />
+                  <input type="text" name="short_description" class="form-control" value="{{ $data->short_description }}" />
                 </div>
               </div>
+              
               <div class="col-lg-12">
                 <div class="form-group">
                   <label>Detail Description</label>
-                  <textarea class="form-control" name="description"></textarea>
+                  <textarea class="form-control" name="detail_description">{{ $data->detail_description }}</textarea>
                 </div>
               </div>
               <div class="col-lg-12">
                 <button type="submit" class="btn btn-submit me-2">Submit</button>
-                <a href="expenselist.html" class="btn btn-cancel">Cancel</a>
+                <a href="{{ route('tentanglist') }}" class="btn btn-cancel">Cancel</a>
               </div>
             </div>
           </form>

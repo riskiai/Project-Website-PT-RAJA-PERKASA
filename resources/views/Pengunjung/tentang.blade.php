@@ -34,9 +34,20 @@
                         </p>
 
                         <div class="row g-4 mb-4 pb-3">
-
                            
 
+                            <p class="mb-0 pb-2" style="text-align: justify;">PT Raja Perkasa memiliki anak perusahaan yang berdedikasi untuk memberikan layanan terbaik kepada Anda. Mereka siap bekerja sama dan berkomunikasi secara efektif untuk memastikan kepuasan klien. Anak perusahaan kami antara lain:
+                                <ul class="" style="text-align: justify; margin-left:20px;">
+                                    <li>PT BINTANG MAS BERSAMA</li>
+                                    <li>PT. RATIKA FEBRIAN ABADI</li>
+                                    <li>PT. TAHTA JAYA ABADI</li>
+                                </ul>
+                            
+                                <p>
+                                    Jika masih kurang informasi, Anda dapat mengunduh CV lengkap dari PT Raja Perkasa <a href="https://docs.google.com/presentation/d/1tCgQE4kh8XORP_lpYXe9UAURTXL7z_5O/edit?usp=sharing&ouid=101356198688871281323&rtpof=true&sd=true" class="text-orange " target="_blank"><u>Klik CV PT Raja Perkasa</u></a>.
+                                </p>
+                            </p>  
+                            
                             <div class="col-sm-4 wow fadeIn" data-wow-delay="0.1s">
                                 <div class="d-flex align-items-center">
                                     <div class="btn-square bg-white rounded-circle" style="width: 64px; height: 64px;">
@@ -79,17 +90,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <p class="mb-0 pb-2" style="text-align: justify;">PT Raja Perkasa memiliki anak perusahaan yang berdedikasi untuk memberikan layanan terbaik kepada Anda. Mereka siap bekerja sama dan berkomunikasi secara efektif untuk memastikan kepuasan klien. Anak perusahaan kami antara lain:
-                                <ul class="" style="text-align: justify; margin-left:20px;">
-                                    <li>PT BINTANG MAS BERSAMA</li>
-                                    <li>PT. RATIKA FEBRIAN ABADI</li>
-                                    <li>PT. TAHTA JAYA ABADI</li>
-                                </ul>
-                            
-                                <p>
-                                    Jika masih kurang informasi, Anda dapat mengunduh CV lengkap dari PT Raja Perkasa <a href="https://docs.google.com/presentation/d/1tCgQE4kh8XORP_lpYXe9UAURTXL7z_5O/edit?usp=sharing&ouid=101356198688871281323&rtpof=true&sd=true" class="text-orange " target="_blank"><u>Klik CV PT Raja Perkasa</u></a>.
-                                </p>
-                            </p>            
 
                         </div>
                     </div>
