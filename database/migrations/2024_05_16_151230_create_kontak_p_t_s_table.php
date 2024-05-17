@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tentangptrajapekasa', function (Blueprint $table) {
+        Schema::create('kontak_p_t_s', function (Blueprint $table) {
             $table->id();
             // $table->string('title');
-            $table->string('short_description');
-            $table->text('detail_description');
-            $table->enum('status_tentang', ['active', 'nonactive'])->nullable()->default('active');
-            $table->string('image')->nullable();
+            $table->string('email');
+            $table->string('phone');
+            $table->string('link');
+            $table->text('alamat');
+            $table->enum('status_kontak', ['active', 'nonactive'])->nullable()->default('active');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tentangptrajapekasa');
+        Schema::dropIfExists('kontak_p_t_s');
     }
 };

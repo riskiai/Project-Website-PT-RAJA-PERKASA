@@ -35,27 +35,24 @@
 
 @section('content')
 <div class="container mt-5">
-    <h2>Status Penerimaan Kerja Sama Mitra</h2> <!-- Added title above the table -->
+    <h2>Status Penerimaan Kerja Sama Mitra Dengan PT Raja Perkasa</h2> <!-- Added title above the table -->
     <div class="row">
         <div class="col-md-8 offset-md-2">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>File yang Dikirim</th>
+                        <th>No</th>
                         <th>Tanggal Kirim</th>
                         <th>Status Kerja Sama Mitra</th>
+                        <th>Keterangan</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>File Contoh.pdf</td>
+                        <td>1</td>
                         <td>2022-10-15</td>
-                        <td>Diterima</td>
-                    </tr>
-                    <tr>
-                        <td>File Proposal.docx</td>
-                        <td>2022-10-20</td>
-                        <td>Ditolak</td>
+                        <td>Ditunggu, Diterima, Ditolak</td>
+                        <td>Sedang Periksa Oleh HRD</td>
                     </tr>
                 </tbody>
             </table>

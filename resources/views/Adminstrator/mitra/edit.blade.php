@@ -1,78 +1,70 @@
 @extends('Componentsadminstrator.app')
 
+@section('styles')
+
+<script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+<style type="text/css">
+    .ck-editor__editable_inline {
+        height: 300px;
+    }
+</style>
+
+@endsection
+
 @section('content')
 
 <div class="page-wrapper">
     <div class="content">
       <div class="page-header">
         <div class="page-title">
-          <h4>Update Data Mitra Di PT Raja Perkasa</h4>
-          {{-- <h6>Add/Update Expenses</h6> --}}
+          <h4>Update Data Jasa Di PT Raja Perkasa</h4>
         </div>
       </div>
       <div class="card">
         <div class="card-body">
-          <form action="" method="POST">
+          <form action="{{ route('mitra.update', $data->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
-              <div class="col-lg-3 col-sm-6 col-12">
+              <div class="col-lg-6 col-sm-6 col-12">
                 <div class="form-group">
                   <label>Status PT Raja Perkasa</label>
-                  <select name="expense_category" class="select">
-                    <option value="">Active</option>
-                    <option value="Category">In Active</option>
+                  <select name="status_mitra" class="select">
+                    <option value="active" {{ $data->status_mitra == 'active' ? 'selected' : '' }}>Active</option>
+                    <option value="nonactive" {{ $data->status_mitra == 'nonactive' ? 'selected' : '' }}>In Active</option>
                   </select>
                 </div>
               </div>
-              <div class="col-lg-3 col-sm-6 col-12">
-                <div class="form-group">
-                  <label>Date</label>
-                  <div class="input-groupicon">
-                    <input
-                      type="text"
-                      name="expense_date"
-                      placeholder="Choose Date"
-                      class="datetimepicker"
-                    />
-                    <div class="addonset">
-                      <img src="{{ asset('assets/img/icons/calendars.svg') }}" alt="img" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-3 col-sm-6 col-12">
+              {{-- <div class="col-lg-3 col-sm-6 col-12">
                 <div class="form-group">
                   <label>Title</label>
-                  <div class="input-groupicon">
-                    <input type="text" name="" />
-                    {{-- <div class="addonset">
-                      <img src="{{ asset('assets/img/icons/dollar.svg') }}" alt="img" />
-                    </div> --}}
-                  </div>
+                  <input type="text" name="title" class="form-control" value="{{ $data->title }}" />
                 </div>
-              </div>
-              <div class="col-lg-3 col-sm-6 col-12">
+              </div> --}}
+
+              <div class="col-lg-6 col-sm-6 col-12">
                 <div class="form-group">
-                  <label>File Image</label>
-                  <input type="file" name="reference_no" />
+                    <label>File Image</label>
+                    <input type="file" name="image[]" class="form-control" multiple />
+                    @if($data->image)
+                    <div class="mt-2">
+                      @foreach(explode(',', $data->image) as $image)
+                        <img src="{{ asset('storage/photo-mitra/' . $image) }}" alt="Image" width="100" class="img-thumbnail">
+                      @endforeach
+                    </div>
+                  @endif
                 </div>
+            </div>
+
+            <div class="col-lg-6 col-sm-6 col-12">
+              <div class="form-group">
+                  <label>Nama Mitra</label>
+                  <input type="text" name="name_mitra" class="form-control" value="{{ $data->name_mitra }}" />
               </div>
-              <div class="col-lg-12">
-                <div class="form-group">
-                  <label>Short Description</label>
-                  <input type="text" name="expense_for" />
-                </div>
-              </div>
-              
-              <div class="col-lg-12">
-                <div class="form-group">
-                  <label>Detail Description</label>
-                  <textarea class="form-control" name="description"></textarea>
-                </div>
-              </div>
+          </div>
+            
               <div class="col-lg-12">
                 <button type="submit" class="btn btn-submit me-2">Submit</button>
-                <a href="expenselist.html" class="btn btn-cancel">Cancel</a>
+                <a href="{{ route('tentanglist') }}" class="btn btn-cancel">Cancel</a>
               </div>
             </div>
           </form>
@@ -80,5 +72,22 @@
       </div>
     </div>
   </div>
+
+@endsection
+
+{{-- CKEDITOR --}}
+@section('scripts')
+
+<script>
+  $(document).ready(function() {
+      // Inisialisasi CKEditor pada modal tambah data
+      ClassicEditor
+          .create(document.querySelector('#detail_description'))
+          .catch(error => {
+              console.error(error);
+          });
+
+  });
+</script>
 
 @endsection

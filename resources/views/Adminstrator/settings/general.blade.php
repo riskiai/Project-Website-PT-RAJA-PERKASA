@@ -6,7 +6,7 @@
     <div class="content">
       <div class="page-header">
         <div class="page-title">
-          <h4>General Setting PT Raja Perkasa</h4>
+          <h4>General Setting Website PT Raja Perkasa</h4>
           {{-- <h6>Manage General Setting</h6> --}}
         </div>
       </div>

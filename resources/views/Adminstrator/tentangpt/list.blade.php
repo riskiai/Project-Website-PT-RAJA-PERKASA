@@ -135,7 +135,7 @@
                   </label>
                 </th>
                 <th>No</th>
-                <th>Title</th>
+                {{-- <th>Title</th> --}}
                 <th>Short Description</th>
                 <th>Detail Description</th>
                 <th>File Image</th>
@@ -155,9 +155,9 @@
                       </label>
                   </td>
                   <td>{{ $index + 1 }}</td>
-                  <td>{{ $item->title }}</td>
+                  {{-- <td>{{ $item->title }}</td> --}}
                   <td>{{ $item->short_description }}</td>
-                  <td>{{ $item->detail_description }}</td>
+                  <td>{!! $item->detail_description !!}</td>
                   <td>
                     @if(!empty($item->image))
                         @php
@@ -176,7 +176,7 @@
                 </td>          
                 <td>{{ $item->created_at->format('Y-m-d') }}</td>
                   <td>
-                    @if($item->status_user == 'active')
+                    @if($item->status_tentang == 'active')
                     <span class="badges bg-lightgreen">Active</span>
                     @else
                     <span class="badges bg-lightred">In Active</span>

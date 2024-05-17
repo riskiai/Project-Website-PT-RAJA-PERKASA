@@ -22,16 +22,6 @@ use App\Http\Controllers\Client\ProfileClientController;
 use App\Http\Controllers\Client\ProposalMitraClientController;
 use App\Http\Controllers\Owner\DashboardController as OwnerDashboardController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return redirect('/home');
@@ -67,6 +57,7 @@ Route::post('/register_prosess', [RegisterController::class, 'registerproses'])-
 /* Adminstrator */
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/adminstrator/dashboard', [DashboardController::class, 'index'])->name('dashboardadmin');
+    
 
     // Tentang
     Route::get('/adminstrator/tentang', [TentangAdminController::class, 'index'])->name('tentanglist');
@@ -77,29 +68,42 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::delete('/adminstratortentang/delete/{id}', [TentangAdminController::class, 'delete'])->name('tentangdelete');
 
     // Jasa 
-    Route::get('/adminstrator/jasa', [JasaAdminController::class, 'index'])->name('jasalist');
-    Route::get('/adminstrator/jasacreate', [JasaAdminController::class, 'store'])->name('jasacreate');
-    Route::get('/adminstrator/jasaedit', [JasaAdminController::class, 'edit'])->name('jasaedit');
+    Route::get('/administrator/jasa', [JasaAdminController::class, 'index'])->name('jasalist');
+    Route::get('/administrator/jasacreate', [JasaAdminController::class, 'create'])->name('jasacreate');
+    Route::post('/administrator/jasacreateproses', [JasaAdminController::class, 'createproses'])->name('jasacreateproses');
+    Route::get('/administrator/jasa/{id}/edit', [JasaAdminController::class, 'edit'])->name('jasaedit');
+    Route::post('/administrator/jasa/update/{id}', [JasaAdminController::class, 'update'])->name('jasa.update');
+    Route::delete('/administrator/jasa/{id}', [JasaAdminController::class, 'delete'])->name('jasadelete');
+
+     // Kontak
+     Route::get('/administrator/kontak', [KontakAdminController::class, 'index'])->name('kontaklist');
+     Route::get('/administrator/kontakcreate', [KontakAdminController::class, 'create'])->name('kontakcreate');
+     Route::post('/administrator/kontakcreateproses', [KontakAdminController::class, 'createproses'])->name('kontakcreateproses');     
+     Route::get('/administrator/kontakedit/{id}/edit', [KontakAdminController::class, 'edit'])->name('kontakedit');
+     Route::post('/administrator/kontak/update/{id}', [KontakAdminController::class, 'update'])->name('kontak.update');     
+     Route::delete('/administrator/kontak/{id}', [KontakAdminController::class, 'delete'])->name('kontakdelete');
 
     // Proyek
     Route::get('/adminstrator/proyek', [ProyekAdminController::class, 'index'])->name('proyeklist');
     Route::get('/adminstrator/proyekcreate', [ProyekAdminController::class, 'store'])->name('proyekcreate');
     Route::get('/adminstrator/proyekedit', [ProyekAdminController::class, 'edit'])->name('proyekedit');
 
-    // Kontak
-    Route::get('/adminstrator/kontak', [KontakAdminController::class, 'index'])->name('kontaklist');
-    Route::get('/adminstrator/kontakcreate', [KontakAdminController::class, 'store'])->name('kontakcreate');
-    Route::get('/adminstrator/kontakedit', [KontakAdminController::class, 'edit'])->name('kontakedit');
-
     // Mitra
-    Route::get('/adminstrator/mitra', [MitraAdminController::class, 'index'])->name('mitralist');
-    Route::get('/adminstrator/mitracreate', [MitraAdminController::class, 'store'])->name('mitracreate');
-    Route::get('/adminstrator/mitraedit', [MitraAdminController::class, 'edit'])->name('mitraedit');
+    Route::get('/administrator/mitra', [MitraAdminController::class, 'index'])->name('mitralist');
+    Route::get('/administrator/mitracreate', [MitraAdminController::class, 'create'])->name('mitracreate');
+    Route::post('/administrator/mitracreateproses', [MitraAdminController::class, 'createproses'])->name('mitracreateproses');
+    Route::get('/administrator/mitraedit/{id}/edit', [MitraAdminController::class, 'edit'])->name('mitraedit');
+    Route::post('/administrator/mitra/update/{id}', [MitraAdminController::class, 'update'])->name('mitra.update');
+    Route::delete('/administrator/mitra/{id}', [MitraAdminController::class, 'delete'])->name('mitradelete');
 
     // Testimoni
-    Route::get('/adminstrator/testimoni', [TestimoniAdminController::class, 'index'])->name('testimonilist');
-    Route::get('/adminstrator/testimonicreate', [TestimoniAdminController::class, 'store'])->name('testimonicreate');
-    Route::get('/adminstrator/testimoniedit', [TestimoniAdminController::class, 'edit'])->name('testimoniedit');
+    Route::get('/administrator/testimoni', [TestimoniAdminController::class, 'index'])->name('testimonilist');
+    Route::get('/administrator/testimonicreate', [TestimoniAdminController::class, 'create'])->name('testimonicreate');
+    Route::post('/administrator/testimonicreateproses', [TestimoniAdminController::class, 'createproses'])->name('testimonicreateproses');
+    Route::get('/administrator/testimoniedit/{id}/edit', [TestimoniAdminController::class, 'edit'])->name('testimoniedit');
+    Route::post('/administrator/testimoni/update/{id}', [TestimoniAdminController::class, 'update'])->name('testimoni.update');
+    Route::delete('/administrator/testimoni/{id}', [TestimoniAdminController::class, 'delete'])->name('testimonidelete');
+   
 
     // Users
     Route::get('/adminstrator/users', [UsersAdminController::class, 'index'])->name('userslist');

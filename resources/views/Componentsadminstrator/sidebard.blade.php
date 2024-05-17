@@ -62,16 +62,7 @@
                 </ul>
               </li>
 
-              <li class="submenu">
-                <a href="javascript:void(0);"
-                  ><i data-feather="bar-chart-2"></i> <span>Project Proyek </span>
-                  <span class="menu-arrow"></span
-                ></a>
-                <ul>
-                  <li class="{{ Request::is('proyeklist*') ? 'active' : '' }}"><a href="{{ route('proyeklist') }}">List Data </a></li>
-                  <li class="{{ Request::is('proyekcreate*') ? 'active' : '' }}"><a href="{{ route('proyekcreate') }}">Tambah Data </a></li>
-                </ul>
-              </li>
+             
 
               <li class="submenu">
                 <a href="javascript:void(0);"
@@ -109,6 +100,17 @@
                 <ul>
                   <li class="{{ Request::is('testimonilist*') ? 'active' : '' }}"><a href="{{ route('testimonilist') }}">List Data </a></li>
                   <li class="{{ Request::is('testimonicreate*') ? 'active' : '' }}"><a href="{{ route('testimonicreate') }}">Tambah Data </a></li>
+                </ul>
+              </li>
+
+              <li class="submenu">
+                <a href="javascript:void(0);"
+                  ><i data-feather="bar-chart-2"></i> <span>Project Proyek </span>
+                  <span class="menu-arrow"></span
+                ></a>
+                <ul>
+                  <li class="{{ Request::is('proyeklist*') ? 'active' : '' }}"><a href="{{ route('proyeklist') }}">List Data </a></li>
+                  <li class="{{ Request::is('proyekcreate*') ? 'active' : '' }}"><a href="{{ route('proyekcreate') }}">Tambah Data </a></li>
                 </ul>
               </li>
         @endif

@@ -2,22 +2,17 @@
 
 @section('content')
 
-  
 <div class="page-wrapper">
   <div class="content">
     <div class="page-header">
       <div class="page-title">
         <h4>List Data Mitra Di PT Raja Perkasa </h4>
-        {{-- <h6>Manage your purchases</h6> --}}
       </div>
       <div class="page-btn">
-        <a href="createexpense.html" class="btn btn-added"
-          ><img
-            src="{{ asset('assets/img/icons/plus.svg') }}"
-            class="me-2"
-            alt="img"
-          />Tambah Data Mitra Di PT Raja Perkasa</a
-        >
+        <a href="{{ route('mitracreate') }}" class="btn btn-added">
+          <img src="{{ asset('assets/img/icons/plus.svg') }}" class="me-2" alt="img" />
+          Tambah Data Mitra Di PT Raja Perkasa
+        </a>
       </div>
     </div>
 
@@ -28,9 +23,7 @@
             <div class="search-path">
               <a class="btn btn-filter" id="filter_search">
                 <img src="{{ asset('assets/img/icons/filter.svg') }}" alt="img" />
-                <span
-                  ><img src="{{ asset('assets/img/icons/closes.svg') }}" alt="img"
-                /></span>
+                <span><img src="{{ asset('assets/img/icons/closes.svg') }}" alt="img" /></span>
               </a>
             </div>
             <div class="search-input">
@@ -42,28 +35,19 @@
           <div class="wordset">
             <ul>
               <li>
-                <a
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="pdf"
-                  ><img src="{{ asset('assets/img/icons/pdf.svg') }}" alt="img"
-                /></a>
+                <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf">
+                  <img src="{{ asset('assets/img/icons/pdf.svg') }}" alt="img" />
+                </a>
               </li>
               <li>
-                <a
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="excel"
-                  ><img src="{{ asset('assets/img/icons/excel.svg') }}" alt="img"
-                /></a>
+                <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel">
+                  <img src="{{ asset('assets/img/icons/excel.svg') }}" alt="img" />
+                </a>
               </li>
               <li>
-                <a
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="print"
-                  ><img src="{{ asset('assets/img/icons/printer.svg') }}" alt="img"
-                /></a>
+                <a data-bs-toggle="tooltip" data-bs-placement="top" title="print">
+                  <img src="{{ asset('assets/img/icons/printer.svg') }}" alt="img" />
+                </a>
               </li>
             </ul>
           </div>
@@ -75,16 +59,9 @@
               <div class="col-lg-2 col-sm-6 col-12">
                 <div class="form-group">
                   <div class="input-groupicon">
-                    <input
-                      type="text"
-                      class="datetimepicker cal-icon"
-                      placeholder="Choose Date"
-                    />
+                    <input type="text" class="datetimepicker cal-icon" placeholder="Choose Date" />
                     <div class="addonset">
-                      <img
-                        src="{{ asset('assets/img/icons/calendars.svg') }}"
-                        alt="img"
-                      />
+                      <img src="{{ asset('assets/img/icons/calendars.svg') }}" alt="img" />
                     </div>
                   </div>
                 </div>
@@ -113,11 +90,9 @@
               </div>
               <div class="col-lg-1 col-sm-6 col-12 ms-auto">
                 <div class="form-group">
-                  <a class="btn btn-filters ms-auto"
-                    ><img
-                      src="{{ asset('assets/img/icons/search-whites.svg') }}"
-                      alt="img"
-                  /></a>
+                  <a class="btn btn-filters ms-auto">
+                    <img src="{{ asset('assets/img/icons/search-whites.svg') }}" alt="img" />
+                  </a>
                 </div>
               </div>
             </div>
@@ -134,16 +109,16 @@
                     <span class="checkmarks"></span>
                   </label>
                 </th>
-                <th>Title</th>
-                <th>Short Description</th>
-                <th>Detail Description</th>
+                <th>No</th>
+                <th>Nama Mitra</th>
                 <th>File Image</th>
-                <th>Date</th>
+                <th>Created Date</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
+              @foreach($data as $index => $item)
               <tr>
                 <td>
                   <label class="checkboxs">
@@ -151,273 +126,40 @@
                     <span class="checkmarks"></span>
                   </label>
                 </td>
-                <td>Employee Benefits</td>
-                <td>PT001</td>
-                <td>19 Nov 2022</td>
-                <td>120</td>
-                <td>Employee Vehicle</td>
-                <td><span class="badges bg-lightgreen">Active</span></td>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ $item->name_mitra }}</td>
                 <td>
-                  <a class="me-3" href="{{ route('mitraedit') }}">
+                  @if(!empty($item->image))
+                    @php
+                      $images = explode(',', $item->image);
+                    @endphp
+                    @foreach($images as $image)
+                      <img src="{{ asset('storage/photo-mitra/' . $image) }}" alt="img" style="max-width: 100px; max-height: 100px; margin-bottom: 10px;">
+                    @endforeach
+                  @endif
+                </td>
+                <td>{{ $item->created_at->format('Y-m-d') }}</td>
+                <td>
+                  @if($item->status_mitra == 'active')
+                    <span class="badges bg-lightgreen">Active</span>
+                  @else
+                    <span class="badges bg-lightred">In Active</span>
+                  @endif
+                </td>
+                <td>
+                  <a class="me-3" href="{{ route('mitraedit', $item->id) }}">
                     <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
                   </a>
-                  <a class="me-3 confirm-text" href="javascript:void(0);">
-                    <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                  </a>
+                  <form action="{{ route('mitradelete', ['id' => $item->id]) }}" method="POST" style="display: inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-link" onclick="return confirm('Are you sure you want to delete this item?');">
+                      <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
+                    </button>
+                  </form>
                 </td>
               </tr>
-              <tr>
-                <td>
-                  <label class="checkboxs">
-                    <input type="checkbox" />
-                    <span class="checkmarks"></span>
-                  </label>
-                </td>
-                <td>Foods & Snacks</td>
-                <td>PT002</td>
-                <td>19 Nov 2022</td>
-               
-                <td>250</td>
-                <td>Employee Foods</td>
-                <td><span class="badges bg-lightgreen">Active</span></td>
-                <td>
-                  <a class="me-3" href="editexpense.html">
-                    <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
-                  </a>
-                  <a class="me-3 confirm-text" href="javascript:void(0);">
-                    <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="checkboxs">
-                    <input type="checkbox" />
-                    <span class="checkmarks"></span>
-                  </label>
-                </td>
-                <td>Entertainment</td>
-                <td>PT003</td>
-                <td>19 Nov 2022</td>
-                <td>120</td>
-                <td>Office Vehicle</td>
-                <td><span class="badges bg-lightgreen">Active</span></td>
-                <td>
-                  <a class="me-3" href="editexpense.html">
-                    <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
-                  </a>
-                  <a class="me-3 confirm-text" href="javascript:void(0);">
-                    <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="checkboxs">
-                    <input type="checkbox" />
-                    <span class="checkmarks"></span>
-                  </label>
-                </td>
-                <td>Office Expenses & Postage</td>
-                <td>PT004</td>
-                <td>19 Nov 2022</td>
-                
-                <td>320</td>
-                <td>Employee Foods</td>
-                <td><span class="badges bg-lightgreen">Active</span></td>
-                <td>
-                  <a class="me-3" href="editexpense.html">
-                    <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
-                  </a>
-                  <a class="me-3 confirm-text" href="javascript:void(0);">
-                    <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="checkboxs">
-                    <input type="checkbox" />
-                    <span class="checkmarks"></span>
-                  </label>
-                </td>
-                <td>Employee Benefits</td>
-                <td>PT005</td>
-                <td>19 Nov 2022</td>
-                
-                <td>250</td>
-                <td>Employee Vehicle</td>
-                <td><span class="badges bg-lightgreen">Active</span></td>
-                <td>
-                  <a class="me-3" href="editexpense.html">
-                    <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
-                  </a>
-                  <a class="me-3 confirm-text" href="javascript:void(0);">
-                    <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="checkboxs">
-                    <input type="checkbox" />
-                    <span class="checkmarks"></span>
-                  </label>
-                </td>
-                <td>Foods & Snacks</td>
-                <td>PT006</td>
-                <td>19 Nov 2022</td>
-               
-                <td>250</td>
-                <td>Employee Foods</td>
-                <td><span class="badges bg-lightgreen">Active</span></td>
-                <td>
-                  <a class="me-3" href="editexpense.html">
-                    <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
-                  </a>
-                  <a class="me-3 confirm-text" href="javascript:void(0);">
-                    <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="checkboxs">
-                    <input type="checkbox" />
-                    <span class="checkmarks"></span>
-                  </label>
-                </td>
-                <td>Entertainment</td>
-                <td>PT007</td>
-                <td>19 Nov 2022</td>
-              
-                <td>120</td>
-                <td>Office Vehicle</td>
-                <td><span class="badges bg-lightred">In Active</span></td>
-                <td>
-                  <a class="me-3" href="editexpense.html">
-                    <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
-                  </a>
-                  <a class="me-3 confirm-text" href="javascript:void(0);">
-                    <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="checkboxs">
-                    <input type="checkbox" />
-                    <span class="checkmarks"></span>
-                  </label>
-                </td>
-                <td>Office Expenses & Postage</td>
-                <td>PT008</td>
-                <td>19 Nov 2022</td>
-                
-                <td>320</td>
-                <td>Employee Foods</td>
-                <td><span class="badges bg-lightgreen">Active</span></td>
-                <td>
-                  <a class="me-3" href="editexpense.html">
-                    <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
-                  </a>
-                  <a class="me-3 confirm-text" href="javascript:void(0);">
-                    <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="checkboxs">
-                    <input type="checkbox" />
-                    <span class="checkmarks"></span>
-                  </label>
-                </td>
-                <td>Employee Benefits</td>
-                <td>PT009</td>
-                <td>19 Nov 2022</td>
-               
-                <td>120</td>
-                <td>Employee Vehicle</td>
-                <td><span class="badges bg-lightgreen">Active</span></td>
-                <td>
-                  <a class="me-3" href="editexpense.html">
-                    <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
-                  </a>
-                  <a class="me-3 confirm-text" href="javascript:void(0);">
-                    <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="checkboxs">
-                    <input type="checkbox" />
-                    <span class="checkmarks"></span>
-                  </label>
-                </td>
-                <td>Foods & Snacks</td>
-                <td>PT010</td>
-                <td>19 Nov 2022</td>
-              
-                <td>250</td>
-                <td>Employee Foods</td>
-                <td><span class="badges bg-lightgreen">Active</span></td>
-                <td>
-                  <a class="me-3" href="editexpense.html">
-                    <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
-                  </a>
-                  <a class="me-3 confirm-text" href="javascript:void(0);">
-                    <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="checkboxs">
-                    <input type="checkbox" />
-                    <span class="checkmarks"></span>
-                  </label>
-                </td>
-                <td>Entertainment</td>
-                <td>PT011</td>
-                <td>19 Nov 2022</td>
-              
-                <td>120</td>
-                <td>Office Vehicle</td>
-                <td><span class="badges bg-lightred">In Active</span></td>
-                <td>
-                  <a class="me-3" href="editexpense.html">
-                    <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
-                  </a>
-                  <a class="me-3 confirm-text" href="javascript:void(0);">
-                    <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="checkboxs">
-                    <input type="checkbox" />
-                    <span class="checkmarks"></span>
-                  </label>
-                </td>
-                <td>Office Expenses & Postage</td>
-                <td>PT012</td>
-                <td>19 Nov 2022</td>
-                
-                <td>320</td>
-                <td>Employee Foods</td>
-                <td><span class="badges bg-lightgreen">Active</span></td>
-                <td>
-                  <a class="me-3" href="editexpense.html">
-                    <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
-                  </a>
-                  <a class="me-3 confirm-text" href="javascript:void(0);">
-                    <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                  </a>
-                </td>
-              </tr>
+              @endforeach
             </tbody>
           </table>
         </div>
