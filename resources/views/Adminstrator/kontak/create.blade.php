@@ -8,6 +8,7 @@
         height: 300px;
     }
 </style>
+@endsection
 
 @section('content')
 

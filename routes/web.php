@@ -107,6 +107,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
     // Users
     Route::get('/adminstrator/users', [UsersAdminController::class, 'index'])->name('userslist');
+    Route::get('/adminstrator/users/client', [UsersAdminController::class, 'getclient'])->name('userslisteclient');
     Route::get('/adminstrator/userscreate', [UsersAdminController::class, 'store'])->name('userscreate');
     Route::get('/adminstrator/usersedit', [UsersAdminController::class, 'edit'])->name('usersedit');
     Route::get('/adminstrator/users/profile', [UsersAdminController::class, 'editProfile'])->name('usersprofile');
@@ -120,6 +121,31 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
     // Settings
     Route::get('/adminstrator/settings', [SettingsController::class, 'index'])->name('settings');
+});
+
+
+/* Client */
+Route::middleware(['auth', 'user-access:client'])->group(function () {
+    Route::get('/client/profile', [ProfileClientController::class, 'index'])->name('profileclient');
+    Route::post('/client/profile/update/{id}', [ProfileClientController::class, 'update'])->name('profileupdate');
+
+    Route::get('/client/kerjasama', [ProposalMitraClientController::class, 'index'])->name('pengajuankerjasama');
+
+    Route::get('/client/statuskerjasama', [ProposalMitraClientController::class, 'statuskerjasama'])->name('statuskerjasama');
+
+    Route::get('/client/home', [HomeController::class, 'index']);
+
+    // Tentang PT Raja Perkasa
+    Route::get('/client/tentang', [TentangController::class, 'index'])->name('tentang');
+
+    // Jasa PT Raja Perkasa
+    Route::get('/client/jasa', [JasaController::class, 'index'])->name('jasa');
+
+    // Project PT Raja Perkasa
+    Route::get('/client/project', [ProjectController::class, 'index']);
+
+    // Kontak PT Raja Perkasa
+    Route::get('/client/kontak', [KontakController::class, 'index']);
 });
 
 /* Owner */
@@ -145,26 +171,3 @@ Route::middleware(['auth', 'user-access:karyawan'])->group(function () {
 });
 
 
-
-/* Client */
-Route::middleware(['auth', 'user-access:client'])->group(function () {
-    Route::get('/client/profile', [ProfileClientController::class, 'index'])->name('profileclient');
-
-    Route::get('/client/kerjasama', [ProposalMitraClientController::class, 'index'])->name('pengajuankerjasama');
-
-    Route::get('/client/statuskerjasama', [ProposalMitraClientController::class, 'statuskerjasama'])->name('statuskerjasama');
-
-    Route::get('/client/home', [HomeController::class, 'index']);
-
-    // Tentang PT Raja Perkasa
-    Route::get('/client/tentang', [TentangController::class, 'index'])->name('tentang');
-
-    // Jasa PT Raja Perkasa
-    Route::get('/client/jasa', [JasaController::class, 'index'])->name('jasa');
-
-    // Project PT Raja Perkasa
-    Route::get('/client/project', [ProjectController::class, 'index']);
-
-    // Kontak PT Raja Perkasa
-    Route::get('/client/kontak', [KontakController::class, 'index']);
-});

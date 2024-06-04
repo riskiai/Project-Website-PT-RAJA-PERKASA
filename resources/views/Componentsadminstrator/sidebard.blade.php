@@ -123,8 +123,8 @@
               <span class="menu-arrow"></span
             ></a>
             <ul>
-              <li class="{{ Request::is('userslist*') ? 'active' : '' }}"><a href="{{ route('userslist') }}">List Data </a></li>
-              <li class="{{ Request::is('userscreate*') ? 'active' : '' }}"><a href="{{ route('userscreate') }}">Tambah Data </a></li>
+              <li class="{{ Request::is('userslist*') ? 'active' : '' }}"><a href="{{ route('userslist') }}">Data Users Internal PT Raja Perkasa </a></li>
+              <li class="{{ Request::is('userslisteclient*') ? 'active' : '' }}"><a href="{{ route('userslisteclient') }}">Data Users Client External PT Raja Perkasa </a></li>
             </ul>
           </li>
 

@@ -26,9 +26,9 @@ return new class extends Migration
             $table->string('alamat')->nullable();
             $table->date('tgl_lahir')->nullable();
             $table->enum('jk', ['L', 'P'])->nullable();
+            $table->string('file_foto')->nullable();
             $table->string('file_ktp')->nullable();
             $table->enum('status_user', ['active', 'nonactive'])->nullable()->default('active');
-            $table->enum('status_kerjasama', ['menunggu', 'diterima', 'tidakmenerima'])->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

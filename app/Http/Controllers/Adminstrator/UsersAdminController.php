@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Adminstrator;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class UsersAdminController extends Controller
 {
@@ -11,18 +12,13 @@ class UsersAdminController extends Controller
         return view('Adminstrator.users.list');
     }
 
-    public function editProfile() {
-        return view('Adminstrator.users.profile');
-    }
+    public function getclient() {
+        // Ambil data pengguna dengan role 'client' saja
+        $data = User::whereHas('role', function($query) {
+            $query->where('role_name', 'client');
+        })->select('name', 'email', 'no_hp', 'file_foto', 'file_ktp', 'status_user')->get();
 
-
-    public function store()
-    {
-        return view('Adminstrator.users.create');
-    }
-
-    public function edit()
-    {
-        return view('Adminstrator.users.edit');
+    
+        return view('Adminstrator.users.client', compact('data'));
     }
 }

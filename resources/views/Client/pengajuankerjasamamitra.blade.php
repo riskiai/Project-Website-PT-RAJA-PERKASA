@@ -12,7 +12,7 @@ $profileCompleted = true;
         <div class="col-md-8 offset-md-2">
             <div class="card">
                 <div class="card-header">
-                    <h4 style="text-profile">Form Pengajuan Kerjasama Kepada PT Raja Perkasa</h4>
+                    <h4 style="text-profile">Form Pengajuan Kerjasama Mitra Kepada PT Raja Perkasa</h4>
                 </div>
                 <div class="card-body">
                     <form>

@@ -13,9 +13,9 @@
                 <h1>Register</h1>
                 <form action="{{ route('registerproses') }}" method="POST">
                     @csrf 
-                    <input type="text" name="name" class="input-field" placeholder="Nama">
+                    <input type="text" name="name" class="input-field" placeholder="Nama PIC">
+                    <input type="email" name="email" class="input-field" placeholder="Email PIC">
                     <input type="number" name="no_hp" class="input-field" placeholder="No Handphone">
-                    <input type="email" name="email" class="input-field" placeholder="Email">
                     <input type="password" name="password" class="input-field" placeholder="Password"><br>
                     <input type="checkbox"><span>Remember me</span>
                     <a href="#">Forgot password?</a>
