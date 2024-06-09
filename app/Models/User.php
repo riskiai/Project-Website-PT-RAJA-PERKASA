@@ -66,4 +66,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Divisi::class);
     }
+
+    
+    // untuk relasi one To Many
+    public function document_kerjasama() {
+        return $this->hasOne(Document_Kerjasama_Client::class);
+    }
 }

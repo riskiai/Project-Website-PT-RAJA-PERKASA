@@ -1,4 +1,4 @@
-@extends('Componentsadminstrator.app')
+@extends('Adminstrator.Componentsadminstrator.app')
 
 @section('content')
 <div class="page-wrapper">

@@ -13,18 +13,18 @@ return new class extends Migration
     {
         Schema::create('datalegalitas', function (Blueprint $table) {
             $table->id();
-            $table->integer('no_akta')->nullable();
+            $table->string('no_akta')->nullable();
             $table->string('file_akta')->nullable();
-            $table->integer('no_siup')->nullable();
+            $table->string('no_siup')->nullable();
             $table->string('file_siup')->nullable();
             $table->date('date_end_siup')->nullable();
-            $table->integer('no_tdp')->nullable();
+            $table->string('no_tdp')->nullable();
             $table->string('file_tdp')->nullable();
             $table->date('date_end_tdp')->nullable();
-            $table->integer('no_skdp')->nullable();
+            $table->string('no_skdp')->nullable();
             $table->string('file_skdp')->nullable();
             $table->date('date_end_skdp')->nullable();
-            $table->integer('no_iujk')->nullable();
+            $table->string('no_iujk')->nullable();
             $table->string('file_iujk')->nullable();
             $table->date('date_end_iujk')->nullable();
             $table->string('file_profile_perusahaan')->nullable();

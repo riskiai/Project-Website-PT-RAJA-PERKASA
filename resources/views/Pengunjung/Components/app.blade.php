@@ -73,15 +73,28 @@
 <!-- Template Javascript -->
 <script src="{{ asset('js/main.js') }}"></script>
 
-@if ($message = Session::get('success'))
+@if ($message = Session::get('success1'))
     <script>
         Swal.fire({
-        icon: "success",
-        title: "Berhasil",
-        text: "{{ $message }}",
+            icon: "success",
+            title: "Berhasil",
+            html: "{!! $message !!}", // Use 'html' instead of 'text'
         });
     </script>
 @endif
+
+
+@if ($message = Session::get('success'))
+    <script>
+        Swal.fire({
+            icon: "success",
+            title: "Berhasil",
+            text: "{{ $message }}",
+        });
+    </script>
+@endif
+
+
 
 @yield('script')
 </body>

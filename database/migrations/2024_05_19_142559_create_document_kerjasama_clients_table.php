@@ -27,6 +27,9 @@ return new class extends Migration
             $table->foreign('data_legalitas_id')->references('id')->on('datalegalitas');
             $table->enum('status_kerjasama', ['ditunggu', 'diterima', 'ditolak'])->nullable()->default('ditunggu');
             $table->string('keterangan_status_kerjasama')->nullable();
+            $table->string('data_kepemilikan_saham')->nullable();
+            $table->string('situs_web')->nullable();
+            $table->string('email_perusahaan')->nullable();
             $table->timestamps();
         });
     }

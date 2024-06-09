@@ -6,12 +6,12 @@
   <div class="content">
     <div class="page-header">
       <div class="page-title">
-        <h4>List Data Mitra Di PT Raja Perkasa </h4>
+        <h4>List Data Users Calon Client PT Raja Perkasa</h4>
       </div>
       <div class="page-btn">
-        <a href="{{ route('mitracreate') }}" class="btn btn-added">
+        <a href="{{ route('testimonicreate') }}" class="btn btn-added">
           <img src="{{ asset('assets/img/icons/plus.svg') }}" class="me-2" alt="img" />
-          Tambah Data Mitra Di PT Raja Perkasa
+          Tambah Data Users Client PT Raja Perkasa
         </a>
       </div>
     </div>
@@ -103,16 +103,12 @@
           <table class="table datanew">
             <thead>
               <tr>
-                <th>
-                  <label class="checkboxs">
-                    <input type="checkbox" id="select-all" />
-                    <span class="checkmarks"></span>
-                  </label>
-                </th>
                 <th>No</th>
-                <th>Nama Mitra</th>
-                <th>File Image</th>
-                <th>Created Date</th>
+                <th>Nama Client</th>
+                <th>Email</th>
+                <th>Nomor Handphone</th>
+                <th>File Foto</th>
+                <th>File KTP</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -120,41 +116,43 @@
             <tbody>
               @foreach($data as $index => $item)
               <tr>
-                <td>
-                  <label class="checkboxs">
-                    <input type="checkbox" />
-                    <span class="checkmarks"></span>
-                  </label>
-                </td>
                 <td>{{ $index + 1 }}</td>
-                <td>{{ $item->name_mitra }}</td>
+                <td>{{ $item->name }}</td>
+                <td>{{ $item->email }}</td>
+                <td>{{ $item->no_hp }}</td>
                 <td>
-                  @if(!empty($item->image))
-                    @php
-                      $images = explode(',', $item->image);
-                    @endphp
-                    @foreach($images as $image)
-                      <img src="{{ asset('storage/photo-mitra/' . $image) }}" alt="img" style="max-width: 100px; max-height: 100px; margin-bottom: 10px;">
-                    @endforeach
+                  @if(!empty($item->file_foto))
+                    <img src="{{ asset('storage/client/photo-profile/' . $item->file_foto) }}" alt="img" style="max-width: 100px; max-height: 100px; margin-bottom: 10px;">
+                  @else
+                    <img src="{{ asset('img/default.png') }}" alt="img" style="max-width: 100px; max-height: 100px; margin-bottom: 10px;">
                   @endif
                 </td>
-                <td>{{ $item->created_at->format('Y-m-d') }}</td>
                 <td>
-                  @if($item->status_mitra == 'active')
+                  @if(!empty($item->file_ktp))
+                    <img src="{{ asset('storage/client/file_ktp/' . $item->file_ktp) }}" alt="img" style="max-width: 100px; max-height: 100px; margin-bottom: 10px;">
+                  @else
+                    <img src="{{ asset('img/ktp.jpg') }}" alt="img" style="max-width: 100px; max-height: 100px; margin-bottom: 10px;">
+                  @endif
+                </td>
+                <td>
+                  @if($item->status_user == 'active')
                     <span class="badges bg-lightgreen">Active</span>
                   @else
-                    <span class="badges bg-lightred">In Active</span>
+                    <span class="badges bg-lightred">Inactive</span>
                   @endif
                 </td>
                 <td>
-                  <a class="me-3" href="{{ route('mitraedit', $item->id) }}">
-                    <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
+                  <a class="me-3" href="{{ route('userslistclientedit', ['id' => $item->id]) }}">
+                    <i class="fas fa-edit"></i>
                   </a>
-                  <form action="{{ route('mitradelete', ['id' => $item->id]) }}" method="POST" style="display: inline;">
+                  <a class="me-3" href="{{ route('showclient', ['id' => $item->id]) }}">
+                    <i class="fas fa-eye"></i>
+                  </a>
+                  <form action="" method="POST" style="display: inline;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-link" onclick="return confirm('Are you sure you want to delete this item?');">
-                      <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
+                    <button type="submit" class="btn btn-link text-dark" onclick="return confirm('Are you sure you want to delete this item?');">
+                      <i class="fas fa-trash-alt"></i>
                     </button>
                   </form>
                 </td>

@@ -1,4 +1,4 @@
-@extends('Componentsadminstrator.app')
+@extends('Adminstrator.Componentsadminstrator.app')
 
 @section('styles')
 <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>

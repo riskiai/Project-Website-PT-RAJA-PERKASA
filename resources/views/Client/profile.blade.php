@@ -30,12 +30,21 @@
                     <h4>Data Diri</h4>
                 </div>
                 <div class="card-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <form action="{{ route('profileupdate', ['id' => $user->id]) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3 text-center">
                             <label for="imageProfile" class="form-label">Image Profile</label>
                             <div id="imageProfilePreviewContainer">
-                                <img id="imageProfilePreview" src="{{ $user->file_foto ? asset(str_replace('public/', 'storage/', $user->file_foto)) : asset('img/default.png') }}" alt="your image" />
+                                <img id="imageProfilePreview" src="{{ $user->file_foto ? asset('storage/client/photo-profile/' . $user->file_foto) : asset('img/default.png') }}" alt="your image" />
                             </div>
                             <input class="form-control" type="file" id="imageProfile" name="file_foto" onchange="previewImage('imageProfile', 'imageProfilePreview');">
                         </div>
@@ -43,7 +52,7 @@
                         <div class="mb-3 text-center">
                             <label for="imageKTP" class="form-label">File KTP</label>
                             <div id="imageKTPPreviewContainer">
-                                <img id="imageKTPPreview" src="{{ $user->file_ktp ? asset(str_replace('public/', 'storage/', $user->file_ktp)) : asset('img/ktp.jpg') }}" alt="your image" />
+                                <img id="imageKTPPreview" src="{{ $user->file_ktp ? asset('storage/client/file_ktp/' . $user->file_ktp) : asset('img/ktp.jpg') }}" alt="your image" />
                             </div>
                             <input class="form-control" type="file" id="imageKTP" name="file_ktp" onchange="previewImage('imageKTP', 'imageKTPPreview');">
                         </div>

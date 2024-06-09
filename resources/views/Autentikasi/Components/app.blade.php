@@ -78,6 +78,8 @@
     </script>
 @endif
 
+
+
 @if ($message = Session::get('error'))
     <script>
         Swal.fire({

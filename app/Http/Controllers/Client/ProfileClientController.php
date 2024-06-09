@@ -37,19 +37,22 @@ class ProfileClientController extends Controller
         if ($request->hasFile('file_ktp')) {
             $fileKtp = $request->file('file_ktp');
             $fileKtpName = Str::uuid() . '.' . $fileKtp->getClientOriginalExtension();
-            $pathKtp = $fileKtp->storeAs('public/client/file_ktp', $fileKtpName);
-            $user->file_ktp = $pathKtp;
+            $fileKtp->storeAs('public/client/file_ktp', $fileKtpName);
+            $user->file_ktp = $fileKtpName; // Simpan hanya nama file
         }
-
+        
         if ($request->hasFile('file_foto')) {
             $fileFoto = $request->file('file_foto');
             $fileFotoName = Str::uuid() . '.' . $fileFoto->getClientOriginalExtension();
-            $pathFoto = $fileFoto->storeAs('public/client/photo-profile', $fileFotoName);
-            $user->file_foto = $pathFoto;
+            $fileFoto->storeAs('public/client/photo-profile', $fileFotoName);
+            $user->file_foto = $fileFotoName; // Simpan hanya nama file
         }
+        
+        
 
         $user->save();
-
-        return redirect()->route('profileclient')->with('success', 'Profile updated successfully');
+        return redirect()->route('profileclient')->with([
+            'success1' => 'Profil berhasil diperbarui.<br>Lengkapi profil Anda untuk mengajukan kerjasama mitra.',
+        ]);
     }
 }

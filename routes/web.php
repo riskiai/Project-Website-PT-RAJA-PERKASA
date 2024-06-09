@@ -103,14 +103,21 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/administrator/testimoniedit/{id}/edit', [TestimoniAdminController::class, 'edit'])->name('testimoniedit');
     Route::post('/administrator/testimoni/update/{id}', [TestimoniAdminController::class, 'update'])->name('testimoni.update');
     Route::delete('/administrator/testimoni/{id}', [TestimoniAdminController::class, 'delete'])->name('testimonidelete');
-   
 
     // Users
-    Route::get('/adminstrator/users', [UsersAdminController::class, 'index'])->name('userslist');
     Route::get('/adminstrator/users/client', [UsersAdminController::class, 'getclient'])->name('userslisteclient');
+    Route::get('/adminstrator/users/client/show/{id}', [UsersAdminController::class, 'showclient'])->name('showclient');
+    Route::get('/adminstrator/users/client/edit/{id}', [UsersAdminController::class, 'editclient'])->name('userslistclientedit');
+    Route::post('/adminstrator/users/client/edit/{id}', [UsersAdminController::class, 'editclientproses'])->name('userslistclienteditproses');
+
+
+    
+
+    Route::get('/adminstrator/users', [UsersAdminController::class, 'index'])->name('userslist');
     Route::get('/adminstrator/userscreate', [UsersAdminController::class, 'store'])->name('userscreate');
     Route::get('/adminstrator/usersedit', [UsersAdminController::class, 'edit'])->name('usersedit');
     Route::get('/adminstrator/users/profile', [UsersAdminController::class, 'editProfile'])->name('usersprofile');
+
 
     // ReportData
     Route::get('/adminstrator/report/proyek', [ReportAdminController::class, 'reportproyek'])->name('reportproyek');
@@ -130,6 +137,8 @@ Route::middleware(['auth', 'user-access:client'])->group(function () {
     Route::post('/client/profile/update/{id}', [ProfileClientController::class, 'update'])->name('profileupdate');
 
     Route::get('/client/kerjasama', [ProposalMitraClientController::class, 'index'])->name('pengajuankerjasama');
+    Route::post('/client/kerjasama/submit', [ProposalMitraClientController::class, 'create'])->name('submitkerjasama');
+    Route::post('/client/kerjasama/update/{id}', [ProposalMitraClientController::class, 'update'])->name('updatekerjasama');
 
     Route::get('/client/statuskerjasama', [ProposalMitraClientController::class, 'statuskerjasama'])->name('statuskerjasama');
 

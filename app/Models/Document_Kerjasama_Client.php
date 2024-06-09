@@ -20,6 +20,9 @@ class Document_Kerjasama_Client extends Model
         'data_legalitas_id',
         'status_kerjasama',
         'keterangan_status_kerjasama',
+        'data_kepemilikan_saham',
+        'situs_web',
+        'email_perusahaan',
     ]; // Define the fillable attributes
 
     // Define relationships

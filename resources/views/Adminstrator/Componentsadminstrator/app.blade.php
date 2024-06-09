@@ -44,12 +44,12 @@
 
   </head>
   <body>
-    @include('Componentsadminstrator.navbar')
+    @include('Adminstrator.Componentsadminstrator.navbar ')
    
 
     @yield('content')
 
-    @include('Componentsadminstrator.sidebard')
+    @include('Adminstrator.Componentsadminstrator.sidebard')
 
 
 <script src="{{ asset('assets/js/jquery-3.6.0.min.js') }}"></script>
