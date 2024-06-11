@@ -35,7 +35,7 @@
               <div class="col-lg-3 col-sm-6 col-12">
                 <div class="form-group">
                   <label>Keterangan Status Kerja Sama</label>
-                  <input type="text" name="keterangan_status_kerjasama" class="form-control" value="{{ $dataKerjasama->keterangan_status_kerjasama }}" />
+                  <textarea name="keterangan_status_kerjasama" class="form-control" style="width: 150%; height: 100px;">{{ $dataKerjasama->keterangan_status_kerjasama }}</textarea>
                 </div>
               </div>
               <!-- Tambahkan elemen input lainnya sesuai dengan kebutuhan -->

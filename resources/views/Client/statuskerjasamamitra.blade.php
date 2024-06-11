@@ -48,16 +48,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>2022-10-15</td>
-                        <td>Ditunggu, Diterima, Ditolak</td>
-                        <td>Sedang Periksa Oleh HRD</td>
-                    </tr>
+                    @if ($dataKerjasama)
+                        <tr>
+                            <td>1</td>
+                            <td>{{ $dataKerjasama->created_at->format('Y-m-d') }}</td>
+                            <td>{{ ucfirst($dataKerjasama->status_kerjasama) }}</td>
+                            <td>{{ $dataKerjasama->keterangan_status_kerjasama }}</td>
+                        </tr>
+                    @else
+                        <tr>
+                            <td colspan="4">Data tidak ditemukan.</td>
+                        </tr>
+                    @endif
                 </tbody>
             </table>
         </div>
     </div>
 </div>
 @endsection
-

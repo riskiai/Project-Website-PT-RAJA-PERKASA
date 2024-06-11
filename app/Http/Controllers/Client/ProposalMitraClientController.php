@@ -264,6 +264,9 @@ class ProposalMitraClientController extends Controller
 
     public function statuskerjasama()
     {
-        return view('Client.statuskerjasamamitra');
+        $user_id = Auth::id();
+        $dataKerjasama = Document_Kerjasama_Client::where('user_id', $user_id)->latest()->first();
+    
+        return view('Client.statuskerjasamamitra', compact('dataKerjasama'));
     }
 }
