@@ -11,11 +11,12 @@
         <div class="card">
             <div class="card-body">
                 <h5>Data Profil Client</h5>
-                <form>
+                <form action="{{ route('updateStatusUser', $user->id) }}" method="POST">
+                    @csrf
                     <div class="row">
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
-                                <label>Nama</label>
+                                <label>Nama PIC (Penanggung Jawab)</label>
                                 <input type="text" class="form-control" value="{{ $user->name }}" readonly>
                             </div>
                         </div>
@@ -40,7 +41,13 @@
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Status User</label>
-                                <input type="text" class="form-control" value="{{ $user->status_user == 'active' ? 'Active' : 'Inactive' }}" readonly>
+                                <div style="position: relative;">
+                                    <select name="status_user" class="form-control">
+                                        <option value="active" {{ $user->status_user === 'active' ? 'selected' : '' }}>Active</option>
+                                        <option value="nonactive" {{ $user->status_user === 'nonactive' ? 'selected' : '' }}>Inactive</option>
+                                    </select>
+                                    <i class="fas fa-caret-down" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); pointer-events: none;"></i>
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">
@@ -49,7 +56,7 @@
                                 @if($user->file_foto)
                                     <p><a href="{{ asset('storage/client/photo-profile/' . $user->file_foto) }}" target="_blank">Lihat Foto</a></p>
                                 @else
-                                    <p>Foto Profil tidak ditemukan</p>
+                                    <p style="color: red; font-weight: bold;">Foto Profil tidak ditemukan</p>
                                 @endif
                             </div>
                         </div>
@@ -59,20 +66,14 @@
                                 @if($user->file_ktp)
                                     <p><a href="{{ asset('storage/client/file_ktp/' . $user->file_ktp) }}" target="_blank">Lihat KTP</a></p>
                                 @else
-                                    <p>File KTP tidak ditemukan</p>
+                                <p style="color: red; font-weight: bold;">File KTP tidak ditemukan</p>
                                 @endif
                             </div>
                         </div>
-                        
-                        
-                        
-                        
                     </div>
-                </form>
 
-                <h5>Data Document Kerja Sama Mitra PT Raja Perkasa</h5>
-                @if ($dataKerjasama)
-                <form>
+                    <h5>Data Document Kerja Sama Mitra PT Raja Perkasa</h5>
+                    @if ($dataKerjasama)
                     <div class="row">
                         <!-- Data Kerja Sama -->
                         <div class="col-lg-6 col-sm-6 col-12">
@@ -318,12 +319,17 @@
                             </div>
                         </div>
                     </div>
-                </form>
-                @else
-                <p>Data kerja sama tidak ditemukan.</p>
-                @endif
+                    @else
+                    <p>Data kerja sama tidak ditemukan.</p>
+                    @endif
 
-                <a href="{{ route('userslisteclient') }}" class="btn btn-primary">Kembali</a>
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12 col-12 text-right">
+                            <button type="submit" class="btn btn-primary">Update Status</button>
+                            <a href="{{ route('userslisteclient') }}" class="btn btn-secondary">Kembali</a>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

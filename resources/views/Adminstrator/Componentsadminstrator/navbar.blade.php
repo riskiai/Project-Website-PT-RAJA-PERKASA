@@ -31,7 +31,7 @@
               <i class="fa fa-search"></i>
             </a>
             
-            <form action="#">
+            {{-- <form action="#">
               <div class="searchinputs">
                 <input type="text" placeholder="Search Here ..." />
                 <div class="search-addon">
@@ -43,7 +43,7 @@
               <a class="btn" id="searchdiv"
                 ><img src="{{ asset('assets/img/icons/search.svg') }}" alt="img"
               /></a>
-            </form>
+            </form> --}}
           </div>
         </li>
 

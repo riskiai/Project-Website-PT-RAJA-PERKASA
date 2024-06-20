@@ -59,11 +59,11 @@ class UsersSeeder extends Seeder
             'role_id' => $manajerRoleId,
         ]);
 
-        // User::factory()->create([
-        //     'name' => 'Client',
-        //     'email' => 'client@example.com',
-        //     'password' => Hash::make('password'), // ganti 'password' dengan password yang diinginkan
-        //     'role_id' => $clientmitraRoleId,
-        // ]);
+        User::factory()->create([
+            'name' => 'Client',
+            'email' => 'client@example.com',
+            'password' => Hash::make('password'), // ganti 'password' dengan password yang diinginkan
+            'role_id' => $clientmitraRoleId,
+        ]);
     }
 }

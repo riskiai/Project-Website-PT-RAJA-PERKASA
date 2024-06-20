@@ -140,6 +140,7 @@ class ProposalMitraClientController extends Controller
             'situs_web' => $request->input('situs_web'),
             'email_perusahaan' => $request->input('email_perusahaan'),
             'status_kerjasama' => 'ditunggu',
+            'keterangan_status_kerjasama' => 'Baik Terimakasih Sudah Mengirimkan Berkas Perusahaan Anda, Silahkan Ditunggu !',
         ]);
 
         return redirect()->route('pengajuankerjasama')->with('success', 'Pengajuan kerjasama berhasil dikirim.');

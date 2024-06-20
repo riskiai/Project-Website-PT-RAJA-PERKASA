@@ -69,7 +69,22 @@ class User extends Authenticatable
 
     
     // untuk relasi one To Many
-    public function document_kerjasama() {
-        return $this->hasOne(Document_Kerjasama_Client::class);
+    public function documentKerjasamaClient() {
+        return $this->hasOne(Document_Kerjasama_Client::class, 'user_id');
+    }
+
+    public function listPeralatan()
+    {
+        return $this->hasMany(List_Peralatan::class, 'user_id');
+    }
+
+    public function listMaterials()
+    {
+        return $this->hasMany(List_Materials::class, 'user_id');
+    }
+
+    public function listproyek()
+    {
+        return $this->hasMany(List_Data_Proyek::class, 'user_id');
     }
 }

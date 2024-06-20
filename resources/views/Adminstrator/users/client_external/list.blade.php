@@ -1,19 +1,18 @@
 @extends('Adminstrator.Componentsadminstrator.app')
 
 @section('content')
-
 <div class="page-wrapper">
   <div class="content">
     <div class="page-header">
       <div class="page-title">
         <h4>List Data Users Calon Client PT Raja Perkasa</h4>
       </div>
-      <div class="page-btn">
+      {{-- <div class="page-btn">
         <a href="{{ route('testimonicreate') }}" class="btn btn-added">
           <img src="{{ asset('assets/img/icons/plus.svg') }}" class="me-2" alt="img" />
           Tambah Data Users Client PT Raja Perkasa
         </a>
-      </div>
+      </div> --}}
     </div>
 
     <div class="card">
@@ -103,14 +102,15 @@
           <table class="table datanew">
             <thead>
               <tr>
-                <th>No</th>
-                <th>Nama Client</th>
-                <th>Email</th>
-                <th>Nomor Handphone</th>
-                <th>File Foto</th>
-                <th>File KTP</th>
-                <th>Status</th>
-                <th>Action</th>
+                <th class="text-center">No</th>
+                <th class="text-center">Nama PIC</th>
+                <th class="text-center">Email</th>
+                <th class="text-center">Nomor Handphone</th>
+                <th class="text-center">File Foto</th>
+                <th class="text-center">File KTP</th>
+                <th class="text-center">Status User Client</th>
+                <th class="text-center">Status Dokument <br> Kerja Sama Mitra</th>
+                <th class="text-center">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -120,40 +120,60 @@
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->email }}</td>
                 <td>{{ $item->no_hp }}</td>
-                <td>
+                <td class="text-center">
                   @if(!empty($item->file_foto))
-                    <img src="{{ asset('storage/client/photo-profile/' . $item->file_foto) }}" alt="img" style="max-width: 100px; max-height: 100px; margin-bottom: 10px;">
+                    @php
+                      $filePath = public_path('storage/client/photo-profile/' . $item->file_foto);
+                    @endphp
+                    @if(file_exists($filePath))
+                      @php
+                        $imageSize = getimagesize($filePath);
+                        $borderRadius = (100 / $imageSize[0]) * 50;
+                      @endphp
+                      <img src="{{ asset('storage/client/photo-profile/' . $item->file_foto) }}" alt="img" style="max-width: 100px; max-height: 100px; margin-bottom: 10px; border-radius: {{ $borderRadius }}%;">
+                    @else
+                      <img src="{{ asset('img/default.png') }}" alt="img" style="max-width: 100px; max-height: 100px; margin-bottom: 10px; border-radius: 50%;">
+                    @endif
                   @else
-                    <img src="{{ asset('img/default.png') }}" alt="img" style="max-width: 100px; max-height: 100px; margin-bottom: 10px;">
+                    <img src="{{ asset('img/default.png') }}" alt="img" style="max-width: 100px; max-height: 100px; margin-bottom: 10px; border-radius: 50%;">
                   @endif
                 </td>
-                <td>
+                <td class="text-center">
                   @if(!empty($item->file_ktp))
                     <img src="{{ asset('storage/client/file_ktp/' . $item->file_ktp) }}" alt="img" style="max-width: 100px; max-height: 100px; margin-bottom: 10px;">
                   @else
                     <img src="{{ asset('img/ktp.jpg') }}" alt="img" style="max-width: 100px; max-height: 100px; margin-bottom: 10px;">
                   @endif
                 </td>
-                <td>
+                <td class="text-center">
                   @if($item->status_user == 'active')
                     <span class="badges bg-lightgreen">Active</span>
                   @else
                     <span class="badges bg-lightred">Inactive</span>
                   @endif
                 </td>
-                <td>
-                  <a class="me-3" href="{{ route('userslistclientedit', ['id' => $item->id]) }}">
-                    <i class="fas fa-edit"></i>
+                <td class="text-center">
+                  @if($item->documentKerjasamaClient)
+                    <span class="badges {{ $item->documentKerjasamaClient->status_kerjasama == 'diterima' ? 'bg-lightgreen' : ($item->documentKerjasamaClient->status_kerjasama == 'ditolak' ? 'bg-lightred' : 'bg-lightyellow') }}">
+                      {{ ucfirst($item->documentKerjasamaClient->status_kerjasama) }}
+                    </span>
+                  @else
+                    <span class="badges bg-lightred">No Data</span>
+                  @endif
+                </td>
+                <td class="text-center">
+                  <a href="#" class="btn btn-link btn-edit" data-id="{{ $item->id }}" title="Edit Status Document Kerja Sama Mitra">
+                    <i class="fas fa-edit text-dark"></i>
                   </a>
-                  <a class="me-3" href="{{ route('showclient', ['id' => $item->id]) }}">
-                    <i class="fas fa-eye"></i>
+                  <a class="me-3" href="{{ route('showclient', ['id' => $item->id]) }}" title="Melihat Data Document Users Client Dan Profile Client">
+                    <i class="fas fa-eye text-dark"></i>
                   </a>
-                  <form action="" method="POST" style="display: inline;">
+                  <button type="button" class="btn btn-link text-dark btn-delete" data-id="{{ $item->id }}" title="Menghapus Data">
+                    <i class="fas fa-trash-alt text-dark"></i>
+                  </button>
+                  <form id="deleteForm-{{ $item->id }}" action="{{ route('userslistclientdelete', ['id' => $item->id]) }}" method="POST" style="display: none;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-link text-dark" onclick="return confirm('Are you sure you want to delete this item?');">
-                      <i class="fas fa-trash-alt"></i>
-                    </button>
                   </form>
                 </td>
               </tr>
@@ -163,7 +183,92 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <form id="editForm" method="POST" action="">
+            @csrf
+            @method('POST')
+            <div class="modal-header">
+              <h5 class="modal-title" id="editModalLabel">Update Data Kerja Sama Calon Mitra</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group mb-3">
+                <label for="status_kerjasama" class="form-label">Status Kerja Sama</label>
+                <select name="status_kerjasama" id="status_kerjasama" class="form-select">
+                  <option value="ditunggu">Ditunggu</option>
+                  <option value="diterima">Diterima</option>
+                  <option value="ditolak">Ditolak</option>
+                </select>
+              </div>
+              <div class="form-group mb-3">
+                <label for="keterangan_status_kerjasama" class="form-label">Keterangan Status Kerja Sama</label>
+                <textarea name="keterangan_status_kerjasama" id="keterangan_status_kerjasama" class="form-control" rows="3"></textarea>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Konfirmasi Hapus -->
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteConfirmModalLabel">Konfirmasi Penghapusan</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Apakah Anda yakin ingin menghapus item ini?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+            <button type="button" class="btn btn-danger" id="confirmDeleteButton">Hapus</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
+@endsection
 
+@section('scripts')
+<script>
+$(document).ready(function() {
+    var deleteFormId = null;
+
+    $('.btn-delete').click(function() {
+        deleteFormId = $(this).data('id');
+        $('#deleteConfirmModal').modal('show');
+    });
+
+    $('#confirmDeleteButton').click(function() {
+        if (deleteFormId) {
+            $('#deleteForm-' + deleteFormId).submit();
+        }
+    });
+
+    $('.btn-edit').click(function() {
+        var id = $(this).data('id');
+        var url = "{{ route('getKerjasamaData', ':id') }}";
+        url = url.replace(':id', id);
+
+        $.get(url, function(data) {
+            $('#status_kerjasama').val(data.status_kerjasama);
+            $('#keterangan_status_kerjasama').val(data.keterangan_status_kerjasama);
+            $('#editForm').attr('action', "{{ route('userslistclienteditproses', ':id') }}".replace(':id', id));
+            $('#editModal').modal('show');
+        });
+    });
+});
+</script>
 @endsection
