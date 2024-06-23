@@ -12,9 +12,13 @@ class Mitra extends Model
     protected $table = 'mitras';
 
     protected $fillable = [
-        // 'title',
         'name_mitra',
         'image',
         'status_mitra'
     ];
+
+    public function users()
+    {
+        return $this->hasMany(User::class, 'mitra_id');
+    }
 }

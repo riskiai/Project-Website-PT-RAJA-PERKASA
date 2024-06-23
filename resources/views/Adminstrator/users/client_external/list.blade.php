@@ -5,14 +5,8 @@
   <div class="content">
     <div class="page-header">
       <div class="page-title">
-        <h4>List Data Users Calon Client PT Raja Perkasa</h4>
+        <h4>List Data Users PIC Perusahaan Dan Dokumen Kerja Sama Mitra PT Raja Perkasa</h4>
       </div>
-      {{-- <div class="page-btn">
-        <a href="{{ route('testimonicreate') }}" class="btn btn-added">
-          <img src="{{ asset('assets/img/icons/plus.svg') }}" class="me-2" alt="img" />
-          Tambah Data Users Client PT Raja Perkasa
-        </a>
-      </div> --}}
     </div>
 
     <div class="card">
@@ -52,63 +46,19 @@
           </div>
         </div>
 
-        <div class="card" id="filter_inputs">
-          <div class="card-body pb-0">
-            <div class="row">
-              <div class="col-lg-2 col-sm-6 col-12">
-                <div class="form-group">
-                  <div class="input-groupicon">
-                    <input type="text" class="datetimepicker cal-icon" placeholder="Choose Date" />
-                    <div class="addonset">
-                      <img src="{{ asset('assets/img/icons/calendars.svg') }}" alt="img" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-2 col-sm-6 col-12">
-                <div class="form-group">
-                  <input type="text" placeholder="Enter Reference" />
-                </div>
-              </div>
-              <div class="col-lg-2 col-sm-6 col-12">
-                <div class="form-group">
-                  <select class="select">
-                    <option>Choose Category</option>
-                    <option>Computers</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-lg-2 col-sm-6 col-12">
-                <div class="form-group">
-                  <select class="select">
-                    <option>Choose Status</option>
-                    <option>Complete</option>
-                    <option>Inprogress</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-lg-1 col-sm-6 col-12 ms-auto">
-                <div class="form-group">
-                  <a class="btn btn-filters ms-auto">
-                    <img src="{{ asset('assets/img/icons/search-whites.svg') }}" alt="img" />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <div class="table-responsive">
           <table class="table datanew">
             <thead>
               <tr>
                 <th class="text-center">No</th>
                 <th class="text-center">Nama PIC</th>
+                <th class="text-center">Nama Perusahaan</th>
                 <th class="text-center">Email</th>
                 <th class="text-center">Nomor Handphone</th>
                 <th class="text-center">File Foto</th>
                 <th class="text-center">File KTP</th>
-                <th class="text-center">Status User Client</th>
+                <th class="text-center">Status User</th>
+                <th class="text-center">Status PIC Perusahaan</th>
                 <th class="text-center">Status Dokument <br> Kerja Sama Mitra</th>
                 <th class="text-center">Action</th>
               </tr>
@@ -118,22 +68,12 @@
               <tr>
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $item->name }}</td>
+                <td>{{ $item->mitra ? $item->mitra->name_mitra : '-' }}</td>
                 <td>{{ $item->email }}</td>
                 <td>{{ $item->no_hp }}</td>
                 <td class="text-center">
                   @if(!empty($item->file_foto))
-                    @php
-                      $filePath = public_path('storage/client/photo-profile/' . $item->file_foto);
-                    @endphp
-                    @if(file_exists($filePath))
-                      @php
-                        $imageSize = getimagesize($filePath);
-                        $borderRadius = (100 / $imageSize[0]) * 50;
-                      @endphp
-                      <img src="{{ asset('storage/client/photo-profile/' . $item->file_foto) }}" alt="img" style="max-width: 100px; max-height: 100px; margin-bottom: 10px; border-radius: {{ $borderRadius }}%;">
-                    @else
-                      <img src="{{ asset('img/default.png') }}" alt="img" style="max-width: 100px; max-height: 100px; margin-bottom: 10px; border-radius: 50%;">
-                    @endif
+                    <img src="{{ asset('storage/client/photo-profile/' . $item->file_foto) }}" alt="img" style="max-width: 100px; max-height: 100px; margin-bottom: 10px; border-radius: 50%;">
                   @else
                     <img src="{{ asset('img/default.png') }}" alt="img" style="max-width: 100px; max-height: 100px; margin-bottom: 10px; border-radius: 50%;">
                   @endif
@@ -150,6 +90,13 @@
                     <span class="badges bg-lightgreen">Active</span>
                   @else
                     <span class="badges bg-lightred">Inactive</span>
+                  @endif
+                </td>
+                <td class="text-center">
+                  @if($item->status_pic_perusahaan == 'client')
+                    <span class="badges bg-lightgreen">Client</span>
+                  @else
+                    <span class="badges bg-lightyellow">Calon Client</span>
                   @endif
                 </td>
                 <td class="text-center">

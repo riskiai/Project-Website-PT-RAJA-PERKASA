@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreign('role_id')->references('id')->on('roles');
             $table->unsignedBigInteger('divisi_id')->nullable();
             $table->foreign('divisi_id')->references('id')->on('divisis')->nullable();
+            $table->unsignedBigInteger('mitra_id')->nullable();
+            $table->foreign('mitra_id')->references('id')->on('mitras')->nullable();
             $table->string('name')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -28,6 +30,7 @@ return new class extends Migration
             $table->enum('jk', ['L', 'P'])->nullable();
             $table->string('file_foto')->nullable();
             $table->string('file_ktp')->nullable();
+            $table->enum('status_pic_perusahaan', ['calon_client', 'client'])->nullable()->default('calon_client');
             $table->enum('status_user', ['active', 'nonactive'])->nullable()->default('active');
             $table->rememberToken();
             $table->timestamps();

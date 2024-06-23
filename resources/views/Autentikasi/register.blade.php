@@ -5,94 +5,165 @@
 @endsection
 
 @section('content')
+<div class="container-fluid overflow-hidden my-5 px-5">
+    <div class="login">
+        <div class="container">
+            <h1>Register</h1>
+            <form id="register-form" action="{{ route('registerproses') }}" method="POST">
+                @csrf
+                <!-- Hidden input for user ID -->
+                <input type="hidden" id="user_id" name="user_id">
 
-     <!-- Register Page  -->
-     <div class="container-fluid overflow-hidden my-5 px-5">
-        <div class="login">
-           <div class="container">
-                <h1>Register</h1>
-                <form action="{{ route('registerproses') }}" method="POST">
-                    @csrf 
-                    <input type="text" name="name" class="input-field" placeholder="Nama PIC">
-                    <input type="email" name="email" class="input-field" placeholder="Email PIC">
-                    <input type="number" name="no_hp" class="input-field" placeholder="No Handphone">
-                    <input type="password" name="password" class="input-field" placeholder="Password"><br>
-                    <input type="checkbox"><span>Remember me</span>
-                    <a href="#">Forgot password?</a>
-                    <button class="btn-register">Register</button> 
+                <!-- Single input for company name -->
+                <input type="text" id="company_name" name="company_name" class="input-field" placeholder="Nama Perusahaan" list="companies" required>
+                <datalist id="companies">
+                    @foreach($mitras as $mitra)
+                        <option value="{{ $mitra->name_mitra }}">
+                    @endforeach
+                </datalist>
+
+                <input type="text" id="name" name="name" class="input-field" placeholder="Nama PIC" required>
+                <input type="email" id="email" name="email" class="input-field" placeholder="Email PIC" required>
+                <input type="number" id="no_hp" name="no_hp" class="input-field" placeholder="No Handphone" required>
+                <input type="password" id="password" name="password" class="input-field" placeholder="Password" required><br>
+                <input type="checkbox"><span>Remember me</span>
+                <a href="#">Forgot password?</a>
+                <button type="submit" class="btn-register">Register</button> 
+            </form>
+            
+            <hr><p>Or Connect With</p><hr>
+            <ul>
+                <li><i class="fab fa-facebook-f fa-2x"></i></li>
+                {{-- <li><i class="fab fa-twitter fa-2x"></i></li> --}}
+                <li><i class="fas fa-envelope fa-2x"></i></li>
+                <li><i class="fab fa-linkedin-in fa-2x"></i></li>
+            </ul>
+            <div class="clearfix"></div>          
+            <span class="copyright">&copy; PT Raja Perkasa 2024</span> 
+        </div>
+    </div>
+    <div class="register">
+        <div class="container">
+            <i class="fas fa-user-plus fa-5x"></i>
+            <h2>Selamat Datang Di Website PT Raja Perkasa</h2>
+         
+            <p>Daftarkan Segera Sebagai Calon Mitra Kami! <br> Sudah Punya Akun ? Silahkan Login Terlebih Dahulu!</p>
+            <a href="{{ route('login') }}"><button>Login <i class="fas fa-arrow-circle-right"></i></button></a> 
+        </div>
+    </div>  
+</div>
+
+<!-- Modal for email confirmation -->
+<div class="modal fade" id="emailConfirmationModal" tabindex="-1" aria-labelledby="emailConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="emailConfirmationModalLabel">Konfirmasi Email Perusahaan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="email-confirmation-form">
+                    <div class="mb-3">
+                        <label for="company_email" class="form-label">Email Perusahaan</label>
+                        <input type="email" class="form-control" id="company_email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Konfirmasi</button>
                 </form>
-                
-                <hr><p>Or Connect With</p><hr>
-                <ul>
-                    <li><i class="fab fa-facebook-f fa-2x"></i></li>
-                    {{-- <li><i class="fab fa-twitter fa-2x"></i></li> --}}
-                    <li><i class="fas fa-envelope fa-2x"></i></li>
-                    <li><i class="fab fa-linkedin-in fa-2x"></i></li>
-                </ul>
-                <div class="clearfix"></div>          
-                <span class="copyright">&copy; PT Raja Perkasa 2024</span> 
-           </div>
-        </div>
-        <div class="register">
-            <div class="container">
-                <i class="fas fa-user-plus fa-5x"></i>
-                <h2>Selamat Datang Di Website PT Raja Perkasa</h2>
-             
-                <p>Daftarkan Segera Sebagai Calon Mitra Kami! <br> Sudah Punya Akun ? Silahkan Login Terlebih Dahulu!</p>
-                <a href="{{ route('login') }}"><button>Login <i class="fas fa-arrow-circle-right"></i></button></a> 
-            </div>
-        </div>  
-      </div>
-  
-       <!-- Footer Start -->
-       <div class="container-fluid bg-dark text-secondary footer mt-5 py-5 wow fadeIn" data-wow-delay="0.1s">
-        <div class="container py-1">
-            <div class="row g-5">
-                <div class="col-lg-3 col-md-6">
-                    <h5 class="text-light mb-4" style="font-size:15px;">Alamat PT Raja Perkasa</h5>
-                    <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>Indramayu, Jawa Barat</p>
-                    <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                    <p class="mb-2"><i class="fa fa-envelope me-3"></i>rajaperkasa@gmail.com</p>
-                    <div class="d-flex pt-2">
-                        <a class="btn btn-square btn-outline-secondary rounded-circle me-2" href=""><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-square btn-outline-secondary rounded-circle me-2" href=""><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-square btn-outline-secondary rounded-circle me-2" href=""><i class="fas fa-envelope"></i></a>
-                        <a class="btn btn-square btn-outline-secondary rounded-circle me-2" href=""><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h5 class="text-light mb-4" style="font-size:15px;">Jasa Kami</h5>
-                    <a class="btn btn-link" href="">Manajemen Proyek</a>
-                    <a class="btn btn-link" href="">Desain & Rekayasa</a>
-                    <a class="btn btn-link" href="">Konstruksi Umum</a>
-                    <a class="btn btn-link" href="">Konsultasi Proyek</a>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h5 class="text-light mb-4" style="font-size:15px;">Quick Links</h5>
-                    <a class="btn btn-link" href="">Tentang</a>
-                    <a class="btn btn-link" href="">Jasa Kami</a>
-                    <a class="btn btn-link" href="">Project</a>
-                    <a class="btn btn-link" href="">Kontak</a>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <h5 class="text-light mb-4" style="font-size:15px;">Hubungi Kami</h5>
-                    <p>Hubungi kami untuk informasi lebih lanjut tentang layanan kami.</p>
-                    <div class="position-relative w-100">
-                        <input class="form-control bg-transparent border-secondary w-100 py-3 ps-4 pe-5" type="text" placeholder="Email Anda">
-                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">Register</button>
-                    </div>
-                </div>
+                <div id="email-confirmation-message" class="mt-3"></div>
             </div>
         </div>
     </div>
-    <!-- Footer End -->
-  
-  
-    <!-- Copyright Start -->
-    <div class="container-fluid start"  style="background: #000000; height: 70px;">
-          <br>
-           <a class="border-bottom text-orange" href="#"> &copy; PT Raja Perkasa</a>, All Right Reserved.
-    </div>
-    <!-- Copyright End -->
+</div>
 
+<script>
+    document.getElementById('company_name').addEventListener('input', function() {
+        var companyName = this.value;
+        var url = "{{ route('getpicdetails') }}";
+
+        if (companyName) {
+            fetch(`${url}?company_name=${companyName}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('user_id').value = data.user.id;
+                        document.getElementById('name').value = data.user.name;
+                        document.getElementById('email').value = data.user.email;
+                        document.getElementById('no_hp').value = data.user.no_hp;
+                    } else {
+                        document.getElementById('user_id').value = '';
+                        document.getElementById('name').value = '';
+                        document.getElementById('email').value = '';
+                        document.getElementById('no_hp').value = '';
+                    }
+                })
+                .catch(error => console.error('Error fetching PIC details:', error));
+        }
+    });
+
+    document.getElementById('register-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var userId = document.getElementById('user_id').value;
+        if (userId) {
+            var modal = new bootstrap.Modal(document.getElementById('emailConfirmationModal'));
+            modal.show();
+        } else {
+            this.submit();
+        }
+    });
+
+    document.getElementById('email-confirmation-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var email = document.getElementById('company_email').value;
+        var userId = document.getElementById('user_id').value;
+
+        fetch("{{ route('confirmEmail') }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ email: email, user_id: userId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            var messageDiv = document.getElementById('email-confirmation-message');
+            if (data.success) {
+                document.getElementById('register-form').submit();
+            } else {
+                messageDiv.textContent = 'Email perusahaan tidak valid.';
+                messageDiv.classList.add('text-danger');
+            }
+        })
+        .catch(error => console.error('Error confirming email:', error));
+    });
+</script>
+
+@endsection
+
+@section('script')
+<script>
+    document.getElementById('company_name').addEventListener('input', function() {
+        var companyName = this.value;
+        var url = "{{ route('getpicdetails') }}";
+
+        if (companyName) {
+            fetch(`${url}?company_name=${companyName}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('user_id').value = data.user.id;
+                        document.getElementById('name').value = data.user.name;
+                        document.getElementById('email').value = data.user.email;
+                        document.getElementById('no_hp').value = data.user.no_hp;
+                    } else {
+                        document.getElementById('user_id').value = '';
+                        document.getElementById('name').value = '';
+                        document.getElementById('email').value = '';
+                        document.getElementById('no_hp').value = '';
+                    }
+                })
+                .catch(error => console.error('Error fetching PIC details:', error));
+        }
+    });
+</script>
 @endsection

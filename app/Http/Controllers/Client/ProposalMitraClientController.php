@@ -16,14 +16,25 @@ class ProposalMitraClientController extends Controller
 {
     public function index()
     {
-        $user_id = Auth::id();
-        $dataKerjasama = Document_Kerjasama_Client::where('user_id', $user_id)->first();
+        $user = Auth::user();
+        $dataKerjasama = Document_Kerjasama_Client::where('user_id', $user->id)->first();
 
-        return view('Client.pengajuankerjasamamitra', compact('dataKerjasama'));
+        // Cek apakah profil pengguna sudah lengkap
+        $profileCompleted = $user->name && $user->email && $user->no_hp && $user->nik && $user->file_ktp && $user->file_foto;
+
+        return view('Client.pengajuankerjasamamitra', compact('dataKerjasama', 'profileCompleted'));
     }
 
     public function create(Request $request)
     {
+        $user = Auth::user();
+
+        // Cek apakah profil pengguna sudah lengkap
+        $profileCompleted = $user->name && $user->email && $user->no_hp && $user->nik && $user->file_ktp && $user->file_foto;
+        if (!$profileCompleted) {
+            return redirect()->route('profileclient')->with('error', 'Lengkapi profil Anda terlebih dahulu.');
+        }
+
         $validatedData = $request->validate([
             'situs_web' => 'required|string|max:255',
             'email_perusahaan' => 'required|email|max:255',
@@ -63,8 +74,7 @@ class ProposalMitraClientController extends Controller
             'legalitas_file_dokumen_kebenaran' => 'nullable|file|mimes:pdf',
         ]);
 
-        $user_id = Auth::id();
-        $dataKerjasama = Document_Kerjasama_Client::where('user_id', $user_id)->first();
+        $dataKerjasama = Document_Kerjasama_Client::where('user_id', $user->id)->first();
 
         if ($dataKerjasama) {
             return redirect()->route('pengajuankerjasama')->with('error', 'Pengajuan sudah pernah dilakukan. Silakan update data jika diperlukan.');
@@ -130,7 +140,7 @@ class ProposalMitraClientController extends Controller
 
         // Create new data
         Document_Kerjasama_Client::create([
-            'user_id' => $user_id,
+            'user_id' => $user->id,
             'data_sales_id' => $dataSales->id,
             'data_manajer_id' => $dataManajer->id,
             'data_direktur_id' => $dataDirektur->id,

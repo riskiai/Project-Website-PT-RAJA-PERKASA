@@ -13,6 +13,50 @@ use App\Models\Document_Kerjasama_Client;
 
 class UsersAdminController extends Controller
 {
+    /* Profile */
+    public function editProfile($id) {
+        $user = User::findOrFail($id);
+        $user->tgl_lahir_formatted = $user->tgl_lahir ? Carbon::parse($user->tgl_lahir)->translatedFormat('F, d Y') : null;
+        $user->alamat_stripped = strip_tags($user->alamat);
+        return view('Adminstrator.users.profile', compact('user'));
+    }
+    
+    public function updateprofile(Request $request, $id) {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+            'no_hp' => 'nullable|string|max:255',
+            'alamat' => 'nullable|string|max:255',
+            'tgl_lahir' => 'nullable|date',
+            'jk' => 'required|in:L,P',
+            'file_foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+    
+        $user = User::findOrFail($id);
+        $user->name = $validatedData['name'];
+        $user->email = $validatedData['email'];
+        $user->no_hp = $validatedData['no_hp'];
+        $user->alamat = $validatedData['alamat'];
+        $user->tgl_lahir = $validatedData['tgl_lahir'] ?? $user->tgl_lahir;
+        $user->jk = $validatedData['jk'];
+    
+        if ($request->hasFile('file_foto')) {
+            if ($user->file_foto) {
+                Storage::delete('public/client/photo-profile/' . $user->file_foto);
+            }
+    
+            $fileFoto = $request->file('file_foto');
+            $fileNameFoto = time() . '_' . $fileFoto->getClientOriginalName();
+            $fileFoto->storeAs('public/client/photo-profile', $fileNameFoto);
+            $user->file_foto = $fileNameFoto;
+        }
+    
+        $user->save();
+    
+        return redirect()->route('editusersprofile', $user->id)->with('success', 'Profile berhasil diperbarui.');
+    }
+    
+
     /* Users Internal PT Raja Perkasa */
     public function index() {
         $data = User::with(['divisi', 'role'])
@@ -181,12 +225,13 @@ class UsersAdminController extends Controller
         $data = User::whereHas('role', function($query) {
             $query->where('role_name', 'client');
         })
-        ->select('id', 'name', 'email', 'no_hp', 'file_foto', 'file_ktp', 'status_user')
-        ->with('documentKerjasamaClient')
+        ->select('id', 'name', 'email', 'no_hp', 'file_foto', 'file_ktp', 'status_user', 'mitra_id', 'status_pic_perusahaan')
+        ->with(['documentKerjasamaClient', 'mitra'])
         ->get();
-
+        
         return view('Adminstrator.users.client_external.list', compact('data'));
     }
+    
 
     public function showclient($id) {
         $user = User::with('role')->find($id);
@@ -218,12 +263,23 @@ class UsersAdminController extends Controller
         }
     
         $user->status_user = $request->status_user;
+    
+        // Update status_pic_perusahaan based on the status_user
+        if ($request->status_user == 'nonactive') {
+            $user->status_pic_perusahaan = 'calon_client';
+        } else {
+            // Optionally, handle other logic for when the user is active
+            $documentKerjasama = $user->documentKerjasamaClient;
+            if ($documentKerjasama && $documentKerjasama->status_kerjasama == 'diterima') {
+                $user->status_pic_perusahaan = 'client';
+            }
+        }
+    
         $user->save();
     
         return redirect()->route('userslisteclient', $id)->with('success', 'Status pengguna berhasil diperbarui.');
     }
     
-
 
     public function getKerjasamaData($id) {
         $dataKerjasama = Document_Kerjasama_Client::where('user_id', $id)->first();
@@ -240,21 +296,33 @@ class UsersAdminController extends Controller
             'status_kerjasama' => 'required|in:ditunggu,diterima,ditolak',
             'keterangan_status_kerjasama' => 'nullable|string|max:255'
         ]);
-
+    
         $dataKerjasama = Document_Kerjasama_Client::where('user_id', $id)->first();
-
+    
         if (!$dataKerjasama) {
             return redirect()->route('userslisteclient')->with('error', 'Data kerja sama tidak ditemukan.');
         }
-
+    
         $dataKerjasama->update([
             'status_kerjasama' => $validatedData['status_kerjasama'],
             'keterangan_status_kerjasama' => $validatedData['keterangan_status_kerjasama']
         ]);
-
+    
+        // Update the status_pic_perusahaan based on the status_kerjasama
+        $user = User::find($dataKerjasama->user_id);
+        if ($user) {
+            if ($validatedData['status_kerjasama'] == 'diterima') {
+                $user->status_pic_perusahaan = 'client';
+            } else {
+                $user->status_pic_perusahaan = 'calon_client';
+            }
+            $user->save();
+        }
+    
         return redirect()->route('userslisteclient')->with('success', 'Status kerja sama berhasil diperbarui.');
     }
-
+    
+    
     public function deleteClient($id) {
         $user = User::find($id);
         if (!$user) {

@@ -11,14 +11,10 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'role_id',
         'divisi_id',
+        'mitra_id',
         'name',
         'email',
         'nik',
@@ -29,47 +25,36 @@ class User extends Authenticatable
         'jk',
         'file_ktp',
         'status_user',
+        'status_pic_perusahaan',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
         'tgl_lahir' => 'date',
     ];
 
-    /**
-     * Get the role that owns the user.
-     */
     public function role()
     {
         return $this->belongsTo(Role::class);
     }
 
-    /**
-     * Get the divisi that the user belongs to.
-     */
     public function divisi()
     {
         return $this->belongsTo(Divisi::class);
     }
 
-    
-    // untuk relasi one To Many
-    public function documentKerjasamaClient() {
+    public function mitra()
+    {
+        return $this->belongsTo(Mitra::class);
+    }
+
+    public function documentKerjasamaClient()
+    {
         return $this->hasOne(Document_Kerjasama_Client::class, 'user_id');
     }
 

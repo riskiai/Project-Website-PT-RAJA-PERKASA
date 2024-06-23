@@ -2,7 +2,8 @@
 
 @section('content')
 @php
-$profileCompleted = true;
+$user = Auth::user();
+$profileCompleted = $user->file_foto !== null;
 @endphp
 
 @if ($profileCompleted)
@@ -193,6 +194,12 @@ $profileCompleted = true;
                 </div>
             </div>
         </div>
+    </div>
+</div>
+@else
+<div class="container mt-5">
+    <div class="alert alert-warning">
+        Lengkapi profil Anda terlebih dahulu untuk mengajukan kerjasama mitra. <a href="{{ route('profileclient') }}">Lengkapi Profil</a>
     </div>
 </div>
 @endif

@@ -11,11 +11,18 @@ use Illuminate\Support\Facades\Validator;
 class MitraAdminController extends Controller
 {
     public function index(Request $request) {
-        $query = Mitra::latest();
+        $query = Mitra::query()
+            ->whereHas('users', function($query) {
+                $query->where('status_pic_perusahaan', 'client')
+                      ->whereHas('documentKerjasamaClient', function($query) {
+                          $query->where('status_kerjasama', 'diterima');
+                      });
+            })
+            ->latest();
 
         /* Melakukan Filter Data */
         if ($request->get('search')) {
-            $query->where('title', 'LIKE', '%' . $request->get('search') . '%');
+            $query->where('name_mitra', 'LIKE', '%' . $request->get('search') . '%');
         }
 
         $data = $query->get();
@@ -30,7 +37,6 @@ class MitraAdminController extends Controller
     public function createproses(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            // 'title' => 'required',
             'name_mitra' => 'required',
             'status_mitra' => 'required',
             'image.*' => 'required|mimes:png,jpg,jpeg|max:2048', // 'image.*' untuk menangani multiple gambar
@@ -52,7 +58,6 @@ class MitraAdminController extends Controller
 
         // Buat data baru
         Mitra::create([
-            // 'title' => $request->title,
             'name_mitra' => $request->name_mitra,
             'status_mitra' => $request->status_mitra,
             'image' => implode(',', $images), // Simpan string nama file gambar
@@ -60,7 +65,6 @@ class MitraAdminController extends Controller
 
         return redirect()->route('mitralist');
     }
-
 
     public function edit(Request $request, $id)
     {
@@ -72,7 +76,6 @@ class MitraAdminController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            // 'title' => 'required',
             'name_mitra' => 'required',
             'status_mitra' => 'required',
             'image.*' => 'sometimes|mimes:png,jpg,jpeg|max:2048', // 'image.*' untuk menangani multiple gambar
@@ -85,7 +88,6 @@ class MitraAdminController extends Controller
         $data = Mitra::find($id);
 
         if ($data) {
-            // $data->title = $request->title;
             $data->name_mitra = $request->name_mitra;
             $data->status_mitra = $request->status_mitra;
 

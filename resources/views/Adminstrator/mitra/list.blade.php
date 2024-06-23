@@ -8,12 +8,12 @@
       <div class="page-title">
         <h4>List Data Mitra Di PT Raja Perkasa </h4>
       </div>
-      <div class="page-btn">
+      {{-- <div class="page-btn">
         <a href="{{ route('mitracreate') }}" class="btn btn-added">
           <img src="{{ asset('assets/img/icons/plus.svg') }}" class="me-2" alt="img" />
           Tambah Data Mitra Di PT Raja Perkasa
         </a>
-      </div>
+      </div> --}}
     </div>
 
     <div class="card">
@@ -110,10 +110,10 @@
                   </label>
                 </th>
                 <th>No</th>
-                <th>Nama Mitra</th>
+                <th>Nama Mitra Perusahaan</th>
                 <th>File Image</th>
                 <th>Created Date</th>
-                <th>Status</th>
+                <th>Status Mitra</th>
                 <th>Action</th>
               </tr>
             </thead>

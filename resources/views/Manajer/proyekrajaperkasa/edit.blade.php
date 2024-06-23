@@ -104,6 +104,9 @@
                             @enderror
                         </div>
                     </div>
+
+              
+                    
                     <div class="col-lg-6 col-sm-6 col-12">
                         <div class="form-group">
                             <label>PO (PDF)</label>
@@ -145,6 +148,19 @@
                                     @endforeach
                                 </div>
                             @endif
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label>Status Progres Proyek</label>
+                            <select name="status_progres_proyek" class="select" required>
+                                <option value="sedangberjalan" {{ old('status_progres_proyek', $proyek->status_progres_proyek) == 'sedangberjalan' ? 'selected' : '' }}>Sedang Berjalan</option>
+                                <option value="selesai" {{ old('status_progres_proyek', $proyek->status_progres_proyek) == 'selesai' ? 'selected' : '' }}>Selesai</option>
+                            </select>
+                            @error('status_progres_proyek')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                     

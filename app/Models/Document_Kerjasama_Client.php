@@ -9,7 +9,7 @@ class Document_Kerjasama_Client extends Model
 {
     use HasFactory;
 
-    protected $table = 'document_kerjasama_clients'; // Specify the table name
+    protected $table = 'document_kerjasama_clients';
 
     protected $fillable = [
         'user_id',
@@ -23,9 +23,8 @@ class Document_Kerjasama_Client extends Model
         'data_kepemilikan_saham',
         'situs_web',
         'email_perusahaan',
-    ]; // Define the fillable attributes
+    ];
 
-    // Define relationships
     public function user()
     {
         return $this->belongsTo(User::class);

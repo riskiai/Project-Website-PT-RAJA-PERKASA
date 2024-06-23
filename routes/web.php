@@ -20,6 +20,7 @@ use App\Http\Controllers\Adminstrator\TentangAdminController;
 use App\Http\Controllers\Adminstrator\TestimoniAdminController;
 use App\Http\Controllers\Client\ProfileClientController;
 use App\Http\Controllers\Client\ProposalMitraClientController;
+use App\Http\Controllers\Hrd\DashboardController as HrdDashboardController;
 use App\Http\Controllers\Manajer\DashboardController as ManajerDashboardController;
 use App\Http\Controllers\Manajer\ManajerProyekListProyekController;
 use App\Http\Controllers\Manajer\ManajerProyekMaterialsController;
@@ -37,8 +38,9 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/loginproses', [LoginController::class, 'loginproses'])->name('login-proses');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
+Route::post('/confirm-email', [RegisterController::class, 'confirmEmail'])->name('confirmEmail');
+Route::get('/get-pic-details', [RegisterController::class, 'getPicDetails'])->name('getpicdetails');
 Route::post('/register_prosess', [RegisterController::class, 'registerproses'])->name('registerproses');
-
 
 
 /* Pengunjung */
@@ -87,11 +89,6 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
      Route::post('/administrator/kontak/update/{id}', [KontakAdminController::class, 'update'])->name('kontak.update');     
      Route::delete('/administrator/kontak/{id}', [KontakAdminController::class, 'delete'])->name('kontakdelete');
 
-    // Proyek
-    Route::get('/adminstrator/proyek', [ProyekAdminController::class, 'index'])->name('proyeklist');
-    Route::get('/adminstrator/proyekcreate', [ProyekAdminController::class, 'store'])->name('proyekcreate');
-    Route::get('/adminstrator/proyekedit', [ProyekAdminController::class, 'edit'])->name('proyekedit');
-
     // Mitra
     Route::get('/administrator/mitra', [MitraAdminController::class, 'index'])->name('mitralist');
     Route::get('/administrator/mitracreate', [MitraAdminController::class, 'create'])->name('mitracreate');
@@ -126,12 +123,20 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::put('/adminstrator/userupdate/{id}', [UsersAdminController::class, 'update'])->name('userupdate');
     Route::delete('/adminstrator/users/delete/{id}', [UsersAdminController::class, 'deletepegawai'])->name('userslistpegawaidelete');
 
-    Route::get('/adminstrator/users/profile', [UsersAdminController::class, 'editProfile'])->name('usersprofile');
+    // Proyek
+    Route::get('/adminstrator/proyek', [ProyekAdminController::class, 'index'])->name('proyeklist');
+    Route::get('/adminstrator/listdataproyek/show/{id}', [ProyekAdminController::class, 'adminstratorshowlistdataproyek'])->name('adminstratorshowlistdataproyek');
+    Route::get('/adminstrator/listdataproyek/{id}/edit', [ProyekAdminController::class, 'adminstratorlistdataproyekedit'])->name('adminstratorlistdataproyekedit');
+    Route::post('/adminstrator/listdataproyek/update/{id}', [ProyekAdminController::class, 'adminstratorlistdataproyekupdate'])->name('adminstratorlistdataproyek.update');
+    Route::get('/adminstrator/getProyekData/{id}', [ProyekAdminController::class, 'getProyekData'])->name('getProyekData');
 
     // ReportData
     Route::get('/adminstrator/report/proyek', [ReportAdminController::class, 'reportproyek'])->name('reportproyek');
 
     // Settings
+    Route::get('/adminstrator/users/profile/edit/{id}', [UsersAdminController::class, 'editProfile'])->name('editusersprofile');
+    Route::post('/adminstrator/users/profile/update/{id}', [UsersAdminController::class, 'updateprofile'])->name('updateusersprofile');
+
     Route::get('/adminstrator/settings', [SettingsController::class, 'index'])->name('settings');
 });
 
@@ -193,7 +198,6 @@ Route::middleware(['auth', 'user-access:manajer'])->group(function () {
       Route::post('/manajerproyek/listdatamaterials/update/{id}', [ManajerProyekMaterialsController::class, 'listdataupdate'])->name('listdatamaterials.update');
       Route::delete('/manajerproyek/listdatamaterials/{id}', [ManajerProyekMaterialsController::class, 'listdatadelete'])->name('listdatamaterialsdelete');
 
-     
         // Data Proyek
         Route::get('/manajerproyek/listdataproyek', [ManajerProyekListProyekController::class, 'listdataproyek'])->name('listdataproyek');
         Route::get('/manajerproyek/listdataproyek/show/{id}', [ManajerProyekListProyekController::class, 'showlistdataproyek'])->name('showlistdataproyek');
@@ -233,7 +237,7 @@ Route::middleware(['auth', 'user-access:client'])->group(function () {
 
 /* HRD */
 Route::middleware(['auth', 'user-access:hrd'])->group(function () {
-    Route::get('/hrd/dashboard', [OwnerDashboardController::class, 'index'])->name('dashboardhrd');
+    Route::get('/hrd/dashboard', [HrdDashboardController::class, 'index'])->name('dashboardhrd');
 });
 
 /* Karyawan */

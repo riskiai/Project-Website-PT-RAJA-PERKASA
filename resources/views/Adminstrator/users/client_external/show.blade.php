@@ -5,12 +5,12 @@
     <div class="content">
         <div class="page-header">
             <div class="page-title">
-                <h4>Detail Data Client</h4>
+                <h4>List Data Users PIC Perusahaan Dan Dokumen Kerja Sama Mitra PT Raja Perkasa</h4>
             </div>
         </div>
         <div class="card">
             <div class="card-body">
-                <h5>Data Profil Client</h5>
+                <h5>Data PIC Perusahaan</h5>
                 <form action="{{ route('updateStatusUser', $user->id) }}" method="POST">
                     @csrf
                     <div class="row">
@@ -18,6 +18,12 @@
                             <div class="form-group">
                                 <label>Nama PIC (Penanggung Jawab)</label>
                                 <input type="text" class="form-control" value="{{ $user->name }}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Nama Perusahaan</label>
+                                <input type="text" class="form-control" value="{{ $user->mitra ? $user->mitra->name_mitra : '-' }}" readonly>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">
@@ -48,6 +54,12 @@
                                     </select>
                                     <i class="fas fa-caret-down" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); pointer-events: none;"></i>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Status PIC Perusahaan</label>
+                                <input type="text" class="form-control" value="{{ $user->status_pic_perusahaan == 'client' ? 'Client' : 'Calon Client' }}" readonly>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">

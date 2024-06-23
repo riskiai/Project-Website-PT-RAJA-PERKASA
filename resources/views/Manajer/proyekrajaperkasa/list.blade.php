@@ -141,9 +141,9 @@
                                 <td>{{ $item->peralatan->nama_peralatan ?? 'N/A' }}</td>
                                 <td>
                                     @if($item->status_progres_proyek == 'sedangberjalan')
-                                        <span class="badges bg-lightgreen">Sedang Berjalan</span>
+                                        <span class="badges  bg-lightorange">Sedang Berjalan</span>
                                     @else
-                                        <span class="badges bg-lightred">Selesai</span>
+                                        <span class="badges bg-lightgreen">Selesai</span>
                                     @endif
                                 </td>
                                 <td>

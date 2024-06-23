@@ -20,7 +20,7 @@
         <h4>Detail Data Proyek</h4>
       </div>
       <div class="page-btn">
-        <a href="{{ route('listdataproyek') }}" class="btn btn-added">
+        <a href="{{ route('proyeklist') }}" class="btn btn-added">
           Kembali
         </a>
       </div>
