@@ -32,8 +32,8 @@
                             <div class="form-group">
                                 <label>Status Materials</label>
                                 <select name="status_materials" class="select">
-                                    <option value="berfungsi">Berfungsi</option>
-                                    <option value="tidakberfungsi">Tidak Berfungsi</option>
+                                    <option value="tersedia">Tersedia</option>
+                                    <option value="tidak_tersedia">Tidak Tersedia</option>
                                 </select>
                             </div>
                         </div>

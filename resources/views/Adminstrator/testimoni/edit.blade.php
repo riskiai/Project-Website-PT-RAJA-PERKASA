@@ -23,6 +23,7 @@
         <div class="card-body">
           <form action="{{ route('testimoni.update', $data->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            <input type="hidden" name="_method" value="POST"> 
             <div class="row">
               <div class="col-lg-3 col-sm-6 col-12">
                 <div class="form-group">
@@ -30,13 +31,27 @@
                   <select name="status_testimoni" class="select">
                     <option value="active" {{ $data->status_testimoni == 'active' ? 'selected' : '' }}>Active</option>
                     <option value="nonactive" {{ $data->status_testimoni == 'nonactive' ? 'selected' : '' }}>Inactive</option>
-                </select>                
+                  </select>                
                 </div>
               </div>
               <div class="col-lg-3 col-sm-6 col-12">
                 <div class="form-group">
                   <label>Nama Client</label>
-                  <input type="text" name="name_client" class="form-control" value="{{ $data->name_client }}" required />
+                  <select name="user_id" class="select">
+                    @foreach($clients as $client)
+                      <option value="{{ $client->id }}" {{ $data->user_id == $client->id ? 'selected' : '' }}>{{ $client->name }}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-6 col-12">
+                <div class="form-group">
+                  <label>Nama Mitra</label>
+                  <select name="mitra_id" class="select">
+                    @foreach($mitras as $mitra)
+                      <option value="{{ $mitra->id }}" {{ $data->mitra_id == $mitra->id ? 'selected' : '' }}>{{ $mitra->name_mitra }}</option>
+                    @endforeach
+                  </select>
                 </div>
               </div>
               <div class="col-lg-3 col-sm-6 col-12">
@@ -76,8 +91,6 @@
   </div>
 @endsection
 
-
-{{-- CKEDITOR --}}
 @section('scripts')
 
 <script>

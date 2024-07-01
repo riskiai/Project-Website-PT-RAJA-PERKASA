@@ -33,7 +33,7 @@
             </div>
           </div>
           <div class="wordset">
-            <ul>
+            {{-- <ul>
               <li>
                 <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf">
                   <img src="{{ asset('assets/img/icons/pdf.svg') }}" alt="img" />
@@ -49,7 +49,7 @@
                   <img src="{{ asset('assets/img/icons/printer.svg') }}" alt="img" />
                 </a>
               </li>
-            </ul>
+            </ul> --}}
           </div>
         </div>
 
@@ -111,7 +111,7 @@
                 </th>
                 <th>No</th>
                 <th>Nama Mitra Perusahaan</th>
-                <th>File Image</th>
+                <th>Image Mitra Perusahaan</th>
                 <th>Created Date</th>
                 <th>Status Mitra</th>
                 <th>Action</th>

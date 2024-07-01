@@ -27,7 +27,7 @@
           <div class="row">
             <div class="col-lg-3 col-sm-6 col-12">
               <div class="form-group">
-                <label>Status PT Raja Perkasa</label>
+                <label>Status Testimoni</label>
                 <select name="status_testimoni" class="select">
                   <option value="active">Active</option>
                   <option value="nonactive">In Active</option>
@@ -37,7 +37,21 @@
             <div class="col-lg-3 col-sm-6 col-12">
               <div class="form-group">
                 <label>Nama Client</label>
-                <input type="text" name="name_client" class="form-control" required />
+                <select name="user_id" class="select">
+                  @foreach($clients as $client)
+                    <option value="{{ $client->id }}">{{ $client->name }}</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-6 col-12">
+              <div class="form-group">
+                <label>Nama Mitra</label>
+                <select name="mitra_id" class="select">
+                  @foreach($mitras as $mitra)
+                    <option value="{{ $mitra->id }}">{{ $mitra->name_mitra }}</option>
+                  @endforeach
+                </select>
               </div>
             </div>
             <div class="col-lg-3 col-sm-6 col-12">
@@ -71,7 +85,6 @@
 
 @endsection
 
-{{-- CKEDITOR --}}
 @section('scripts')
 
 <script>

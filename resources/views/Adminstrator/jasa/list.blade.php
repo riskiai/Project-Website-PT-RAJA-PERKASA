@@ -40,7 +40,7 @@
             </div>
           </div>
           <div class="wordset">
-            <ul>
+            {{-- <ul>
               <li>
                 <a
                   data-bs-toggle="tooltip"
@@ -65,7 +65,7 @@
                   ><img src="{{ asset('assets/img/icons/printer.svg') }}" alt="img"
                 /></a>
               </li>
-            </ul>
+            </ul> --}}
           </div>
         </div>
 

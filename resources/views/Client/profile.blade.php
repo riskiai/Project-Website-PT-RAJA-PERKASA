@@ -27,7 +27,7 @@
         <div class="col-md-8 offset-md-2">
             <div class="card">
                 <div class="card-header">
-                    <h4>Data Diri</h4>
+                    <h4>Data Diri PIC Perusahaan </h4>
                 </div>
                 <div class="card-body">
                     @if ($errors->any())
@@ -56,6 +56,11 @@
                             </div>
                             <input class="form-control" type="file" id="imageKTP" name="file_ktp" onchange="previewImage('imageKTP', 'imageKTPPreview');">
                         </div>
+
+                        <div class="mb-3">
+                            <label for="company_name" class="form-label">Nama Perusahaan</label>
+                            <input type="text" class="form-control" id="company_name" name="company_name" value="{{ old('company_name', $user->mitra->name_mitra ?? '') }}" placeholder="Nama Perusahaan">
+                        </div>                        
 
                         <div class="mb-3">
                             <label for="name" class="form-label">Nama PIC</label>

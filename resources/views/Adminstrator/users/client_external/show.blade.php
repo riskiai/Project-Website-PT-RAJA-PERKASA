@@ -10,7 +10,7 @@
         </div>
         <div class="card">
             <div class="card-body">
-                <h5>Data PIC Perusahaan</h5>
+                <h5>Data PIC Perusahaan Mitra PT Raja Perkasa</h5>
                 <form action="{{ route('updateStatusUser', $user->id) }}" method="POST">
                     @csrf
                     <div class="row">
@@ -337,7 +337,7 @@
 
                     <div class="row">
                         <div class="col-lg-12 col-sm-12 col-12 text-right">
-                            <button type="submit" class="btn btn-primary">Update Status</button>
+                            <button type="submit" class="btn btn-primary">Update Status Users</button>
                             <a href="{{ route('userslisteclient') }}" class="btn btn-secondary">Kembali</a>
                         </div>
                     </div>

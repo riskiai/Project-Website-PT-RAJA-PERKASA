@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('testimonis', function (Blueprint $table) {
             $table->id();
-            $table->string('name_client');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('mitra_id')->nullable();
+            $table->foreign('mitra_id')->references('id')->on('mitras')->nullable();
             $table->string('position');
             $table->text('comment');
             $table->string('image');

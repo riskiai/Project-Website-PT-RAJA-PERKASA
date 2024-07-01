@@ -20,13 +20,27 @@ use App\Http\Controllers\Adminstrator\TentangAdminController;
 use App\Http\Controllers\Adminstrator\TestimoniAdminController;
 use App\Http\Controllers\Client\ProfileClientController;
 use App\Http\Controllers\Client\ProposalMitraClientController;
+use App\Http\Controllers\Hrd\AbsenKaryawanController;
+use App\Http\Controllers\Hrd\CutiKaryawanController;
 use App\Http\Controllers\Hrd\DashboardController as HrdDashboardController;
+use App\Http\Controllers\Hrd\ListPeringatanKaryawanController;
+use App\Http\Controllers\Hrd\ManajemenKaryawanController;
+use App\Http\Controllers\Hrd\PengunduranDiriKaryawanController;
+use App\Http\Controllers\Hrd\ReportDataKaryawanController;
+use App\Http\Controllers\Karyawan\AbsensiKaryawanController;
+use App\Http\Controllers\Karyawan\DashboardController as KaryawanDashboardController;
+use App\Http\Controllers\Karyawan\DataPeringatanKaryawanController;
+use App\Http\Controllers\Karyawan\PengajuanCutiController;
+use App\Http\Controllers\Karyawan\PengajuanDiriController;
 use App\Http\Controllers\Manajer\DashboardController as ManajerDashboardController;
 use App\Http\Controllers\Manajer\ManajerProyekListProyekController;
 use App\Http\Controllers\Manajer\ManajerProyekMaterialsController;
 use App\Http\Controllers\Manajer\ManajerProyekPeralatanController;
+use App\Http\Controllers\Manajer\ReportManajerController;
 use App\Http\Controllers\Owner\DashboardController as OwnerDashboardController;
-
+use App\Http\Controllers\Owner\DataProyekController;
+use App\Http\Controllers\Owner\DataUsersController;
+use App\Http\Controllers\Owner\ReportDataController;
 
 Route::get('/', function () {
     return redirect('/home');
@@ -132,85 +146,116 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
     // ReportData
     Route::get('/adminstrator/report/proyek', [ReportAdminController::class, 'reportproyek'])->name('reportproyek');
+    Route::get('/adminstrator/export/proyek', [ReportAdminController::class, 'exportreportproyek'])->name('exportreportproyek');
 
-    // Settings
+    Route::get('/adminstrator/report/userspicperusahaan', [ReportAdminController::class, 'reportuserspicperusahaan'])->name('reportuserspicperusahaan');
+    Route::get('/adminstrator/export/picperusahaan', [ReportAdminController::class, 'exportreportpicperusahaan'])->name('exportreportpicperusahaan');
+
+    // Profile Setiap admin
     Route::get('/adminstrator/users/profile/edit/{id}', [UsersAdminController::class, 'editProfile'])->name('editusersprofile');
     Route::post('/adminstrator/users/profile/update/{id}', [UsersAdminController::class, 'updateprofile'])->name('updateusersprofile');
 
-    Route::get('/adminstrator/settings', [SettingsController::class, 'index'])->name('settings');
-});
+    /* General Settings */
+    Route::get('/adminstrator/settings', [SettingsController::class, 'general_seetings'])->name('settings');
+    Route::get('/administrator/settingscreate', [SettingsController::class, 'settingscreate'])->name('settingscreate');
+    Route::post('/administrator/settingscreateproses', [SettingsController::class, 'settingscreateproses'])->name('settingscreateproses');
+    Route::get('/administrator/settingsedit/{id}/edit', [SettingsController::class, 'settingsedit'])->name('settingsedit');
+    Route::post('/administrator/settings/update/{id}', [SettingsController::class, 'settingsupdate'])->name('settings.update');
+    Route::delete('/administrator/settings/{id}', [SettingsController::class, 'delete'])->name('settingsdelete');
 
+    /* Settings APK */
+    Route::get('/adminstrator/settings_title', [SettingsController::class, 'settings_title'])->name('settings_title');
+    Route::get('/administrator/settings_titlecreate', [SettingsController::class, 'settings_titlecreate'])->name('settings_titlecreate');
+    Route::post('/administrator/settings_titlecreateproses', [SettingsController::class, 'settings_titlecreateproses'])->name('settings_titlecreateproses');
+    Route::get('/administrator/settings_title/edit/{id}/edit', [SettingsController::class, 'settings_titleedit'])->name('settings_titleedit');
+    Route::post('/administrator/settings_title/update/{id}', [SettingsController::class, 'settings_titleupdate'])->name('settings_title.update');
+    Route::delete('/administrator/settings_title/{id}', [SettingsController::class, 'settings_titledelete'])->name('settings_titledelete');
+});
 
 /* Manajer Proyek */
 Route::middleware(['auth', 'user-access:manajer'])->group(function () {
     Route::get('/manajer/dashboard', [ManajerDashboardController::class, 'index'])->name('dashboardmanajer');
+ 
+     // ReportData
+     Route::get('/manajer/report/listproyek', [ReportManajerController::class, 'reportlistproyek'])->name('reportlistproyek');
+     Route::get('/manajer/export/listproyekproyek', [ReportManajerController::class, 'exportreportlistproyek'])->name('exportreportlistproyek');
+ 
+     Route::get('/manajer/report/listmaterials', [ReportManajerController::class, 'reportlistmaterials'])->name('reportlistmaterials');
+     Route::get('/manajer/export/listmaterials', [ReportManajerController::class, 'exportreportlistmaterials'])->name('exportreportlistmaterials');
 
-   // Data Peralatans
-   /* Peralatan */
-   Route::get('/manajerproyek/peralatans', [ManajerProyekPeralatanController::class, 'peralatan'])->name('peralatanlist');
-   Route::get('/manajerproyek/peralatans/create', [ManajerProyekPeralatanController::class, 'create'])->name('peralatancreate');
-   Route::post('/manajerproyek/peralatans/createproses', [ManajerProyekPeralatanController::class, 'createproses'])->name('peralatancreateproses');
-   Route::get('/manajerproyek/peralatans/{id}/edit', [ManajerProyekPeralatanController::class, 'edit'])->name('peralatanedit');
-   Route::post('/manajerproyek/peralatans/update/{id}', [ManajerProyekPeralatanController::class, 'update'])->name('peralatan.update');
-   Route::delete('/manajerproyek/peralatans/{id}', [ManajerProyekPeralatanController::class, 'delete'])->name('peralatandelete');
+     Route::get('/manajer/report/listperalatan', [ReportManajerController::class, 'reportlistperalatan'])->name('reportlistperalatan');
+     Route::get('/manajer/export/picperusahaan', [ReportManajerController::class, 'exportreportlistperalatan'])->name('exportreportlistperalatan');
 
-    /* Brand Peralatan */
-    Route::get('/manajerproyek/brandperalatans', [ManajerProyekPeralatanController::class, 'brandperalatan'])->name('brandperalatanlist');
-    Route::get('/manajerproyek/brandperalatans/create', [ManajerProyekPeralatanController::class, 'createbrand'])->name('brandperalatancreate');
-    Route::post('/manajerproyek/brandperalatans/createproses', [ManajerProyekPeralatanController::class, 'createbrandproses'])->name('brandperalatancreateproses');
-    Route::get('/manajerproyek/brandperalatans/{id}/edit', [ManajerProyekPeralatanController::class, 'editbrand'])->name('brandperalatanedit');
-    Route::post('/manajerproyek/brandperalatans/update/{id}', [ManajerProyekPeralatanController::class, 'updatebrand'])->name('brandperalatan.update');
-    Route::delete('/manajerproyek/brandperalatans/{id}', [ManajerProyekPeralatanController::class, 'deletebrand'])->name('brandperalatandelete');
+    // Profile Setiap manajer
+    Route::get('/manajer/users/profile/edit/{id}', [ManajerDashboardController::class, 'editmanajerProfile'])->name('editusersmanajerprofile');
+    Route::post('/manajer/users/profile/update/{id}', [ManajerDashboardController::class, 'updatemanajerprofile'])->name('updatemanajerprofile');
+ 
+    // Data Peralatans
+    /* Peralatan */
+    Route::get('/manajerproyek/peralatans', [ManajerProyekPeralatanController::class, 'peralatan'])->name('peralatanlist');
+    Route::get('/manajerproyek/peralatans/create', [ManajerProyekPeralatanController::class, 'create'])->name('peralatancreate');
+    Route::post('/manajerproyek/peralatans/createproses', [ManajerProyekPeralatanController::class, 'createproses'])->name('peralatancreateproses');
+    Route::get('/manajerproyek/peralatans/{id}/edit', [ManajerProyekPeralatanController::class, 'edit'])->name('peralatanedit');
+    Route::post('/manajerproyek/peralatans/update/{id}', [ManajerProyekPeralatanController::class, 'update'])->name('peralatan.update');
+    Route::delete('/manajerproyek/peralatans/{id}', [ManajerProyekPeralatanController::class, 'delete'])->name('peralatandelete');
+ 
+     /* Brand Peralatan */
+     Route::get('/manajerproyek/brandperalatans', [ManajerProyekPeralatanController::class, 'brandperalatan'])->name('brandperalatanlist');
+     Route::get('/manajerproyek/brandperalatans/create', [ManajerProyekPeralatanController::class, 'createbrand'])->name('brandperalatancreate');
+     Route::post('/manajerproyek/brandperalatans/createproses', [ManajerProyekPeralatanController::class, 'createbrandproses'])->name('brandperalatancreateproses');
+     Route::get('/manajerproyek/brandperalatans/{id}/edit', [ManajerProyekPeralatanController::class, 'editbrand'])->name('brandperalatanedit');
+     Route::post('/manajerproyek/brandperalatans/update/{id}', [ManajerProyekPeralatanController::class, 'updatebrand'])->name('brandperalatan.update');
+     Route::delete('/manajerproyek/brandperalatans/{id}', [ManajerProyekPeralatanController::class, 'deletebrand'])->name('brandperalatandelete');
+ 
+      /* List Data Peralatan */
+     Route::get('/manajerproyek/listdataperalatans', [ManajerProyekPeralatanController::class, 'listdataperalatan'])->name('listdataperalatan');
+     Route::get('/adminstrator/listdataperalatans/show/{id}', [ManajerProyekPeralatanController::class, 'showlistdataperalatans'])->name('showlistdataperalatans');
+     Route::get('/manajerproyek/listdataperalatans/create', [ManajerProyekPeralatanController::class, 'createlistdataperalatan'])->name('listdataperalatancreate');
+     Route::post('/manajerproyek/listdataperalatans/createproses', [ManajerProyekPeralatanController::class, 'createlistdataperalatanproses'])->name('listdataperalatancreateproses');
+      Route::get('/manajerproyek/listdataperalatans/{id}/edit', [ManajerProyekPeralatanController::class, 'editlistdataperalatan'])->name('listdataperalatanedit');
+      Route::post('/manajerproyek/listdataperalatans/update/{id}', [ManajerProyekPeralatanController::class, 'updatelistdataperalatan'])->name('listdataperalatan.update');
+      Route::delete('/manajerproyek/listdataperalatans/{id}', [ManajerProyekPeralatanController::class, 'deletelistdataperalatan'])->name('listdataperalatandelete');
+ 
+    
+     // Data Materials
+     /* Materials */
+     Route::get('/manajerproyek/materials', [ManajerProyekMaterialsController::class, 'materials'])->name('materialslist');
+     Route::get('/manajerproyek/materials/create', [ManajerProyekMaterialsController::class, 'create'])->name('materialscreate');
+     Route::post('/manajerproyek/materials/createproses', [ManajerProyekMaterialsController::class, 'createproses'])->name('materialscreateproses');
+     Route::get('/manajerproyek/materials/{id}/edit', [ManajerProyekMaterialsController::class, 'edit'])->name('materialsedit');
+     Route::post('/manajerproyek/materials/update/{id}', [ManajerProyekMaterialsController::class, 'update'])->name('materials.update');
+     Route::delete('/manajerproyek/materials/{id}', [ManajerProyekMaterialsController::class, 'delete'])->name('materialsdelete');
+ 
+      /* Brand Materials */
+      Route::get('/manajerproyek/brandmaterials', [ManajerProyekMaterialsController::class, 'brandmaterials'])->name('brandmaterialslist');
+      Route::get('/manajerproyek/brandmaterials/create', [ManajerProyekMaterialsController::class, 'brandcreate'])->name('brandmaterialscreate');
+      Route::post('/manajerproyek/brandmaterials/createproses', [ManajerProyekMaterialsController::class, 'brandcreateproses'])->name('brandmaterialscreateproses');
+      Route::get('/manajerproyek/brandmaterials/{id}/edit', [ManajerProyekMaterialsController::class, 'brandedit'])->name('brandmaterialsedit');
+      Route::post('/manajerproyek/brandmaterials/update/{id}', [ManajerProyekMaterialsController::class, 'brandupdate'])->name('brandmaterials.update');
+      Route::delete('/manajerproyek/brandmaterials/{id}', [ManajerProyekMaterialsController::class, 'branddelete'])->name('brandmaterialsdelete');
+ 
+       /* List Data Materials */
+       Route::get('/manajerproyek/listdatamaterials', [ManajerProyekMaterialsController::class, 'listdatamaterials'])->name('listdatamaterials');
+       Route::get('/adminstrator/listdatamaterials/show/{id}', [ManajerProyekMaterialsController::class, 'showlistdatamaterials'])->name('showlistdatamaterials');
+       Route::get('/manajerproyek/listdatamaterials/create', [ManajerProyekMaterialsController::class, 'listdatacreate'])->name('listdatamaterialscreate');
+       Route::post('/manajerproyek/listdatamaterials/createproses', [ManajerProyekMaterialsController::class, 'listdatacreateproses'])->name('listdatamaterialscreateproses');
+       Route::get('/manajerproyek/listdatamaterials/{id}/edit', [ManajerProyekMaterialsController::class, 'listdataedit'])->name('listdatamaterialsedit');
+       Route::post('/manajerproyek/listdatamaterials/update/{id}', [ManajerProyekMaterialsController::class, 'listdataupdate'])->name('listdatamaterials.update');
+       Route::delete('/manajerproyek/listdatamaterials/{id}', [ManajerProyekMaterialsController::class, 'listdatadelete'])->name('listdatamaterialsdelete');
+ 
+         // Data Proyek
+         Route::get('/manajerproyek/listdataproyek', [ManajerProyekListProyekController::class, 'listdataproyek'])->name('listdataproyek');
+         Route::get('/manajerproyek/listdataproyek/show/{id}', [ManajerProyekListProyekController::class, 'showlistdataproyek'])->name('showlistdataproyek');
+         Route::get('/manajerproyek/listdataproyek/create', [ManajerProyekListProyekController::class,'listdataproyekcreate'])->name('listdataproyekcreate');
+         Route::post('/manajerproyek/listdataproyek/createproses', [ManajerProyekListProyekController::class, 'listdataproyekcreateproses'])->name('listdataproyekcreateproses');
+        Route::get('/manajerproyek/listdataproyek/{id}/edit', [ManajerProyekListProyekController::class, 'listdataproyekedit'])->name('listdataproyekedit');
+        Route::post('/manajerproyek/listdataproyek/update/{id}', [ManajerProyekListProyekController::class, 'listdataproyekupdate'])->name('listdataproyek.update');
+        Route::delete('/manajerproyek/listdataproyek/{id}', [ManajerProyekListProyekController::class, 'listdataproyekdelete'])->name('listdataproyekdelete');
+ });
 
-     /* List Data Peralatan */
-    Route::get('/manajerproyek/listdataperalatans', [ManajerProyekPeralatanController::class, 'listdataperalatan'])->name('listdataperalatan');
-    Route::get('/adminstrator/listdataperalatans/show/{id}', [ManajerProyekPeralatanController::class, 'showlistdataperalatans'])->name('showlistdataperalatans');
-    Route::get('/manajerproyek/listdataperalatans/create', [ManajerProyekPeralatanController::class, 'createlistdataperalatan'])->name('listdataperalatancreate');
-    Route::post('/manajerproyek/listdataperalatans/createproses', [ManajerProyekPeralatanController::class, 'createlistdataperalatanproses'])->name('listdataperalatancreateproses');
-     Route::get('/manajerproyek/listdataperalatans/{id}/edit', [ManajerProyekPeralatanController::class, 'editlistdataperalatan'])->name('listdataperalatanedit');
-     Route::post('/manajerproyek/listdataperalatans/update/{id}', [ManajerProyekPeralatanController::class, 'updatelistdataperalatan'])->name('listdataperalatan.update');
-     Route::delete('/manajerproyek/listdataperalatans/{id}', [ManajerProyekPeralatanController::class, 'deletelistdataperalatan'])->name('listdataperalatandelete');
 
-   
-    // Data Materials
-    /* Materials */
-    Route::get('/manajerproyek/materials', [ManajerProyekMaterialsController::class, 'materials'])->name('materialslist');
-    Route::get('/manajerproyek/materials/create', [ManajerProyekMaterialsController::class, 'create'])->name('materialscreate');
-    Route::post('/manajerproyek/materials/createproses', [ManajerProyekMaterialsController::class, 'createproses'])->name('materialscreateproses');
-    Route::get('/manajerproyek/materials/{id}/edit', [ManajerProyekMaterialsController::class, 'edit'])->name('materialsedit');
-    Route::post('/manajerproyek/materials/update/{id}', [ManajerProyekMaterialsController::class, 'update'])->name('materials.update');
-    Route::delete('/manajerproyek/materials/{id}', [ManajerProyekMaterialsController::class, 'delete'])->name('materialsdelete');
-
-     /* Brand Materials */
-     Route::get('/manajerproyek/brandmaterials', [ManajerProyekMaterialsController::class, 'brandmaterials'])->name('brandmaterialslist');
-     Route::get('/manajerproyek/brandmaterials/create', [ManajerProyekMaterialsController::class, 'brandcreate'])->name('brandmaterialscreate');
-     Route::post('/manajerproyek/brandmaterials/createproses', [ManajerProyekMaterialsController::class, 'brandcreateproses'])->name('brandmaterialscreateproses');
-     Route::get('/manajerproyek/brandmaterials/{id}/edit', [ManajerProyekMaterialsController::class, 'brandedit'])->name('brandmaterialsedit');
-     Route::post('/manajerproyek/brandmaterials/update/{id}', [ManajerProyekMaterialsController::class, 'brandupdate'])->name('brandmaterials.update');
-     Route::delete('/manajerproyek/brandmaterials/{id}', [ManajerProyekMaterialsController::class, 'branddelete'])->name('brandmaterialsdelete');
-
-      /* List Data Materials */
-      Route::get('/manajerproyek/listdatamaterials', [ManajerProyekMaterialsController::class, 'listdatamaterials'])->name('listdatamaterials');
-      Route::get('/adminstrator/listdatamaterials/show/{id}', [ManajerProyekMaterialsController::class, 'showlistdatamaterials'])->name('showlistdatamaterials');
-      Route::get('/manajerproyek/listdatamaterials/create', [ManajerProyekMaterialsController::class, 'listdatacreate'])->name('listdatamaterialscreate');
-      Route::post('/manajerproyek/listdatamaterials/createproses', [ManajerProyekMaterialsController::class, 'listdatacreateproses'])->name('listdatamaterialscreateproses');
-      Route::get('/manajerproyek/listdatamaterials/{id}/edit', [ManajerProyekMaterialsController::class, 'listdataedit'])->name('listdatamaterialsedit');
-      Route::post('/manajerproyek/listdatamaterials/update/{id}', [ManajerProyekMaterialsController::class, 'listdataupdate'])->name('listdatamaterials.update');
-      Route::delete('/manajerproyek/listdatamaterials/{id}', [ManajerProyekMaterialsController::class, 'listdatadelete'])->name('listdatamaterialsdelete');
-
-        // Data Proyek
-        Route::get('/manajerproyek/listdataproyek', [ManajerProyekListProyekController::class, 'listdataproyek'])->name('listdataproyek');
-        Route::get('/manajerproyek/listdataproyek/show/{id}', [ManajerProyekListProyekController::class, 'showlistdataproyek'])->name('showlistdataproyek');
-        Route::get('/manajerproyek/listdataproyek/create', [ManajerProyekListProyekController::class,'listdataproyekcreate'])->name('listdataproyekcreate');
-        Route::post('/manajerproyek/listdataproyek/createproses', [ManajerProyekListProyekController::class, 'listdataproyekcreateproses'])->name('listdataproyekcreateproses');
-       Route::get('/manajerproyek/listdataproyek/{id}/edit', [ManajerProyekListProyekController::class, 'listdataproyekedit'])->name('listdataproyekedit');
-       Route::post('/manajerproyek/listdataproyek/update/{id}', [ManajerProyekListProyekController::class, 'listdataproyekupdate'])->name('listdataproyek.update');
-       Route::delete('/manajerproyek/listdataproyek/{id}', [ManajerProyekListProyekController::class, 'listdataproyekdelete'])->name('listdataproyekdelete');
-});
-
-
-/* Client */
-Route::middleware(['auth', 'user-access:client'])->group(function () {
+ /* Client */
+ Route::middleware(['auth', 'user-access:client'])->group(function () {
     Route::get('/client/profile', [ProfileClientController::class, 'index'])->name('profileclient');
     Route::post('/client/profile/update/{id}', [ProfileClientController::class, 'update'])->name('profileupdate');
 
@@ -238,16 +283,90 @@ Route::middleware(['auth', 'user-access:client'])->group(function () {
 /* HRD */
 Route::middleware(['auth', 'user-access:hrd'])->group(function () {
     Route::get('/hrd/dashboard', [HrdDashboardController::class, 'index'])->name('dashboardhrd');
+    
+    // Profile Setiap hrd
+   Route::get('/hrd/users/profile/edit/{id}', [HrdDashboardController::class, 'edithrdProfile'])->name('editusershrdprofile');
+   Route::post('/hrd/users/profile/update/{id}', [HrdDashboardController::class, 'updatehrdprofile'])->name('updatehrdprofile');
+
+   /* Divisi */
+   Route::get('/hrd/divisi', [ManajemenKaryawanController::class, 'divisi'])->name('divisilist');
+   Route::get('/hrd/divisi/create', [ManajemenKaryawanController::class, 'create'])->name('divisicreate');
+   Route::post('/hrd/materials/createproses', [ManajemenKaryawanController::class, 'createproses'])->name('divisicreateproses');
+   Route::get('/hrd/divisi/{id}/edit', [ManajemenKaryawanController::class, 'edit'])->name('divisiedit');
+   Route::post('/hrd/divisi/update/{id}', [ManajemenKaryawanController::class, 'update'])->name('divisi.update');
+   Route::delete('/hrd/divisi/{id}', [ManajemenKaryawanController::class, 'delete'])->name('ddivisidelete');
+
+    /* Manajemen Data Karyawan */
+    Route::get('/hrd/manajemen/karyawan', [ManajemenKaryawanController::class, 'karyawanlist'])->name('karyawanlist');
+    Route::get('/hrd/manajemen/showkaryawan/{id}', [ManajemenKaryawanController::class, 'showkaryawanlist'])->name('showkaryawanlist');
+    Route::get('/hrd/manajemen/karyawan/create', [ManajemenKaryawanController::class, 'karyawancreate'])->name('karyawancreate');
+    Route::post('/hrd/manajemen/karyawan/createproses', [ManajemenKaryawanController::class, 'karyawancreateproses'])->name('karyawancreateproses');  
+    Route::get('/hrd/karyawan/{id}/edit', [ManajemenKaryawanController::class, 'editkaryawan'])->name('karyawanedit');
+    Route::post('/hrd/karyawan/update/{id}', [ManajemenKaryawanController::class, 'updatekaryawan'])->name('karyawan.update');
+   Route::delete('/hrd/karyawan/{id}', [ManajemenKaryawanController::class, 'karyawandelete'])->name('karyawandelete');
+
+   /* Data Pengunduran Diri Karyawan */
+   Route::get('/hrd/listpengundurandirikaryawan', [PengunduranDiriKaryawanController::class, 'listpengundurandirikaryawan'])->name('listpengundurandirikaryawan');
+
+    /* Data Cuti Karyawan */
+    Route::get('/hrd/listcutikaryawan', [CutiKaryawanController::class, 'listcutikaryawan'])->name('listcutikaryawan');
+
+    /* Data Absen Karyawan */
+    Route::get('/hrd/listabsenkaryawan', [AbsenKaryawanController::class, 'listabsenkaryawan'])->name('listabsenkaryawan');
+
+      /* Data List Peringatan  Karyawan */
+      Route::get('/hrd/listperingatankaryawan', [ListPeringatanKaryawanController::class, 'listperingatankaryawan'])->name('listperingatankaryawan');
+
+      /* Report Data Karyawan */
+      Route::get('/hrd/reportlistabsenkaryawan', [ReportDataKaryawanController::class, 'reportlistabsenkaryawan'])->name('reportlistabsenkaryawan');
+      Route::get('/hrd/reportlistpengundurandirikaryawan', [ReportDataKaryawanController::class, 'reportlistpengundurandirikaryawan'])->name('reportlistpengundurandirikaryawan');
+      Route::get('/hrd/reportlistcutikaryawan', [ReportDataKaryawanController::class, 'reportlistcutikaryawan'])->name('reportlistcutikaryawan');
+      Route::get('/hrd/reportlistperingatankaryawan', [ReportDataKaryawanController::class, 'reportlistperingatankaryawan'])->name('reportlistperingatankaryawan');
 });
 
 /* Karyawan */
 Route::middleware(['auth', 'user-access:karyawan'])->group(function () {
-    Route::get('/karyawan/dashboard', [OwnerDashboardController::class, 'index'])->name('dashboardkaryawan');
+    Route::get('/karyawan/dashboard', [KaryawanDashboardController::class, 'index'])->name('dashboardkaryawan');
+
+    // Profile Setiap karyawan
+   Route::get('/karyawan/users/profile/edit/{id}', [KaryawanDashboardController::class, 'editkaryawanProfile'])->name('edituserskaryawanprofile');
+   Route::post('/karyawan/users/profile/update/{id}', [KaryawanDashboardController::class, 'updatekaryawanprofile'])->name('updatekaryawanprofile');
+
+   // Pengajuan Pengunduran Diri Karyawan
+   Route::get('/karyawan/pengajuandiri/', [PengajuanDiriController::class, 'pengajuandirikaryawan'])->name('pengajuandirikaryawan');
+   Route::get('/karyawan/pengajuancuti/', [PengajuanCutiController::class, 'pengajuancutikaryawan'])->name('pengajuancutikaryawan');
+   Route::get('/karyawan/absenkaryawan/', [AbsensiKaryawanController::class, 'absenkaryawan'])->name('absenkaryawan');
+   Route::get('/karyawan/peringatankaryawan/', [DataPeringatanKaryawanController::class, 'peringatankaryawan'])->name('peringatankaryawan');
 });
 
 /* Owner */
 Route::middleware(['auth', 'user-access:owner'])->group(function () {
     Route::get('/owner/dashboard', [OwnerDashboardController::class, 'index'])->name('dashboardowner');
+
+     // Profile Setiap owner
+   Route::get('/owner/users/profile/edit/{id}', [OwnerDashboardController::class, 'editownerProfile'])->name('editusersownerprofile');
+   Route::post('/owner/users/profile/update/{id}', [OwnerDashboardController::class, 'updateownerprofile'])->name('updateownerprofile');
+
+   /* Data Users  */
+   // Data Users Internal Karyawan PT Raja Perkasa
+   Route::get('/owner/manajemen/karyawanlist', [DataUsersController::class, 'ownerkaryawanlist'])->name('ownerkaryawanlist');
+   Route::get('/owner/manajemen/showkaryawanlist/{id}', [DataUsersController::class, 'ownershowkaryawanlist'])->name('ownershowkaryawanlist');
+   Route::get('/owner/manajemen/picperusahaan', [DataUsersController::class, 'picperusahaanlist'])->name('picperusahaanlist');
+   Route::get('/owner/manajemen/picperusahaan/{id}', [DataUsersController::class, 'ownershowpicperusahaanlist'])->name('ownershowpicperusahaanlist');
+   
+   /* Data Proyek */
+   Route::get('/owner/manajemen/proyek', [DataProyekController::class, 'proyeklistowner'])->name('proyeklistowner');
+   Route::get('/owner/listdataproyek/show/{id}', [DataProyekController::class, 'ownershowlistdataproyek'])->name('ownershowlistdataproyek');
+
+   /* Report Data */
+   Route::get('/owner/report/proyek', [ReportDataController::class, 'reportownerproyek'])->name('reportownerproyek');
+   Route::get('/owner/export/proyek', [ReportDataController::class, 'exportreportownerproyek'])->name('exportreportownerproyek');
+
+   Route::get('/owner/report/datakaryawan', [ReportDataController::class, 'ownerreportdatakaryawan'])->name('reportdatakaryawan');
+   Route::get('/owner/export/datakaryawan', [ReportDataController::class, 'ownerexportreportdatakaryawan'])->name('ownerexportreportdatakaryawan');
+
+   Route::get('/owner/report/userspicperusahaan', [ReportDataController::class, 'ownerreportuserspicperusahaan'])->name('reportuserspicperusahaan');
+   Route::get('/owner/export/picperusahaan', [ReportDataController::class, 'ownerexportreportpicperusahaan'])->name('ownerexportreportpicperusahaan');
 });
 
 

@@ -18,7 +18,12 @@ class UsersAdminController extends Controller
         $user = User::findOrFail($id);
         $user->tgl_lahir_formatted = $user->tgl_lahir ? Carbon::parse($user->tgl_lahir)->translatedFormat('F, d Y') : null;
         $user->alamat_stripped = strip_tags($user->alamat);
-        return view('Adminstrator.users.profile', compact('user'));
+    
+        // Ambil pengguna dengan role 'admin'
+        $adminRoleId = Role::where('role_name', 'admin')->first()->id;
+        $adminUsers = User::where('role_id', $adminRoleId)->get();
+    
+        return view('Adminstrator.users.profile', compact('user', 'adminUsers'));
     }
     
     public function updateprofile(Request $request, $id) {

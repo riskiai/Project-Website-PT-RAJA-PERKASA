@@ -15,7 +15,7 @@
                 <h1>Log in</h1>
                 <form action="{{ route('login-proses') }}" method="POST">
                     @csrf
-                    <input type="email" name="email" placeholder="Email"> <!-- Tambahkan name="email" -->
+                    <input type="email" name="email" placeholder="Email "> <!-- Tambahkan name="email" -->
                     <input type="password" name="password" placeholder="Password"><br> <!-- Tambahkan name="password" -->
                     <input type="checkbox" name="remember"><span>Remember me</span>
                     <a href="#">Forgot password?</a>

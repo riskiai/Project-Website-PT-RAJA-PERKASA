@@ -47,7 +47,7 @@
                         </div>
                     </div>
                     <div class="wordset">
-                        <ul>
+                        {{-- <ul>
                             <li>
                                 <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf">
                                     <img src="{{ asset('assets/img/icons/pdf.svg') }}" alt="img" />
@@ -63,7 +63,7 @@
                                     <img src="{{ asset('assets/img/icons/printer.svg') }}" alt="img" />
                                 </a>
                             </li>
-                        </ul>
+                        </ul> --}}
                     </div>
                 </div>
 

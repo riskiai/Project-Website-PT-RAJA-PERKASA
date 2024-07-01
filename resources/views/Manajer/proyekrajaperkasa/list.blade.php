@@ -46,7 +46,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="wordset">
+                    {{-- <div class="wordset">
                         <ul>
                             <li>
                                 <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf">
@@ -64,7 +64,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </div>
+                    </div> --}}
                 </div>
 
                 <div class="card" id="filter_inputs">
@@ -159,6 +159,7 @@
                                     <a href="{{ route('listdataproyekedit', $item->id) }}">
                                         <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
                                     </a>
+                                    
                                     <a href="{{ route('showlistdataproyek', ['id' => $item->id]) }}" title="Melihat Data Detail List Proyek">
                                         <i class="fas fa-eye text-dark"></i>
                                     </a>

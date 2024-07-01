@@ -5,8 +5,12 @@
     <div class="content">
       <div class="page-header">
         <div class="page-title">
-          <h4>Profile</h4>
-          <h6>User Profile</h6>
+          <h4>Profile Role Admin PT Raja Perkasa</h4>
+          <h6>
+            @foreach($adminUsers as $admin)
+              {{ $admin->name }}@if(!$loop->last), @endif
+            @endforeach
+          </h6>
         </div>
       </div>
 

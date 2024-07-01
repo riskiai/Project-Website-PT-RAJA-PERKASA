@@ -72,4 +72,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(List_Data_Proyek::class, 'user_id');
     }
+
+    // App\Models\User.php
+    public function getRoleNameAttribute()
+    {
+        $document = $this->documentKerjasamaClient;
+        if ($document && $document->status_kerjasama == 'diterima') {
+            return $this->status_pic_perusahaan;
+        }
+        return 'calon_client';
+    }
 }

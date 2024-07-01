@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Adminstrator;
 
+use App\Models\User;
+use App\Models\Mitra;
 use App\Models\Testimoni;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,11 +13,13 @@ use Illuminate\Support\Facades\Validator;
 class TestimoniAdminController extends Controller
 {
     public function index(Request $request) {
-        $query = Testimoni::latest();
+        $query = Testimoni::with(['user', 'mitra'])->latest();
 
         // Filtering data
         if ($request->get('search')) {
-            $query->where('name_client', 'LIKE', '%' . $request->get('search') . '%');
+            $query->whereHas('user', function($q) use ($request) {
+                $q->where('name', 'LIKE', '%' . $request->get('search') . '%');
+            });
         }
 
         $data = $query->get();
@@ -24,13 +28,20 @@ class TestimoniAdminController extends Controller
     }
 
     public function create() {
-        return view('Adminstrator.testimoni.create');
+        // Ambil semua mitra dan pengguna dengan role client
+        $mitras = Mitra::all();
+        $clients = User::whereHas('role', function($query) {
+            $query->where('role_name', 'client');
+        })->get();
+
+        return view('Adminstrator.testimoni.create', compact('mitras', 'clients'));
     }
 
     public function createproses(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name_client' => 'required',
+            'user_id' => 'required|exists:users,id',
+            'mitra_id' => 'required|exists:mitras,id',
             'position' => 'required',
             'comment' => 'required',
             'status_testimoni' => 'required',
@@ -53,37 +64,41 @@ class TestimoniAdminController extends Controller
 
         // Create new data
         Testimoni::create([
-            'name_client' => $request->name_client,
+            'user_id' => $request->user_id,
+            'mitra_id' => $request->mitra_id,
             'position' => $request->position,
             'comment' => $request->comment,
             'status_testimoni' => $request->status_testimoni,
             'image' => implode(',', $images), // Save image file names as a string
         ]);
 
-        return redirect()->route('testimonilist');
+        return redirect()->route('testimonilist')->with('success', 'Testimoni created successfully.');
     }
-
 
     public function edit(Request $request, $id)
     {
         $data = Testimoni::find($id);
+        $mitras = Mitra::all();
+        $clients = User::whereHas('role', function($query) {
+            $query->where('role_name', 'client');
+        })->get();
 
         if(!$data) {
-            // Handle jika data tidak ditemukan, misalnya redirect dengan pesan error
             return redirect()->back()->with('error', 'Data not found.');
         }
 
-        return view('Adminstrator.testimoni.edit', compact('data'));
+        return view('Adminstrator.testimoni.edit', compact('data', 'mitras', 'clients'));
     }
 
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'name_client' => 'required',
+            'user_id' => 'required|exists:users,id',
+            'mitra_id' => 'required|exists:mitras,id',
             'position' => 'required',
             'comment' => 'required',
             'status_testimoni' => 'required',
-            'image.*' => 'required|mimes:png,jpg,jpeg|max:2048',// 'image.*' untuk menangani multiple gambar
+            'image.*' => 'mimes:png,jpg,jpeg|max:2048',// 'image.*' untuk menangani multiple gambar
         ]);
 
         if ($validator->fails()) {
@@ -93,8 +108,8 @@ class TestimoniAdminController extends Controller
         $data = Testimoni::find($id);
 
         if ($data) {
-            // $data->title = $request->title;
-            $data->name_client = $request->name_client;
+            $data->user_id = $request->user_id;
+            $data->mitra_id = $request->mitra_id;
             $data->position = $request->position;
             $data->comment = $request->comment;
             $data->status_testimoni = $request->status_testimoni;
@@ -102,7 +117,12 @@ class TestimoniAdminController extends Controller
             // Update gambar jika ada yang diunggah
             if ($request->hasFile('image')) {
                 // Hapus gambar yang lama
-                Storage::delete(explode(',', $data->image));
+                if (!empty($data->image)) {
+                    $oldImages = explode(',', $data->image);
+                    foreach ($oldImages as $oldImage) {
+                        Storage::delete('public/photo-testimoni/' . $oldImage);
+                    }
+                }
                 
                 // Simpan gambar yang baru
                 $images = [];
@@ -138,6 +158,6 @@ class TestimoniAdminController extends Controller
             $data->delete();
         }
     
-        return redirect()->route('testimonilist');
+        return redirect()->route('testimonilist')->with('success', 'Data deleted successfully.');
     }
 }

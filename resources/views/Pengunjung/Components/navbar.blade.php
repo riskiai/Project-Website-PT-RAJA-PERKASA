@@ -99,43 +99,44 @@
             <a href="{{ url('/project') }}" class="nav-item nav-link">Project</a>
             <a href="{{ url('/kontak') }}" class="nav-item nav-link">Kontak</a>
             @auth
-                @if(Auth::user()->role->role_name === 'client')
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="{{ asset('assets/img/profiles/avator1.jpg') }}" style="width: 40px; height: 40px; border-radius: 50%; min-width: 20px;" alt="">
-                        </a>
-                        <div class="card1"> <!-- Updated class name to match the style -->
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li>
-                                    <div class="profilesets dropdown-item">
-                                        <span class="user-img">
-                                            <img src="{{ asset('assets/img/profiles/avator1.jpg') }}" alt="" />
-                                            <span class="status online"></span>
-                                        </span>
-                                        <h6>{{ auth()->user()->name }}</h6>
-                                        <h5>{{ auth()->user()->role->role_name }} mitra</h5>
-                                    </div>
-                                </li>
-                                <li><a class="dropdown-item" href="{{ route('profileclient') }}">Data Diri Pribadi</a></li>
-                                <li><a class="dropdown-item" href="{{ route('pengajuankerjasama') }}">Pengajuan <br> Kerja Sama</a></li>
-                                <li><a class="dropdown-item" href="{{ route('statuskerjasama') }}">Status <br> Kerja Sama</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li>
-                                    <form action="{{ route('logout') }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="dropdown-item logout pb-0">
-                                            <img src="{{ asset('assets/img/icons/log-out.svg') }}" class="me-2" alt="img" />Logout
-                                        </button>
-                                    </form>
-                                </li>
-                            </ul>
-                        </div>
+            @if(Auth::user()->role->role_name === 'client')
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="{{ asset('assets/img/profiles/avator1.jpg') }}" style="width: 40px; height: 40px; border-radius: 50%; min-width: 20px;" alt="">
+                    </a>
+                    <div class="card1"> <!-- Updated class name to match the style -->
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li>
+                                <div class="profilesets dropdown-item">
+                                    <span class="user-img">
+                                        <img src="{{ asset('assets/img/profiles/avator1.jpg') }}" alt="" />
+                                        <span class="status online"></span>
+                                    </span>
+                                    <h6>{{ auth()->user()->name }}</h6>
+                                    <h5>{{ auth()->user()->role_name }} mitra</h5>
+                                </div>
+                            </li>
+                            <li><a class="dropdown-item" href="{{ route('profileclient') }}">Data Diri Pribadi</a></li>
+                            <li><a class="dropdown-item" href="{{ route('pengajuankerjasama') }}">Pengajuan <br> Kerja Sama</a></li>
+                            <li><a class="dropdown-item" href="{{ route('statuskerjasama') }}">Status <br> Kerja Sama</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item logout pb-0">
+                                        <img src="{{ asset('assets/img/icons/log-out.svg') }}" class="me-2" alt="img" />Logout
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
                     </div>
-                @endif
-            @else
-                <a href="{{ url('/login') }}" class="nav-item nav-link">Login</a>
-                <a href="{{ url('register') }}" class="nav-item nav-link">Register</a>
-            @endauth
+                </div>
+            @endif
+        @else
+            <a href="{{ url('/login') }}" class="nav-item nav-link">Login</a>
+            <a href="{{ url('register') }}" class="nav-item nav-link">Register</a>
+        @endauth
+        
 
         </div>
     </div>

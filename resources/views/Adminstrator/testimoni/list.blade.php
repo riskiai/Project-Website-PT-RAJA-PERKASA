@@ -34,89 +34,6 @@
               </a>
             </div>
           </div>
-          <div class="wordset">
-            <ul>
-              <li>
-                <a
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="pdf"
-                  ><img src="{{ asset('assets/img/icons/pdf.svg') }}" alt="img"
-                /></a>
-              </li>
-              <li>
-                <a
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="excel"
-                  ><img src="{{ asset('assets/img/icons/excel.svg') }}" alt="img"
-                /></a>
-              </li>
-              <li>
-                <a
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="print"
-                  ><img src="{{ asset('assets/img/icons/printer.svg') }}" alt="img"
-                /></a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="card" id="filter_inputs">
-          <div class="card-body pb-0">
-            <div class="row">
-              <div class="col-lg-2 col-sm-6 col-12">
-                <div class="form-group">
-                  <div class="input-groupicon">
-                    <input
-                      type="text"
-                      class="datetimepicker cal-icon"
-                      placeholder="Choose Date"
-                    />
-                    <div class="addonset">
-                      <img
-                        src="{{ asset('assets/img/icons/calendars.svg') }}"
-                        alt="img"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-2 col-sm-6 col-12">
-                <div class="form-group">
-                  <input type="text" placeholder="Enter Reference" />
-                </div>
-              </div>
-              <div class="col-lg-2 col-sm-6 col-12">
-                <div class="form-group">
-                  <select class="select">
-                    <option>Choose Category</option>
-                    <option>Computers</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-lg-2 col-sm-6 col-12">
-                <div class="form-group">
-                  <select class="select">
-                    <option>Choose Status</option>
-                    <option>Complete</option>
-                    <option>Inprogress</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-lg-1 col-sm-6 col-12 ms-auto">
-                <div class="form-group">
-                  <a class="btn btn-filters ms-auto"
-                    ><img
-                      src="{{ asset('assets/img/icons/search-whites.svg') }}"
-                      alt="img"
-                  /></a>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div class="table-responsive">
@@ -130,10 +47,11 @@
                   </label>
                 </th>
                 <th>No</th>
-                <th>Nama Client</th>
+                <th>Nama PIC Client Perusahaan</th>
+                <th>Nama Mitra Perusahaan</th>
                 <th>Jabatan</th>
                 <th>Komentar</th>
-                <th>File Image</th>
+                <th>Gambar Testimoni Client PIC</th>
                 <th>Created Date</th>
                 <th>Status</th>
                 <th>Action</th>
@@ -149,7 +67,8 @@
                   </label>
                 </td>
                 <td>{{ $index + 1 }}</td>
-                <td>{{ $item->name_client }}</td>
+                <td>{{ $item->nama_client }}</td>
+                <td>{{ $item->nama_mitra }}</td>
                 <td>{{ $item->position }}</td>
                 <td>{!! $item->comment !!}</td>
                 <td>
@@ -174,12 +93,12 @@
                   <a class="me-3" href="{{ route('testimoniedit', $item->id) }}">
                     <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
                   </a>
-                  <form action="{{ route('testimonidelete', $item->id) }}" method="POST" style="display: inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-link" onclick="return confirm('Are you sure you want to delete this item?');">
-                      <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                    </button>
+                  <button type="button" class="btn btn-link text-dark btn-delete" data-id="{{ $item->id }}" title="Menghapus Data">
+                    <i class="fas fa-trash-alt text-dark"></i>
+                  </button>
+                  <form id="deleteForm-{{ $item->id }}" action="{{ route('testimonidelete', ['id' => $item->id]) }}" method="POST" style="display: none;">
+                      @csrf
+                      @method('DELETE')
                   </form>
                 </td>
               </tr>
@@ -190,6 +109,45 @@
       </div>
     </div>
   </div>
+  
+   <!-- Modal Konfirmasi Hapus -->
+   <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteConfirmModalLabel">Konfirmasi Penghapusan</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Apakah Anda yakin ingin menghapus item ini?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-danger" id="confirmDeleteButton">Hapus</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
+@endsection
+
+@section('scripts')
+<script>
+$(document).ready(function() {
+    var deleteFormId = null;
+
+    $('.btn-delete').click(function() {
+        deleteFormId = $(this).data('id');
+        $('#deleteConfirmModal').modal('show');
+    });
+
+    $('#confirmDeleteButton').click(function() {
+        if (deleteFormId) {
+            $('#deleteForm-' + deleteFormId).submit();
+        }
+    });
+});
+</script>
 @endsection

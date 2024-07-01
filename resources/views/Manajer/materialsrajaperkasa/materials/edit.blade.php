@@ -33,8 +33,8 @@
                             <div class="form-group">
                                 <label>Status Materials</label>
                                 <select name="status_materials" class="select">
-                                    <option value="berfungsi" {{ $materials->status_materials == 'berfungsi' ? 'selected' : '' }}>Berfungsi</option>
-                                    <option value="tidakberfungsi" {{ $materials->status_materials == 'tidakberfungsi' ? 'selected' : '' }}>Tidak Berfungsi</option>
+                                    <option value="tersedia" {{ $materials->status_materials == 'tersedia' ? 'selected' : '' }}>Berfungsi</option>
+                                    <option value="tidak_tersedia" {{ $materials->status_materials == 'tidak_tersedia' ? 'selected' : '' }}>Tidak Berfungsi</option>
                                 </select>
                             </div>
                         </div>

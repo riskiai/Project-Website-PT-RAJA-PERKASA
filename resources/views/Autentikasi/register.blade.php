@@ -47,7 +47,7 @@
             <i class="fas fa-user-plus fa-5x"></i>
             <h2>Selamat Datang Di Website PT Raja Perkasa</h2>
          
-            <p>Daftarkan Segera Sebagai Calon Mitra Kami! <br> Sudah Punya Akun ? Silahkan Login Terlebih Dahulu!</p>
+            <p>Daftarkan Segera Sebagai Client Mitra Kami! <br> Sudah Punya Akun ? Silahkan Login Terlebih Dahulu!</p>
             <a href="{{ route('login') }}"><button>Login <i class="fas fa-arrow-circle-right"></i></button></a> 
         </div>
     </div>  
@@ -138,32 +138,4 @@
     });
 </script>
 
-@endsection
-
-@section('script')
-<script>
-    document.getElementById('company_name').addEventListener('input', function() {
-        var companyName = this.value;
-        var url = "{{ route('getpicdetails') }}";
-
-        if (companyName) {
-            fetch(`${url}?company_name=${companyName}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        document.getElementById('user_id').value = data.user.id;
-                        document.getElementById('name').value = data.user.name;
-                        document.getElementById('email').value = data.user.email;
-                        document.getElementById('no_hp').value = data.user.no_hp;
-                    } else {
-                        document.getElementById('user_id').value = '';
-                        document.getElementById('name').value = '';
-                        document.getElementById('email').value = '';
-                        document.getElementById('no_hp').value = '';
-                    }
-                })
-                .catch(error => console.error('Error fetching PIC details:', error));
-        }
-    });
-</script>
 @endsection

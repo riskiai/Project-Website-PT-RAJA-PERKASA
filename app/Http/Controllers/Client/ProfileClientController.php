@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Client;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Mitra;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileClientController extends Controller
 {
@@ -27,32 +28,39 @@ class ProfileClientController extends Controller
             'nik' => 'required|numeric|digits:16|unique:users,nik,' . $user->id,
             'file_ktp' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
             'file_foto' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
+            'company_name' => 'required|string|max:255',
         ]);
 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->no_hp = $request->no_hp;
-        $user->nik = $request->nik;
+        $company_name = $request->company_name;
+        $mitra = Mitra::firstOrCreate(
+            ['name_mitra' => $company_name],
+            ['image' => 'default.png', 'status_mitra' => 'nonactive']
+        );
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'no_hp' => $request->no_hp,
+            'nik' => $request->nik,
+            'mitra_id' => $mitra->id,
+        ]);
 
         if ($request->hasFile('file_ktp')) {
             $fileKtp = $request->file('file_ktp');
             $fileKtpName = Str::uuid() . '.' . $fileKtp->getClientOriginalExtension();
             $fileKtp->storeAs('public/client/file_ktp', $fileKtpName);
-            $user->file_ktp = $fileKtpName; // Simpan hanya nama file
+            $user->file_ktp = $fileKtpName;
         }
-        
+
         if ($request->hasFile('file_foto')) {
             $fileFoto = $request->file('file_foto');
             $fileFotoName = Str::uuid() . '.' . $fileFoto->getClientOriginalExtension();
             $fileFoto->storeAs('public/client/photo-profile', $fileFotoName);
-            $user->file_foto = $fileFotoName; // Simpan hanya nama file
+            $user->file_foto = $fileFotoName;
         }
-        
-        
 
         $user->save();
-        return redirect()->route('profileclient')->with([
-            'success1' => 'Profil berhasil diperbarui.<br>Lengkapi profil Anda untuk mengajukan kerjasama mitra.',
-        ]);
+
+        return redirect()->route('profileclient')->with('success1', 'Profil berhasil diperbarui.<br>Lengkapi profil Anda untuk mengajukan kerjasama mitra.');
     }
 }

@@ -7,6 +7,18 @@ define('LARAVEL_START', microtime(true));
 
 /*
 |--------------------------------------------------------------------------
+| Increase Memory Limit
+|--------------------------------------------------------------------------
+|
+| Increase the memory limit to avoid memory exhaustion issues.
+|
+*/
+
+ini_set('memory_limit', '2048M'); 
+
+
+/*
+|--------------------------------------------------------------------------
 | Check If The Application Is Under Maintenance
 |--------------------------------------------------------------------------
 |

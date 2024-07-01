@@ -28,7 +28,7 @@ class ManajerProyekMaterialsController extends Controller
     {
         $request->validate([
             'nama_materials' => 'required|string|max:255',
-            'status_materials' => 'required|in:berfungsi,tidakberfungsi',
+            'status_materials' => 'required|in:tersedia,tidak_tersedia',
         ]);
 
         Materials::create([
@@ -49,7 +49,7 @@ class ManajerProyekMaterialsController extends Controller
     {
         $request->validate([
             'nama_materials' => 'required|string|max:255',
-            'status_materials' => 'required|in:berfungsi,tidakberfungsi',
+            'status_materials' => 'required|in:tersedia,tidak_tersedia',
         ]);
 
         $materials = Materials::findOrFail($id);

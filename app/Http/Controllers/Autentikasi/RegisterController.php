@@ -13,7 +13,13 @@ class RegisterController extends Controller
 {
     public function index()
     {
-        $mitras = Mitra::all(); // Fetch all existing companies
+        // Fetch only mitras that meet the criteria
+        $mitras = Mitra::whereHas('users', function($query) {
+            $query->where('status_pic_perusahaan', 'client');
+        })->whereHas('users.documentKerjasamaClient', function($query) {
+            $query->where('status_kerjasama', 'diterima');
+        })->get();
+
         return view('Autentikasi.register', compact('mitras'));
     }
 

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('materials', function (Blueprint $table) {
             $table->id();
             $table->string('nama_materials');
-            $table->enum('status_materials', ['berfungsi', 'tidakberfungsi'])->nullable()->default('berfungsi');
+            $table->enum('status_materials', ['tersedia', 'tidak_tersedia'])->nullable()->default('tersedia');
             $table->timestamps();
         });
     }
