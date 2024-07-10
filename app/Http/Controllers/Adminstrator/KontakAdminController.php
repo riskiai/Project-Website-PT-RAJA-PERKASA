@@ -34,7 +34,7 @@ class KontakAdminController extends Controller
             'email' => 'required|email',
             'phone' => 'required',
             'alamat' => 'required',
-            'link' => 'required|url',
+            'links' => 'required|url',
             'status_kontak' => 'required|in:active,nonactive',
         ]);
 
@@ -48,7 +48,7 @@ class KontakAdminController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'alamat' => $request->alamat,
-            'link' => $request->link,
+            'links' => $request->links,
             'status_kontak' => $request->status_kontak,
             'created_at' => now(),
         ]);
@@ -75,7 +75,7 @@ class KontakAdminController extends Controller
             'email' => 'required|email',
             'phone' => 'required',
             'alamat' => 'required',
-            'link' => 'required|url',
+            'links' => 'required|url',
             'status_kontak' => 'required|in:active,nonactive',
         ]);
     
@@ -93,7 +93,7 @@ class KontakAdminController extends Controller
         $data->email = $request->email;
         $data->phone = $request->phone;
         $data->alamat = $request->alamat;
-        $data->link = $request->link;
+        $data->links = $request->links;
         $data->status_kontak = $request->status_kontak;
     
         $data->save();

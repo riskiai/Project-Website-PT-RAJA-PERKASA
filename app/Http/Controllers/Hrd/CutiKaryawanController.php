@@ -4,32 +4,43 @@ namespace App\Http\Controllers\Hrd;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Cuti;
 
 class CutiKaryawanController extends Controller
 {
-    /* Data Cuti Karyawan */
-    public function listcutikaryawan() {
-        $data = collect([
-            (object) [
-                'name' => 'John Doe',
-                'divisi_name' => 'IT',
-                'alasan' => 'Sakit',
-                'status' => 'Disetujui',
-                'file' => 'cuti_john_doe.pdf',
-                'created_at' => now()->subDays(5),
-                'updated_at' => now()->subDays(1),
-            ],
-            (object) [
-                'name' => 'Jane Smith',
-                'divisi_name' => 'HR',
-                'alasan' => 'Liburan',
-                'status' => 'Tidak Disetujui',
-                'file' => 'cuti_jane_smith.pdf',
-                'created_at' => now()->subDays(10),
-                'updated_at' => now()->subDays(2),
-            ],
+    public function listcutikaryawan()
+    {
+        $data = Cuti::with('user')->get();
+        return view('Hrd.cuti.list', compact('data'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'status_cuti' => 'required|in:disetujui,tidak_disetujui,belumdicek',
+            'file_balasan' => 'nullable|file|mimes:pdf,doc,docx|max:2048'
         ]);
 
-        return view('Hrd.cuti.list', compact('data'));
+        $cuti = Cuti::findOrFail($id);
+
+        $filePath = $cuti->file_balasan;
+        if ($request->hasFile('file_balasan')) {
+            $filePath = $request->file('file_balasan')->store('balasan_files', 'public');
+        }
+
+        $cuti->update([
+            'status_cuti' => $request->status_cuti,
+            'file_balasan' => $filePath
+        ]);
+
+        return redirect()->route('listcutikaryawan')->with('success', 'Status cuti berhasil diperbarui.');
+    }
+
+    public function delete($id)
+    {
+        $cuti = Cuti::findOrFail($id);
+        $cuti->delete();
+
+        return redirect()->route('listcutikaryawan')->with('success', 'Pengajuan cuti berhasil dihapus.');
     }
 }

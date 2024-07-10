@@ -8,41 +8,45 @@ body{
     background:#e9ebee;
     font-family: sans-serif;
 }
-.container{
+.container-data{
     width: 80%;
     margin: auto;
     padding: 70px 0;
-    height:130%;
-    margin-top: 0;
+    height: 130%;
+    margin-top: -120px;
 }
 
-.login ,.register{width: 50%}
+.login, .register {
+    width: 50%;
+    height: 100%;
+    min-height: 600px; /* Ensure the minimum height is set */
+    overflow-y: auto; /* Make it scrollable if content overflows */
+}
 
 /*Start Login Style*/
 .login{
     -webkit-box-shadow: -7px 1px 1px -5px rgba(254,121,54,1);
     -moz-box-shadow: -7px 1px 1px -5px rgba(254,121,54,1);
     box-shadow: -7px 1px 1px -5px rgba(254,121,54,1);
-    float:left;
+    float: left;
     background-color: #fafafa;
-    height: 100%;
     border-radius: 10px 0 0 10px;
     text-align: center;
-    padding-top: 100px;
+    padding-top: 103px;
     margin-top: 10px !important;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 1000px;
+}
+.login .content {
+    flex-grow: 1;
 }
 .login h1{
     margin-bottom: 40px;
     font-size: 2.5em;
 }
-
-/* input[type="email"] ,input[type="name"], input[type="nohp"], input[type="password"]{
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 30px;
-    border: none;
-    background-color: #eeeeef;
-} */
 
 .input-field {
     width: 100%;
@@ -52,6 +56,27 @@ body{
     background-color: #eeeeef;
 }
 
+.input-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.input-group .input-field {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.input-group .company-label {
+    position: absolute;
+    top: -0.75rem;
+    left: 0.75rem;
+    background: #fff;
+    padding: 0 0.25rem;
+    font-size: 0.875rem;
+    color: #666;
+}
 
 input[type="checkbox"]{
     float: left;
@@ -112,12 +137,12 @@ input[type="checkbox"]{
 .register{
     float: right;
     background-image: linear-gradient(135deg, #FE7A36 5%, #FE7A36 95%);
-    height: 190%;
     color:#fff;
     border-radius:  0 10px 10px  0;
     text-align: center;
     padding: 256.5px 0;
     margin-top: 10px !important;
+    min-height: 1000px; 
 }
 .register h2{
     margin: 30px 0;

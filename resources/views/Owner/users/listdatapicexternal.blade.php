@@ -16,8 +16,7 @@
             <div class="search-path">
               <a class="btn btn-filter" id="filter_search">
                 <img src="{{ asset('assets/img/icons/filter.svg') }}" alt="img" />
-                <span><img src="{{ asset('assets/img/icons/closes.svg') }}" alt="img" />
-                </span>
+                <span><img src="{{ asset('assets/img/icons/closes.svg') }}" alt="img" /></span>
               </a>
             </div>
             <div class="search-input">
@@ -148,11 +147,11 @@
                 </td>
                 <td class="text-center">
                   @if($item->documentKerjasamaClient)
-                    <span class="badges {{ $item->documentKerjasamaClient->status_kerjasama == 'diterima' ? 'bg-lightgreen' : ($item->documentKerjasamaClient->status_kerjasama == 'ditolak' ? 'bg-lightred' : 'bg-lightyellow') }}">
-                      {{ ucfirst($item->documentKerjasamaClient->status_kerjasama) }}
-                    </span>
+                      <span class="badges {{ $item->documentKerjasamaClient->status_kerjasama == 'diterima' ? 'bg-lightgreen' : ($item->documentKerjasamaClient->status_kerjasama == 'ditolak' ? 'bg-lightred' : 'bg-lightyellow') }}">
+                        {{ ucfirst($item->documentKerjasamaClient->status_kerjasama) }}
+                      </span>
                   @else
-                    <span class="badges bg-lightred">No Data</span>
+                      <span class="badges bg-lightred">No Data</span>
                   @endif
                 </td>
                 <td class="text-center">
@@ -257,9 +256,13 @@ $(document).ready(function() {
         url = url.replace(':id', id);
 
         $.get(url, function(data) {
+            if (data.error) {
+                alert(data.error);
+                return;
+            }
             $('#status_kerjasama').val(data.status_kerjasama);
             $('#keterangan_status_kerjasama').val(data.keterangan_status_kerjasama);
-            $('#editForm').attr('action', "{{ route('userslistclienteditproses', ':id') }}".replace(':id', id));
+            $('#editForm').attr('action', "{{ route('editpicperusahaanproses', ':id') }}".replace(':id', id));
             $('#editModal').modal('show');
         });
     });

@@ -29,4 +29,24 @@ class DataProyekController extends Controller
 
         return view('Owner.proyek.showdataproyek', compact('proyek'));
     }
+
+    public function ownerlistdataproyekupdate(Request $request, $id) {
+        $request->validate([
+            'status_proyek' => 'required|in:disetujui,tidak_disetujui,belumdicek',
+            'keterangan_status_proyek' => 'nullable|string'
+        ]);
+
+        $proyek = List_Data_Proyek::findOrFail($id);
+        $proyek->update([
+            'status_proyek' => $request->status_proyek,
+            'keterangan_status_proyek' => $request->keterangan_status_proyek
+        ]);
+
+        return redirect()->route('proyeklistowner')->with('success', 'Data proyek berhasil diperbarui.');
+    }
+
+    public function getProyekData($id) {
+        $proyek = List_Data_Proyek::findOrFail($id);
+        return response()->json($proyek);
+    }
 }

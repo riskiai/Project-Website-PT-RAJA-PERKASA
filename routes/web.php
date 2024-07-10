@@ -60,16 +60,12 @@ Route::post('/register_prosess', [RegisterController::class, 'registerproses'])-
 /* Pengunjung */
     // Beranda Home
     Route::get('/home', [HomeController::class, 'index']);
-
     // Tentang PT Raja Perkasa
     Route::get('/tentang', [TentangController::class, 'index'])->name('tentangpengunjung');
-
     // Jasa PT Raja Perkasa
     Route::get('/jasa', [JasaController::class, 'index'])->name('jasa');
-
     // Project PT Raja Perkasa
     Route::get('/project', [ProjectController::class, 'index']);
-
     // Kontak PT Raja Perkasa
     Route::get('/kontak', [KontakController::class, 'index']);
 
@@ -78,7 +74,6 @@ Route::post('/register_prosess', [RegisterController::class, 'registerproses'])-
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/adminstrator/dashboard', [DashboardController::class, 'index'])->name('dashboardadmin');
     
-
     // Tentang
     Route::get('/adminstrator/tentang', [TentangAdminController::class, 'index'])->name('tentanglist');
     Route::get('/adminstrator/tentangcreate', [TentangAdminController::class, 'create'])->name('tentangcreate');
@@ -172,6 +167,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::delete('/administrator/settings_title/{id}', [SettingsController::class, 'settings_titledelete'])->name('settings_titledelete');
 });
 
+
 /* Manajer Proyek */
 Route::middleware(['auth', 'user-access:manajer'])->group(function () {
     Route::get('/manajer/dashboard', [ManajerDashboardController::class, 'index'])->name('dashboardmanajer');
@@ -262,23 +258,18 @@ Route::middleware(['auth', 'user-access:manajer'])->group(function () {
     Route::get('/client/kerjasama', [ProposalMitraClientController::class, 'index'])->name('pengajuankerjasama');
     Route::post('/client/kerjasama/submit', [ProposalMitraClientController::class, 'create'])->name('submitkerjasama');
     Route::post('/client/kerjasama/update/{id}', [ProposalMitraClientController::class, 'update'])->name('updatekerjasama');
-
     Route::get('/client/statuskerjasama', [ProposalMitraClientController::class, 'statuskerjasama'])->name('statuskerjasama');
-
     Route::get('/client/home', [HomeController::class, 'index']);
-
     // Tentang PT Raja Perkasa
     Route::get('/client/tentang', [TentangController::class, 'index'])->name('tentang');
-
     // Jasa PT Raja Perkasa
     Route::get('/client/jasa', [JasaController::class, 'index'])->name('jasa');
-
     // Project PT Raja Perkasa
     Route::get('/client/project', [ProjectController::class, 'index']);
-
     // Kontak PT Raja Perkasa
     Route::get('/client/kontak', [KontakController::class, 'index']);
 });
+
 
 /* HRD */
 Route::middleware(['auth', 'user-access:hrd'])->group(function () {
@@ -307,13 +298,18 @@ Route::middleware(['auth', 'user-access:hrd'])->group(function () {
 
    /* Data Pengunduran Diri Karyawan */
    Route::get('/hrd/listpengundurandirikaryawan', [PengunduranDiriKaryawanController::class, 'listpengundurandirikaryawan'])->name('listpengundurandirikaryawan');
+   Route::put('/hrd/listpengundurandirikaryawanupdate/{id}', [PengunduranDiriKaryawanController::class, 'update'])->name('karyawanupdate');
+   Route::delete('/hrd/listpengundurandirikaryawandelete/{id}', [PengunduranDiriKaryawanController::class, 'delete'])->name('karyawandelete');
 
     /* Data Cuti Karyawan */
     Route::get('/hrd/listcutikaryawan', [CutiKaryawanController::class, 'listcutikaryawan'])->name('listcutikaryawan');
+    Route::put('/hrd/listcutikaryawanupdate/{id}', [CutiKaryawanController::class, 'update'])->name('listcutikaryawanupdate');
+    Route::delete('/hrd/listcutikaryawandelete/{id}', [CutiKaryawanController::class, 'delete'])->name('listcutikaryawandelete');
 
     /* Data Absen Karyawan */
     Route::get('/hrd/listabsenkaryawan', [AbsenKaryawanController::class, 'listabsenkaryawan'])->name('listabsenkaryawan');
-
+    Route::get('/hrd/updateStatusTidakHadir', [AbsenKaryawanController::class, 'updateStatusTidakHadir'])->name('absensihrd.updateStatusTidakHadir');
+    
       /* Data List Peringatan  Karyawan */
       Route::get('/hrd/listperingatankaryawan', [ListPeringatanKaryawanController::class, 'listperingatankaryawan'])->name('listperingatankaryawan');
 
@@ -323,6 +319,7 @@ Route::middleware(['auth', 'user-access:hrd'])->group(function () {
       Route::get('/hrd/reportlistcutikaryawan', [ReportDataKaryawanController::class, 'reportlistcutikaryawan'])->name('reportlistcutikaryawan');
       Route::get('/hrd/reportlistperingatankaryawan', [ReportDataKaryawanController::class, 'reportlistperingatankaryawan'])->name('reportlistperingatankaryawan');
 });
+
 
 /* Karyawan */
 Route::middleware(['auth', 'user-access:karyawan'])->group(function () {
@@ -334,10 +331,27 @@ Route::middleware(['auth', 'user-access:karyawan'])->group(function () {
 
    // Pengajuan Pengunduran Diri Karyawan
    Route::get('/karyawan/pengajuandiri/', [PengajuanDiriController::class, 'pengajuandirikaryawan'])->name('pengajuandirikaryawan');
+   Route::post('/karyawan/pengajuandiricreateprosess/', [PengajuanDiriController::class, 'pengajuandirikaryawancreateprosess'])->name('pengajuandirikaryawancreateprosess');
+
+   // Pengajuan Cuti
    Route::get('/karyawan/pengajuancuti/', [PengajuanCutiController::class, 'pengajuancutikaryawan'])->name('pengajuancutikaryawan');
-   Route::get('/karyawan/absenkaryawan/', [AbsensiKaryawanController::class, 'absenkaryawan'])->name('absenkaryawan');
+   Route::post('/karyawan/pengajuancuticreateprosess/', [PengajuanCutiController::class, 'pengajuancutikaryawancreateprosess'])->name('pengajuancutikaryawancreateprosess');
+
+    // Absen Karyawan
+    Route::get('/karyawan/absenkaryawan/', [AbsensiKaryawanController::class, 'absenkaryawan'])->name('absenkaryawan');
+    Route::post('/karyawan/absenkaryawanprosess/', [AbsensiKaryawanController::class, 'prosesabsenkaryawan'])->name('prosesabsenkaryawan');
+
+    // Absen Pulang
+    Route::get('/karyawan/absenkaryawan/pulang/', [AbsensiKaryawanController::class, 'absenkaryawanpulang'])->name('absenkaryawanpulang');
+    Route::post('/karyawan/absenkaryawanprosess/pulang/', [AbsensiKaryawanController::class, 'prosesabsenkaryawanpulang'])->name('prosesabsenkaryawanpulang');
+
+    // List Data Absen Diri Sendiri
+    Route::get('/karyawan/listdataabsenkaryawan/', [AbsensiKaryawanController::class, 'listdataabsenkaryawan'])->name('listdataabsenkaryawan');
+    Route::get('/absensi/updateStatusTidakHadir', [AbsensiKaryawanController::class, 'updateStatusTidakHadir'])->name('absensi.updateStatusTidakHadir');
+
    Route::get('/karyawan/peringatankaryawan/', [DataPeringatanKaryawanController::class, 'peringatankaryawan'])->name('peringatankaryawan');
 });
+
 
 /* Owner */
 Route::middleware(['auth', 'user-access:owner'])->group(function () {
@@ -351,12 +365,19 @@ Route::middleware(['auth', 'user-access:owner'])->group(function () {
    // Data Users Internal Karyawan PT Raja Perkasa
    Route::get('/owner/manajemen/karyawanlist', [DataUsersController::class, 'ownerkaryawanlist'])->name('ownerkaryawanlist');
    Route::get('/owner/manajemen/showkaryawanlist/{id}', [DataUsersController::class, 'ownershowkaryawanlist'])->name('ownershowkaryawanlist');
-   Route::get('/owner/manajemen/picperusahaan', [DataUsersController::class, 'picperusahaanlist'])->name('picperusahaanlist');
-   Route::get('/owner/manajemen/picperusahaan/{id}', [DataUsersController::class, 'ownershowpicperusahaanlist'])->name('ownershowpicperusahaanlist');
+
+   // PIC Perusahaan
+    Route::get('/owner/manajemen/picperusahaan', [DataUsersController::class, 'picperusahaanlist'])->name('picperusahaanlist');
+    Route::post('/owner/users/picperusahaan/edit/{id}', [DataUsersController::class, 'editpicperusahaanproses'])->name('editpicperusahaanproses');
+    Route::get('/owner/manajemen/picperusahaan/{id}', [DataUsersController::class, 'ownershowpicperusahaanlist'])->name('ownershowpicperusahaanlist');
+    Route::get('/owner/users/picperusahaan/data/{id}', [DataUsersController::class, 'getKerjasamaData'])->name('getKerjasamaData');
+
    
    /* Data Proyek */
-   Route::get('/owner/manajemen/proyek', [DataProyekController::class, 'proyeklistowner'])->name('proyeklistowner');
-   Route::get('/owner/listdataproyek/show/{id}', [DataProyekController::class, 'ownershowlistdataproyek'])->name('ownershowlistdataproyek');
+    Route::get('/owner/manajemen/proyek', [DataProyekController::class, 'proyeklistowner'])->name('proyeklistowner');
+    Route::post('/owner/listdataproyek/update/{id}', [DataProyekController::class, 'ownerlistdataproyekupdate'])->name('ownerlistdataproyek.update');
+    Route::get('/owner/listdataproyek/show/{id}', [DataProyekController::class, 'ownershowlistdataproyek'])->name('ownershowlistdataproyek');
+    Route::get('/owner/listdataproyek/data/{id}', [DataProyekController::class, 'getProyekData'])->name('getProyekData');
 
    /* Report Data */
    Route::get('/owner/report/proyek', [ReportDataController::class, 'reportownerproyek'])->name('reportownerproyek');
@@ -365,8 +386,9 @@ Route::middleware(['auth', 'user-access:owner'])->group(function () {
    Route::get('/owner/report/datakaryawan', [ReportDataController::class, 'ownerreportdatakaryawan'])->name('reportdatakaryawan');
    Route::get('/owner/export/datakaryawan', [ReportDataController::class, 'ownerexportreportdatakaryawan'])->name('ownerexportreportdatakaryawan');
 
-   Route::get('/owner/report/userspicperusahaan', [ReportDataController::class, 'ownerreportuserspicperusahaan'])->name('reportuserspicperusahaan');
+   Route::get('/owner/report/userspicperusahaan', [ReportDataController::class, 'ownerreportuserspicperusahaan'])->name('ownerreportuserspicperusahaan');
    Route::get('/owner/export/picperusahaan', [ReportDataController::class, 'ownerexportreportpicperusahaan'])->name('ownerexportreportpicperusahaan');
+ 
 });
 
 

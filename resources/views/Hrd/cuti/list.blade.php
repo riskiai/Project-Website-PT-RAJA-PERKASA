@@ -12,22 +12,11 @@
 
     <div class="card">
       <div class="card-body">
-        <div class="table-top">
-          <div class="search-set">
-            <div class="search-path">
-              <a class="btn btn-filter" id="filter_search">
-                <img src="{{ asset('assets/img/icons/filter.svg') }}" alt="img" />
-                <span><img src="{{ asset('assets/img/icons/closes.svg') }}" alt="img" /></span>
-              </a>
-            </div>
-            <div class="search-input">
-              <a class="btn btn-searchset">
-                <img src="{{ asset('assets/img/icons/search-white.svg') }}" alt="img" />
-              </a>
-            </div>
+        @if(session('success'))
+          <div class="alert alert-success">
+            {{ session('success') }}
           </div>
-        </div>
-
+        @endif
         <div class="table-responsive">
           <table class="table datanew text-center">
             <thead>
@@ -47,26 +36,31 @@
               @foreach($data as $index => $item)
               <tr>
                 <td>{{ $index + 1 }}</td>
-                <td>{{ $item->name }}</td>
-                <td>{{ $item->divisi_name }}</td>
-                <td>{{ $item->alasan }}</td>
-                <td>{{ $item->status }}</td>
-                <td><a href="{{ asset('storage/'.$item->file) }}" target="_blank">{{ $item->file }}</a></td>
+                <td>{{ $item->user->name }}</td>
+                <td>{{ $item->user->divisi->divisi_name }}</td>
+                <td>{{ $item->alasan_cuti }}</td>
+                <td>
+                    @if($item->status_cuti === 'belumdicek')
+                        Belum Dicek
+                    @elseif($item->status_cuti === 'disetujui')
+                        Disetujui
+                    @elseif($item->status_cuti === 'tidak_disetujui')
+                        Tidak Disetujui
+                    @endif
+                </td>
+                <td><a href="{{ asset('storage/'.$item->file_cuti) }}" target="_blank">Lihat File</a></td>
                 <td>{{ $item->created_at->format('Y-m-d') }}</td>
                 <td>{{ $item->updated_at->format('Y-m-d') }}</td>
                 <td>
-                  <a class="me-3" href="#">
+                  <a class="me-3 edit-btn" href="#" data-id="{{ $item->id }}" data-status="{{ $item->status_cuti }}">
                     <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
                   </a>
-                  <button type="button" class="btn btn-link text-dark btn-delete" data-id="" title="Menghapus Data">
+                  <button type="button" class="btn btn-link text-dark btn-delete" data-id="{{ $item->id }}" title="Menghapus Data">
                     <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
                   </button>
-                  <form id="" action="#" method="POST" style="display: none;">
+                  <form id="deleteForm-{{ $item->id }}" action="{{ route('listcutikaryawandelete', $item->id) }}" method="POST" style="display: none;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-link text-dark">
-                      <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                    </button>
                   </form>
                 </td>
               </tr>
@@ -74,6 +68,40 @@
             </tbody>
           </table>
         </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- Modal -->
+   <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <form id="editForm" method="POST" action="" enctype="multipart/form-data">
+          @csrf
+          @method('PUT')
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalLabel">Update Status Cuti</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group mb-3">
+              <label for="status_cuti" class="form-label">Status Cuti</label>
+              <select name="status_cuti" id="status_cuti" class="form-select">
+                <option value="belumdicek">Belum Dicek</option>
+                <option value="disetujui">Disetujui</option>
+                <option value="tidak_disetujui">Tidak Disetujui</option>
+              </select>
+            </div>
+            <div class="form-group mb-3">
+              <label for="file_balasan" class="form-label">File Balasan (Opsional)</label>
+              <input type="file" name="file_balasan" id="file_balasan" class="form-control">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -114,6 +142,15 @@ $(document).ready(function() {
         if (deleteFormId) {
             $('#deleteForm-' + deleteFormId).submit();
         }
+    });
+
+    $('.edit-btn').click(function() {
+        var id = $(this).data('id');
+        var status = $(this).data('status');
+        
+        $('#status_cuti').val(status);
+        $('#editForm').attr('action', '/hrd/listcutikaryawanupdate/' + id);
+        $('#editModal').modal('show');
     });
 });
 </script>

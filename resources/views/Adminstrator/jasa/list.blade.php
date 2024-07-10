@@ -155,8 +155,8 @@
                   </td>
                   <td>{{ $index + 1 }}</td>
                   {{-- <td>{{ $item->title }}</td> --}}
-                  <td>{{ $item->short_description }}</td>
-                  <td>{!! $item->detail_description !!}</td>
+                  <td>{{ \Illuminate\Support\Str::limit($item->short_description, 20) }}</td>
+                  <td>{{ \Illuminate\Support\Str::limit(strip_tags($item->detail_description), 30) }}</td>
                   <td>
                     @if(!empty($item->image))
                         @php

@@ -60,13 +60,13 @@ class DashboardController extends Controller
         $user = User::findOrFail($id);
         $user->tgl_lahir_formatted = $user->tgl_lahir ? Carbon::parse($user->tgl_lahir)->translatedFormat('F, d Y') : null;
         $user->alamat_stripped = strip_tags($user->alamat);
-
-        // Ambil pengguna dengan role 'manajer'
-        $karyawanRoleId = Role::where('role_name', 'karyawan')->first()->id;
-        $karyawanUsers = User::where('role_id', $karyawanRoleId)->get();
+    
+        // Ambil pengguna yang sedang login
+        $loggedInUser = auth()->user();
         
-        return view('Karyawan.profile', compact('user', 'karyawanUsers'));
+        return view('Karyawan.profile', compact('user', 'loggedInUser'));
     }
+    
 
     public function updatekaryawanprofile(Request $request, $id) {
         $validatedData = $request->validate([

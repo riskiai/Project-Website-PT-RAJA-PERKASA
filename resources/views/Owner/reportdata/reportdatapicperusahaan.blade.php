@@ -34,7 +34,7 @@
                 </a>
               </li> --}}
               <li>
-                <a href="{{ route('exportreportpicperusahaan') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="excel">
+                <a href="{{ route('ownerexportreportpicperusahaan') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="excel">
                     <img src="{{ asset('assets/img/icons/excel.svg') }}" alt="img" />
                 </a>
             </li>

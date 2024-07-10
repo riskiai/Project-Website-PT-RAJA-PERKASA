@@ -1,8 +1,6 @@
 @extends('Adminstrator.Componentsadminstrator.app')
 
 @section('content')
-
-  
 <div class="page-wrapper">
   <div class="content">
     <div class="page-header">
@@ -11,13 +9,10 @@
         {{-- <h6>Manage your purchases</h6> --}}
       </div>
       <div class="page-btn">
-        <a href="{{ route('kontakcreate') }}" class="btn btn-added"
-          ><img
-            src="{{ asset('assets/img/icons/plus.svg') }}"
-            class="me-2"
-            alt="img"
-          />Tambah Data Jasa Di PT Raja Perkasa</a
-        >
+        <a href="{{ route('kontakcreate') }}" class="btn btn-added">
+          <img src="{{ asset('assets/img/icons/plus.svg') }}" class="me-2" alt="img" />
+          Tambah Data Jasa Di PT Raja Perkasa
+        </a>
       </div>
     </div>
 
@@ -28,9 +23,7 @@
             <div class="search-path">
               <a class="btn btn-filter" id="filter_search">
                 <img src="{{ asset('assets/img/icons/filter.svg') }}" alt="img" />
-                <span
-                  ><img src="{{ asset('assets/img/icons/closes.svg') }}" alt="img"
-                /></span>
+                <span><img src="{{ asset('assets/img/icons/closes.svg') }}" alt="img" /></span>
               </a>
             </div>
             <div class="search-input">
@@ -42,28 +35,19 @@
           <div class="wordset">
             {{-- <ul>
               <li>
-                <a
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="pdf"
-                  ><img src="{{ asset('assets/img/icons/pdf.svg') }}" alt="img"
-                /></a>
+                <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf">
+                  <img src="{{ asset('assets/img/icons/pdf.svg') }}" alt="img" />
+                </a>
               </li>
               <li>
-                <a
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="excel"
-                  ><img src="{{ asset('assets/img/icons/excel.svg') }}" alt="img"
-                /></a>
+                <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel">
+                  <img src="{{ asset('assets/img/icons/excel.svg') }}" alt="img" />
+                </a>
               </li>
               <li>
-                <a
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="print"
-                  ><img src="{{ asset('assets/img/icons/printer.svg') }}" alt="img"
-                /></a>
+                <a data-bs-toggle="tooltip" data-bs-placement="top" title="print">
+                  <img src="{{ asset('assets/img/icons/printer.svg') }}" alt="img" />
+                </a>
               </li>
             </ul> --}}
           </div>
@@ -75,16 +59,9 @@
               <div class="col-lg-2 col-sm-6 col-12">
                 <div class="form-group">
                   <div class="input-groupicon">
-                    <input
-                      type="text"
-                      class="datetimepicker cal-icon"
-                      placeholder="Choose Date"
-                    />
+                    <input type="text" class="datetimepicker cal-icon" placeholder="Choose Date" />
                     <div class="addonset">
-                      <img
-                        src="{{ asset('assets/img/icons/calendars.svg') }}"
-                        alt="img"
-                      />
+                      <img src="{{ asset('assets/img/icons/calendars.svg') }}" alt="img" />
                     </div>
                   </div>
                 </div>
@@ -113,11 +90,9 @@
               </div>
               <div class="col-lg-1 col-sm-6 col-12 ms-auto">
                 <div class="form-group">
-                  <a class="btn btn-filters ms-auto"
-                    ><img
-                      src="{{ asset('assets/img/icons/search-whites.svg') }}"
-                      alt="img"
-                  /></a>
+                  <a class="btn btn-filters ms-auto">
+                    <img src="{{ asset('assets/img/icons/search-whites.svg') }}" alt="img" />
+                  </a>
                 </div>
               </div>
             </div>
@@ -134,8 +109,7 @@
                     <span class="checkmarks"></span>
                   </label>
                 </th>
-                <th>No</th>
-                {{-- <th>Title</th> --}}
+                {{-- <th>No</th> --}}
                 <th>Email</th>
                 <th>Telefon</th>
                 <th>Link</th>
@@ -148,39 +122,40 @@
             <tbody>
               @foreach($data as $index => $item)
               <tr>
-                  <td>
-                      <label class="checkboxs">
-                          <input type="checkbox" />
-                          <span class="checkmarks"></span>
-                      </label>
-                  </td>
-                  <td>{{ $index + 1 }}</td>
-                  {{-- <td>{{ $item->title }}</td> --}}
-                  <td>{{ $item->email }}</td>
-                  <td>{{ $item->phone }}</td>
-                  <td>{{ $item->link }}</td>
-                  <td>{!! $item->alamat !!}</td>
-                  <td>{{ $item->created_at->format('Y-m-d') }}</td>
-                  <td>
-                    @if($item->status_kontak == 'active')
-                    <span class="badges bg-lightgreen">Active</span>
-                    @else
-                    <span class="badges bg-lightred">Non Active</span>
-                    @endif
-                  </td>
-                  <td>
-                      <a class="me-3" href="{{ route('kontakedit', ['id' => $item->id]) }}">
-                          <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
-                      </a>
-                      <form action="{{ route('kontakdelete', ['id' => $item->id]) }}" method="POST" style="display: inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-link"  onclick="return confirm('Are you sure you want to delete this item?');">
-                            <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                        </button>
-                    </form>                 
-                  </td>
-            </tr>
+                <td>
+                  <label class="checkboxs">
+                    <input type="checkbox" />
+                    <span class="checkmarks"></span>
+                  </label>
+                </td>
+                {{-- <td>{{ $index + 1 }}</td> --}}
+                <td>{{ $item->email }}</td>
+                <td>{{ $item->phone }}</td>
+                <td>
+                  <iframe src="{{ $item->links }}" width="100" height="100" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </td>
+                <td>{!! $item->alamat !!}</td>
+                <td>{{ $item->created_at->format('Y-m-d') }}</td>
+                <td>
+                  @if($item->status_kontak == 'active')
+                  <span class="badges bg-lightgreen">Active</span>
+                  @else
+                  <span class="badges bg-lightred">Non Active</span>
+                  @endif
+                </td>
+                <td>
+                  <a class="me-3" href="{{ route('kontakedit', ['id' => $item->id]) }}">
+                    <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
+                  </a>
+                  <form action="{{ route('kontakdelete', ['id' => $item->id]) }}" method="POST" style="display: inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-link" onclick="return confirm('Are you sure you want to delete this item?');">
+                      <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
+                    </button>
+                  </form>
+                </td>
+              </tr>
               @endforeach
             </tbody>
           </table>
@@ -189,5 +164,4 @@
     </div>
   </div>
 </div>
-
 @endsection

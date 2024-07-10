@@ -35,6 +35,7 @@
 
 @section('content')
 <div class="container mt-5">
+    @include('Client.components.navbarclient')
     <h2>Status Penerimaan Kerja Sama Mitra Dengan PT Raja Perkasa</h2> <!-- Added title above the table -->
     <div class="row">
         <div class="col-md-8 offset-md-2">

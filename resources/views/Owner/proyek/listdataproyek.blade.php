@@ -63,8 +63,8 @@
                                     <img src="{{ asset('assets/img/icons/printer.svg') }}" alt="img" />
                                 </a>
                             </li>
-                        </ul>
-                    </div> --}}
+                        </ul> --}}
+                    </div>
                 </div>
 
                 <div class="card" id="filter_inputs">
@@ -156,10 +156,9 @@
                                     @endif
                                 </td>
                                 <td class="action-icons">
-                                    <a href="">
+                                    <a href="#" class="btn btn-link btn-edit" data-id="{{ $item->id }}" title="Edit Status Proyek">
                                         <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
                                     </a>
-                                   
                                     <a href="{{ route('ownershowlistdataproyek',  ['id' => $item->id]) }}" title="Melihat Data Detail List Proyek">
                                         <i class="fas fa-eye text-dark"></i>
                                     </a>
@@ -176,6 +175,40 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal untuk Edit Proyek -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form id="editForm" method="POST" action="">
+                    @csrf
+                    @method('POST')
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Update Data Proyek</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group mb-3">
+                            <label for="status_proyek" class="form-label">Status Proyek</label>
+                            <select name="status_proyek" id="status_proyek" class="form-select">
+                                <option value="disetujui">Disetujui</option>
+                                <option value="tidak_disetujui">Tidak Disetujui</option>
+                                <option value="belumdicek">Belum Dicek</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="keterangan_status_proyek" class="form-label">Keterangan Status Proyek</label>
+                            <textarea name="keterangan_status_proyek" id="keterangan_status_proyek" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -215,6 +248,19 @@ $(document).ready(function() {
         if (deleteFormId) {
             $('#deleteForm-' + deleteFormId).submit();
         }
+    });
+
+    $('.btn-edit').click(function() {
+        var id = $(this).data('id');
+        var url = "{{ route('getProyekData', ':id') }}";
+        url = url.replace(':id', id);
+
+        $.get(url, function(data) {
+            $('#status_proyek').val(data.status_proyek);
+            $('#keterangan_status_proyek').val(data.keterangan_status_proyek);
+            $('#editForm').attr('action', "{{ route('ownerlistdataproyek.update', ':id') }}".replace(':id', id));
+            $('#editModal').modal('show');
+        });
     });
 });
 </script>

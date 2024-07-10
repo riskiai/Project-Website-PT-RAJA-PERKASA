@@ -60,11 +60,10 @@ class DashboardController extends Controller
         $user->tgl_lahir_formatted = $user->tgl_lahir ? Carbon::parse($user->tgl_lahir)->translatedFormat('F, d Y') : null;
         $user->alamat_stripped = strip_tags($user->alamat);
 
-        // Ambil pengguna dengan role 'manajer'
-        $ownerRoleId = Role::where('role_name', 'owner')->first()->id;
-        $ownerUsers = User::where('role_id', $ownerRoleId)->get();
+          // Ambil pengguna yang sedang login
+          $loggedInUser = auth()->user();
 
-        return view('Owner.profile', compact('user', 'ownerUsers'));
+        return view('Owner.profile', compact('user', 'loggedInUser'));
     }
 
     public function updateownerprofile(Request $request, $id) {

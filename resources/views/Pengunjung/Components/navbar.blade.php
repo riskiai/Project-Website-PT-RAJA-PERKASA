@@ -117,8 +117,8 @@
                                 </div>
                             </li>
                             <li><a class="dropdown-item" href="{{ route('profileclient') }}">Data Diri Pribadi</a></li>
-                            <li><a class="dropdown-item" href="{{ route('pengajuankerjasama') }}">Pengajuan <br> Kerja Sama</a></li>
-                            <li><a class="dropdown-item" href="{{ route('statuskerjasama') }}">Status <br> Kerja Sama</a></li>
+                            {{-- <li><a class="dropdown-item" href="{{ route('pengajuankerjasama') }}">Pengajuan <br> Kerja Sama</a></li>
+                            <li><a class="dropdown-item" href="{{ route('statuskerjasama') }}">Status <br> Kerja Sama</a></li>  --}}
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form action="{{ route('logout') }}" method="POST">

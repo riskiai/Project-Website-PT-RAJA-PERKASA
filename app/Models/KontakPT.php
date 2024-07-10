@@ -15,7 +15,8 @@ class KontakPT extends Model
         'email',
         'phone',
         'alamat',
-        'link',
-        'status_kontak'
+        'links',
+        'status_kontak',
+        'created_at'
     ];
 }

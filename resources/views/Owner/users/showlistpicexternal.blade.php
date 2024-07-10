@@ -338,7 +338,7 @@
                     <div class="row">
                         <div class="col-lg-12 col-sm-12 col-12 text-right">
                             <button type="submit" class="btn btn-primary">Update Status Users </button>
-                            <a href="{{ route('userslisteclient') }}" class="btn btn-secondary">Kembali</a>
+                            <a href="{{ route('picperusahaanlist') }}" class="btn btn-secondary">Kembali</a>
                         </div>
                     </div>
                 </form>

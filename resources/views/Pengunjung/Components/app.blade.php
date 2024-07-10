@@ -35,6 +35,7 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
@@ -68,6 +69,7 @@
 <script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
 <script src="{{ asset('lib/isotope/isotope.pkgd.min.js') }}"></script>
 <script src="{{ asset('lib/lightbox/js/lightbox.min.js') }}"></script>
+
 
 
 <!-- Template Javascript -->

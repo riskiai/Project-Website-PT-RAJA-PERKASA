@@ -6,7 +6,7 @@
   <div class="content">
     <div class="page-header">
       <div class="page-title">
-        <h4>List Data Pengunduran Diri Karyawan PT Raja Perkasa</h4>
+        <h4>Report Data Pengunduran Diri Karyawan PT Raja Perkasa</h4>
       </div>
     </div>
 
@@ -26,6 +26,27 @@
               </a>
             </div>
           </div>
+
+          <div class="wordset">
+            <ul>
+                {{-- <li>
+                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf">
+                        <img src="{{ asset('assets/img/icons/pdf.svg') }}" alt="img" />
+                    </a>
+                </li> --}}
+                <li>
+                    <a href="{{ route('exportreportproyek') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="excel">
+                        <img src="{{ asset('assets/img/icons/excel.svg') }}" alt="img" />
+                    </a>
+                </li>
+                
+                {{-- <li>
+                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="print">
+                        <img src="{{ asset('assets/img/icons/printer.svg') }}" alt="img" />
+                    </a>
+                </li> --}}
+            </ul>
+        </div>
         </div>
 
         <div class="table-responsive">

@@ -56,7 +56,7 @@
               <div class="col-lg-12">
                 <div class="form-group">
                   <label>Link</label>
-                  <input type="url" name="link" class="form-control" />
+                  <input type="url" name="links" class="form-control" />
                 </div>
               </div>
              

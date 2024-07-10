@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('kontak_p_t_s', function (Blueprint $table) {
             $table->id();
             // $table->string('title');
-            $table->string('email');
-            $table->string('phone');
-            $table->string('link');
-            $table->text('alamat');
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+            $table->text('links')->nullable();
+            $table->text('alamat')->nullable();
             $table->enum('status_kontak', ['active', 'nonactive'])->nullable()->default('active');
             $table->timestamps();
         });

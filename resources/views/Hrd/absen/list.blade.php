@@ -12,22 +12,28 @@
 
     <div class="card">
       <div class="card-body">
-        <div class="table-top">
-          <div class="search-set">
-            <div class="search-path">
-              <a class="btn btn-filter" id="filter_search">
-                <img src="{{ asset('assets/img/icons/filter.svg') }}" alt="img" />
-                <span><img src="{{ asset('assets/img/icons/closes.svg') }}" alt="img" /></span>
-              </a>
-            </div>
-            <div class="search-input">
-              <a class="btn btn-searchset">
-                <img src="{{ asset('assets/img/icons/search-white.svg') }}" alt="img" />
-              </a>
+        {{-- @include('Hrd.absen.components_absen.navbar') --}}
+        <div class="table-top mt-3">
+            <div class="search-set">
+              <div class="search-path">
+                <a class="btn btn-filter" id="filter_search">
+                  <img src="{{ asset('assets/img/icons/filter.svg') }}" alt="img" />
+                  <span><img src="{{ asset('assets/img/icons/closes.svg') }}" alt="img" /></span>
+                </a>
+              </div>
+              <div class="search-input">
+                <a class="btn btn-searchset">
+                  <img src="{{ asset('assets/img/icons/search-white.svg') }}" alt="img" />
+                </a>
+              </div>
             </div>
           </div>
-        </div>
 
+        @if(session('success'))
+          <div class="alert alert-success">
+            {{ session('success') }}
+          </div>
+        @endif
         <div class="table-responsive">
           <table class="table datanew text-center">
             <thead>
@@ -35,41 +41,45 @@
                 <th>No</th>
                 <th>Nama Karyawan</th>
                 <th>Divisi</th>
-                <th>Status Absensi</th>
-                <th>Mulai Absen</th>
-                <th>Mengakhiri Absen</th>
-                <th>File Absen</th>
-                <th>Created At</th>
-                <th>Updated At</th>
-                <th>Action</th>
+                <th>Tanggal Absen</th>
+                <th>Status Absen</th>
+                <th>Waktu Datang</th>
+                <th>Waktu Pulang</th>
+                <th>Bukti Kehadiran</th>
+                <th>Surat Izin/Sakit</th>
               </tr>
             </thead>
             <tbody>
-              @foreach($data as $index => $item)
+              @foreach($absens as $index => $item)
               <tr>
                 <td>{{ $index + 1 }}</td>
-                <td>{{ $item->name }}</td>
-                <td>{{ $item->divisi_name }}</td>
-                <td>{{ $item->status_absensi }}</td>
-                <td>{{ $item->data_start_absen }}</td>
-                <td>{{ $item->data_end_absen }}</td>
-                <td><a href="{{ asset('storage/'.$item->file_absen) }}" target="_blank">{{ $item->file_absen }}</a></td>
-                <td>{{ $item->created_at->format('Y-m-d') }}</td>
-                <td>{{ $item->updated_at->format('Y-m-d') }}</td>
+                <td>{{ $item->user->name }}</td>
+                <td>{{ $item->user->divisi->divisi_name }}</td>
+                <td>{{ \Carbon\Carbon::parse($item->tanggal_absen)->translatedFormat('j F Y') }}</td>
                 <td>
-                  <a class="me-3" href="#">
-                    <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
-                  </a>
-                  <button type="button" class="btn btn-link text-dark btn-delete" data-id="" title="Menghapus Data">
-                    <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                  </button>
-                  <form id="" action="#" method="POST" style="display: none;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-link text-dark">
-                      <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                    </button>
-                  </form>
+                    @if($item->waktu_datang_kehadiran && !$item->waktu_pulang_kehadiran && \Carbon\Carbon::now()->diffInHours($item->waktu_datang_kehadiran) < 24)
+                        -
+                    @elseif($item->waktu_datang_kehadiran && $item->waktu_pulang_kehadiran)
+                        hadir
+                    @else
+                        {{ $item->status_absensi }}
+                    @endif
+                </td>
+                <td>{{ $item->waktu_datang_kehadiran ? \Carbon\Carbon::parse($item->waktu_datang_kehadiran)->format('H:i:s') : '-' }}</td>
+                <td>{{ $item->waktu_pulang_kehadiran ? \Carbon\Carbon::parse($item->waktu_pulang_kehadiran)->format('H:i:s') : '-' }}</td>
+                <td>
+                  @if($item->bukti_kehadiran)
+                    <a href="{{ asset('storage/' . $item->bukti_kehadiran) }}" target="_blank">Lihat Bukti</a>
+                  @else
+                    -
+                  @endif
+                </td>
+                <td>
+                  @if($item->surat_izin_sakit)
+                    <a href="{{ asset('storage/' . $item->surat_izin_sakit) }}" target="_blank">Lihat Surat Izin/Sakit</a>
+                  @else
+                    -
+                  @endif
                 </td>
               </tr>
               @endforeach
@@ -80,24 +90,32 @@
     </div>
   </div>
 
-  <!-- Modal Konfirmasi Hapus -->
-  <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="deleteConfirmModalLabel">Konfirmasi Penghapusan</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          Apakah Anda yakin ingin menghapus item ini?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-          <button type="button" class="btn btn-danger" id="confirmDeleteButton">Hapus</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+@endsection
 
+@section('scripts')
+<script>
+$(document).ready(function() {
+    var deleteFormId = null;
+
+    $('.btn-delete').click(function() {
+        deleteFormId = $(this).data('id');
+        $('#deleteConfirmModal').modal('show');
+    });
+
+    $('#confirmDeleteButton').click(function() {
+        if (deleteFormId) {
+            $('#deleteForm-' + deleteFormId).submit();
+        }
+    });
+
+    $('.edit-btn').click(function() {
+        var id = $(this).data('id');
+        var status = $(this).data('status');
+        
+        $('#status_cuti').val(status);
+        $('#editForm').attr('action', '/hrd/listcutikaryawanupdate/' + id);
+        $('#editModal').modal('show');
+    });
+});
+</script>
 @endsection

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tentangptrajapekasa', function (Blueprint $table) {
             $table->id();
             // $table->string('title');
-            $table->string('short_description');
+            $table->text('short_description');
             $table->text('detail_description');
             $table->enum('status_tentang', ['active', 'nonactive'])->nullable()->default('active');
             $table->string('image')->nullable();

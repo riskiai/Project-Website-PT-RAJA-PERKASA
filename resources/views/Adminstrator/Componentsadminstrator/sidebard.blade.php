@@ -45,7 +45,7 @@
                       ></a>
                       <ul>
                           <li class="{{ Request::is('tentanglist*') ? 'active' : '' }}"><a href="{{ route('tentanglist') }}">List Data </a></li>
-                          <li class="{{ Request::is('tentangcreate*') ? 'active' : '' }}"><a href="{{ route('tentangcreate') }}">Tambah Data </a></li>
+                          {{-- <li class="{{ Request::is('tentangcreate*') ? 'active' : '' }}"><a href="{{ route('tentangcreate') }}">Tambah Data </a></li> --}}
                       </ul>
                   </li>
 
@@ -196,7 +196,7 @@
             <ul>
                 <li class="{{ Request::is('reportownerproyek*') ? 'active' : '' }}"><a href="{{ route('reportownerproyek') }}">Report Data List Proyek PT Raja Perkasa</a></li>
                 <li class="{{ Request::is('reportdatakaryawan*') ? 'active' : '' }}"><a href="{{ route('reportdatakaryawan') }}">Report Data Karyawan PT Raja Perkasa</a></li>
-                <li class="{{ Request::is('reportuserspicperusahaan*') ? 'active' : '' }}"><a href="{{ route('reportuserspicperusahaan') }}">Report Data PIC Perusahaan Client Mitra PT Raja Perkasa</a></li>
+                <li class="{{ Request::is('ownerreportuserspicperusahaan*') ? 'active' : '' }}"><a href="{{ route('ownerreportuserspicperusahaan') }}">Report Data PIC Perusahaan Client Mitra PT Raja Perkasa</a></li>
                 {{-- <li class="{{ Request::is('reportmitralist*') ? 'active' : '' }}"><a href="">Report Data Mitra Perusahaan PT Raja Perkasa</a></li> --}}
             </ul>
         </li>
@@ -296,6 +296,19 @@
           @endif
 
           @if(auth()->check() && auth()->user()->role->role_name === 'karyawan')
+          <li class="submenu">
+            <a href="javascript:void(0);">
+                <i data-feather="clipboard"></i>
+                <span>Absen Karyawan</span>
+                <span class="menu-arrow"></span>
+            </a>
+            <ul>
+                <li class="{{ Request::is('absenkaryawan*') ? 'active' : '' }}">
+                    <a href="{{ route('absenkaryawan') }}">Absen</a>
+                </li>
+            </ul>
+        </li>
+
               <li class="submenu">
                   <a href="javascript:void(0);">
                       <i data-feather="user-x"></i>
@@ -318,19 +331,6 @@
                   <ul>
                       <li class="{{ Request::is('pengajuancutikaryawan*') ? 'active' : '' }}">
                           <a href="{{ route('pengajuancutikaryawan') }}">Ajukan Data Cuti</a>
-                      </li>
-                  </ul>
-              </li>
-          
-              <li class="submenu">
-                  <a href="javascript:void(0);">
-                      <i data-feather="clipboard"></i>
-                      <span>Absen Karyawan</span>
-                      <span class="menu-arrow"></span>
-                  </a>
-                  <ul>
-                      <li class="{{ Request::is('absenkaryawan*') ? 'active' : '' }}">
-                          <a href="{{ route('absenkaryawan') }}">Ajukan Data Absen</a>
                       </li>
                   </ul>
               </li>

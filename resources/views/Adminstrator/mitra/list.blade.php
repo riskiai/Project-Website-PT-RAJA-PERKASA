@@ -6,7 +6,7 @@
   <div class="content">
     <div class="page-header">
       <div class="page-title">
-        <h4>List Data Mitra Di PT Raja Perkasa </h4>
+        <h4>List Data Mitra Perusahaan Di PT Raja Perkasa </h4>
       </div>
       {{-- <div class="page-btn">
         <a href="{{ route('mitracreate') }}" class="btn btn-added">

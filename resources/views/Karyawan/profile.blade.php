@@ -7,9 +7,7 @@
         <div class="page-title">
           <h4>Profile Role Karyawan PT Raja Perkasa</h4>
           <h6>
-            @foreach($karyawanUsers as $karyawan)
-              {{ $karyawan->name }}@if(!$loop->last), @endif
-            @endforeach
+            {{ $loggedInUser->name }}
           </h6>
         </div>
       </div>

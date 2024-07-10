@@ -23,7 +23,7 @@
     <div class="content">
         <div class="page-header">
             <div class="page-title">
-                <h4>List Data Setting PT Raja Perkasa</h4>
+                <h4>List Data Setting Title PT Raja Perkasa</h4>
             </div>
             <div class="page-btn">
                 <a href="{{ route('settings_titlecreate') }}" class="btn btn-added">
