@@ -52,19 +52,19 @@
                                 <input type="date" name="tanggal_absen" id="tanggal_absen" class="form-control" required />
                             </div>
                         </div>
-                        <div class="col-lg-6 col-sm-12 mt-4">
+                        <div class="col-lg-6 col-sm-12 mt-4" id="waktu_datang_container">
                             <div class="form-group">
                                 <label>Waktu Datang Kehadiran</label>
                                 <input type="text" name="waktu_datang_kehadiran" id="waktu_datang_kehadiran" class="form-control" readonly />
                             </div>
                         </div>
-                        <div class="col-lg-6 col-sm-12 mt-4">
+                        <div class="col-lg-6 col-sm-12 mt-4" id="surat_izin_sakit_container">
                             <div class="form-group">
                                 <label>Surat Izin/Sakit</label>
                                 <input type="file" name="surat_izin_sakit" id="surat_izin_sakit" class="form-control" />
                             </div>
                         </div>
-                        <div class="col-lg-12 col-sm-12 mt-4">
+                        <div class="col-lg-12 col-sm-12 mt-4" id="bukti_kehadiran_container">
                             <div class="form-group">
                                 <label>Bukti Kehadiran</label>
                                 <div class="camera-container" style="display: flex; align-items: center;">
@@ -97,15 +97,18 @@
 <script>
     function toggleFields() {
         const statusAbsen = document.getElementById('status_absen').value;
-        const buktiKehadiran = document.getElementById('bukti_kehadiran');
-        const suratIzinSakit = document.getElementById('surat_izin_sakit');
+        const buktiKehadiranContainer = document.getElementById('bukti_kehadiran_container');
+        const waktuDatangContainer = document.getElementById('waktu_datang_container');
+        const suratIzinSakitContainer = document.getElementById('surat_izin_sakit_container');
 
         if (statusAbsen === 'hadir') {
-            buktiKehadiran.removeAttribute('disabled');
-            suratIzinSakit.setAttribute('disabled', 'disabled');
+            buktiKehadiranContainer.style.display = 'block';
+            waktuDatangContainer.style.display = 'block';
+            suratIzinSakitContainer.style.display = 'none';
         } else {
-            buktiKehadiran.setAttribute('disabled', 'disabled');
-            suratIzinSakit.removeAttribute('disabled');
+            buktiKehadiranContainer.style.display = 'none';
+            waktuDatangContainer.style.display = 'none';
+            suratIzinSakitContainer.style.display = 'block';
         }
     }
 

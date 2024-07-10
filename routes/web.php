@@ -308,10 +308,12 @@ Route::middleware(['auth', 'user-access:hrd'])->group(function () {
 
     /* Data Absen Karyawan */
     Route::get('/hrd/listabsenkaryawan', [AbsenKaryawanController::class, 'listabsenkaryawan'])->name('listabsenkaryawan');
-    Route::get('/hrd/updateStatusTidakHadir', [AbsenKaryawanController::class, 'updateStatusTidakHadir'])->name('absensihrd.updateStatusTidakHadir');
+    Route::post('/hrd/updateperingatankaryawan/{id}', [ListPeringatanKaryawanController::class, 'updateperingatankaryawan'])->name('updatelistperingatankaryawan');
     
       /* Data List Peringatan  Karyawan */
       Route::get('/hrd/listperingatankaryawan', [ListPeringatanKaryawanController::class, 'listperingatankaryawan'])->name('listperingatankaryawan');
+      Route::post('/hrd/updateperingatankaryawan/{id}', [ListPeringatanKaryawanController::class, 'updateperingatankaryawan'])->name('updatelistperingatankaryawan');
+
 
       /* Report Data Karyawan */
       Route::get('/hrd/reportlistabsenkaryawan', [ReportDataKaryawanController::class, 'reportlistabsenkaryawan'])->name('reportlistabsenkaryawan');

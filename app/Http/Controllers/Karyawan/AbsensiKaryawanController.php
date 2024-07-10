@@ -29,8 +29,8 @@ class AbsensiKaryawanController extends Controller
         $request->validate([
             'status_absen' => 'required|in:hadir,izin,sakit,tidak_hadir',
             'tanggal_absen' => 'required|date',
-            'waktu_datang_kehadiran' => 'required|date_format:H:i:s',
-            'bukti_kehadiran' => 'required',
+            'waktu_datang_kehadiran' => 'required_if:status_absen,hadir|nullable|date_format:H:i:s',
+            'bukti_kehadiran' => 'required_if:status_absen,hadir|nullable',
             'surat_izin_sakit' => 'nullable|file|mimes:pdf,jpg,jpeg,png',
         ]);
 
@@ -48,21 +48,24 @@ class AbsensiKaryawanController extends Controller
 
         $data = $request->except(['created_at', 'updated_at']);
         $data['user_id'] = $user_id;
+        $data['status_absensi'] = $request->status_absen; // Set status absensi
 
-        // Menggabungkan tanggal dan waktu untuk disimpan ke database
-        $data['waktu_datang_kehadiran'] = Carbon::parse($tanggal_absen . ' ' . $request->waktu_datang_kehadiran);
+        if ($request->status_absen == 'hadir') {
+            // Menggabungkan tanggal dan waktu untuk disimpan ke database
+            $data['waktu_datang_kehadiran'] = Carbon::parse($tanggal_absen . ' ' . $request->waktu_datang_kehadiran);
 
-        // Set status absensi sesuai input
-        $data['status_absensi'] = $request->input('status_absen');
-
-        // Simpan bukti kehadiran dari kamera
-        if ($request->input('bukti_kehadiran')) {
-            $image = $request->input('bukti_kehadiran'); // base64 encoded image
-            $image = str_replace('data:image/png;base64,', '', $image);
-            $image = str_replace(' ', '+', $image);
-            $imageName = Str::random(10) . '.' . 'png';
-            Storage::disk('public')->put('bukti_kehadiran/' . $imageName, base64_decode($image));
-            $data['bukti_kehadiran'] = 'bukti_kehadiran/' . $imageName;
+            // Simpan bukti kehadiran dari kamera
+            if ($request->input('bukti_kehadiran')) {
+                $image = $request->input('bukti_kehadiran'); // base64 encoded image
+                $image = str_replace('data:image/png;base64,', '', $image);
+                $image = str_replace(' ', '+', $image);
+                $imageName = Str::random(10) . '.' . 'png';
+                Storage::disk('public')->put('bukti_kehadiran/' . $imageName, base64_decode($image));
+                $data['bukti_kehadiran'] = 'bukti_kehadiran/' . $imageName;
+            }
+        } else {
+            $data['waktu_datang_kehadiran'] = null;
+            $data['bukti_kehadiran'] = null;
         }
 
         // Simpan file surat izin sakit
@@ -73,12 +76,7 @@ class AbsensiKaryawanController extends Controller
 
         AbsenKaryawan::create($data);
 
-        Carbon::setLocale('id');
-        $waktuDatang = Carbon::parse($data['waktu_datang_kehadiran']);
-        $dayName = Carbon::parse($tanggal_absen)->translatedFormat('l'); // Nama hari dalam bahasa Indonesia
-        $time = $waktuDatang->format('H:i:s');
-
-        return redirect()->route('absenkaryawan')->with('success', "Absen karyawan berhasil disimpan pada hari $dayName pukul $time WIB.");
+        return redirect()->route('absenkaryawan')->with('success', 'Absen karyawan berhasil disimpan.');
     }
 
     /* Absen Karyawan Pulang */
@@ -154,7 +152,7 @@ class AbsensiKaryawanController extends Controller
 
         $user_id = Auth::id();
         $absens = AbsenKaryawan::where('user_id', $user_id)
-            ->whereDate('tanggal_absen', Carbon::today())
+            ->orderBy('tanggal_absen', 'desc')
             ->get();
 
         return view('Karyawan.absen.listdata', compact('absens'));

@@ -78,11 +78,21 @@ class User extends Authenticatable
         return $this->hasMany(Pengundurandiri::class, 'user_id');
     }
 
-    public function cuti() {
+    public function cutis()
+    {
         return $this->hasMany(Cuti::class, 'user_id');
     }
 
-    // App\Models\User.php
+    public function absens()
+    {
+        return $this->hasMany(AbsenKaryawan::class, 'user_id');
+    }
+
+    public function listPeringatanKaryawans()
+    {
+        return $this->hasMany(ListPeringatanKaryawan::class, 'user_id');
+    }
+
     public function getRoleNameAttribute()
     {
         $document = $this->documentKerjasamaClient;

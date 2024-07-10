@@ -1,7 +1,6 @@
 @extends('Adminstrator.Componentsadminstrator.app')
 
 @section('content')
-
 <div class="page-wrapper">
   <div class="content">
     <div class="page-header">
@@ -28,6 +27,12 @@
           </div>
         </div>
 
+        @if(session('success'))
+          <div class="alert alert-success">
+            {{ session('success') }}
+          </div>
+        @endif
+
         <div class="table-responsive">
           <table class="table datanew text-center">
             <thead>
@@ -40,8 +45,6 @@
                 <th>Jenis Peringatan</th>
                 <th>Status Karyawan</th>
                 <th>File Peringatan</th>
-                <th>Created At</th>
-                <th>Updated At</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -56,22 +59,10 @@
                 <td>{{ $item->jenis_peringatan }}</td>
                 <td>{{ $item->status_karyawan }}</td>
                 <td><a href="{{ asset('storage/'.$item->file_peringatan) }}" target="_blank">{{ $item->file_peringatan }}</a></td>
-                <td>{{ $item->created_at->format('Y-m-d') }}</td>
-                <td>{{ $item->updated_at->format('Y-m-d') }}</td>
                 <td>
-                  <a class="me-3" href="#">
+                  <a class="me-3" href="#" data-bs-toggle="modal" data-bs-target="#editModal" data-id="{{ $item->user_id }}" data-jenis-peringatan="{{ $item->jenis_peringatan }}" data-status-karyawan="{{ $item->status_karyawan }}">
                     <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
                   </a>
-                  <button type="button" class="btn btn-link text-dark btn-delete" data-id="" title="Menghapus Data">
-                    <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                  </button>
-                  <form id="" action="#" method="POST" style="display: none;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-link text-dark">
-                      <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                    </button>
-                  </form>
                 </td>
               </tr>
               @endforeach
@@ -82,24 +73,48 @@
     </div>
   </div>
 
-  <!-- Modal Konfirmasi Hapus -->
-  <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+  <!-- Modal Edit Peringatan -->
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="deleteConfirmModalLabel">Konfirmasi Penghapusan</h5>
+          <h5 class="modal-title" id="editModalLabel">Update Peringatan Karyawan</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-          Apakah Anda yakin ingin menghapus item ini?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-          <button type="button" class="btn btn-danger" id="confirmDeleteButton">Hapus</button>
-        </div>
+        <form id="editForm" method="POST" enctype="multipart/form-data">
+          @csrf
+          <div class="modal-body">
+              <input type="hidden" name="user_id" id="editUserId">
+              <div class="mb-3">
+                  <label for="jenis_peringatan" class="form-label">Jenis Peringatan</label>
+                  <select class="form-control" name="jenis_peringatan" id="editJenisPeringatan">
+                      <option value="peringatan_peneguran">Peringatan Peneguran</option>
+                      <option value="peringatan_pemanggilan">Peringatan Pemanggilan</option>
+                      <option value="peringatan_pemberhentian">Peringatan Pemberhentian</option>
+                  </select>
+              </div>
+              <div class="mb-3">
+                  <label for="status_karyawan" class="form-label">Status Karyawan</label>
+                  <select class="form-control" name="status_karyawan" id="editStatusKaryawan">
+                      <option value="aktif">Aktif</option>
+                      <option value="diberhentikan">Diberhentikan</option>
+                  </select>
+              </div>
+              <div class="mb-3">
+                  <label for="file_peringatan" class="form-label">File Peringatan</label>
+                  <input type="file" class="form-control" name="file_peringatan" id="filePeringatan">
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+              <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+      </form>
+      
       </div>
     </div>
   </div>
+
 </div>
 
 @endsection
@@ -118,6 +133,22 @@ $(document).ready(function() {
         if (deleteFormId) {
             $('#deleteForm-' + deleteFormId).submit();
         }
+    });
+
+    $('#editModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var userId = button.data('id');
+        var jenisPeringatan = button.data('jenis-peringatan');
+        var statusKaryawan = button.data('status-karyawan');
+
+        var modal = $(this);
+        modal.find('#editUserId').val(userId);
+        modal.find('#editJenisPeringatan').val(jenisPeringatan);
+        modal.find('#editStatusKaryawan').val(statusKaryawan);
+
+        // Update form action with user ID
+        var form = modal.find('#editForm');
+        form.attr('action', '/hrd/updateperingatankaryawan/' + userId);
     });
 });
 </script>

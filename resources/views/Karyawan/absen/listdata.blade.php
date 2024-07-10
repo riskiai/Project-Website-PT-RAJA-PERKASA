@@ -18,7 +18,7 @@
               <div class="search-path">
                 <a class="btn btn-filter" id="filter_search">
                   <img src="{{ asset('assets/img/icons/filter.svg') }}" alt="img" />
-                  <span><img src="{{ asset('assets/img/icons/closes.svg') }}" alt="img" /></span>
+                  <span><img src="{{ asset('assets/img/icons/closes.svg') }}" alt="img" />
                 </a>
               </div>
               <div class="search-input">
@@ -57,12 +57,14 @@
                 <td>{{ $item->user->divisi->divisi_name }}</td>
                 <td>{{ \Carbon\Carbon::parse($item->tanggal_absen)->translatedFormat('j F Y') }}</td>
                 <td>
-                    @if($item->waktu_datang_kehadiran && !$item->waktu_pulang_kehadiran && \Carbon\Carbon::now()->diffInHours($item->waktu_datang_kehadiran) < 24)
-                        -
-                    @elseif($item->waktu_datang_kehadiran && $item->waktu_pulang_kehadiran)
+                    @if($item->status_absensi == 'hadir')
                         hadir
+                    @elseif($item->status_absensi == 'izin')
+                        izin
+                    @elseif($item->status_absensi == 'sakit')
+                        sakit
                     @else
-                        {{ $item->status_absensi }}
+                        tidak hadir
                     @endif
                 </td>
                 <td>{{ $item->waktu_datang_kehadiran ? \Carbon\Carbon::parse($item->waktu_datang_kehadiran)->format('H:i:s') : '-' }}</td>

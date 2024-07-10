@@ -37,6 +37,13 @@
                         {{ session('success') }}
                     </div>
                 @endif
+
+                @if($pengajuan->isEmpty())
+                    <div class="alert alert-info">
+                        Anda belum mengajukan cuti. Silakan <a href="{{ url('/path/to/contoh-format-izin-cuti.pdf') }}" target="_blank">download contoh format izin cuti</a> dan ajukan permohonan cuti Anda.
+                    </div>
+                @endif
+
                 <form action="{{ route('pengajuancutikaryawancreateprosess') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
@@ -109,13 +116,6 @@
                                 Tidak Disetujui
                             @endif
                         </p>
-                        {{-- <p>Alasan: {{ $item->alasan_cuti }}</p>
-                        <p>Lokasi Area Kerja: {{ $item->lokasi_area_kerja }}</p>
-                        <p>Tanggal Pengambilan Cuti: {{ $item->pengambilan_cuti_tgl }}</p>
-                        <p>Tanggal Masuk Kembali: {{ $item->masuk_kembali_tgl }}</p> --}}
-                        {{-- @if($item->file_cuti)
-                            <p>File Cuti: <a href="{{ asset('storage/' . $item->file_cuti) }}" target="_blank" class="text-success">Lihat File</a></p>
-                        @endif --}}
                         @if($item->status_cuti === 'disetujui' && $item->file_balasan)
                             <p>File Balasan: <a href="{{ asset('storage/' . $item->file_balasan) }}" target="_blank" class="text-success">Lihat File Balasan</a></p>
                         @elseif($item->status_cuti === 'tidak_disetujui')

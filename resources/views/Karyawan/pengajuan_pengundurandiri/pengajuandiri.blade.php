@@ -37,6 +37,13 @@
                         {{ session('success') }}
                     </div>
                 @endif
+
+                @if(!$pengunduranTerakhir)
+                    <div class="alert alert-info">
+                        Anda belum mengajukan pengunduran diri. Silakan <a href="{{ url('/path/to/contoh-format-pengunduran-diri.pdf') }}" target="_blank">download contoh format pengunduran diri</a> dan ajukan permohonan pengunduran diri Anda.
+                    </div>
+                @endif
+
                 <form action="{{ route('pengajuandirikaryawancreateprosess') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
@@ -64,9 +71,9 @@
                                 <input type="file" name="file_pengundurandiri" class="form-control" required />
                                 @if(isset($pengunduranTerakhir->file_pengunduran_diri))
                                     <a href="{{ asset('storage/' . $pengunduranTerakhir->file_pengunduran_diri) }}" target="_blank">File Pengajuan Diri Anda</a>
-                                @else
-                                    <a href="https://docs.google.com/document/d/1FoWakSL8iOfW791A_PVCl-GtKS81WrwE/edit?usp=sharing&ouid=100067878945190770414&rtpof=true&sd=true" target="_blank">Contoh Surat Pengajuan Pengunduran Diri Karyawan</a>
                                 @endif
+                                    {{-- <a href="{{ url('/path/to/contoh-format-pengunduran-diri.pdf') }}" target="_blank">Contoh Surat Pengajuan Pengunduran Diri Karyawan</a>
+                                @endif --}}
                             </div>
                         </div>
                         <div class="col-12">
@@ -75,9 +82,9 @@
                         </div>
                     </div>
                 </form>
+
                 @if(isset($pengunduranTerakhir))
                     <div class="status-container {{ $pengunduranTerakhir->status_pengunduran_diri }}">
-                        
                         @if($pengunduranTerakhir->status_pengunduran_diri == 'belumdicek' || $pengunduranTerakhir->status_pengunduran_diri == 'tidak_disetujui')
                         <h5>Status Pengunduran Diri Anda</h5>
                         @else($pengunduranTerakhir->status_pengunduran_diri == 'disetujui')

@@ -18,7 +18,10 @@ return new class extends Migration
             $table->unsignedBigInteger('cuti_id')->nullable();
             $table->foreign('cuti_id')->references('id')->on('cutis');
             $table->unsignedBigInteger('absen_id')->nullable();
-            $table->foreign('absen_id')->references('id')->on('absens');
+            $table->foreign('absen_id')->references('id')->on('absen_karyawans');
+            $table->enum('jenis_peringatan', ['peringatan_peneguran', 'peringatan_pemanggilan', 'peringatan_pemberhentian'])->nullable();
+            $table->enum('status_karyawan', ['aktif', 'diberhentikan'])->nullable();
+            $table->string('file_peringatan')->nullable();
             $table->timestamps();
         });
     }
