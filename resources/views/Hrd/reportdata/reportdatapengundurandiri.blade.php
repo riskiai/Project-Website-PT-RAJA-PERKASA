@@ -29,24 +29,13 @@
 
           <div class="wordset">
             <ul>
-                {{-- <li>
-                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf">
-                        <img src="{{ asset('assets/img/icons/pdf.svg') }}" alt="img" />
-                    </a>
-                </li> --}}
                 <li>
-                    <a href="{{ route('exportreportproyek') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="excel">
+                    <a href="{{ route('exportreportlistpengundurandirikaryawan') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="excel">
                         <img src="{{ asset('assets/img/icons/excel.svg') }}" alt="img" />
                     </a>
                 </li>
-                
-                {{-- <li>
-                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="print">
-                        <img src="{{ asset('assets/img/icons/printer.svg') }}" alt="img" />
-                    </a>
-                </li> --}}
             </ul>
-        </div>
+          </div>
         </div>
 
         <div class="table-responsive">
@@ -59,37 +48,35 @@
                 <th>Alasan Pengunduran Diri</th>
                 <th>Status Pengunduran Diri</th>
                 <th>File Pengunduran Diri</th>
-                <th>Created At</th>
-                <th>Updated At</th>
-                {{-- <th>Action</th> --}}
+                <th>File Balasan</th>
+                {{-- <th>Created At</th>
+                <th>Updated At</th> --}}
               </tr>
             </thead>
             <tbody>
               @foreach($data as $index => $item)
               <tr>
                 <td>{{ $index + 1 }}</td>
-                <td>{{ $item->name }}</td>
-                <td>{{ $item->divisi_name }}</td>
-                <td>{{ $item->alasan }}</td>
-                <td>{{ $item->status }}</td>
-                <td><a href="{{ asset('storage/'.$item->file) }}" target="_blank">{{ $item->file }}</a></td>
-                <td>{{ $item->created_at->format('Y-m-d') }}</td>
-                <td>{{ $item->updated_at->format('Y-m-d') }}</td>
-                {{-- <td>
-                  <a class="me-3" href="#">
-                    <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
-                  </a>
-                  <button type="button" class="btn btn-link text-dark btn-delete" data-id="" title="Menghapus Data">
-                    <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                  </button>
-                  <form id="" action="#" method="POST" style="display: none;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-link text-dark">
-                      <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                    </button>
-                  </form>
-                </td> --}}
+                <td>{{ $item->user->name }}</td>
+                <td>{{ $item->user->divisi->divisi_name ?? 'N/A' }}</td>
+                <td>{{ $item->alasan_pengunduran_diri }}</td>
+                <td>{{ ucfirst($item->status_pengunduran_diri) }}</td>
+                <td>
+                  @if($item->file_pengunduran_diri)
+                    <a href="{{ asset('storage/' . $item->file_pengunduran_diri) }}" target="_blank">Lihat File</a>
+                  @else
+                    -
+                  @endif
+                </td>
+                <td>
+                  @if($item->file_balasan)
+                    <a href="{{ asset('storage/' . $item->file_balasan) }}" target="_blank">Lihat File</a>
+                  @else
+                    -
+                  @endif
+                </td>
+                {{-- <td>{{ $item->created_at->format('Y-m-d') }}</td>
+                <td>{{ $item->updated_at->format('Y-m-d') }}</td> --}}
               </tr>
               @endforeach
             </tbody>

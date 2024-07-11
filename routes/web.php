@@ -212,7 +212,6 @@ Route::middleware(['auth', 'user-access:manajer'])->group(function () {
       Route::post('/manajerproyek/listdataperalatans/update/{id}', [ManajerProyekPeralatanController::class, 'updatelistdataperalatan'])->name('listdataperalatan.update');
       Route::delete('/manajerproyek/listdataperalatans/{id}', [ManajerProyekPeralatanController::class, 'deletelistdataperalatan'])->name('listdataperalatandelete');
  
-    
      // Data Materials
      /* Materials */
      Route::get('/manajerproyek/materials', [ManajerProyekMaterialsController::class, 'materials'])->name('materialslist');
@@ -316,10 +315,21 @@ Route::middleware(['auth', 'user-access:hrd'])->group(function () {
 
 
       /* Report Data Karyawan */
+      // Report Data Absen
       Route::get('/hrd/reportlistabsenkaryawan', [ReportDataKaryawanController::class, 'reportlistabsenkaryawan'])->name('reportlistabsenkaryawan');
+      Route::get('/hrd/export/reportlistabsenkaryawan', [ReportDataKaryawanController::class, 'exportreportlistabsenkaryawan'])->name('exportreportlistabsenkaryawan');
+
+      // Report Data Pengunduran Diri
       Route::get('/hrd/reportlistpengundurandirikaryawan', [ReportDataKaryawanController::class, 'reportlistpengundurandirikaryawan'])->name('reportlistpengundurandirikaryawan');
+      Route::get('/hrd/export/reportlistpengundurandirikaryawan', [ReportDataKaryawanController::class, 'exportreportlistpengundurandirikaryawan'])->name('exportreportlistpengundurandirikaryawan');
+
+      // Report Data Cuti
       Route::get('/hrd/reportlistcutikaryawan', [ReportDataKaryawanController::class, 'reportlistcutikaryawan'])->name('reportlistcutikaryawan');
+      Route::get('/hrd/export/reportlistcutikaryawan', [ReportDataKaryawanController::class, 'exportreportlistcutikaryawan'])->name('exportreportlistcutikaryawan');
+
+      // Report Data Peringatan
       Route::get('/hrd/reportlistperingatankaryawan', [ReportDataKaryawanController::class, 'reportlistperingatankaryawan'])->name('reportlistperingatankaryawan');
+      Route::get('/hrd/export/reportlistperingatankaryawan', [ReportDataKaryawanController::class, 'exportreportlistperingatankaryawan'])->name('exportreportlistperingatankaryawan');
 });
 
 
@@ -338,6 +348,7 @@ Route::middleware(['auth', 'user-access:karyawan'])->group(function () {
    // Pengajuan Cuti
    Route::get('/karyawan/pengajuancuti/', [PengajuanCutiController::class, 'pengajuancutikaryawan'])->name('pengajuancutikaryawan');
    Route::post('/karyawan/pengajuancuticreateprosess/', [PengajuanCutiController::class, 'pengajuancutikaryawancreateprosess'])->name('pengajuancutikaryawancreateprosess');
+   Route::get('/karyawan/listdatpengajuancutikaryawan/', [PengajuanCutiController::class, 'listdatpengajuancutikaryawan'])->name('listdatpengajuancutikaryawan');
 
     // Absen Karyawan
     Route::get('/karyawan/absenkaryawan/', [AbsensiKaryawanController::class, 'absenkaryawan'])->name('absenkaryawan');

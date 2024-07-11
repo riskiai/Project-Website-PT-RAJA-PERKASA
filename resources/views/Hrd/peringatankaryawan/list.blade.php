@@ -28,10 +28,30 @@
         </div>
 
         @if(session('success'))
-          <div class="alert alert-success">
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
         @endif
+
+        @foreach($data as $item)
+          @if($item->jenis_peringatan == 'peringatan_peneguran')
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              Peringatan Peneguran: Karyawan {{ $item->name }} telah tidak hadir sebanyak {{ $item->tidak_hadirnya }} kali dan cuti sebanyak {{ $item->cuti_berapakali }} kali.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          @elseif($item->jenis_peringatan == 'peringatan_pemanggilan')
+            <div class="alert alert-dark alert-dismissible fade show" role="alert">
+              Peringatan Pemanggilan: Karyawan {{ $item->name }} telah tidak hadir sebanyak {{ $item->tidak_hadirnya }} kali dan cuti sebanyak {{ $item->cuti_berapakali }} kali.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          @elseif($item->jenis_peringatan == 'peringatan_pemberhentian')
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              Peringatan Pemberhentian: Karyawan {{ $item->name }} telah tidak hadir sebanyak {{ $item->tidak_hadirnya }} kali dan cuti sebanyak {{ $item->cuti_berapakali }} kali.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          @endif
+        @endforeach
 
         <div class="table-responsive">
           <table class="table datanew text-center">
@@ -56,9 +76,25 @@
                 <td>{{ $item->divisi_name }}</td>
                 <td>{{ $item->cuti_berapakali }}</td>
                 <td>{{ $item->tidak_hadirnya }}</td>
-                <td>{{ $item->jenis_peringatan }}</td>
+                <td>
+                  @if($item->jenis_peringatan == 'peringatan_pemberhentian')
+                    <span class="badge bg-danger">Peringatan Pemberhentian</span>
+                  @elseif($item->jenis_peringatan == 'peringatan_pemanggilan')
+                    <span class="badge bg-warning">Peringatan Pemanggilan</span>
+                  @elseif($item->jenis_peringatan == 'peringatan_peneguran')
+                    <span class="badge bg-info">Peringatan Peneguran</span>
+                  @else
+                    <span class="badge bg-secondary">Tidak Ada Peringatan</span>
+                  @endif
+                </td>
                 <td>{{ $item->status_karyawan }}</td>
-                <td><a href="{{ asset('storage/'.$item->file_peringatan) }}" target="_blank">{{ $item->file_peringatan }}</a></td>
+                <td>
+                  @if($item->file_peringatan)
+                    <a href="{{ asset('storage/'.$item->file_peringatan) }}" target="_blank">Lihat File</a>
+                  @else
+                    Tidak Ada File
+                  @endif
+                </td>
                 <td>
                   <a class="me-3" href="#" data-bs-toggle="modal" data-bs-target="#editModal" data-id="{{ $item->user_id }}" data-jenis-peringatan="{{ $item->jenis_peringatan }}" data-status-karyawan="{{ $item->status_karyawan }}">
                     <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />

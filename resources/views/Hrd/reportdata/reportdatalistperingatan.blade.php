@@ -1,17 +1,35 @@
 @extends('Adminstrator.Componentsadminstrator.app')
 
 @section('content')
-
 <div class="page-wrapper">
   <div class="content">
     <div class="page-header">
       <div class="page-title">
-        <h4>Report Data Peringatan Karyawan PT Raja Perkasa</h4>
+        <h4>List Data Peringatan Karyawan PT Raja Perkasa</h4>
       </div>
     </div>
 
     <div class="card">
       <div class="card-body">
+        @foreach($data as $item)
+          @if($item->jenis_peringatan == 'peringatan_peneguran')
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              Peringatan Peneguran: Karyawan {{ $item->name }} telah tidak hadir sebanyak {{ $item->tidak_hadirnya }} kali dan cuti sebanyak {{ $item->cuti_berapakali }} kali.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          @elseif($item->jenis_peringatan == 'peringatan_pemanggilan')
+            <div class="alert alert-dark alert-dismissible fade show" role="alert">
+              Peringatan Pemanggilan: Karyawan {{ $item->name }} telah tidak hadir sebanyak {{ $item->tidak_hadirnya }} kali dan cuti sebanyak {{ $item->cuti_berapakali }} kali.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          @elseif($item->jenis_peringatan == 'peringatan_pemberhentian')
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              Peringatan Pemberhentian: Karyawan {{ $item->name }} telah tidak hadir sebanyak {{ $item->tidak_hadirnya }} kali dan cuti sebanyak {{ $item->cuti_berapakali }} kali.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          @endif
+        @endforeach
+
         <div class="table-top">
           <div class="search-set">
             <div class="search-path">
@@ -26,27 +44,16 @@
               </a>
             </div>
           </div>
+
           <div class="wordset">
             <ul>
-                {{-- <li>
-                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf">
-                        <img src="{{ asset('assets/img/icons/pdf.svg') }}" alt="img" />
-                    </a>
-                </li> --}}
                 <li>
-                    <a href="{{ route('exportreportproyek') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="excel">
+                    <a href="{{ route('exportreportlistperingatankaryawan') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="excel">
                         <img src="{{ asset('assets/img/icons/excel.svg') }}" alt="img" />
                     </a>
                 </li>
-                
-                {{-- <li>
-                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="print">
-                        <img src="{{ asset('assets/img/icons/printer.svg') }}" alt="img" />
-                    </a>
-                </li> --}}
             </ul>
-        </div>
-
+          </div>
         </div>
 
         <div class="table-responsive">
@@ -61,9 +68,6 @@
                 <th>Jenis Peringatan</th>
                 <th>Status Karyawan</th>
                 <th>File Peringatan</th>
-                <th>Created At</th>
-                <th>Updated At</th>
-                {{-- <th>Action</th> --}}
               </tr>
             </thead>
             <tbody>
@@ -74,49 +78,29 @@
                 <td>{{ $item->divisi_name }}</td>
                 <td>{{ $item->cuti_berapakali }}</td>
                 <td>{{ $item->tidak_hadirnya }}</td>
-                <td>{{ $item->jenis_peringatan }}</td>
-                <td>{{ $item->status_karyawan }}</td>
-                <td><a href="{{ asset('storage/'.$item->file_peringatan) }}" target="_blank">{{ $item->file_peringatan }}</a></td>
-                <td>{{ $item->created_at->format('Y-m-d') }}</td>
-                <td>{{ $item->updated_at->format('Y-m-d') }}</td>
-                {{-- <td>
-                  <a class="me-3" href="#">
-                    <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
-                  </a>
-                  <button type="button" class="btn btn-link text-dark btn-delete" data-id="" title="Menghapus Data">
-                    <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                  </button>
-                  <form id="" action="#" method="POST" style="display: none;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-link text-dark">
-                      <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                    </button>
-                  </form>
-                </td> --}}
+                <td>
+                  @if($item->jenis_peringatan == 'peringatan_pemberhentian')
+                    <span class="badge bg-danger">Peringatan Pemberhentian</span>
+                  @elseif($item->jenis_peringatan == 'peringatan_pemanggilan')
+                    <span class="badge bg-warning">Peringatan Pemanggilan</span>
+                  @elseif($item->jenis_peringatan == 'peringatan_peneguran')
+                    <span class="badge bg-info">Peringatan Peneguran</span>
+                  @else
+                    <span class="badge bg-secondary">Tidak Ada Peringatan</span>
+                  @endif
+                </td>
+                <td>{{ ucfirst($item->status_karyawan) }}</td>
+                <td>
+                  @if($item->file_peringatan)
+                    <a href="{{ asset('storage/'.$item->file_peringatan) }}" target="_blank">Lihat File</a>
+                  @else
+                    Tidak Ada File
+                  @endif
+                </td>
               </tr>
               @endforeach
             </tbody>
           </table>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal Konfirmasi Hapus -->
-  <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="deleteConfirmModalLabel">Konfirmasi Penghapusan</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          Apakah Anda yakin ingin menghapus item ini?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-          <button type="button" class="btn btn-danger" id="confirmDeleteButton">Hapus</button>
         </div>
       </div>
     </div>
@@ -139,6 +123,22 @@ $(document).ready(function() {
         if (deleteFormId) {
             $('#deleteForm-' + deleteFormId).submit();
         }
+    });
+
+    $('#editModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var userId = button.data('id');
+        var jenisPeringatan = button.data('jenis-peringatan');
+        var statusKaryawan = button.data('status-karyawan');
+
+        var modal = $(this);
+        modal.find('#editUserId').val(userId);
+        modal.find('#editJenisPeringatan').val(jenisPeringatan);
+        modal.find('#editStatusKaryawan').val(statusKaryawan);
+
+        // Update form action with user ID
+        var form = modal.find('#editForm');
+        form.attr('action', '/hrd/updateperingatankaryawan/' + userId);
     });
 });
 </script>

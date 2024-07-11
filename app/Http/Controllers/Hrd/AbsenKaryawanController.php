@@ -12,11 +12,13 @@ class AbsenKaryawanController extends Controller
 {
     public function listabsenkaryawan() {
         $this->updateStatusTidakHadir(); // Panggil metode untuk memperbarui status tidak hadir
-
-        $absens = AbsenKaryawan::whereDate('tanggal_absen', Carbon::today())->get();
-
+    
+        // Ambil semua data absen, jika ingin filter berdasarkan tanggal, bisa sesuaikan di sini
+        $absens = AbsenKaryawan::with('user.divisi')->get();
+    
         return view('Hrd.absen.list', compact('absens'));
     }
+    
 
     private function updateStatusTidakHadir()
     {

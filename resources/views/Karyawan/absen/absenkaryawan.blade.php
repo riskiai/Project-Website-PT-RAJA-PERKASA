@@ -195,7 +195,7 @@
             maxAbsenTime.setHours(8, 10, 0);
 
             if (now < minAbsenTime) {
-                alert('Absen masuk hanya dapat dilakukan mulai pukul 08:00 WIB.');
+                alert('Absen masuk hanya dapat dilakukan mulai pukul 08:10 WIB.');
                 event.preventDefault();
             }
 

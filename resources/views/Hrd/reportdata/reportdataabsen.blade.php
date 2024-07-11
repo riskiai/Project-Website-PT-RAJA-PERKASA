@@ -28,28 +28,14 @@
           </div>
           <div class="wordset">
             <ul>
-                {{-- <li>
-                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf">
-                        <img src="{{ asset('assets/img/icons/pdf.svg') }}" alt="img" />
-                    </a>
-                </li> --}}
                 <li>
-                    <a href="{{ route('exportreportproyek') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="excel">
+                    <a href="{{ route('exportreportlistabsenkaryawan') }}" data-bs-toggle="tooltip" data-bs-placement="top" title="excel">
                         <img src="{{ asset('assets/img/icons/excel.svg') }}" alt="img" />
                     </a>
                 </li>
-                
-                {{-- <li>
-                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="print">
-                        <img src="{{ asset('assets/img/icons/printer.svg') }}" alt="img" />
-                    </a>
-                </li> --}}
             </ul>
+          </div>
         </div>
-
-        </div>
-
-        
 
         <div class="table-responsive">
           <table class="table datanew text-center">
@@ -61,39 +47,33 @@
                 <th>Status Absensi</th>
                 <th>Mulai Absen</th>
                 <th>Mengakhiri Absen</th>
-                <th>File Absen</th>
-                <th>Created At</th>
-                <th>Updated At</th>
-                {{-- <th>Action</th> --}}
+                <th>Bukti Kehadiran</th>
+                <th>Surat Izin/Sakit</th>
               </tr>
             </thead>
             <tbody>
               @foreach($data as $index => $item)
               <tr>
                 <td>{{ $index + 1 }}</td>
-                <td>{{ $item->name }}</td>
-                <td>{{ $item->divisi_name }}</td>
-                <td>{{ $item->status_absensi }}</td>
-                <td>{{ $item->data_start_absen }}</td>
-                <td>{{ $item->data_end_absen }}</td>
-                <td><a href="{{ asset('storage/'.$item->file_absen) }}" target="_blank">{{ $item->file_absen }}</a></td>
-                <td>{{ $item->created_at->format('Y-m-d') }}</td>
-                <td>{{ $item->updated_at->format('Y-m-d') }}</td>
-                {{-- <td>
-                  <a class="me-3" href="#">
-                    <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
-                  </a>
-                  <button type="button" class="btn btn-link text-dark btn-delete" data-id="" title="Menghapus Data">
-                    <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                  </button>
-                  <form id="" action="#" method="POST" style="display: none;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-link text-dark">
-                      <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                    </button>
-                  </form>
-                </td> --}}
+                <td>{{ $item->user->name }}</td>
+                <td>{{ $item->user->divisi->divisi_name ?? 'N/A' }}</td>
+                <td>{{ ucfirst($item->status_absensi) }}</td>
+                <td>{{ \Carbon\Carbon::parse($item->waktu_datang_kehadiran)->translatedFormat('j F Y H:i:s') ?? '-' }}</td>
+                <td>{{ \Carbon\Carbon::parse($item->waktu_pulang_kehadiran)->translatedFormat('j F Y H:i:s') ?? '-' }}</td>
+                <td>
+                  @if($item->bukti_kehadiran)
+                    <a href="{{ asset('storage/' . $item->bukti_kehadiran) }}" target="_blank">Lihat Bukti</a>
+                  @else
+                    -
+                  @endif
+                </td>
+                <td>
+                  @if($item->surat_izin_sakit)
+                    <a href="{{ asset('storage/' . $item->surat_izin_sakit) }}" target="_blank">Lihat Surat Izin/Sakit</a>
+                  @else
+                    -
+                  @endif
+                </td>
               </tr>
               @endforeach
             </tbody>
@@ -102,25 +82,5 @@
       </div>
     </div>
   </div>
-
-  <!-- Modal Konfirmasi Hapus -->
-  <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="deleteConfirmModalLabel">Konfirmasi Penghapusan</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          Apakah Anda yakin ingin menghapus item ini?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-          <button type="button" class="btn btn-danger" id="confirmDeleteButton">Hapus</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 @endsection

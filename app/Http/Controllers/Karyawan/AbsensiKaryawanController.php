@@ -114,7 +114,6 @@ class AbsensiKaryawanController extends Controller
     }
     
 
-
     public function prosesabsenkaryawanpulang(Request $request)
     {
         $request->validate([
@@ -164,6 +163,7 @@ class AbsensiKaryawanController extends Controller
 
     public function listdataabsenkaryawan()
     {
+        // Panggil fungsi updateStatusTidakHadir untuk memperbarui status
         $this->updateStatusTidakHadir();
 
         $user_id = Auth::id();
