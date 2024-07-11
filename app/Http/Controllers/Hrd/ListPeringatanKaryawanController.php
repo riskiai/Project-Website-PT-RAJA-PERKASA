@@ -35,7 +35,7 @@ class ListPeringatanKaryawanController extends Controller
             return (object) [
                 'user_id' => $karyawan->id,
                 'name' => $karyawan->name,
-                'divisi_name' => $karyawan->divisi->divisi_name,
+                'divisi_name' => $karyawan->divisi->divisi_name ?? 'N/A',
                 'cuti_berapakali' => $cutiCount,
                 'tidak_hadirnya' => $tidakHadirCount,
                 'jenis_peringatan' => $jenisPeringatan,
@@ -61,7 +61,7 @@ class ListPeringatanKaryawanController extends Controller
             $fileName = sprintf('%s_%s_%s.pdf',
                 $request->jenis_peringatan,
                 Str::slug($karyawan->name),
-                Str::slug($karyawan->divisi->divisi_name)
+                Str::slug($karyawan->divisi->divisi_name ?? 'N/A')
             );
             $filePath = $file->storeAs('public/peringatan', $fileName);
             $peringatan->file_peringatan = str_replace('public/', '', $filePath);
