@@ -10,7 +10,6 @@ use App\Models\List_Data_Proyek;
 use App\Models\Document_Kerjasama_Client;
 use App\Http\Controllers\Controller;
 
-
 class DashboardController extends Controller
 {
     public function index(Request $request)
@@ -34,7 +33,12 @@ class DashboardController extends Controller
         $proyekByStatusAndYear = List_Data_Proyek::selectRaw('YEAR(created_at) as year, status_progres_proyek, COUNT(*) as total')
             ->groupBy('year', 'status_progres_proyek')
             ->get()
-            ->groupBy('year');
+            ->groupBy('year')
+            ->toArray();
+
+        if (!isset($proyekByStatusAndYear[$currentYear])) {
+            $proyekByStatusAndYear[$currentYear] = [];
+        }
 
         // Data Testimoni
         $testimonis = Testimoni::with(['user', 'mitra'])->get();
