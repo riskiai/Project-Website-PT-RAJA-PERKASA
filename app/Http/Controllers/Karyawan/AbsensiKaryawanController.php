@@ -12,7 +12,6 @@ use Illuminate\Support\Str;
 
 class AbsensiKaryawanController extends Controller
 {
-    /* Absen Karyawan Masuk */
     public function absenkaryawan()
     {
         $user = Auth::user();
@@ -21,7 +20,11 @@ class AbsensiKaryawanController extends Controller
             return redirect()->back()->with('error', 'Anda tidak memiliki akses ke halaman ini.');
         }
 
-        return view('Karyawan.absen.absenkaryawan', compact('user'));
+        $alreadyAbsence = AbsenKaryawan::where('user_id', $user->id)
+                        ->whereDate('tanggal_absen', Carbon::today())
+                        ->exists();
+
+        return view('Karyawan.absen.absenkaryawan', compact('user', 'alreadyAbsence'));
     }
 
     public function prosesabsenkaryawan(Request $request)
@@ -36,8 +39,20 @@ class AbsensiKaryawanController extends Controller
 
         $user_id = Auth::id();
         $tanggal_absen = $request->input('tanggal_absen');
+        $currentTime = Carbon::now();
 
-        // Periksa apakah sudah ada absen masuk untuk hari ini
+        // Pengecekan waktu absen masuk minimal 08:00 WIB dengan toleransi 10 menit
+        $minAbsenTime = Carbon::createFromTime(8, 0, 0);
+        $maxAbsenTime = Carbon::createFromTime(8, 10, 0);
+
+        if ($currentTime->lt($minAbsenTime)) {
+            return redirect()->back()->with('error', 'Absen masuk hanya dapat dilakukan mulai pukul 08:00 WIB.');
+        }
+
+        if ($currentTime->gt($maxAbsenTime)) {
+            return redirect()->back()->with('error', 'Anda terlambat lebih dari 10 menit. Anda dianggap tidak hadir.');
+        }
+
         $existingAbsen = AbsenKaryawan::where('user_id', $user_id)
             ->whereDate('tanggal_absen', $tanggal_absen)
             ->first();
@@ -48,48 +63,57 @@ class AbsensiKaryawanController extends Controller
 
         $data = $request->except(['created_at', 'updated_at']);
         $data['user_id'] = $user_id;
-        $data['status_absensi'] = $request->status_absen; // Set status absensi
 
         if ($request->status_absen == 'hadir') {
-            // Menggabungkan tanggal dan waktu untuk disimpan ke database
-            $data['waktu_datang_kehadiran'] = Carbon::parse($tanggal_absen . ' ' . $request->waktu_datang_kehadiran);
+            $data['waktu_datang_kehadiran'] = $currentTime;
 
-            // Simpan bukti kehadiran dari kamera
             if ($request->input('bukti_kehadiran')) {
-                $image = $request->input('bukti_kehadiran'); // base64 encoded image
+                $image = $request->input('bukti_kehadiran');
                 $image = str_replace('data:image/png;base64,', '', $image);
                 $image = str_replace(' ', '+', $image);
                 $imageName = Str::random(10) . '.' . 'png';
                 Storage::disk('public')->put('bukti_kehadiran/' . $imageName, base64_decode($image));
                 $data['bukti_kehadiran'] = 'bukti_kehadiran/' . $imageName;
             }
+
+            $data['status_absensi'] = 'tidak_hadir';
         } else {
             $data['waktu_datang_kehadiran'] = null;
             $data['bukti_kehadiran'] = null;
+            $data['status_absensi'] = $request->status_absen;
         }
 
-        // Simpan file surat izin sakit
         if ($request->hasFile('surat_izin_sakit')) {
             $filePath = $request->file('surat_izin_sakit')->store('public/surat_izin_sakit');
-            $data['surat_izin_sakit'] = str_replace('public/', '', $filePath); // Hanya simpan path relatif
+            $data['surat_izin_sakit'] = str_replace('public/', '', $filePath);
         }
 
         AbsenKaryawan::create($data);
 
-        return redirect()->route('absenkaryawan')->with('success', 'Absen karyawan berhasil disimpan.');
+        Carbon::setLocale('id');
+        $dayName = Carbon::parse($tanggal_absen)->translatedFormat('l');
+        $time = $currentTime->format('H:i:s');
+
+        return redirect()->route('absenkaryawan')->with('success', "Absen masuk berhasil disimpan pada hari $dayName pukul $time WIB.");
     }
 
-    /* Absen Karyawan Pulang */
     public function absenkaryawanpulang()
     {
         $user = Auth::user();
-
+    
         if ($user->role->role_name !== 'karyawan') {
             return redirect()->back()->with('error', 'Anda tidak memiliki akses ke halaman ini.');
         }
-
-        return view('Karyawan.absen.absenkaryawanpulang', compact('user'));
+    
+        $alreadyCheckedOut = AbsenKaryawan::where('user_id', $user->id)
+                            ->whereDate('tanggal_absen', Carbon::today())
+                            ->whereNotNull('waktu_pulang_kehadiran')
+                            ->exists();
+    
+        return view('Karyawan.absen.absenkaryawanpulang', compact('user', 'alreadyCheckedOut'));
     }
+    
+
 
     public function prosesabsenkaryawanpulang(Request $request)
     {
@@ -101,7 +125,6 @@ class AbsensiKaryawanController extends Controller
         $user_id = Auth::id();
         $tanggal_absen = $request->input('tanggal_absen');
 
-        // Periksa apakah sudah ada absen masuk untuk hari ini
         $absen = AbsenKaryawan::where('user_id', $user_id)
             ->whereDate('tanggal_absen', $tanggal_absen)
             ->first();
@@ -114,26 +137,20 @@ class AbsensiKaryawanController extends Controller
             return redirect()->back()->with('error', 'Anda sudah melakukan absen pulang hari ini.');
         }
 
-        // Menggabungkan tanggal dan waktu untuk disimpan ke database
         $waktuPulang = Carbon::parse($tanggal_absen . ' ' . $request->waktu_pulang_kehadiran);
 
         $absen->update([
             'waktu_pulang_kehadiran' => $waktuPulang,
+            'status_absensi' => 'hadir' // Update status menjadi 'hadir' on check-out
         ]);
 
-        // Update status absen menjadi hadir jika waktu datang dan waktu pulang dicatat
-        if ($absen->waktu_datang_kehadiran && $absen->waktu_pulang_kehadiran) {
-            $absen->update(['status_absensi' => 'hadir']);
-        }
-
         Carbon::setLocale('id');
-        $dayName = Carbon::parse($tanggal_absen)->translatedFormat('l'); // Nama hari dalam bahasa Indonesia
+        $dayName = Carbon::parse($tanggal_absen)->translatedFormat('l');
         $time = $waktuPulang->format('H:i:s');
 
         return redirect()->route('absenkaryawanpulang')->with('success', "Absen pulang berhasil disimpan pada hari $dayName pukul $time WIB.");
     }
 
-    /* Update Status Tidak Hadir jika waktu pulang tidak diisi dalam 24 jam */
     public function updateStatusTidakHadir()
     {
         $absens = AbsenKaryawan::whereNull('waktu_pulang_kehadiran')
@@ -145,10 +162,9 @@ class AbsensiKaryawanController extends Controller
         }
     }
 
-    /* List Data karyawan diri sendiri */
     public function listdataabsenkaryawan()
     {
-        $this->updateStatusTidakHadir(); // Panggil metode untuk memperbarui status tidak hadir
+        $this->updateStatusTidakHadir();
 
         $user_id = Auth::id();
         $absens = AbsenKaryawan::where('user_id', $user_id)

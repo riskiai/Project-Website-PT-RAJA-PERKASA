@@ -21,6 +21,10 @@ class AbsenKaryawan extends Model
         'waktu_pulang_kehadiran',
     ];
 
+    protected $attributes = [
+        'status_absensi' => 'tidak_hadir',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

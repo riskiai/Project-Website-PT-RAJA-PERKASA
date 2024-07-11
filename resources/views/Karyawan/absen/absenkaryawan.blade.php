@@ -19,7 +19,12 @@
                         {{ session('error') }}
                     </div>
                 @endif
-                <form action="{{ route('prosesabsenkaryawan') }}" method="POST" enctype="multipart/form-data">
+                @if(!$alreadyAbsence)
+                <div id="absenTimeAlert" class="alert alert-danger" style="display:none;">
+                    Absen masuk Sebentar lagi Segera Absen. Waktu toleransi telat hanya 10 menit.
+                </div>
+                @endif
+                <form id="absenForm" action="{{ route('prosesabsenkaryawan') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         @include('Karyawan.absen.components_absen.navbar')
@@ -121,12 +126,32 @@
         document.getElementById('waktu_datang_kehadiran').value = formattedTime;
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        toggleFields(); // Initial call to set the correct state on load
-        updateTime(); // Set initial time
-        setInterval(updateTime, 1000); // Update time every second
+    function checkAbsenTime() {
+        const now = new Date();
+        const minAbsenTime = new Date();
+        minAbsenTime.setHours(8, 0, 0);
+        const maxAbsenTime = new Date();
+        maxAbsenTime.setHours(8, 10, 0);
 
-        // Video stream setup
+        const absenTimeAlert = document.getElementById('absenTimeAlert');
+        const alreadyAbsence = @json($alreadyAbsence);
+        
+        if (!alreadyAbsence && now >= minAbsenTime && now <= maxAbsenTime) {
+            const minutesLeft = Math.floor((maxAbsenTime - now) / 60000);
+            const secondsLeft = Math.floor((maxAbsenTime - now) / 1000) % 60;
+            absenTimeAlert.textContent = `Absen masuk Sebentar lagi Segera Absen. Sekarang sudah memasuki waktu ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()} WIB. Waktu toleransi telat hanya ${minutesLeft} menit ${secondsLeft} detik.`;
+            absenTimeAlert.style.display = 'block';
+        } else {
+            absenTimeAlert.style.display = 'none';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        toggleFields();
+        updateTime();
+        setInterval(updateTime, 1000);
+        setInterval(checkAbsenTime, 1000);
+
         const video = document.getElementById('video');
         const canvas = document.getElementById('canvas');
         const snap = document.getElementById('snap');
@@ -153,6 +178,24 @@
             buktiKehadiran.value = dataURL;
             photo.src = dataURL;
             photo.style.display = 'block';
+        });
+
+        document.getElementById('absenForm').addEventListener('submit', function(event) {
+            const now = new Date();
+            const minAbsenTime = new Date();
+            minAbsenTime.setHours(8, 0, 0);
+            const maxAbsenTime = new Date();
+            maxAbsenTime.setHours(8, 10, 0);
+
+            if (now < minAbsenTime) {
+                alert('Absen masuk hanya dapat dilakukan mulai pukul 08:00 WIB.');
+                event.preventDefault();
+            }
+
+            if (now > maxAbsenTime) {
+                alert('Anda terlambat lebih dari 10 menit. Anda dianggap tidak hadir.');
+                event.preventDefault();
+            }
         });
     });
 </script>

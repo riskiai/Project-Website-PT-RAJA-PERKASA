@@ -57,14 +57,16 @@
                 <td>{{ $item->user->divisi->divisi_name }}</td>
                 <td>{{ \Carbon\Carbon::parse($item->tanggal_absen)->translatedFormat('j F Y') }}</td>
                 <td>
-                    @if($item->status_absensi == 'hadir')
-                        hadir
+                    @if($item->status_absensi == 'hadir' && $item->waktu_pulang_kehadiran)
+                        Hadir
                     @elseif($item->status_absensi == 'izin')
-                        izin
+                        Izin
                     @elseif($item->status_absensi == 'sakit')
-                        sakit
+                        Sakit
+                    @elseif($item->status_absensi == 'tidak_hadir' && !$item->waktu_pulang_kehadiran)
+                        -
                     @else
-                        tidak hadir
+                        Tidak Hadir
                     @endif
                 </td>
                 <td>{{ $item->waktu_datang_kehadiran ? \Carbon\Carbon::parse($item->waktu_datang_kehadiran)->format('H:i:s') : '-' }}</td>

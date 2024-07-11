@@ -19,6 +19,11 @@
                         {{ session('error') }}
                     </div>
                 @endif
+                @if(!$alreadyCheckedOut)
+                <div id="pulangTimeAlert" class="alert alert-warning" style="display:none;">
+                    Sekarang sudah memasuki waktu setelah jam 14:20. Anda bisa pulang sekarang atau melanjutkan lembur.
+                </div>
+                @endif
                 <form action="{{ route('prosesabsenkaryawanpulang') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
@@ -68,6 +73,15 @@
         const seconds = String(now.getSeconds()).padStart(2, '0');
         const formattedTime = `${hours}:${minutes}:${seconds}`;
         document.getElementById('waktu_pulang_kehadiran').value = formattedTime;
+
+        @if(!$alreadyCheckedOut)
+        const pulangTimeAlert = document.getElementById('pulangTimeAlert');
+        if (now.getHours() > 17 || (now.getHours() === 17 && now.getMinutes() >= 5)) {
+            pulangTimeAlert.style.display = 'block';
+        } else {
+            pulangTimeAlert.style.display = 'none';
+        }
+        @endif
     }
 
     document.addEventListener('DOMContentLoaded', function () {
