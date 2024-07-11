@@ -253,18 +253,20 @@
     var categories = [];
     var colorClasses = [];
 
-    @foreach ($proyekByStatusAndYear[$currentYear] as $data)
-      dataValues.push({{ $data->total }});
-      categories.push('{{ $data->status_progres_proyek }}');
+    @if (isset($proyekByStatusAndYear[$currentYear]))
+      @foreach ($proyekByStatusAndYear[$currentYear] as $data)
+        dataValues.push({{ $data->total }});
+        categories.push('{{ $data->status_progres_proyek }}');
 
-      if ('{{ $data->status_progres_proyek }}' === 'sedangberjalan') {
-        colorClasses.push('bar-sedangberjalan');
-      } else if ('{{ $data->status_progres_proyek }}' === 'selesai') {
-        colorClasses.push('bar-selesai');
-      } else {
-        colorClasses.push('bar-default');
-      }
-    @endforeach
+        if ('{{ $data->status_progres_proyek }}' === 'sedangberjalan') {
+          colorClasses.push('bar-sedangberjalan');
+        } else if ('{{ $data->status_progres_proyek }}' === 'selesai') {
+          colorClasses.push('bar-selesai');
+        } else {
+          colorClasses.push('bar-default');
+        }
+      @endforeach
+    @endif
 
     var options = {
       series: [{
