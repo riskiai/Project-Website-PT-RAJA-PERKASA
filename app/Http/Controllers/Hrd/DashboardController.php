@@ -35,11 +35,10 @@ class DashboardController extends Controller
         $proyekByStatusAndYear = List_Data_Proyek::selectRaw('YEAR(created_at) as year, status_progres_proyek, COUNT(*) as total')
             ->groupBy('year', 'status_progres_proyek')
             ->get()
-            ->groupBy('year')
-            ->toArray();
+            ->groupBy('year');
 
         if (!isset($proyekByStatusAndYear[$currentYear])) {
-            $proyekByStatusAndYear[$currentYear] = [];
+            $proyekByStatusAndYear[$currentYear] = collect([]);
         }
 
         // Data Testimoni

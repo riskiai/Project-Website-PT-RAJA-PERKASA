@@ -253,7 +253,7 @@
     var categories = [];
     var colorClasses = [];
 
-    @if (isset($proyekByStatusAndYear[$currentYear]))
+    @if (isset($proyekByStatusAndYear[$currentYear]) && $proyekByStatusAndYear[$currentYear]->isNotEmpty())
       @foreach ($proyekByStatusAndYear[$currentYear] as $data)
         dataValues.push({{ $data->total }});
         categories.push('{{ $data->status_progres_proyek }}');
