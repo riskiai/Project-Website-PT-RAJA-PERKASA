@@ -214,53 +214,63 @@ class ProposalMitraClientController extends Controller
         $dokumenKebenaranPath = $request->file('legalitas_file_dokumen_kebenaran') ? $request->file('legalitas_file_dokumen_kebenaran')->store('legalitas', 'public') : $dataKerjasama->dataLegalitas->file_dokumen_kebenaran;
 
         // Update related records
-        $dataKerjasama->dataSales->update([
-            'name_lengkap' => $request->input('sales_nama_lengkap'),
-            'no_hp' => $request->input('sales_no_hp'),
-            'email' => $request->input('sales_email'),
-            'jabatan' => $request->input('sales_jabatan'),
-        ]);
+        if ($dataKerjasama->dataSales) {
+            $dataKerjasama->dataSales->update([
+                'name_lengkap' => $request->input('sales_nama_lengkap'),
+                'no_hp' => $request->input('sales_no_hp'),
+                'email' => $request->input('sales_email'),
+                'jabatan' => $request->input('sales_jabatan'),
+            ]);
+        }
 
-        $dataKerjasama->dataManajer->update([
-            'nama_lengkap' => $request->input('manajer_nama_lengkap'),
-            'no_hp' => $request->input('manajer_no_hp'),
-            'email' => $request->input('manajer_email'),
-            'jabatan' => $request->input('manajer_jabatan'),
-        ]);
+        if ($dataKerjasama->dataManajer) {
+            $dataKerjasama->dataManajer->update([
+                'nama_lengkap' => $request->input('manajer_nama_lengkap'),
+                'no_hp' => $request->input('manajer_no_hp'),
+                'email' => $request->input('manajer_email'),
+                'jabatan' => $request->input('manajer_jabatan'),
+            ]);
+        }
 
-        $dataKerjasama->dataDirektur->update([
-            'nama_lengkap' => $request->input('direktur_nama_lengkap'),
-            'no_hp' => $request->input('direktur_no_hp'),
-            'email' => $request->input('direktur_email'),
-            'jabatan' => $request->input('direktur_jabatan'),
-        ]);
+        if ($dataKerjasama->dataDirektur) {
+            $dataKerjasama->dataDirektur->update([
+                'nama_lengkap' => $request->input('direktur_nama_lengkap'),
+                'no_hp' => $request->input('direktur_no_hp'),
+                'email' => $request->input('direktur_email'),
+                'jabatan' => $request->input('direktur_jabatan'),
+            ]);
+        }
 
-        $dataKerjasama->dataBank->update([
-            'nama_pemilik_rekening' => $request->input('bank_nama_pemilik'),
-            'no_rekening' => $request->input('bank_no_rekening'),
-            'nama_bank' => $request->input('bank_nama_bank'),
-            'cabang_bank' => $request->input('bank_cabang_bank'),
-            'alamat_bank' => $request->input('bank_alamat_bank'),
-        ]);
+        if ($dataKerjasama->dataBank) {
+            $dataKerjasama->dataBank->update([
+                'nama_pemilik_rekening' => $request->input('bank_nama_pemilik'),
+                'no_rekening' => $request->input('bank_no_rekening'),
+                'nama_bank' => $request->input('bank_nama_bank'),
+                'cabang_bank' => $request->input('bank_cabang_bank'),
+                'alamat_bank' => $request->input('bank_alamat_bank'),
+            ]);
+        }
 
-        $dataKerjasama->dataLegalitas->update([
-            'no_akta' => $request->input('legalitas_no_akta'),
-            'file_akta' => $aktaPath,
-            'no_siup' => $request->input('legalitas_no_siup'),
-            'file_siup' => $siupPath,
-            'date_end_siup' => $request->input('legalitas_date_end_siup'),
-            'no_tdp' => $request->input('legalitas_no_tdp'),
-            'file_tdp' => $tdpPath,
-            'date_end_tdp' => $request->input('legalitas_date_end_tdp'),
-            'no_skdp' => $request->input('legalitas_no_skdp'),
-            'file_skdp' => $skdpPath,
-            'date_end_skdp' => $request->input('legalitas_date_end_skdp'),
-            'no_iujk' => $request->input('legalitas_no_iujk'),
-            'file_iujk' => $iujkPath,
-            'date_end_iujk' => $request->input('legalitas_date_end_iujk'),
-            'file_profile_perusahaan' => $profilePath,
-            'file_dokumen_kebenaran' => $dokumenKebenaranPath,
-        ]);
+        if ($dataKerjasama->dataLegalitas) {
+            $dataKerjasama->dataLegalitas->update([
+                'no_akta' => $request->input('legalitas_no_akta'),
+                'file_akta' => $aktaPath,
+                'no_siup' => $request->input('legalitas_no_siup'),
+                'file_siup' => $siupPath,
+                'date_end_siup' => $request->input('legalitas_date_end_siup'),
+                'no_tdp' => $request->input('legalitas_no_tdp'),
+                'file_tdp' => $tdpPath,
+                'date_end_tdp' => $request->input('legalitas_date_end_tdp'),
+                'no_skdp' => $request->input('legalitas_no_skdp'),
+                'file_skdp' => $skdpPath,
+                'date_end_skdp' => $request->input('legalitas_date_end_skdp'),
+                'no_iujk' => $request->input('legalitas_no_iujk'),
+                'file_iujk' => $iujkPath,
+                'date_end_iujk' => $request->input('legalitas_date_end_iujk'),
+                'file_profile_perusahaan' => $profilePath,
+                'file_dokumen_kebenaran' => $dokumenKebenaranPath,
+            ]);
+        }
 
         // Update existing data
         $dataKerjasama->update([
