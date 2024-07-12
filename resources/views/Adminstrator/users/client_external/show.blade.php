@@ -123,6 +123,7 @@
                         <div class="col-lg-12 col-sm-12 col-12">
                             <h5>Data Sales</h5>
                         </div>
+                        @if ($dataKerjasama->dataSales)
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Nama Lengkap</label>
@@ -147,11 +148,17 @@
                                 <input type="text" class="form-control" value="{{ $dataKerjasama->dataSales->jabatan }}" readonly>
                             </div>
                         </div>
+                        @else
+                        <div class="col-lg-12 col-sm-12 col-12">
+                            <p>Data Sales tidak ditemukan.</p>
+                        </div>
+                        @endif
 
                         <!-- Data Manajer -->
                         <div class="col-lg-12 col-sm-12 col-12">
                             <h5>Data Manajer</h5>
                         </div>
+                        @if ($dataKerjasama->dataManajer)
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Nama Lengkap</label>
@@ -176,11 +183,17 @@
                                 <input type="text" class="form-control" value="{{ $dataKerjasama->dataManajer->jabatan }}" readonly>
                             </div>
                         </div>
+                        @else
+                        <div class="col-lg-12 col-sm-12 col-12">
+                            <p>Data Manajer tidak ditemukan.</p>
+                        </div>
+                        @endif
 
                         <!-- Data Direktur -->
                         <div class="col-lg-12 col-sm-12 col-12">
                             <h5>Data Direktur</h5>
                         </div>
+                        @if ($dataKerjasama->dataDirektur)
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Nama Lengkap</label>
@@ -205,11 +218,17 @@
                                 <input type="text" class="form-control" value="{{ $dataKerjasama->dataDirektur->jabatan }}" readonly>
                             </div>
                         </div>
+                        @else
+                        <div class="col-lg-12 col-sm-12 col-12">
+                            <p>Data Direktur tidak ditemukan.</p>
+                        </div>
+                        @endif
 
                         <!-- Data Bank -->
                         <div class="col-lg-12 col-sm-12 col-12">
                             <h5>Data Bank</h5>
                         </div>
+                        @if ($dataKerjasama->dataBank)
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Nama Pemilik Rekening</label>
@@ -240,11 +259,17 @@
                                 <textarea class="form-control" readonly>{{ $dataKerjasama->dataBank->alamat_bank }}</textarea>
                             </div>
                         </div>
+                        @else
+                        <div class="col-lg-12 col-sm-12 col-12">
+                            <p>Data Bank tidak ditemukan.</p>
+                        </div>
+                        @endif
 
                         <!-- Data Legalitas -->
                         <div class="col-lg-12 col-sm-12 col-12">
                             <h5>Data Legalitas</h5>
                         </div>
+                        @if ($dataKerjasama->dataLegalitas)
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>No Akta</label>
@@ -330,6 +355,11 @@
                                 @endif
                             </div>
                         </div>
+                        @else
+                        <div class="col-lg-12 col-sm-12 col-12">
+                            <p>Data Legalitas tidak ditemukan.</p>
+                        </div>
+                        @endif
                     </div>
                     @else
                     <p>Data kerja sama tidak ditemukan.</p>

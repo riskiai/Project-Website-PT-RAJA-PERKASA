@@ -255,6 +255,7 @@ class UsersAdminController extends Controller
     
         return view('Adminstrator.users.client_external.show', compact('user', 'dataKerjasama'));
     }
+    
 
     public function updateStatusUser(Request $request, $id) {
         $request->validate([
