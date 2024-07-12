@@ -200,7 +200,7 @@ class ProposalMitraClientController extends Controller
         $user_id = Auth::id();
         $dataKerjasama = Document_Kerjasama_Client::find($id);
 
-        if ($dataKerjasama->user_id !== $user_id) {
+        if (!$dataKerjasama || $dataKerjasama->user_id !== $user_id) {
             return redirect()->route('pengajuankerjasama')->with('error', 'Anda tidak memiliki akses untuk mengupdate data ini.');
         }
 
