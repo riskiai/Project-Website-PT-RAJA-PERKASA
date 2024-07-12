@@ -28,7 +28,7 @@ $profileCompleted = $user->file_foto !== null;
 
                     @if ($dataKerjasama)
                         <form action="{{ route('updatekerjasama', $dataKerjasama->id) }}" method="POST" enctype="multipart/form-data">
-                        @method('POST')
+                        @method('PUT')
                     @else
                         <form action="{{ route('submitkerjasama') }}" method="POST" enctype="multipart/form-data">
                     @endif
