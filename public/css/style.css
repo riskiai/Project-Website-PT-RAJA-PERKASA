@@ -1,4 +1,3 @@
-/********** Template CSS **********/
 :root {
     --primary: #FE7A36;
     --secondary: #9B9B9B;
@@ -85,7 +84,6 @@
 
 /*** Navbar ***/
 
-
 .navbar.sticky-top {
     top: -50px;
     transition: .5s;
@@ -119,7 +117,7 @@
 }
 
 @media (max-width: 991.98px) {
-    .navbar .navbar-nav .nav-link  {
+    .navbar .navbar-nav .nav-link {
         margin-right: 0;
         padding: 10px 0;
     }
@@ -542,7 +540,28 @@
 
 /* Mitra Kerja */
 .image-mitra {
-    margin-left: 35px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Spacing between images */
+}
+
+.image-mitra img {
+    max-width: 100%;
+    height: auto;
+    margin: 10px 0; /* Vertical spacing */
+}
+
+@media (max-width: 768px) {
+    .image-mitra img {
+        max-width: 45%; /* Adjust width for smaller screens */
+    }
+}
+
+@media (max-width: 576px) {
+    .image-mitra img {
+        max-width: 100%; /* Full width on very small screens */
+    }
 }
 
 

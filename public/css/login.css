@@ -1,30 +1,31 @@
-/*Start Global Style*/
-*{
+/* Start Global Style */
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-body{
-    background:#e9ebee;
+body {
+    background: #e9ebee;
     font-family: sans-serif;
 }
-.container{
+.container {
     width: 80%;
     margin: auto;
     padding: 70px 0;
-    height:130%;
+    height: 130%;
     margin-top: 0;
 }
 
+.login, .register {
+    width: 50%;
+}
 
-.login ,.register{width: 50%}
-
-/*Start Login Style*/
-.login{
+/* Start Login Style */
+.login {
     -webkit-box-shadow: -7px 1px 1px -5px rgba(254,121,54,1);
     -moz-box-shadow: -7px 1px 1px -5px rgba(254,121,54,1);
     box-shadow: -7px 1px 1px -5px rgba(254,121,54,1);
-    float:left;
+    float: left;
     background-color: #fafafa;
     height: 100%;
     border-radius: 10px 0 0 10px;
@@ -33,33 +34,36 @@ body{
     margin-bottom: 100px;
     margin-top: 70px !important;
 }
-.login h1{
+.login h1 {
     margin-bottom: 40px;
     font-size: 2.5em;
 }
 
-input[type="email"] , input[type="password"]{
+input[type="email"], input[type="password"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 30px;
     border: none;
     background-color: #eeeeef;
 }
-input[type="checkbox"]{
+input[type="checkbox"] {
     float: left;
     margin-right: 5px;
 }
-.login span{
-    float: left
+.login span {
+    float: left;
 }
-.login a{
+.login a {
     float: right;
     text-decoration: none;
     color: #000;
     transition: 0.3s all ease-in-out;
 }
-.login a:hover{color: #FE7A36;font-weight: bold}
-.login button{
+.login a:hover {
+    color: #FE7A36;
+    font-weight: bold;
+}
+.login button {
     width: 100%;
     margin: 30px 0;
     padding: 10px;
@@ -70,57 +74,61 @@ input[type="checkbox"]{
     cursor: pointer;
     transition: 0.3s all ease-in-out;
 }
-.login button:hover{
-    width:97%;
+.login button:hover {
+    width: 97%;
     font-size: 22px;
     border-radius: 5px;
-    
 }
-.login hr{
+.login hr {
     width: 30%;
-    display: inline-block
+    display: inline-block;
 }
 
-.login p{
+.login p {
     display: inline-block;
     margin: 0px 10px 30px;
 }
-.login ul{
+.login ul {
     list-style: none;
-    margin-bottom:40px;  
+    margin-bottom: 40px;
 }
-.login ul li{
+.login ul li {
     display: inline-block;
     margin-right: 30px;
     cursor: pointer;
 }
-.login ul li:hover{opacity: 0.6}
-.login ul li:last-child{margin-right: 0}
-.login .copyright{
+.login ul li:hover {
+    opacity: 0.6;
+}
+.login ul li:last-child {
+    margin-right: 0;
+}
+.login .copyright {
     display: inline-block;
     float: none;
 }
-/*Start Register Style*/
-.register{
+
+/* Start Register Style */
+.register {
     float: right;
     background-image: linear-gradient(135deg, #FE7A36 5%, #FE7A36 95%);
     height: 150%;
-    color:#fff;
-    border-radius:  0 10px 10px  0;
+    color: #fff;
+    border-radius: 0 10px 10px 0;
     text-align: center;
     padding: 159px 0;
     margin-top: 70px !important;
 }
-.register h2{
+.register h2 {
     margin: 30px 0;
     font-size: 30px;
     letter-spacing: 3px;
 }
-.register p{
+.register p {
     font-size: 18px;
     margin-bottom: 30px;
 }
-.register button{
+.register button {
     background-color: transparent;
     border: 1px solid #FFF;
     border-radius: 20px;
@@ -128,14 +136,75 @@ input[type="checkbox"]{
     color: #fff;
     font-size: 20px;
     text-transform: uppercase;
-    transition:0.2s all  ease-in-out;
+    transition: 0.2s all ease-in-out;
 }
-.register button:hover{
+.register button:hover {
     color: #FE7A36;
     background-color: #fff;
     cursor: pointer;
 }
 
-.start a  {
+.start a {
     margin-left: 50px !important;
+}
+
+/* Responsive Design for mobile devices */
+@media (max-width: 768px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .login, .register {
+        width: 100%;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        float: none;
+    }
+    .login {
+        border-radius: 10px 10px 0 0;
+        margin-bottom: 0;
+    }
+    .register {
+        border-radius: 0 0 10px 10px;
+        height: auto;
+        padding: 50px 20px;
+        margin-top: 30px !important;
+    }
+
+    .login h1 {
+        font-size: 1.5em;
+    }
+
+    .register h2 {
+        font-size: 1.5em;
+    }
+
+   
+
+    .register p {
+        font-size: 1em;
+    }
+
+    .login button, .register button {
+        font-size: 1em;
+        padding: 10px;
+    }
+
+    .login hr, .login p, .login ul, .login ul li {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .login ul li {
+        margin-right: 0;
+    }
+
+    .login .copyright {
+        text-align: center;
+        float: none;
+        margin-top: 10px;
+    }
 }
