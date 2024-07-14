@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Models\DataBank;
 use App\Models\DataSales;
 use App\Models\DataManajer;
-use App\Models\DataLegalitas;
+use App\Models\Datalegalitas;
 use App\Models\DataDirekturUtama;
 use App\Models\Document_Kerjasama_Client;
 use Illuminate\Http\Request;
@@ -125,7 +125,7 @@ class ProposalMitraClientController extends Controller
                 // Update legalitas files if provided
                 $this->updateLegalitasFiles($dataLegalitas, $request);
             } else {
-                $dataLegalitas = DataLegalitas::create($request->only([
+                $dataLegalitas = Datalegalitas::create($request->only([
                     'no_akta', 'no_siup', 'date_end_siup', 'no_tdp', 'date_end_tdp', 'no_skdp', 'date_end_skdp', 'no_iujk', 'date_end_iujk'
                 ]));
                 $documentKerjasama->data_legalitas_id = $dataLegalitas->id;
@@ -217,7 +217,7 @@ class ProposalMitraClientController extends Controller
      */
     private function storeLegalitasFiles(Request $request)
     {
-        $dataLegalitas = DataLegalitas::create($request->only([
+        $dataLegalitas = Datalegalitas::create($request->only([
             'no_akta', 'no_siup', 'date_end_siup', 'no_tdp', 'date_end_tdp', 'no_skdp', 'date_end_skdp', 'no_iujk', 'date_end_iujk', 'data_kepemilikan_saham'
         ]));
 
@@ -240,7 +240,7 @@ class ProposalMitraClientController extends Controller
      * @param Request $request
      * @return void
      */
-    private function updateLegalitasFiles(DataLegalitas $dataLegalitas, Request $request)
+    private function updateLegalitasFiles(Datalegalitas $dataLegalitas, Request $request)
     {
         if ($request->hasFile('file_akta')) {
             $dataLegalitas->update(['file_akta' => $request->file('file_akta')->store('legalitas', 'public')]);

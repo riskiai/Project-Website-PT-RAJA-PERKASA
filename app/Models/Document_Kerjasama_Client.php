@@ -54,7 +54,7 @@ class Document_Kerjasama_Client extends Model
     
     public function dataLegalitas()
     {
-        return $this->belongsTo(DataLegalitas::class, 'data_legalitas_id');
+        return $this->belongsTo(Datalegalitas::class, 'data_legalitas_id');
     }
     
 }
