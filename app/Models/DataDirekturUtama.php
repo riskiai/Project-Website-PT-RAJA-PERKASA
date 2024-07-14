@@ -9,17 +9,18 @@ class DataDirekturUtama extends Model
 {
     use HasFactory;
 
-    protected $table = 'data_direktur_utamas'; // Specify the table name
+    protected $table = 'data_direktur_utamas';
 
     protected $fillable = [
         'nama_lengkap',
         'no_hp',
         'email',
         'jabatan',
-    ]; // Define the fillable attributes
+    ];
 
-     // untuk relasi one To Many
-     public function document_kerjasama() {
-        return $this->hasMany(Document_Kerjasama_Client::class);
+    // Relasi one-to-many dengan Document_Kerjasama_Client
+    public function document_kerjasama()
+    {
+        return $this->hasMany(Document_Kerjasama_Client::class, 'data_direktur_id');
     }
 }

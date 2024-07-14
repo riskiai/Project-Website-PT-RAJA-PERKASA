@@ -25,33 +25,36 @@ class Document_Kerjasama_Client extends Model
         'email_perusahaan',
     ];
 
+    // Relasi dengan User
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    // Relasi dengan DataSales
     public function dataSales()
     {
-        return $this->belongsTo(DataSales::class);
+        return $this->belongsTo(DataSales::class, 'data_sales_id');
     }
-
+    
     public function dataManajer()
     {
-        return $this->belongsTo(DataManajer::class);
+        return $this->belongsTo(DataManajer::class, 'data_manajer_id');
     }
-
+    
     public function dataDirektur()
     {
-        return $this->belongsTo(DataDirekturUtama::class);
+        return $this->belongsTo(DataDirekturUtama::class, 'data_direktur_id');
     }
-
+    
     public function dataBank()
     {
-        return $this->belongsTo(DataBank::class);
+        return $this->belongsTo(DataBank::class, 'data_bank_id');
     }
-
+    
     public function dataLegalitas()
     {
-        return $this->belongsTo(Datalegalitas::class);
+        return $this->belongsTo(DataLegalitas::class, 'data_legalitas_id');
     }
+    
 }

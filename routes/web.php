@@ -254,11 +254,12 @@ Route::middleware(['auth', 'user-access:manajer'])->group(function () {
     Route::get('/client/profile', [ProfileClientController::class, 'index'])->name('profileclient');
     Route::post('/client/profile/update/{id}', [ProfileClientController::class, 'update'])->name('profileupdate');
 
+    /* Kirim Data Dokumen Kerja Sama Client */
     Route::get('/client/kerjasama', [ProposalMitraClientController::class, 'index'])->name('pengajuankerjasama');
     Route::post('/client/kerjasama/submit', [ProposalMitraClientController::class, 'create'])->name('submitkerjasama');
-    Route::put('/client/kerjasama/update/{id}', [ProposalMitraClientController::class, 'update'])->name('updatekerjasama');
-    
+    Route::post('/client/kerjasama/update/{id}', [ProposalMitraClientController::class, 'update'])->name('updatekerjasama');
     Route::get('/client/statuskerjasama', [ProposalMitraClientController::class, 'statuskerjasama'])->name('statuskerjasama');
+    
     Route::get('/client/home', [HomeController::class, 'index']);
     // Tentang PT Raja Perkasa
     Route::get('/client/tentang', [TentangController::class, 'index'])->name('tentang');

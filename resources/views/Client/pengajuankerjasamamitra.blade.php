@@ -26,9 +26,21 @@ $profileCompleted = $user->file_foto !== null;
                         </div>
                     @endif
 
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
                     @if ($dataKerjasama)
                         <form action="{{ route('updatekerjasama', $dataKerjasama->id) }}" method="POST" enctype="multipart/form-data">
-                        @method('PUT')
+                            @method('POST')
                     @else
                         <form action="{{ route('submitkerjasama') }}" method="POST" enctype="multipart/form-data">
                     @endif
@@ -46,26 +58,26 @@ $profileCompleted = $user->file_foto !== null;
                             <label for="" class="form-label text-dark"><strong>03. Data Kontak Sales/Marketing</strong></label>
                             <div class="mb-3">
                                 <p class="form-label text-dark">1. Nama Lengkap</p>
-                                <input type="text" class="form-control" id="sales_nama_lengkap" name="sales_nama_lengkap" placeholder="" value="{{ old('sales_nama_lengkap', $dataKerjasama->dataSales->name_lengkap ?? '') }}">
+                                <input type="text" class="form-control" id="name_lengkap" name="name_lengkap" placeholder="" value="{{ old('name_lengkap', $dataKerjasama->dataSales->name_lengkap ?? '') }}">
                             </div>
                             <div class="mb-3">
                                 <p class="form-label text-dark">2. No HP (mobile)</p>
-                                <input type="text" class="form-control" id="sales_no_hp" name="sales_no_hp" placeholder="" value="{{ old('sales_no_hp', $dataKerjasama->dataSales->no_hp ?? '') }}">
+                                <input type="text" class="form-control" id="no_hp" name="no_hp" placeholder="" value="{{ old('no_hp', $dataKerjasama->dataSales->no_hp ?? '') }}">
                             </div>
                             <div class="mb-3">
                                 <p class="form-label text-dark">3. Email</p>
-                                <input type="text" class="form-control" id="sales_email" name="sales_email" placeholder="" value="{{ old('sales_email', $dataKerjasama->dataSales->email ?? '') }}">
+                                <input type="text" class="form-control" id="email" name="email" placeholder="" value="{{ old('email', $dataKerjasama->dataSales->email ?? '') }}">
                             </div>
                             <div class="mb-3">
                                 <p class="form-label text-dark">4. Jabatan</p>
-                                <input type="text" class="form-control" id="sales_jabatan" name="sales_jabatan" placeholder="" value="{{ old('sales_jabatan', $dataKerjasama->dataSales->jabatan ?? '') }}">
+                                <input type="text" class="form-control" id="jabatan" name="jabatan" placeholder="" value="{{ old('jabatan', $dataKerjasama->dataSales->jabatan ?? '') }}">
                             </div>
                         </div>
                         <div>
                             <label for="" class="form-label text-dark"><strong>04. Data Kontak Manajer</strong></label>
                             <div class="mb-3">
                                 <p class="form-label text-dark">1. Nama Lengkap</p>
-                                <input type="text" class="form-control" id="manajer_nama_lengkap" name="manajer_nama_lengkap" placeholder="" value="{{ old('manajer_nama_lengkap', $dataKerjasama->dataManajer->nama_lengkap ?? '') }}">
+                                <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" placeholder="" value="{{ old('nama_lengkap', $dataKerjasama->dataManajer->nama_lengkap ?? '') }}">
                             </div>
                             <div class="mb-3">
                                 <p class="form-label text-dark">2. No HP (mobile)</p>
@@ -84,7 +96,7 @@ $profileCompleted = $user->file_foto !== null;
                             <label for="" class="form-label text-dark"><strong>05. Data Kontak Direktur Utama</strong></label>
                             <div class="mb-3">
                                 <p class="form-label text-dark">1. Nama Lengkap</p>
-                                <input type="text" class="form-control" id="direktur_nama_lengkap" name="direktur_nama_lengkap" placeholder="" value="{{ old('direktur_nama_lengkap', $dataKerjasama->dataDirektur->nama_lengkap ?? '') }}">
+                                <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap" placeholder="" value="{{ old('nama_lengkap', $dataKerjasama->dataDirektur->nama_lengkap ?? '') }}">
                             </div>
                             <div class="mb-3">
                                 <p class="form-label text-dark">2. No HP (mobile)</p>
@@ -103,88 +115,88 @@ $profileCompleted = $user->file_foto !== null;
                             <label for="" class="form-label text-dark"><strong>06. Kepemilikan Saham</strong></label>
                             <div class="mb-3">
                                 <p class="form-label text-dark">Presentase Kepemilikan Saham perusahaan di Akta terbaru (tuliskan nama pemilik dan % kepemilikan saham)</p>
-                                <input type="text" class="form-control" id="pemilik_saham" name="pemilik_saham" placeholder="" value="{{ old('pemilik_saham', $dataKerjasama->data_kepemilikan_saham ?? '') }}">
+                                <input type="text" class="form-control" id="data_kepemilikan_saham" name="data_kepemilikan_saham" placeholder="" value="{{ old('data_kepemilikan_saham', $dataKerjasama->data_kepemilikan_saham ?? '') }}">
                             </div>
                         </div>
                         <div>
                             <label for="" class="form-label text-dark"><strong>07. Data Bank</strong></label>
                             <div class="mb-3">
                                 <p class="form-label text-dark">1. Nama Pemilik Rekening</p>
-                                <input type="text" class="form-control" id="bank_nama_pemilik" name="bank_nama_pemilik" placeholder="" value="{{ old('bank_nama_pemilik', $dataKerjasama->dataBank->nama_pemilik_rekening ?? '') }}">
+                                <input type="text" class="form-control" id="nama_pemilik_rekening" name="nama_pemilik_rekening" placeholder="" value="{{ old('nama_pemilik_rekening', $dataKerjasama->dataBank->nama_pemilik_rekening ?? '') }}">
                             </div>
                             <div class="mb-3">
                                 <p class="form-label text-dark">2. No Rekening</p>
-                                <input type="text" class="form-control" id="bank_no_rekening" name="bank_no_rekening" placeholder="" value="{{ old('bank_no_rekening', $dataKerjasama->dataBank->no_rekening ?? '') }}">
+                                <input type="text" class="form-control" id="no_rekening" name="no_rekening" placeholder="" value="{{ old('no_rekening', $dataKerjasama->dataBank->no_rekening ?? '') }}">
                             </div>
                             <div class="mb-3">
                                 <p class="form-label text-dark">3. Nama Bank</p>
-                                <input type="text" class="form-control" id="bank_nama_bank" name="bank_nama_bank" placeholder="" value="{{ old('bank_nama_bank', $dataKerjasama->dataBank->nama_bank ?? '') }}">
+                                <input type="text" class="form-control" id="nama_bank" name="nama_bank" placeholder="" value="{{ old('nama_bank', $dataKerjasama->dataBank->nama_bank ?? '') }}">
                             </div>
                             <div class="mb-3">
                                 <p class="form-label text-dark">4. Kantor Cabang</p>
-                                <input type="text" class="form-control" id="bank_cabang_bank" name="bank_cabang_bank" placeholder="" value="{{ old('bank_cabang_bank', $dataKerjasama->dataBank->cabang_bank ?? '') }}">
+                                <input type="text" class="form-control" id="cabang_bank" name="cabang_bank" placeholder="" value="{{ old('cabang_bank', $dataKerjasama->dataBank->cabang_bank ?? '') }}">
                             </div>
                             <div class="mb-3">
                                 <p class="form-label text-dark">5. Alamat Bank</p>
-                                <input type="text" class="form-control" id="bank_alamat_bank" name="bank_alamat_bank" placeholder="" value="{{ old('bank_alamat_bank', $dataKerjasama->dataBank->alamat_bank ?? '') }}">
+                                <input type="text" class="form-control" id="alamat_bank" name="alamat_bank" placeholder="" value="{{ old('alamat_bank', $dataKerjasama->dataBank->alamat_bank ?? '') }}">
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="legalitas_no_akta" class="form-label text-dark"><strong>08. Legalitas</strong></label>
                             <div class="mb-3">
                                 <p class="form-label text-dark">1. Akta Pendirian dan Perubahan Terakhir (tuliskan no Akta Pendirian)</p>
-                                <input type="text" class="form-control" id="legalitas_no_akta" name="legalitas_no_akta" placeholder="" value="{{ old('legalitas_no_akta', $dataKerjasama->dataLegalitas->no_akta ?? '') }}">
+                                <input type="text" class="form-control" id="no_akta" name="no_akta" placeholder="" value="{{ old('no_akta', $dataKerjasama->dataLegalitas->no_akta ?? '') }}">
                             </div>
-                            <input class="form-control" type="file" id="legalitas_file_akta" name="legalitas_file_akta">
+                            <input class="form-control" type="file" id="file_akta" name="file_akta">
                             <div class="mb-3">
                                 <p class="form-label text-dark">2. SIUP (Surat Izin Usaha Perdagangan) (tuliskan no SIUP)</p>
-                                <input type="text" class="form-control mb-3" id="legalitas_no_siup" name="legalitas_no_siup" placeholder="" value="{{ old('legalitas_no_siup', $dataKerjasama->dataLegalitas->no_siup ?? '') }}">
+                                <input type="text" class="form-control mb-3" id="no_siup" name="no_siup" placeholder="" value="{{ old('no_siup', $dataKerjasama->dataLegalitas->no_siup ?? '') }}">
                             </div>
-                            <input class="form-control" type="file" id="legalitas_file_siup" name="legalitas_file_siup">
+                            <input class="form-control" type="file" id="file_siup" name="file_siup">
                             <div class="mb-3">
                                 <p class="form-label text-dark">3. SIUP (Surat Izin Usaha Perdagangan) (tuliskan tanggal berakhir masa berlalu SIUP)</p>
-                                <input type="date" class="form-control" id="legalitas_date_end_siup" name="legalitas_date_end_siup" placeholder="" value="{{ old('legalitas_date_end_siup', $dataKerjasama->dataLegalitas->date_end_siup ?? '') }}">
+                                <input type="date" class="form-control" id="date_end_siup" name="date_end_siup" placeholder="" value="{{ old('date_end_siup', $dataKerjasama->dataLegalitas->date_end_siup ?? '') }}">
                             </div>
                             <div class="mb-3">
                                 <p class="form-label text-dark">4. TDP (Tanda Daftar Perusahaan)Company Registrasion (tuliskan no TDP)</p>
-                                <input type="text" class="form-control" id="legalitas_no_tdp" name="legalitas_no_tdp" placeholder="" value="{{ old('legalitas_no_tdp', $dataKerjasama->dataLegalitas->no_tdp ?? '') }}">
+                                <input type="text" class="form-control" id="no_tdp" name="no_tdp" placeholder="" value="{{ old('no_tdp', $dataKerjasama->dataLegalitas->no_tdp ?? '') }}">
                             </div>
-                            <input class="form-control" type="file" id="legalitas_file_tdp" name="legalitas_file_tdp">
+                            <input class="form-control" type="file" id="file_tdp" name="file_tdp">
                             <div class="mb-3">
                                 <p class="form-label text-dark">5. TDP (Tanda Daftar Perusahaan) (tuliskan tanggal berakhir masa berlaku TDP)</p>
-                                <input type="date" class="form-control" id="legalitas_date_end_tdp" name="legalitas_date_end_tdp" placeholder="" value="{{ old('legalitas_date_end_tdp', $dataKerjasama->dataLegalitas->date_end_tdp ?? '') }}">
+                                <input type="date" class="form-control" id="date_end_tdp" name="date_end_tdp" placeholder="" value="{{ old('date_end_tdp', $dataKerjasama->dataLegalitas->date_end_tdp ?? '') }}">
                             </div>
                             <div class="mb-3">
                                 <p class="form-label text-dark">6. SKDP (Surat Keterangan Domisli Perusahaan) atau SITU (Surat Izin Tempat Usaha) (tuliskan no SKDP atau SITU)</p>
-                                <input type="text" class="form-control" id="legalitas_no_skdp" name="legalitas_no_skdp" placeholder="" value="{{ old('legalitas_no_skdp', $dataKerjasama->dataLegalitas->no_skdp ?? '') }}">
+                                <input type="text" class="form-control" id="no_skdp" name="no_skdp" placeholder="" value="{{ old('no_skdp', $dataKerjasama->dataLegalitas->no_skdp ?? '') }}">
                             </div>
-                            <input class="form-control" type="file" id="legalitas_file_skdp" name="legalitas_file_skdp">
+                            <input class="form-control" type="file" id="file_skdp" name="file_skdp">
                             <div class="mb-3">
                                 <p class="form-label text-dark">7. SKDP (Surat Keterangan Domisli Perusahaan) atau SITU (Surat Izin Tempat Usaha) (tuliskan tanggal berakhir masa berlaku SKDP atau SITU)</p>
-                                <input type="date" class="form-control" id="legalitas_date_end_skdp" name="legalitas_date_end_skdp" placeholder="" value="{{ old('legalitas_date_end_skdp', $dataKerjasama->dataLegalitas->date_end_skdp ?? '') }}">
+                                <input type="date" class="form-control" id="date_end_skdp" name="date_end_skdp" placeholder="" value="{{ old('date_end_skdp', $dataKerjasama->dataLegalitas->date_end_skdp ?? '') }}">
                             </div>
                             <div class="mb-3">
                                 <p class="form-label text-dark">8. Surat Ijin Usaha (IUJK Konstruksi/Perencana, IUJPT, Surat Penunjukan PJIT, Surat Ijin Badan Usaha Jasa Pengamanan, dan lain-lain)</p>
-                                <input type="text" class="form-control" id="legalitas_no_iujk" name="legalitas_no_iujk" placeholder="" value="{{ old('legalitas_no_iujk', $dataKerjasama->dataLegalitas->no_iujk ?? '') }}">
+                                <input type="text" class="form-control" id="no_iujk" name="no_iujk" placeholder="" value="{{ old('no_iujk', $dataKerjasama->dataLegalitas->no_iujk ?? '') }}">
                             </div>
-                            <input class="form-control" type="file" id="legalitas_file_iujk" name="legalitas_file_iujk">
+                            <input class="form-control" type="file" id="file_iujk" name="file_iujk">
                             <div class="mb-3">
                                 <p class="form-label text-dark">9. Tuliskan tanggal berakhir masa berlaku Surat Ijin Usaha (IUJK Konstruksi/Perencana, IUJPT, Surat Penunjukan PJIT, Surat Ijin Badan Usaha Jasa Pengamanan, dan lain-lain)</p>
-                                <input type="date" class="form-control" id="legalitas_date_end_iujk" name="legalitas_date_end_iujk" placeholder="" value="{{ old('legalitas_date_end_iujk', $dataKerjasama->dataLegalitas->date_end_iujk ?? '') }}">
+                                <input type="date" class="form-control" id="date_end_iujk" name="date_end_iujk" placeholder="" value="{{ old('date_end_iujk', $dataKerjasama->dataLegalitas->date_end_iujk ?? '') }}">
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="legalitas_file_profile_perusahaan" class="form-label text-dark"><strong>09. Profil Perusahaan</strong></label>
+                            <label for="file_profile_perusahaan" class="form-label text-dark"><strong>09. Profil Perusahaan</strong></label>
                             <p class="form-label">(Lampirkan Profile Perusahaan)</p>
                             <div class="mb-3">
-                                <input class="form-control" type="file" id="legalitas_file_profile_perusahaan" name="legalitas_file_profile_perusahaan">
+                                <input class="form-control" type="file" id="file_profile_perusahaan" name="file_profile_perusahaan">
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="legalitas_file_dokumen_kebenaran" class="form-label text-dark"><strong>10. Surat Pernyataan Kebeneran Dokumen & Informasi</strong></label>
+                            <label for="file_dokumen_kebenaran" class="form-label text-dark"><strong>10. Surat Pernyataan Kebeneran Dokumen & Informasi</strong></label>
                             <p class="form-label">(Silahkan lampirkan surat pernyataan yang telah dilengkapi dan ditandatangani)</p>
                             <div class="mb-3">
-                                <input class="form-control" type="file" id="legalitas_file_dokumen_kebenaran" name="legalitas_file_dokumen_kebenaran">
+                                <input class="form-control" type="file" id="file_dokumen_kebenaran" name="file_dokumen_kebenaran">
                             </div>
                         </div>
                         <div class="mb-3">

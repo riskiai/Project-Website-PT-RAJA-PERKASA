@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Client;
 use App\Models\DataBank;
 use App\Models\DataSales;
 use App\Models\DataManajer;
-use Illuminate\Http\Request;
-use App\Models\Datalegalitas;
+use App\Models\DataLegalitas;
 use App\Models\DataDirekturUtama;
 use App\Models\Document_Kerjasama_Client;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ProposalMitraClientController extends Controller
 {
@@ -19,8 +21,7 @@ class ProposalMitraClientController extends Controller
         $user = Auth::user();
         $dataKerjasama = Document_Kerjasama_Client::where('user_id', $user->id)->first();
 
-        // Cek apakah profil pengguna sudah lengkap
-        $profileCompleted = $user->name && $user->email && $user->no_hp && $user->nik && $user->file_ktp && $user->file_foto;
+        $profileCompleted = $this->checkProfileCompletion($user);
 
         return view('Client.pengajuankerjasamamitra', compact('dataKerjasama', 'profileCompleted'));
     }
@@ -28,266 +29,233 @@ class ProposalMitraClientController extends Controller
     public function create(Request $request)
     {
         $user = Auth::user();
+        $profileCompleted = $this->checkProfileCompletion($user);
 
-        // Cek apakah profil pengguna sudah lengkap
-        $profileCompleted = $user->name && $user->email && $user->no_hp && $user->nik && $user->file_ktp && $user->file_foto;
         if (!$profileCompleted) {
             return redirect()->route('profileclient')->with('error', 'Lengkapi profil Anda terlebih dahulu.');
         }
 
-        $validatedData = $request->validate([
-            'situs_web' => 'required|string|max:255',
-            'email_perusahaan' => 'required|email|max:255',
-            'sales_nama_lengkap' => 'required|string|max:255',
-            'sales_no_hp' => 'required|string|max:255',
-            'sales_email' => 'required|email|max:255',
-            'sales_jabatan' => 'required|string|max:255',
-            'manajer_nama_lengkap' => 'required|string|max:255',
-            'manajer_no_hp' => 'required|string|max:255',
-            'manajer_email' => 'required|email|max:255',
-            'manajer_jabatan' => 'required|string|max:255',
-            'direktur_nama_lengkap' => 'required|string|max:255',
-            'direktur_no_hp' => 'required|string|max:255',
-            'direktur_email' => 'required|email|max:255',
-            'direktur_jabatan' => 'required|string|max:255',
-            'pemilik_saham' => 'required|string|max:255',
-            'bank_nama_pemilik' => 'required|string|max:255',
-            'bank_no_rekening' => 'required|integer',
-            'bank_nama_bank' => 'required|string|max:255',
-            'bank_cabang_bank' => 'required|string|max:255',
-            'bank_alamat_bank' => 'required|string|max:1000',
-            'legalitas_no_akta' => 'required|string|max:255',
-            'legalitas_file_akta' => 'nullable|file|mimes:pdf',
-            'legalitas_no_siup' => 'required|string|max:255',
-            'legalitas_file_siup' => 'nullable|file|mimes:pdf',
-            'legalitas_date_end_siup' => 'required|date',
-            'legalitas_no_tdp' => 'required|string|max:255',
-            'legalitas_file_tdp' => 'nullable|file|mimes:pdf',
-            'legalitas_date_end_tdp' => 'required|date',
-            'legalitas_no_skdp' => 'required|string|max:255',
-            'legalitas_file_skdp' => 'nullable|file|mimes:pdf',
-            'legalitas_date_end_skdp' => 'required|date',
-            'legalitas_no_iujk' => 'required|string|max:255',
-            'legalitas_file_iujk' => 'nullable|file|mimes:pdf',
-            'legalitas_date_end_iujk' => 'required|date',
-            'legalitas_file_profile_perusahaan' => 'nullable|file|mimes:pdf',
-            'legalitas_file_dokumen_kebenaran' => 'nullable|file|mimes:pdf',
-        ]);
+        $validatedData = $request->validate($this->validationRules());
 
-        $dataKerjasama = Document_Kerjasama_Client::where('user_id', $user->id)->first();
+        DB::beginTransaction();
 
-        if ($dataKerjasama) {
-            return redirect()->route('pengajuankerjasama')->with('error', 'Pengajuan sudah pernah dilakukan. Silakan update data jika diperlukan.');
+        try {
+            // Simpan file-file legalitas
+            $dataLegalitas = $this->storeLegalitasFiles($request);
+
+            // Simpan data sales, manajer, direktur, bank
+            $dataSales = DataSales::create($request->only(['name_lengkap', 'no_hp', 'email', 'jabatan']));
+            $dataManajer = DataManajer::create($request->only(['nama_lengkap', 'no_hp', 'email', 'jabatan']));
+            $dataDirektur = DataDirekturUtama::create($request->only(['nama_lengkap', 'no_hp', 'email', 'jabatan']));
+            $dataBank = DataBank::create($request->only(['nama_pemilik_rekening', 'no_rekening', 'nama_bank', 'cabang_bank', 'alamat_bank']));
+
+            // Simpan data kerjasama client
+            $documentKerjasama = Document_Kerjasama_Client::create([
+                'user_id' => $user->id,
+                'situs_web' => $request->input('situs_web'),
+                'email_perusahaan' => $request->input('email_perusahaan'),
+                'data_sales_id' => $dataSales->id,
+                'data_manajer_id' => $dataManajer->id,
+                'data_direktur_id' => $dataDirektur->id,
+                'data_bank_id' => $dataBank->id,
+                'data_legalitas_id' => $dataLegalitas->id,
+                'data_kepemilikan_saham' => $request->input('data_kepemilikan_saham'),
+            ]);
+
+            DB::commit();
+            return redirect()->route('pengajuankerjasama')->with('success', 'Pengajuan kerjasama berhasil dikirim.');
+        } catch (\Exception $e) {
+            DB::rollback();
+            Log::error('Pengajuan kerjasama gagal: ' . $e->getMessage());
+            return redirect()->route('pengajuankerjasama')->with('error', 'Pengajuan kerjasama gagal: ' . $e->getMessage());
         }
-
-        // Handle file uploads
-        $aktaPath = $request->file('legalitas_file_akta') ? $request->file('legalitas_file_akta')->store('legalitas', 'public') : null;
-        $siupPath = $request->file('legalitas_file_siup') ? $request->file('legalitas_file_siup')->store('legalitas', 'public') : null;
-        $tdpPath = $request->file('legalitas_file_tdp') ? $request->file('legalitas_file_tdp')->store('legalitas', 'public') : null;
-        $skdpPath = $request->file('legalitas_file_skdp') ? $request->file('legalitas_file_skdp')->store('legalitas', 'public') : null;
-        $iujkPath = $request->file('legalitas_file_iujk') ? $request->file('legalitas_file_iujk')->store('legalitas', 'public') : null;
-        $profilePath = $request->file('legalitas_file_profile_perusahaan') ? $request->file('legalitas_file_profile_perusahaan')->store('legalitas', 'public') : null;
-        $dokumenKebenaranPath = $request->file('legalitas_file_dokumen_kebenaran') ? $request->file('legalitas_file_dokumen_kebenaran')->store('legalitas', 'public') : null;
-
-        // Create related records
-        $dataSales = DataSales::create([
-            'name_lengkap' => $request->input('sales_nama_lengkap'),
-            'no_hp' => $request->input('sales_no_hp'),
-            'email' => $request->input('sales_email'),
-            'jabatan' => $request->input('sales_jabatan'),
-        ]);
-
-        $dataManajer = DataManajer::create([
-            'nama_lengkap' => $request->input('manajer_nama_lengkap'),
-            'no_hp' => $request->input('manajer_no_hp'),
-            'email' => $request->input('manajer_email'),
-            'jabatan' => $request->input('manajer_jabatan'),
-        ]);
-
-        $dataDirektur = DataDirekturUtama::create([
-            'nama_lengkap' => $request->input('direktur_nama_lengkap'),
-            'no_hp' => $request->input('direktur_no_hp'),
-            'email' => $request->input('direktur_email'),
-            'jabatan' => $request->input('direktur_jabatan'),
-        ]);
-
-        $dataBank = DataBank::create([
-            'nama_pemilik_rekening' => $request->input('bank_nama_pemilik'),
-            'no_rekening' => $request->input('bank_no_rekening'),
-            'nama_bank' => $request->input('bank_nama_bank'),
-            'cabang_bank' => $request->input('bank_cabang_bank'),
-            'alamat_bank' => $request->input('bank_alamat_bank'),
-        ]);
-
-        $dataLegalitas = Datalegalitas::create([
-            'no_akta' => $request->input('legalitas_no_akta'),
-            'file_akta' => $aktaPath,
-            'no_siup' => $request->input('legalitas_no_siup'),
-            'file_siup' => $siupPath,
-            'date_end_siup' => $request->input('legalitas_date_end_siup'),
-            'no_tdp' => $request->input('legalitas_no_tdp'),
-            'file_tdp' => $tdpPath,
-            'date_end_tdp' => $request->input('legalitas_date_end_tdp'),
-            'no_skdp' => $request->input('legalitas_no_skdp'),
-            'file_skdp' => $skdpPath,
-            'date_end_skdp' => $request->input('legalitas_date_end_skdp'),
-            'no_iujk' => $request->input('legalitas_no_iujk'),
-            'file_iujk' => $iujkPath,
-            'date_end_iujk' => $request->input('legalitas_date_end_iujk'),
-            'file_profile_perusahaan' => $profilePath,
-            'file_dokumen_kebenaran' => $dokumenKebenaranPath,
-        ]);
-
-        // Create new data
-        Document_Kerjasama_Client::create([
-            'user_id' => $user->id,
-            'data_sales_id' => $dataSales->id,
-            'data_manajer_id' => $dataManajer->id,
-            'data_direktur_id' => $dataDirektur->id,
-            'data_bank_id' => $dataBank->id,
-            'data_legalitas_id' => $dataLegalitas->id,
-            'data_kepemilikan_saham' => $request->input('pemilik_saham'),
-            'situs_web' => $request->input('situs_web'),
-            'email_perusahaan' => $request->input('email_perusahaan'),
-            'status_kerjasama' => 'ditunggu',
-            'keterangan_status_kerjasama' => 'Baik Terimakasih Sudah Mengirimkan Berkas Perusahaan Anda, Silahkan Ditunggu !',
-        ]);
-
-        return redirect()->route('pengajuankerjasama')->with('success', 'Pengajuan kerjasama berhasil dikirim.');
     }
 
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'situs_web' => 'required|string|max:255',
-            'email_perusahaan' => 'required|email|max:255',
-            'sales_nama_lengkap' => 'required|string|max:255',
-            'sales_no_hp' => 'required|string|max:255',
-            'sales_email' => 'required|email|max:255',
-            'sales_jabatan' => 'required|string|max:255',
-            'manajer_nama_lengkap' => 'required|string|max:255',
-            'manajer_no_hp' => 'required|string|max:255',
-            'manajer_email' => 'required|email|max:255',
-            'manajer_jabatan' => 'required|string|max:255',
-            'direktur_nama_lengkap' => 'required|string|max:255',
-            'direktur_no_hp' => 'required|string|max:255',
-            'direktur_email' => 'required|email|max:255',
-            'direktur_jabatan' => 'required|string|max:255',
-            'pemilik_saham' => 'required|string|max:255',
-            'bank_nama_pemilik' => 'required|string|max:255',
-            'bank_no_rekening' => 'required|integer',
-            'bank_nama_bank' => 'required|string|max:255',
-            'bank_cabang_bank' => 'required|string|max:255',
-            'bank_alamat_bank' => 'required|string|max:1000',
-            'legalitas_no_akta' => 'required|string|max:255',
-            'legalitas_file_akta' => 'nullable|file|mimes:pdf',
-            'legalitas_no_siup' => 'required|string|max:255',
-            'legalitas_file_siup' => 'nullable|file|mimes:pdf',
-            'legalitas_date_end_siup' => 'required|date',
-            'legalitas_no_tdp' => 'required|string|max:255',
-            'legalitas_file_tdp' => 'nullable|file|mimes:pdf',
-            'legalitas_date_end_tdp' => 'required|date',
-            'legalitas_no_skdp' => 'required|string|max:255',
-            'legalitas_file_skdp' => 'nullable|file|mimes:pdf',
-            'legalitas_date_end_skdp' => 'required|date',
-            'legalitas_no_iujk' => 'required|string|max:255',
-            'legalitas_file_iujk' => 'nullable|file|mimes:pdf',
-            'legalitas_date_end_iujk' => 'required|date',
-            'legalitas_file_profile_perusahaan' => 'nullable|file|mimes:pdf',
-            'legalitas_file_dokumen_kebenaran' => 'nullable|file|mimes:pdf',
-        ]);
+        $validatedData = $request->validate($this->validationRules());
 
-        $user_id = Auth::id();
-        $dataKerjasama = Document_Kerjasama_Client::find($id);
+        DB::beginTransaction();
 
-        if (!$dataKerjasama || $dataKerjasama->user_id !== $user_id) {
-            return redirect()->route('pengajuankerjasama')->with('error', 'Anda tidak memiliki akses untuk mengupdate data ini.');
-        }
+        try {
+            $documentKerjasama = Document_Kerjasama_Client::findOrFail($id);
 
-        // Handle file uploads
-        $aktaPath = $request->file('legalitas_file_akta') ? $request->file('legalitas_file_akta')->store('legalitas', 'public') : $dataKerjasama->dataLegalitas->file_akta;
-        $siupPath = $request->file('legalitas_file_siup') ? $request->file('legalitas_file_siup')->store('legalitas', 'public') : $dataKerjasama->dataLegalitas->file_siup;
-        $tdpPath = $request->file('legalitas_file_tdp') ? $request->file('legalitas_file_tdp')->store('legalitas', 'public') : $dataKerjasama->dataLegalitas->file_tdp;
-        $skdpPath = $request->file('legalitas_file_skdp') ? $request->file('legalitas_file_skdp')->store('legalitas', 'public') : $dataKerjasama->dataLegalitas->file_skdp;
-        $iujkPath = $request->file('legalitas_file_iujk') ? $request->file('legalitas_file_iujk')->store('legalitas', 'public') : $dataKerjasama->dataLegalitas->file_iujk;
-        $profilePath = $request->file('legalitas_file_profile_perusahaan') ? $request->file('legalitas_file_profile_perusahaan')->store('legalitas', 'public') : $dataKerjasama->dataLegalitas->file_profile_perusahaan;
-        $dokumenKebenaranPath = $request->file('legalitas_file_dokumen_kebenaran') ? $request->file('legalitas_file_dokumen_kebenaran')->store('legalitas', 'public') : $dataKerjasama->dataLegalitas->file_dokumen_kebenaran;
+            // Update or create data sales
+            $dataSales = $documentKerjasama->dataSales;
+            if ($dataSales) {
+                $dataSales->update($request->only(['name_lengkap', 'no_hp', 'email', 'jabatan']));
+            } else {
+                $dataSales = DataSales::create($request->only(['name_lengkap', 'no_hp', 'email', 'jabatan']));
+                $documentKerjasama->data_sales_id = $dataSales->id;
+            }
 
-        // Update related records
-        if ($dataKerjasama->dataSales) {
-            $dataKerjasama->dataSales->update([
-                'name_lengkap' => $request->input('sales_nama_lengkap'),
-                'no_hp' => $request->input('sales_no_hp'),
-                'email' => $request->input('sales_email'),
-                'jabatan' => $request->input('sales_jabatan'),
+            // Update or create data manajer
+            $dataManajer = $documentKerjasama->dataManajer;
+            if ($dataManajer) {
+                $dataManajer->update($request->only(['nama_lengkap', 'no_hp', 'email', 'jabatan']));
+            } else {
+                $dataManajer = DataManajer::create($request->only(['nama_lengkap', 'no_hp', 'email', 'jabatan']));
+                $documentKerjasama->data_manajer_id = $dataManajer->id;
+            }
+
+            // Update or create data direktur
+            $dataDirektur = $documentKerjasama->dataDirektur;
+            if ($dataDirektur) {
+                $dataDirektur->update($request->only(['nama_lengkap', 'no_hp', 'email', 'jabatan']));
+            } else {
+                $dataDirektur = DataDirekturUtama::create($request->only(['nama_lengkap', 'no_hp', 'email', 'jabatan']));
+                $documentKerjasama->data_direktur_id = $dataDirektur->id;
+            }
+
+            // Update or create data bank
+            $dataBank = $documentKerjasama->dataBank;
+            if ($dataBank) {
+                $dataBank->update($request->only(['nama_pemilik_rekening', 'no_rekening', 'nama_bank', 'cabang_bank', 'alamat_bank']));
+            } else {
+                $dataBank = DataBank::create($request->only(['nama_pemilik_rekening', 'no_rekening', 'nama_bank', 'cabang_bank', 'alamat_bank']));
+                $documentKerjasama->data_bank_id = $dataBank->id;
+            }
+
+            // Update or create data legalitas
+            $dataLegalitas = $documentKerjasama->dataLegalitas;
+            if ($dataLegalitas) {
+                $dataLegalitas->update($request->only([
+                    'no_akta', 'no_siup', 'date_end_siup', 'no_tdp', 'date_end_tdp', 'no_skdp', 'date_end_skdp', 'no_iujk', 'date_end_iujk'
+                ]));
+                // Update legalitas files if provided
+                $this->updateLegalitasFiles($dataLegalitas, $request);
+            } else {
+                $dataLegalitas = DataLegalitas::create($request->only([
+                    'no_akta', 'no_siup', 'date_end_siup', 'no_tdp', 'date_end_tdp', 'no_skdp', 'date_end_skdp', 'no_iujk', 'date_end_iujk'
+                ]));
+                $documentKerjasama->data_legalitas_id = $dataLegalitas->id;
+
+                // Simpan file-file legalitas
+                $this->storeLegalitasFiles($request);
+            }
+
+            // Update the documentKerjasama record
+            $documentKerjasama->update([
+                'situs_web' => $request->input('situs_web'),
+                'email_perusahaan' => $request->input('email_perusahaan'),
+                'data_kepemilikan_saham' => $request->input('data_kepemilikan_saham'),
             ]);
+
+            DB::commit();
+            return redirect()->route('pengajuankerjasama')->with('success', 'Data kerjasama berhasil diperbarui.');
+        } catch (\Exception $e) {
+            DB::rollback();
+            Log::error('Update kerjasama gagal: ' . $e->getMessage());
+            return redirect()->route('pengajuankerjasama')->with('error', 'Update kerjasama gagal: ' . $e->getMessage());
         }
-
-        if ($dataKerjasama->dataManajer) {
-            $dataKerjasama->dataManajer->update([
-                'nama_lengkap' => $request->input('manajer_nama_lengkap'),
-                'no_hp' => $request->input('manajer_no_hp'),
-                'email' => $request->input('manajer_email'),
-                'jabatan' => $request->input('manajer_jabatan'),
-            ]);
-        }
-
-        if ($dataKerjasama->dataDirektur) {
-            $dataKerjasama->dataDirektur->update([
-                'nama_lengkap' => $request->input('direktur_nama_lengkap'),
-                'no_hp' => $request->input('direktur_no_hp'),
-                'email' => $request->input('direktur_email'),
-                'jabatan' => $request->input('direktur_jabatan'),
-            ]);
-        }
-
-        if ($dataKerjasama->dataBank) {
-            $dataKerjasama->dataBank->update([
-                'nama_pemilik_rekening' => $request->input('bank_nama_pemilik'),
-                'no_rekening' => $request->input('bank_no_rekening'),
-                'nama_bank' => $request->input('bank_nama_bank'),
-                'cabang_bank' => $request->input('bank_cabang_bank'),
-                'alamat_bank' => $request->input('bank_alamat_bank'),
-            ]);
-        }
-
-        if ($dataKerjasama->dataLegalitas) {
-            $dataKerjasama->dataLegalitas->update([
-                'no_akta' => $request->input('legalitas_no_akta'),
-                'file_akta' => $aktaPath,
-                'no_siup' => $request->input('legalitas_no_siup'),
-                'file_siup' => $siupPath,
-                'date_end_siup' => $request->input('legalitas_date_end_siup'),
-                'no_tdp' => $request->input('legalitas_no_tdp'),
-                'file_tdp' => $tdpPath,
-                'date_end_tdp' => $request->input('legalitas_date_end_tdp'),
-                'no_skdp' => $request->input('legalitas_no_skdp'),
-                'file_skdp' => $skdpPath,
-                'date_end_skdp' => $request->input('legalitas_date_end_skdp'),
-                'no_iujk' => $request->input('legalitas_no_iujk'),
-                'file_iujk' => $iujkPath,
-                'date_end_iujk' => $request->input('legalitas_date_end_iujk'),
-                'file_profile_perusahaan' => $profilePath,
-                'file_dokumen_kebenaran' => $dokumenKebenaranPath,
-            ]);
-        }
-
-        // Update existing data
-        $dataKerjasama->update([
-            'situs_web' => $request->input('situs_web'),
-            'email_perusahaan' => $request->input('email_perusahaan'),
-            'data_kepemilikan_saham' => $request->input('pemilik_saham'),
-            'status_kerjasama' => 'ditunggu',
-        ]);
-
-        return redirect()->route('pengajuankerjasama')->with('success', 'Data kerjasama berhasil diperbarui.');
     }
 
     public function statuskerjasama()
     {
         $user_id = Auth::id();
         $dataKerjasama = Document_Kerjasama_Client::where('user_id', $user_id)->latest()->first();
-    
+
         return view('Client.statuskerjasamamitra', compact('dataKerjasama'));
+    }
+
+    /**
+     * Check if user profile is completed.
+     *
+     * @param $user
+     * @return bool
+     */
+    private function checkProfileCompletion($user)
+    {
+        return $user->name && $user->email && $user->no_hp && $user->nik && $user->file_ktp && $user->file_foto;
+    }
+
+    /**
+     * Validation rules for create and update methods.
+     *
+     * @return array
+     */
+    private function validationRules()
+    {
+        return [
+            'situs_web' => 'required|string|max:255',
+            'email_perusahaan' => 'required|email|max:255',
+            'name_lengkap' => 'required|string|max:255',
+            'nama_lengkap' => 'required|string|max:255',
+            'no_hp' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'jabatan' => 'required|string|max:255',
+            'data_kepemilikan_saham' => 'required|string|max:255',
+            'nama_pemilik_rekening' => 'required|string|max:255',
+            'no_rekening' => 'required|string|max:255',
+            'nama_bank' => 'required|string|max:255',
+            'cabang_bank' => 'required|string|max:255',
+            'alamat_bank' => 'required|string|max:1000',
+            'no_akta' => 'required|string|max:255',
+            'file_akta' => 'nullable|file|mimes:pdf',
+            'no_siup' => 'required|string|max:255',
+            'file_siup' => 'nullable|file|mimes:pdf',
+            'date_end_siup' => 'required|date',
+            'no_tdp' => 'required|string|max:255',
+            'file_tdp' => 'nullable|file|mimes:pdf',
+            'date_end_tdp' => 'required|date',
+            'no_skdp' => 'required|string|max:255',
+            'file_skdp' => 'nullable|file|mimes:pdf',
+            'date_end_skdp' => 'required|date',
+            'no_iujk' => 'required|string|max:255',
+            'file_iujk' => 'nullable|file|mimes:pdf',
+            'date_end_iujk' => 'required|date',
+            'file_profile_perusahaan' => 'nullable|file|mimes:pdf',
+            'file_dokumen_kebenaran' => 'nullable|file|mimes:pdf',
+        ];
+    }
+
+    /**
+     * Store legalitas files and return data_legalitas_id.
+     *
+     * @param Request $request
+     * @return DataLegalitas
+     */
+    private function storeLegalitasFiles(Request $request)
+    {
+        $dataLegalitas = DataLegalitas::create($request->only([
+            'no_akta', 'no_siup', 'date_end_siup', 'no_tdp', 'date_end_tdp', 'no_skdp', 'date_end_skdp', 'no_iujk', 'date_end_iujk', 'data_kepemilikan_saham'
+        ]));
+
+        // Simpan file-file legalitas
+        $dataLegalitas->update([
+            'file_akta' => $request->file('file_akta') ? $request->file('file_akta')->store('legalitas', 'public') : null,
+            'file_siup' => $request->file('file_siup') ? $request->file('file_siup')->store('legalitas', 'public') : null,
+            'file_tdp' => $request->file('file_tdp') ? $request->file('file_tdp')->store('legalitas', 'public') : null,
+            'file_skdp' => $request->file('file_skdp') ? $request->file('file_skdp')->store('legalitas', 'public') : null,
+            'file_iujk' => $request->file('file_iujk') ? $request->file('file_iujk')->store('legalitas', 'public') : null,
+        ]);
+
+        return $dataLegalitas;
+    }
+
+    /**
+     * Update legalitas files if provided.
+     *
+     * @param DataLegalitas $dataLegalitas
+     * @param Request $request
+     * @return void
+     */
+    private function updateLegalitasFiles(DataLegalitas $dataLegalitas, Request $request)
+    {
+        if ($request->hasFile('file_akta')) {
+            $dataLegalitas->update(['file_akta' => $request->file('file_akta')->store('legalitas', 'public')]);
+        }
+        if ($request->hasFile('file_siup')) {
+            $dataLegalitas->update(['file_siup' => $request->file('file_siup')->store('legalitas', 'public')]);
+        }
+        if ($request->hasFile('file_tdp')) {
+            $dataLegalitas->update(['file_tdp' => $request->file('file_tdp')->store('legalitas', 'public')]);
+        }
+        if ($request->hasFile('file_skdp')) {
+            $dataLegalitas->update(['file_skdp' => $request->file('file_skdp')->store('legalitas', 'public')]);
+        }
+        if ($request->hasFile('file_iujk')) {
+            $dataLegalitas->update(['file_iujk' => $request->file('file_iujk')->store('legalitas', 'public')]);
+        }
     }
 }
