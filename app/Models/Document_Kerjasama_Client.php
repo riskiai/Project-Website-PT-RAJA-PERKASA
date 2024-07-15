@@ -23,6 +23,7 @@ class Document_Kerjasama_Client extends Model
         'data_kepemilikan_saham',
         'situs_web',
         'email_perusahaan',
+        'created_at'
     ];
 
     // Relasi dengan User

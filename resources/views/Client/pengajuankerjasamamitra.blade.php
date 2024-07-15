@@ -147,11 +147,17 @@ $profileCompleted = $user->file_foto !== null;
                                 <p class="form-label text-dark">1. Akta Pendirian dan Perubahan Terakhir (tuliskan no Akta Pendirian)</p>
                                 <input type="text" class="form-control" id="no_akta" name="no_akta" placeholder="" value="{{ old('no_akta', $dataKerjasama->dataLegalitas->no_akta ?? '') }}">
                             </div>
+                            @if(isset($dataKerjasama->dataLegalitas->file_akta))
+                                <p><a style="color: orange;" href="{{ asset('storage/' . $dataKerjasama->dataLegalitas->file_akta) }}" target="_blank">Lihat/Unduh File Akta</a></p>
+                            @endif
                             <input class="form-control" type="file" id="file_akta" name="file_akta">
                             <div class="mb-3">
                                 <p class="form-label text-dark">2. SIUP (Surat Izin Usaha Perdagangan) (tuliskan no SIUP)</p>
                                 <input type="text" class="form-control mb-3" id="no_siup" name="no_siup" placeholder="" value="{{ old('no_siup', $dataKerjasama->dataLegalitas->no_siup ?? '') }}">
                             </div>
+                            @if(isset($dataKerjasama->dataLegalitas->file_siup))
+                                <p><a style="color: orange;" href="{{ asset('storage/' . $dataKerjasama->dataLegalitas->file_siup) }}" target="_blank">Lihat/Unduh File SIUP</a></p>
+                            @endif
                             <input class="form-control" type="file" id="file_siup" name="file_siup">
                             <div class="mb-3">
                                 <p class="form-label text-dark">3. SIUP (Surat Izin Usaha Perdagangan) (tuliskan tanggal berakhir masa berlalu SIUP)</p>
@@ -161,6 +167,9 @@ $profileCompleted = $user->file_foto !== null;
                                 <p class="form-label text-dark">4. TDP (Tanda Daftar Perusahaan)Company Registrasion (tuliskan no TDP)</p>
                                 <input type="text" class="form-control" id="no_tdp" name="no_tdp" placeholder="" value="{{ old('no_tdp', $dataKerjasama->dataLegalitas->no_tdp ?? '') }}">
                             </div>
+                            @if(isset($dataKerjasama->dataLegalitas->file_tdp))
+                                <p><a style="color: orange;" href="{{ asset('storage/' . $dataKerjasama->dataLegalitas->file_tdp) }}" target="_blank">Lihat/Unduh File TDP</a></p>
+                            @endif
                             <input class="form-control" type="file" id="file_tdp" name="file_tdp">
                             <div class="mb-3">
                                 <p class="form-label text-dark">5. TDP (Tanda Daftar Perusahaan) (tuliskan tanggal berakhir masa berlaku TDP)</p>
@@ -170,6 +179,9 @@ $profileCompleted = $user->file_foto !== null;
                                 <p class="form-label text-dark">6. SKDP (Surat Keterangan Domisli Perusahaan) atau SITU (Surat Izin Tempat Usaha) (tuliskan no SKDP atau SITU)</p>
                                 <input type="text" class="form-control" id="no_skdp" name="no_skdp" placeholder="" value="{{ old('no_skdp', $dataKerjasama->dataLegalitas->no_skdp ?? '') }}">
                             </div>
+                            @if(isset($dataKerjasama->dataLegalitas->file_skdp))
+                                <p><a style="color: orange;" href="{{ asset('storage/' . $dataKerjasama->dataLegalitas->file_skdp) }}" target="_blank">Lihat/Unduh File SKDP</a></p>
+                            @endif
                             <input class="form-control" type="file" id="file_skdp" name="file_skdp">
                             <div class="mb-3">
                                 <p class="form-label text-dark">7. SKDP (Surat Keterangan Domisli Perusahaan) atau SITU (Surat Izin Tempat Usaha) (tuliskan tanggal berakhir masa berlaku SKDP atau SITU)</p>
@@ -179,6 +191,9 @@ $profileCompleted = $user->file_foto !== null;
                                 <p class="form-label text-dark">8. Surat Ijin Usaha (IUJK Konstruksi/Perencana, IUJPT, Surat Penunjukan PJIT, Surat Ijin Badan Usaha Jasa Pengamanan, dan lain-lain)</p>
                                 <input type="text" class="form-control" id="no_iujk" name="no_iujk" placeholder="" value="{{ old('no_iujk', $dataKerjasama->dataLegalitas->no_iujk ?? '') }}">
                             </div>
+                            @if(isset($dataKerjasama->dataLegalitas->file_iujk))
+                                <p><a style="color: orange;" href="{{ asset('storage/' . $dataKerjasama->dataLegalitas->file_iujk) }}" target="_blank">Lihat/Unduh File IUJK</a></p>
+                            @endif
                             <input class="form-control" type="file" id="file_iujk" name="file_iujk">
                             <div class="mb-3">
                                 <p class="form-label text-dark">9. Tuliskan tanggal berakhir masa berlaku Surat Ijin Usaha (IUJK Konstruksi/Perencana, IUJPT, Surat Penunjukan PJIT, Surat Ijin Badan Usaha Jasa Pengamanan, dan lain-lain)</p>
@@ -188,6 +203,9 @@ $profileCompleted = $user->file_foto !== null;
                         <div class="mb-3">
                             <label for="file_profile_perusahaan" class="form-label text-dark"><strong>09. Profil Perusahaan</strong></label>
                             <p class="form-label">(Lampirkan Profile Perusahaan)</p>
+                            @if(isset($dataKerjasama->dataLegalitas->file_profile_perusahaan))
+                                <p><a style="color: orange;" href="{{ asset('storage/' . $dataKerjasama->dataLegalitas->file_profile_perusahaan) }}" target="_blank">Lihat/Unduh Profil Perusahaan</a></p>
+                            @endif
                             <div class="mb-3">
                                 <input class="form-control" type="file" id="file_profile_perusahaan" name="file_profile_perusahaan">
                             </div>
@@ -195,6 +213,9 @@ $profileCompleted = $user->file_foto !== null;
                         <div class="mb-3">
                             <label for="file_dokumen_kebenaran" class="form-label text-dark"><strong>10. Surat Pernyataan Kebeneran Dokumen & Informasi</strong></label>
                             <p class="form-label">(Silahkan lampirkan surat pernyataan yang telah dilengkapi dan ditandatangani)</p>
+                            @if(isset($dataKerjasama->dataLegalitas->file_dokumen_kebenaran))
+                                <p><a style="color: orange;" href="{{ asset('storage/' . $dataKerjasama->dataLegalitas->file_dokumen_kebenaran) }}" target="_blank">Lihat/Unduh Surat Pernyataan Kebenaran</a></p>
+                            @endif
                             <div class="mb-3">
                                 <input class="form-control" type="file" id="file_dokumen_kebenaran" name="file_dokumen_kebenaran">
                             </div>

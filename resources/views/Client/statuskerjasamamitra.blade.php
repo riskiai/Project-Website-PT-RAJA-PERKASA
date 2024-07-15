@@ -8,7 +8,7 @@
     }
 
     h2 {
-        margin-top: 20px; /* Added margin-top for spacing */
+        margin-top: 20px;
         text-align: center;
         font-size: 30px;
     }
@@ -36,13 +36,13 @@
 @section('content')
 <div class="container mt-5">
     @include('Client.components.navbarclient')
-    <h2>Status Penerimaan Kerja Sama Mitra Dengan PT Raja Perkasa</h2> <!-- Added title above the table -->
+    <h2>Status Penerimaan Kerja Sama Mitra Dengan PT Raja Perkasa</h2>
     <div class="row">
         <div class="col-md-8 offset-md-2">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>No</th>
+                        {{-- <th>No</th> --}}
                         <th>Tanggal Kirim</th>
                         <th>Status Kerja Sama Mitra</th>
                         <th>Keterangan</th>
@@ -51,14 +51,14 @@
                 <tbody>
                     @if ($dataKerjasama)
                         <tr>
-                            <td>1</td>
+                            {{-- <td>1</td> --}}
                             <td>{{ $dataKerjasama->created_at->format('Y-m-d') }}</td>
-                            <td>{{ ucfirst($dataKerjasama->status_kerjasama) }}</td>
-                            <td>{{ $dataKerjasama->keterangan_status_kerjasama }}</td>
+                            <td>{{ $dataKerjasama->status_kerjasama }}</td>
+                            <td>{{ $dataKerjasama->keterangan_status_kerjasama ?: 'Terimakasih Sudah Mengisi Form, Untuk Data Kerja Sama Mitra Sedang Di Cek Oleh Team PT Raja Perkasa' }}</td>
                         </tr>
                     @else
                         <tr>
-                            <td colspan="4">Data tidak ditemukan.</td>
+                            <td colspan="3">Data tidak ditemukan.</td>
                         </tr>
                     @endif
                 </tbody>

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Models\DataBank;
 use App\Models\DataSales;
 use App\Models\DataManajer;
-use App\Models\Datalegalitas;
+use App\Models\DataLegalitas;
 use App\Models\DataDirekturUtama;
 use App\Models\Document_Kerjasama_Client;
 use Illuminate\Http\Request;
@@ -25,6 +25,28 @@ class ProposalMitraClientController extends Controller
 
         return view('Client.pengajuankerjasamamitra', compact('dataKerjasama', 'profileCompleted'));
     }
+
+    public function statuskerjasama()
+    {
+        $user = Auth::user();
+        
+        if ($user->role->role_name != 'client') {
+            return redirect()->route('profileclient')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
+        }
+        
+        $dataKerjasama = Document_Kerjasama_Client::where('user_id', $user->id)->first();
+        
+        // Tambahkan logging untuk memastikan data yang didapat
+        Log::info('Data Kerjasama:', ['data' => $dataKerjasama]);
+
+        // Berikan nilai default jika keterangan_status_kerjasama kosong
+        if ($dataKerjasama && !$dataKerjasama->keterangan_status_kerjasama) {
+            $dataKerjasama->keterangan_status_kerjasama = "Terimakasih Sudah Mengisi Form, Untuk Data Kerja Sama Mitra Sedang Di Cek Oleh Team PT Raja Perkasa";
+        }
+
+        return view('Client.statuskerjasamamitra', compact('dataKerjasama'));
+    }
+
 
     public function create(Request $request)
     {
@@ -60,6 +82,8 @@ class ProposalMitraClientController extends Controller
                 'data_bank_id' => $dataBank->id,
                 'data_legalitas_id' => $dataLegalitas->id,
                 'data_kepemilikan_saham' => $request->input('data_kepemilikan_saham'),
+                'file_profile_perusahaan' => $request->file('file_profile_perusahaan') ? $request->file('file_profile_perusahaan')->store('legalitas', 'public') : null,
+                'file_dokumen_kebenaran' => $request->file('file_dokumen_kebenaran') ? $request->file('file_dokumen_kebenaran')->store('legalitas', 'public') : null,
             ]);
 
             DB::commit();
@@ -81,64 +105,47 @@ class ProposalMitraClientController extends Controller
             $documentKerjasama = Document_Kerjasama_Client::findOrFail($id);
 
             // Update or create data sales
-            $dataSales = $documentKerjasama->dataSales;
-            if ($dataSales) {
-                $dataSales->update($request->only(['name_lengkap', 'no_hp', 'email', 'jabatan']));
-            } else {
-                $dataSales = DataSales::create($request->only(['name_lengkap', 'no_hp', 'email', 'jabatan']));
-                $documentKerjasama->data_sales_id = $dataSales->id;
-            }
+            $dataSales = $documentKerjasama->dataSales ?: new DataSales;
+            $dataSales->fill($request->only(['name_lengkap', 'no_hp', 'email', 'jabatan']));
+            $dataSales->save();
+            $documentKerjasama->data_sales_id = $dataSales->id;
 
             // Update or create data manajer
-            $dataManajer = $documentKerjasama->dataManajer;
-            if ($dataManajer) {
-                $dataManajer->update($request->only(['nama_lengkap', 'no_hp', 'email', 'jabatan']));
-            } else {
-                $dataManajer = DataManajer::create($request->only(['nama_lengkap', 'no_hp', 'email', 'jabatan']));
-                $documentKerjasama->data_manajer_id = $dataManajer->id;
-            }
+            $dataManajer = $documentKerjasama->dataManajer ?: new DataManajer;
+            $dataManajer->fill($request->only(['nama_lengkap', 'no_hp', 'email', 'jabatan']));
+            $dataManajer->save();
+            $documentKerjasama->data_manajer_id = $dataManajer->id;
 
             // Update or create data direktur
-            $dataDirektur = $documentKerjasama->dataDirektur;
-            if ($dataDirektur) {
-                $dataDirektur->update($request->only(['nama_lengkap', 'no_hp', 'email', 'jabatan']));
-            } else {
-                $dataDirektur = DataDirekturUtama::create($request->only(['nama_lengkap', 'no_hp', 'email', 'jabatan']));
-                $documentKerjasama->data_direktur_id = $dataDirektur->id;
-            }
+            $dataDirektur = $documentKerjasama->dataDirektur ?: new DataDirekturUtama;
+            $dataDirektur->fill($request->only(['nama_lengkap', 'no_hp', 'email', 'jabatan']));
+            $dataDirektur->save();
+            $documentKerjasama->data_direktur_id = $dataDirektur->id;
 
             // Update or create data bank
-            $dataBank = $documentKerjasama->dataBank;
-            if ($dataBank) {
-                $dataBank->update($request->only(['nama_pemilik_rekening', 'no_rekening', 'nama_bank', 'cabang_bank', 'alamat_bank']));
-            } else {
-                $dataBank = DataBank::create($request->only(['nama_pemilik_rekening', 'no_rekening', 'nama_bank', 'cabang_bank', 'alamat_bank']));
-                $documentKerjasama->data_bank_id = $dataBank->id;
-            }
+            $dataBank = $documentKerjasama->dataBank ?: new DataBank;
+            $dataBank->fill($request->only(['nama_pemilik_rekening', 'no_rekening', 'nama_bank', 'cabang_bank', 'alamat_bank']));
+            $dataBank->save();
+            $documentKerjasama->data_bank_id = $dataBank->id;
 
             // Update or create data legalitas
-            $dataLegalitas = $documentKerjasama->dataLegalitas;
-            if ($dataLegalitas) {
-                $dataLegalitas->update($request->only([
-                    'no_akta', 'no_siup', 'date_end_siup', 'no_tdp', 'date_end_tdp', 'no_skdp', 'date_end_skdp', 'no_iujk', 'date_end_iujk'
-                ]));
-                // Update legalitas files if provided
-                $this->updateLegalitasFiles($dataLegalitas, $request);
-            } else {
-                $dataLegalitas = Datalegalitas::create($request->only([
-                    'no_akta', 'no_siup', 'date_end_siup', 'no_tdp', 'date_end_tdp', 'no_skdp', 'date_end_skdp', 'no_iujk', 'date_end_iujk'
-                ]));
-                $documentKerjasama->data_legalitas_id = $dataLegalitas->id;
+            $dataLegalitas = $documentKerjasama->dataLegalitas ?: new DataLegalitas;
+            $dataLegalitas->fill($request->only([
+                'no_akta', 'no_siup', 'date_end_siup', 'no_tdp', 'date_end_tdp', 'no_skdp', 'date_end_skdp', 'no_iujk', 'date_end_iujk', 'data_kepemilikan_saham'
+            ]));
+            $dataLegalitas->save();
+            $documentKerjasama->data_legalitas_id = $dataLegalitas->id;
 
-                // Simpan file-file legalitas
-                $this->storeLegalitasFiles($request);
-            }
+            // Update legalitas files if provided
+            $this->updateLegalitasFiles($dataLegalitas, $request);
 
             // Update the documentKerjasama record
             $documentKerjasama->update([
                 'situs_web' => $request->input('situs_web'),
                 'email_perusahaan' => $request->input('email_perusahaan'),
                 'data_kepemilikan_saham' => $request->input('data_kepemilikan_saham'),
+                'file_profile_perusahaan' => $request->file('file_profile_perusahaan') ? $request->file('file_profile_perusahaan')->store('legalitas', 'public') : $documentKerjasama->file_profile_perusahaan,
+                'file_dokumen_kebenaran' => $request->file('file_dokumen_kebenaran') ? $request->file('file_dokumen_kebenaran')->store('legalitas', 'public') : $documentKerjasama->file_dokumen_kebenaran,
             ]);
 
             DB::commit();
@@ -148,20 +155,11 @@ class ProposalMitraClientController extends Controller
             Log::error('Update kerjasama gagal: ' . $e->getMessage());
             return redirect()->route('pengajuankerjasama')->with('error', 'Update kerjasama gagal: ' . $e->getMessage());
         }
-    }
-
-    public function statuskerjasama()
-    {
-        $user_id = Auth::id();
-        $dataKerjasama = Document_Kerjasama_Client::where('user_id', $user_id)->latest()->first();
-
-        return view('Client.statuskerjasamamitra', compact('dataKerjasama'));
-    }
-
+    }    
     /**
      * Check if user profile is completed.
      *
-     * @param $user
+     * @param  \App\Models\User  $user
      * @return bool
      */
     private function checkProfileCompletion($user)
@@ -210,14 +208,14 @@ class ProposalMitraClientController extends Controller
     }
 
     /**
-     * Store legalitas files and return data_legalitas_id.
+     * Store legalitas files and return the created DataLegalitas instance.
      *
-     * @param Request $request
-     * @return DataLegalitas
+     * @param  \Illuminate\Http\Request  $request
+     * @return \App\Models\DataLegalitas
      */
     private function storeLegalitasFiles(Request $request)
     {
-        $dataLegalitas = Datalegalitas::create($request->only([
+        $dataLegalitas = DataLegalitas::create($request->only([
             'no_akta', 'no_siup', 'date_end_siup', 'no_tdp', 'date_end_tdp', 'no_skdp', 'date_end_skdp', 'no_iujk', 'date_end_iujk', 'data_kepemilikan_saham'
         ]));
 
@@ -228,6 +226,8 @@ class ProposalMitraClientController extends Controller
             'file_tdp' => $request->file('file_tdp') ? $request->file('file_tdp')->store('legalitas', 'public') : null,
             'file_skdp' => $request->file('file_skdp') ? $request->file('file_skdp')->store('legalitas', 'public') : null,
             'file_iujk' => $request->file('file_iujk') ? $request->file('file_iujk')->store('legalitas', 'public') : null,
+            'file_profile_perusahaan' => $request->file('file_profile_perusahaan') ? $request->file('file_profile_perusahaan')->store('legalitas', 'public') : null,
+            'file_dokumen_kebenaran' => $request->file('file_dokumen_kebenaran') ? $request->file('file_dokumen_kebenaran')->store('legalitas', 'public') : null,
         ]);
 
         return $dataLegalitas;
@@ -236,11 +236,11 @@ class ProposalMitraClientController extends Controller
     /**
      * Update legalitas files if provided.
      *
-     * @param DataLegalitas $dataLegalitas
-     * @param Request $request
+     * @param  \App\Models\DataLegalitas  $dataLegalitas
+     * @param  \Illuminate\Http\Request  $request
      * @return void
      */
-    private function updateLegalitasFiles(Datalegalitas $dataLegalitas, Request $request)
+    private function updateLegalitasFiles(DataLegalitas $dataLegalitas, Request $request)
     {
         if ($request->hasFile('file_akta')) {
             $dataLegalitas->update(['file_akta' => $request->file('file_akta')->store('legalitas', 'public')]);
@@ -256,6 +256,12 @@ class ProposalMitraClientController extends Controller
         }
         if ($request->hasFile('file_iujk')) {
             $dataLegalitas->update(['file_iujk' => $request->file('file_iujk')->store('legalitas', 'public')]);
+        }
+        if ($request->hasFile('file_profile_perusahaan')) {
+            $dataLegalitas->update(['file_profile_perusahaan' => $request->file('file_profile_perusahaan')->store('legalitas', 'public')]);
+        }
+        if ($request->hasFile('file_dokumen_kebenaran')) {
+            $dataLegalitas->update(['file_dokumen_kebenaran' => $request->file('file_dokumen_kebenaran')->store('legalitas', 'public')]);
         }
     }
 }
