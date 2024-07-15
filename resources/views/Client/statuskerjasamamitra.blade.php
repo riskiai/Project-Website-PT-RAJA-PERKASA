@@ -42,25 +42,17 @@
             <table class="table">
                 <thead>
                     <tr>
-                        {{-- <th>No</th> --}}
                         <th>Tanggal Kirim</th>
                         <th>Status Kerja Sama Mitra</th>
                         <th>Keterangan</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if ($dataKerjasama)
-                        <tr>
-                            {{-- <td>1</td> --}}
-                            <td>{{ $dataKerjasama->created_at->format('Y-m-d') }}</td>
-                            <td>{{ $dataKerjasama->status_kerjasama }}</td>
-                            <td>{{ $dataKerjasama->keterangan_status_kerjasama ?: 'Terimakasih Sudah Mengisi Form, Untuk Data Kerja Sama Mitra Sedang Di Cek Oleh Team PT Raja Perkasa' }}</td>
-                        </tr>
-                    @else
-                        <tr>
-                            <td colspan="3">Data tidak ditemukan.</td>
-                        </tr>
-                    @endif
+                    <tr>
+                        <td>{{ now()->format('Y-m-d') }}</td>
+                        <td>{{ $defaultStatus }}</td>
+                        <td>{{ $defaultKeterangan }}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

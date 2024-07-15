@@ -27,25 +27,51 @@ class ProposalMitraClientController extends Controller
     }
 
     public function statuskerjasama()
-    {
-        $user = Auth::user();
-        
-        if ($user->role->role_name != 'client') {
-            return redirect()->route('profileclient')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
-        }
-        
-        $dataKerjasama = Document_Kerjasama_Client::where('user_id', $user->id)->first();
-        
-        // Tambahkan logging untuk memastikan data yang didapat
-        Log::info('Data Kerjasama:', ['data' => $dataKerjasama]);
+{
+    $user = Auth::user();
 
-        // Berikan nilai default jika keterangan_status_kerjasama kosong
-        if ($dataKerjasama && !$dataKerjasama->keterangan_status_kerjasama) {
-            $dataKerjasama->keterangan_status_kerjasama = "Terimakasih Sudah Mengisi Form, Untuk Data Kerja Sama Mitra Sedang Di Cek Oleh Team PT Raja Perkasa";
-        }
-
-        return view('Client.statuskerjasamamitra', compact('dataKerjasama'));
+    if ($user->role->role_name != 'client') {
+        return redirect()->route('profileclient')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
     }
+
+    $dataKerjasama = Document_Kerjasama_Client::where('user_id', $user->id)->first();
+
+    // Tambahkan logging untuk memastikan data yang didapat
+    Log::info('Data Kerjasama:', ['data' => $dataKerjasama]);
+
+    // Check if all fields in Document_Kerjasama_Client are filled
+    $profileCompleted = $this->checkProfileCompletion($user) && $this->checkKerjasamaCompletion($dataKerjasama);
+
+    // Default values when not fully completed
+    $defaultStatus = '-';
+    $defaultKeterangan = '-';
+
+    if ($profileCompleted && $dataKerjasama && $dataKerjasama->status_kerjasama) {
+        $defaultStatus = $dataKerjasama->status_kerjasama;
+        $defaultKeterangan = $dataKerjasama->keterangan_status_kerjasama ?: 'Terimakasih Sudah Mengisi Form, Untuk Data Kerja Sama Mitra Sedang Di Cek Oleh Team PT Raja Perkasa';
+    }
+
+    return view('Client.statuskerjasamamitra', compact('defaultStatus', 'defaultKeterangan'));
+}
+
+/**
+ * Check if kerjasama data is completed.
+ *
+ * @param  \App\Models\Document_Kerjasama_Client  $dataKerjasama
+ * @return bool
+ */
+private function checkKerjasamaCompletion($dataKerjasama)
+{
+    if (!$dataKerjasama) {
+        return false;
+    }
+
+    return $dataKerjasama->data_sales_id && $dataKerjasama->data_manajer_id && $dataKerjasama->data_direktur_id &&
+           $dataKerjasama->data_bank_id && $dataKerjasama->data_legalitas_id && $dataKerjasama->situs_web &&
+           $dataKerjasama->email_perusahaan && $dataKerjasama->data_kepemilikan_saham;
+}
+
+
 
 
     public function create(Request $request)
