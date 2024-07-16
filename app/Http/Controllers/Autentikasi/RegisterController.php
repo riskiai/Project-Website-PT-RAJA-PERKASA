@@ -64,23 +64,6 @@ class RegisterController extends Controller
                     'status_user' => 'active',
                 ]);
 
-                Log::info('Inserting data into document_kerjasama_clients table');
-                Document_Kerjasama_Client::create([
-                    'user_id' => $user->id,
-                    'data_sales_id' => null,
-                    'data_manajer_id' => null,
-                    'data_direktur_id' => null,
-                    'data_bank_id' => null,
-                    'data_legalitas_id' => null,
-                    'status_kerjasama' => 'ditunggu',
-                    'keterangan_status_kerjasama' => null,
-                    'data_kepemilikan_saham' => null,
-                    'situs_web' => null,
-                    'email_perusahaan' => $request->email,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
-
                 return redirect('/login')->with('success', 'Registrasi berhasil. Silakan login.');
             } else {
                 Log::info('Finding existing mitra: ' . $company_name);
@@ -90,64 +73,23 @@ class RegisterController extends Controller
                     return redirect()->back()->with('error', 'Nama perusahaan tidak valid.')->withInput();
                 }
 
-                if ($request->user_id) {
-                    Log::info('Updating existing user: ' . $request->user_id);
-                    $user = User::find($request->user_id);
-                    if ($user) {
-                        $user->update([
-                            'name' => $request->name,
-                            'email' => $request->email,
-                            'no_hp' => $request->no_hp,
-                            'password' => Hash::make($request->password),
-                            'mitra_id' => $mitra->id,
-                            'status_pic_perusahaan' => 'client',
-                            'status_user' => 'active',
-                        ]);
-
-                        // Check if email confirmation is required
-                        $document = Document_Kerjasama_Client::where('user_id', $user->id)->where('email_perusahaan', $request->email)->first();
-                        if (!$document) {
-                            return redirect()->back()->with('error', 'Email perusahaan tidak valid.')->withInput();
-                        }
-                    }
-                } else {
-                    Log::info('Creating new user for existing mitra');
-                    $user = User::create([
+                $user = User::find($request->user_id);
+                if ($user) {
+                    $user->update([
                         'name' => $request->name,
                         'email' => $request->email,
                         'no_hp' => $request->no_hp,
                         'password' => Hash::make($request->password),
-                        'role_id' => 4,
                         'mitra_id' => $mitra->id,
-                        'status_pic_perusahaan' => 'calon_client',
+                        'status_pic_perusahaan' => 'client',
                         'status_user' => 'active',
                     ]);
 
-                    // Check if email confirmation is required
-                    $document = Document_Kerjasama_Client::where('user_id', $user->id)->where('email_perusahaan', $request->email)->first();
-                    if (!$document) {
-                        return redirect()->back()->with('error', 'Email perusahaan tidak valid.')->withInput();
-                    }
+                    // Email perusahaan valid, update user and finish registration
+                    return redirect('/login')->with('success', 'Registrasi berhasil. Silakan login.');
+                } else {
+                    return redirect()->back()->with('error', 'User tidak ditemukan.')->withInput();
                 }
-
-                Log::info('Inserting data into document_kerjasama_clients table');
-                Document_Kerjasama_Client::create([
-                    'user_id' => $user->id,
-                    'data_sales_id' => null,
-                    'data_manajer_id' => null,
-                    'data_direktur_id' => null,
-                    'data_bank_id' => null,
-                    'data_legalitas_id' => null,
-                    'status_kerjasama' => 'ditunggu',
-                    'keterangan_status_kerjasama' => null,
-                    'data_kepemilikan_saham' => null,
-                    'situs_web' => null,
-                    'email_perusahaan' => $request->email,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
-
-                return redirect('/login')->with('success', 'Registrasi berhasil. Silakan login.');
             }
         } catch (\Exception $e) {
             Log::error('Error during registration: ' . $e->getMessage());
@@ -171,15 +113,15 @@ class RegisterController extends Controller
         return response()->json(['success' => false]);
     }
 
-    public function confirmEmail(Request $request)
+    public function confirmEmailPerusahaan(Request $request)
     {
-        $request->validate([
-            'email' => 'required|email',
-            'user_id' => 'required|exists:users,id'
-        ]);
+        $email = $request->input('email');
+        $userId = $request->input('user_id');
 
-        $user = User::find($request->user_id);
-        $document = Document_Kerjasama_Client::where('user_id', $user->id)->where('email_perusahaan', $request->email)->first();
+        // Cek apakah email perusahaan cocok dengan yang ada di database untuk user ini
+        $document = Document_Kerjasama_Client::where('user_id', $userId)
+                      ->where('email_perusahaan', $email)
+                      ->first();
 
         if ($document) {
             return response()->json(['success' => true]);

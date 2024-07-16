@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Models\AbsenKaryawan;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 
@@ -41,7 +42,7 @@ class AbsensiKaryawanController extends Controller
         $tanggal_absen = $request->input('tanggal_absen');
         $currentTime = Carbon::now();
 
-        // Pengecekan waktu absen masuk minimal 08:00 WIB dengan toleransi 10 menit
+       
         $minAbsenTime = Carbon::createFromTime(8, 0, 0);
         $maxAbsenTime = Carbon::createFromTime(8, 10, 0);
 
@@ -76,7 +77,7 @@ class AbsensiKaryawanController extends Controller
                 $data['bukti_kehadiran'] = 'bukti_kehadiran/' . $imageName;
             }
 
-            $data['status_absensi'] = 'tidak_hadir';
+            $data['status_absensi'] = 'hadir';
         } else {
             $data['waktu_datang_kehadiran'] = null;
             $data['bukti_kehadiran'] = null;
@@ -100,19 +101,18 @@ class AbsensiKaryawanController extends Controller
     public function absenkaryawanpulang()
     {
         $user = Auth::user();
-    
+
         if ($user->role->role_name !== 'karyawan') {
             return redirect()->back()->with('error', 'Anda tidak memiliki akses ke halaman ini.');
         }
-    
+
         $alreadyCheckedOut = AbsenKaryawan::where('user_id', $user->id)
                             ->whereDate('tanggal_absen', Carbon::today())
                             ->whereNotNull('waktu_pulang_kehadiran')
                             ->exists();
-    
+
         return view('Karyawan.absen.absenkaryawanpulang', compact('user', 'alreadyCheckedOut'));
     }
-    
 
     public function prosesabsenkaryawanpulang(Request $request)
     {
@@ -150,21 +150,32 @@ class AbsensiKaryawanController extends Controller
         return redirect()->route('absenkaryawanpulang')->with('success', "Absen pulang berhasil disimpan pada hari $dayName pukul $time WIB.");
     }
 
-    public function updateStatusTidakHadir()
+    public function createDailyAttendance()
     {
-        $absens = AbsenKaryawan::whereNull('waktu_pulang_kehadiran')
-            ->where('tanggal_absen', '<', Carbon::now()->subDay())
-            ->get();
+        $karyawanRoleId = 6;
+        $karyawan = User::where('role_id', $karyawanRoleId)->get();
+        $currentDate = Carbon::today();
+        $cutoffTime = Carbon::today()->setTime(18, 0, 0); // Cutoff time is 8 PM
 
-        foreach ($absens as $absen) {
-            $absen->update(['status_absensi' => 'tidak_hadir']);
+        if (Carbon::now()->gte($cutoffTime)) {
+            foreach ($karyawan as $k) {
+                $absen = AbsenKaryawan::firstOrCreate(
+                    ['user_id' => $k->id, 'tanggal_absen' => $currentDate],
+                    ['status_absensi' => 'tidak_hadir']
+                );
+
+                // Jika karyawan hanya absen masuk dan belum absen pulang
+                if ($absen->status_absensi == 'hadir' && !$absen->waktu_pulang_kehadiran) {
+                    $absen->update(['status_absensi' => 'tidak_hadir']);
+                }
+            }
         }
     }
 
     public function listdataabsenkaryawan()
     {
-        // Panggil fungsi updateStatusTidakHadir untuk memperbarui status
-        $this->updateStatusTidakHadir();
+        // Panggil fungsi createDailyAttendance untuk memperbarui status
+        $this->createDailyAttendance();
 
         $user_id = Auth::id();
         $absens = AbsenKaryawan::where('user_id', $user_id)

@@ -221,153 +221,153 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Inisialisasi elemen yang akan digunakan
-        const companySearch = document.getElementById('company_search');
-        const companyDropdown = document.getElementById('company_dropdown');
-        const companyLabel = document.getElementById('company-label');
-        const newCompanyGroup = document.getElementById('new-company-group');
-        const url = "{{ route('getpicdetails') }}";
+document.addEventListener('DOMContentLoaded', function() {
+    // Inisialisasi elemen yang akan digunakan
+    const companySearch = document.getElementById('company_search');
+    const companyDropdown = document.getElementById('company_dropdown');
+    const companyLabel = document.getElementById('company-label');
+    const newCompanyGroup = document.getElementById('new-company-group');
+    const url = "{{ route('getpicdetails') }}";
 
-        // Menampilkan dropdown ketika input companySearch difokuskan
-        companySearch.addEventListener('focus', function() {
-            companyDropdown.classList.add('show');
+    // Menampilkan dropdown ketika input companySearch difokuskan
+    companySearch.addEventListener('focus', function() {
+        companyDropdown.classList.add('show');
+    });
+
+    // Filter dropdown berdasarkan input user
+    companySearch.addEventListener('input', function() {
+        const filter = this.value.toLowerCase();
+        const items = companyDropdown.getElementsByTagName('div');
+
+        Array.from(items).forEach(function(item) {
+            const text = item.textContent.toLowerCase();
+            item.style.display = text.includes(filter) ? '' : 'none';
         });
+    });
 
-        // Filter dropdown berdasarkan input user
-        companySearch.addEventListener('input', function() {
-            const filter = this.value.toLowerCase();
-            const items = companyDropdown.getElementsByTagName('div');
+    // Menangani klik pada dropdown item
+    companyDropdown.addEventListener('click', function(event) {
+        if (event.target && event.target.nodeName == "DIV") {
+            const companyName = event.target.getAttribute('data-value');
+            companySearch.value = event.target.textContent;
+            companyDropdown.classList.remove('show');
 
-            Array.from(items).forEach(function(item) {
-                const text = item.textContent.toLowerCase();
-                item.style.display = text.includes(filter) ? '' : 'none';
-            });
-        });
-
-        // Menangani klik pada dropdown item
-        companyDropdown.addEventListener('click', function(event) {
-            if (event.target && event.target.nodeName == "DIV") {
-                const companyName = event.target.getAttribute('data-value');
-                companySearch.value = event.target.textContent;
-                companyDropdown.classList.remove('show');
-
-                if (companyName) {
-                    companyLabel.style.display = 'none';
-                    if (companyName === 'other') {
-                        // Jika perusahaan tidak terdaftar, tampilkan input untuk perusahaan baru
-                        newCompanyGroup.style.display = 'block';
-                        enableFields();
-                        document.getElementById('user_id').value = ''; // Pastikan user_id kosong untuk perusahaan baru
-                    } else {
-                        // Jika perusahaan terdaftar, sembunyikan input untuk perusahaan baru dan fetch data user
-                        newCompanyGroup.style.display = 'none';
-                        fetch(`${url}?company_name=${companyName}`)
-                            .then(response => response.json())
-                            .then(data => {
-                                if (data.success) {
-                                    // Jika data user ditemukan, isi input field dengan data user
-                                    document.getElementById('user_id').value = data.user.id;
-                                    document.getElementById('name').value = data.user.name;
-                                    document.getElementById('email').value = data.user.email;
-                                    document.getElementById('no_hp').value = data.user.no_hp;
-
-                                    disableFields(false);
-                                } else {
-                                    // Jika data user tidak ditemukan, kosongkan input field
-                                    document.getElementById('user_id').value = '';
-                                    document.getElementById('name').value = '';
-                                    document.getElementById('email').value = '';
-                                    document.getElementById('no_hp').value = '';
-
-                                    disableFields(false);
-                                }
-                            })
-                            .catch(error => console.error('Error fetching PIC details:', error));
-                    }
-                }
-            }
-        });
-
-        // Mengaktifkan input field untuk pengisian data
-        function enableFields() {
-            const fields = ['name', 'email', 'no_hp', 'password'];
-            fields.forEach(function(field) {
-                const inputField = document.getElementById(field);
-                inputField.disabled = false;
-                inputField.classList.remove('disabled-input');
-            });
-            document.getElementById('submit-button').disabled = false;
-        }
-
-        // Menonaktifkan input field untuk mencegah pengisian data
-        function disableFields(enable = true) {
-            const fields = ['name', 'email', 'no_hp', 'password'];
-            fields.forEach(function(field) {
-                const inputField = document.getElementById(field);
-                inputField.disabled = enable;
-                inputField.classList.toggle('disabled-input', enable);
-            });
-            document.getElementById('submit-button').disabled = enable;
-        }
-
-        // Menangani submit form register
-        document.getElementById('register-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const userId = document.getElementById('user_id').value;
-            if (userId) {
-                // Jika user ID ditemukan, tampilkan modal konfirmasi email
-                const modal = new bootstrap.Modal(document.getElementById('emailConfirmationModal'));
-                modal.show();
-            } else {
-                // Jika user ID tidak ditemukan, submit form
-                this.submit();
-            }
-        });
-
-        // Menangani submit form konfirmasi email
-        document.getElementById('email-confirmation-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = document.getElementById('company_email').value;
-            const userId = document.getElementById('user_id').value;
-
-            fetch("{{ route('confirmEmail') }}", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({ email: email, user_id: userId })
-            })
-            .then(response => response.json())
-            .then(data => {
-                const messageDiv = document.getElementById('email-confirmation-message');
-                if (data.success) {
-                    // Jika email valid, submit form register
-                    document.getElementById('register-form').submit();
+            if (companyName) {
+                companyLabel.style.display = 'none';
+                if (companyName === 'other') {
+                    // Jika perusahaan tidak terdaftar, tampilkan input untuk perusahaan baru
+                    newCompanyGroup.style.display = 'block';
+                    enableFields();
+                    document.getElementById('user_id').value = ''; // Pastikan user_id kosong untuk perusahaan baru
                 } else {
-                    // Jika email tidak valid, tampilkan pesan error
-                    messageDiv.textContent = 'Email perusahaan tidak valid.';
-                    messageDiv.classList.add('text-danger');
+                    // Jika perusahaan terdaftar, sembunyikan input untuk perusahaan baru dan fetch data user
+                    newCompanyGroup.style.display = 'none';
+                    fetch(`${url}?company_name=${companyName}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Jika data user ditemukan, isi input field dengan data user
+                                document.getElementById('user_id').value = data.user.id;
+                                document.getElementById('name').value = data.user.name;
+                                document.getElementById('email').value = data.user.email;
+                                document.getElementById('no_hp').value = data.user.no_hp;
+
+                                disableFields(false);
+                            } else {
+                                // Jika data user tidak ditemukan, kosongkan input field
+                                document.getElementById('user_id').value = '';
+                                document.getElementById('name').value = '';
+                                document.getElementById('email').value = '';
+                                document.getElementById('no_hp').value = '';
+
+                                disableFields(false);
+                            }
+                        })
+                        .catch(error => console.error('Error fetching PIC details:', error));
                 }
-            })
-            .catch(error => console.error('Error confirming email:', error));
-        });
-
-        // Menutup dropdown jika klik di luar elemen input dan dropdown
-        document.addEventListener('click', function(event) {
-            if (!companySearch.contains(event.target) && !companyDropdown.contains(event.target)) {
-                companyDropdown.classList.remove('show');
             }
-        });
-
-        // Mengembalikan nilai input jika ada error pada submit sebelumnya
-        if ("{{ old('company_name') }}" === 'other') {
-            newCompanyGroup.style.display = 'block';
-            enableFields();
-        } else if ("{{ old('company_name') }}") {
-            disableFields(false);
         }
     });
+
+    // Mengaktifkan input field untuk pengisian data
+    function enableFields() {
+        const fields = ['name', 'email', 'no_hp', 'password'];
+        fields.forEach(function(field) {
+            const inputField = document.getElementById(field);
+            inputField.disabled = false;
+            inputField.classList.remove('disabled-input');
+        });
+        document.getElementById('submit-button').disabled = false;
+    }
+
+    // Menonaktifkan input field untuk mencegah pengisian data
+    function disableFields(enable = true) {
+        const fields = ['name', 'email', 'no_hp', 'password'];
+        fields.forEach(function(field) {
+            const inputField = document.getElementById(field);
+            inputField.disabled = enable;
+            inputField.classList.toggle('disabled-input', enable);
+        });
+        document.getElementById('submit-button').disabled = enable;
+    }
+
+    // Menangani submit form register
+    document.getElementById('register-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const userId = document.getElementById('user_id').value;
+        if (userId) {
+            // Jika user ID ditemukan, tampilkan modal konfirmasi email
+            const modal = new bootstrap.Modal(document.getElementById('emailConfirmationModal'));
+            modal.show();
+        } else {
+            // Jika user ID tidak ditemukan, submit form
+            this.submit();
+        }
+    });
+
+    // Menangani submit form konfirmasi email
+    document.getElementById('email-confirmation-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('company_email').value;
+        const userId = document.getElementById('user_id').value;
+
+        fetch("{{ route('confirmEmailPerusahaan') }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ email: email, user_id: userId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            const messageDiv = document.getElementById('email-confirmation-message');
+            if (data.success) {
+                // Jika email valid, submit form register
+                document.getElementById('register-form').submit();
+            } else {
+                // Jika email tidak valid, tampilkan pesan error
+                messageDiv.textContent = 'Email perusahaan tidak valid.';
+                messageDiv.classList.add('text-danger');
+            }
+        })
+        .catch(error => console.error('Error confirming email:', error));
+    });
+
+    // Menutup dropdown jika klik di luar elemen input dan dropdown
+    document.addEventListener('click', function(event) {
+        if (!companySearch.contains(event.target) && !companyDropdown.contains(event.target)) {
+            companyDropdown.classList.remove('show');
+        }
+    });
+
+    // Mengembalikan nilai input jika ada error pada submit sebelumnya
+    if ("{{ old('company_name') }}" === 'other') {
+        newCompanyGroup.style.display = 'block';
+        enableFields();
+    } else if ("{{ old('company_name') }}") {
+        disableFields(false);
+    }
+});
 </script>
 @endsection

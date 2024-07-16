@@ -52,7 +52,7 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/loginproses', [LoginController::class, 'loginproses'])->name('login-proses');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
-Route::post('/confirm-email', [RegisterController::class, 'confirmEmail'])->name('confirmEmail');
+Route::post('/confirm-email-perusahaan', [RegisterController::class, 'confirmEmailPerusahaan'])->name('confirmEmailPerusahaan');
 Route::get('/get-pic-details', [RegisterController::class, 'getPicDetails'])->name('getpicdetails');
 Route::post('/register_prosess', [RegisterController::class, 'registerproses'])->name('registerproses');
 

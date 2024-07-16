@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Models\DataBank;
 use App\Models\DataSales;
 use App\Models\DataManajer;
-use App\Models\DataLegalitas;
+use App\Models\Datalegalitas;
 use App\Models\DataDirekturUtama;
 use App\Models\Document_Kerjasama_Client;
 use Illuminate\Http\Request;
@@ -70,8 +70,6 @@ private function checkKerjasamaCompletion($dataKerjasama)
            $dataKerjasama->data_bank_id && $dataKerjasama->data_legalitas_id && $dataKerjasama->situs_web &&
            $dataKerjasama->email_perusahaan && $dataKerjasama->data_kepemilikan_saham;
 }
-
-
 
 
     public function create(Request $request)
@@ -155,7 +153,7 @@ private function checkKerjasamaCompletion($dataKerjasama)
             $documentKerjasama->data_bank_id = $dataBank->id;
 
             // Update or create data legalitas
-            $dataLegalitas = $documentKerjasama->dataLegalitas ?: new DataLegalitas;
+            $dataLegalitas = $documentKerjasama->dataLegalitas ?: new Datalegalitas;
             $dataLegalitas->fill($request->only([
                 'no_akta', 'no_siup', 'date_end_siup', 'no_tdp', 'date_end_tdp', 'no_skdp', 'date_end_skdp', 'no_iujk', 'date_end_iujk', 'data_kepemilikan_saham'
             ]));
@@ -241,7 +239,7 @@ private function checkKerjasamaCompletion($dataKerjasama)
      */
     private function storeLegalitasFiles(Request $request)
     {
-        $dataLegalitas = DataLegalitas::create($request->only([
+        $dataLegalitas = Datalegalitas::create($request->only([
             'no_akta', 'no_siup', 'date_end_siup', 'no_tdp', 'date_end_tdp', 'no_skdp', 'date_end_skdp', 'no_iujk', 'date_end_iujk', 'data_kepemilikan_saham'
         ]));
 

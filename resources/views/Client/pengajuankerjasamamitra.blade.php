@@ -54,6 +54,7 @@ $profileCompleted = $user->file_foto !== null;
                             <label for="email_perusahaan" class="form-label text-dark"><strong>02. Email Perusahaan</strong></label>
                             <input type="text" class="form-control" id="email_perusahaan" name="email_perusahaan" placeholder="" value="{{ old('email_perusahaan', $dataKerjasama->email_perusahaan ?? '') }}">
                         </div>
+                        
                         <div>
                             <label for="" class="form-label text-dark"><strong>03. Data Kontak Sales/Marketing</strong></label>
                             <div class="mb-3">
@@ -126,7 +127,7 @@ $profileCompleted = $user->file_foto !== null;
                             </div>
                             <div class="mb-3">
                                 <p class="form-label text-dark">2. No Rekening</p>
-                                <input type="text" class="form-control" id="no_rekening" name="no_rekening" placeholder="" value="{{ old('no_rekening', $dataKerjasama->dataBank->no_rekening ?? '') }}">
+                                <input type="text" class="form-control" id="no_rekening" name="no_rekening" placeholder="" inputmode="numeric" pattern="\d{1,20}" value="{{ old('no_rekening', $dataKerjasama->dataBank->no_rekening ?? '') }}" title="Hanya boleh berisi angka dengan panjang maksimal 20 digit">
                             </div>
                             <div class="mb-3">
                                 <p class="form-label text-dark">3. Nama Bank</p>
@@ -237,4 +238,12 @@ $profileCompleted = $user->file_foto !== null;
     </div>
 </div>
 @endif
+
+<script>
+    document.getElementById('no_rekening').addEventListener('input', function (e) {
+        // Remove any non-digit characters
+        this.value = this.value.replace(/\D/g, '');
+    });
+</script>
+
 @endsection
