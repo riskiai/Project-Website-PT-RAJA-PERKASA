@@ -115,15 +115,15 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::delete('/administrator/testimoni/{id}', [TestimoniAdminController::class, 'delete'])->name('testimonidelete');
 
     // Users
-    /* Users Client External */
+    /* Users External Client PT Raja Perkasa */
     Route::get('/adminstrator/users/client', [UsersAdminController::class, 'getclient'])->name('userslisteclient');
     Route::get('/adminstrator/users/client/show/{id}', [UsersAdminController::class, 'showclient'])->name('showclient');
-    Route::get('/adminstrator/users/client/kerjasama/{id}', [UsersAdminController::class, 'getKerjasamaData'])->name('getKerjasamaData');
     Route::post('/adminstrator/users/client/edit/{id}', [UsersAdminController::class, 'editclientproses'])->name('userslistclienteditproses');
     Route::post('/adminstrator/users/client/update-status/{id}', [UsersAdminController::class, 'updateStatusUser'])->name('updateStatusUser');
+    Route::get('/adminstrator/users/client/kerjasama/{id}', [UsersAdminController::class, 'getKerjasamaData'])->name('getKerjasamaData');
     Route::delete('/adminstrator/users/client/delete/{id}', [UsersAdminController::class, 'deleteClient'])->name('userslistclientdelete');
 
-    /* Users Internal Karyawan PT Raja Perkasa */
+    /* Users Internal Role Pekerjaan PT Raja Perkasa */
     Route::get('/adminstrator/users', [UsersAdminController::class, 'index'])->name('userslist');
     Route::get('/adminstrator/userscreate', [UsersAdminController::class, 'create'])->name('userscreate');
     Route::post('/adminstrator/userscreateproses', [UsersAdminController::class, 'createproses'])->name('userscreateproses');
@@ -132,7 +132,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::put('/adminstrator/userupdate/{id}', [UsersAdminController::class, 'update'])->name('userupdate');
     Route::delete('/adminstrator/users/delete/{id}', [UsersAdminController::class, 'deletepegawai'])->name('userslistpegawaidelete');
 
-    // Proyek
+   // Proyek
     Route::get('/adminstrator/proyek', [ProyekAdminController::class, 'index'])->name('proyeklist');
     Route::get('/adminstrator/listdataproyek/show/{id}', [ProyekAdminController::class, 'adminstratorshowlistdataproyek'])->name('adminstratorshowlistdataproyek');
     Route::get('/adminstrator/listdataproyek/{id}/edit', [ProyekAdminController::class, 'adminstratorlistdataproyekedit'])->name('adminstratorlistdataproyekedit');
@@ -382,10 +382,12 @@ Route::middleware(['auth', 'user-access:owner'])->group(function () {
    Route::get('/owner/manajemen/showkaryawanlist/{id}', [DataUsersController::class, 'ownershowkaryawanlist'])->name('ownershowkaryawanlist');
 
    // PIC Perusahaan
-    Route::get('/owner/manajemen/picperusahaan', [DataUsersController::class, 'picperusahaanlist'])->name('picperusahaanlist');
-    Route::post('/owner/users/picperusahaan/edit/{id}', [DataUsersController::class, 'editpicperusahaanproses'])->name('editpicperusahaanproses');
-    Route::get('/owner/manajemen/picperusahaan/{id}', [DataUsersController::class, 'ownershowpicperusahaanlist'])->name('ownershowpicperusahaanlist');
-    Route::get('/owner/users/picperusahaan/data/{id}', [DataUsersController::class, 'getKerjasamaData'])->name('getKerjasamaData');
+    // PIC Perusahaan
+Route::get('/owner/manajemen/picperusahaan', [DataUsersController::class, 'picperusahaanlist'])->name('picperusahaanlist');
+Route::post('/owner/users/picperusahaan/edit/{id}', [DataUsersController::class, 'editpicperusahaanproses'])->name('editpicperusahaanproses');
+Route::get('/owner/manajemen/picperusahaan/{id}', [DataUsersController::class, 'ownershowpicperusahaanlist'])->name('ownershowpicperusahaanlist');
+Route::get('/owner/users/picperusahaan/data/{id}', [DataUsersController::class, 'getKerjasamaData'])->name('getKerjasamaData');
+
 
    
    /* Data Proyek */

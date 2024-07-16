@@ -25,9 +25,6 @@
             <div class="page-title">
                 <h4>List Data Proyek PT Raja Perkasa</h4>
             </div>
-            {{-- <div class="page-btn">
-                <a href="{{ route('listdataproyekcreate') }}" class="btn btn-added">Tambah Data Proyek</a>
-            </div> --}}
         </div>
 
         <div class="card">
@@ -45,25 +42,6 @@
                                 <img src="{{ asset('assets/img/icons/search-white.svg') }}" alt="img" />
                             </a>
                         </div>
-                    </div>
-                    <div class="wordset">
-                        {{-- <ul>
-                            <li>
-                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf">
-                                    <img src="{{ asset('assets/img/icons/pdf.svg') }}" alt="img" />
-                                </a>
-                            </li>
-                            <li>
-                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel">
-                                    <img src="{{ asset('assets/img/icons/excel.svg') }}" alt="img" />
-                                </a>
-                            </li>
-                            <li>
-                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="print">
-                                    <img src="{{ asset('assets/img/icons/printer.svg') }}" alt="img" />
-                                </a>
-                            </li>
-                        </ul> --}}
                     </div>
                 </div>
 
@@ -126,6 +104,7 @@
                                 <th>Nama Peralatan</th>
                                 <th>Status Progres</th>
                                 <th>Status Proyek</th>
+                                <th>Updated At</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -141,7 +120,7 @@
                                 <td>{{ $item->peralatan->nama_peralatan ?? 'N/A' }}</td>
                                 <td>
                                     @if($item->status_progres_proyek == 'sedangberjalan')
-                                        <span class="badges  bg-lightorange">Sedang Berjalan</span>
+                                        <span class="badges bg-lightorange">Sedang Berjalan</span>
                                     @else
                                         <span class="badges bg-lightgreen">Selesai</span>
                                     @endif
@@ -155,20 +134,18 @@
                                         <span class="badges bg-lightorange">Belum Dicek</span>
                                     @endif
                                 </td>
+                                <td>{{ $item->updated_at }}</td>
                                 <td class="action-icons">
-                                    <a href="#" class="btn btn-link btn-edit" data-id="{{ $item->id }}">
+                                    <a href="#" class="btn btn-link btn-edit" 
+                                       data-id="{{ $item->id }}" 
+                                       data-status="{{ $item->status_proyek }}" 
+                                       data-keterangan="{{ $item->keterangan_status_proyek }}" 
+                                       data-updated_at="{{ $item->updated_at }}">
                                         <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
                                     </a>
                                     <a href="{{ route('adminstratorshowlistdataproyek', ['id' => $item->id]) }}" title="Melihat Data Detail List Proyek">
                                         <i class="fas fa-eye text-dark"></i>
                                     </a>
-                                    {{-- <button type="button" class="btn btn-link btn-delete" data-id="{{ $item->id }}" title="Menghapus Data">
-                                        <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                                    </button>
-                                    <form id="deleteForm-{{ $item->id }}" action="{{ route('listdataproyekdelete', $item->id) }}" method="POST" style="display: none;">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form> --}}
                                 </td>
                             </tr>
                             @endforeach
@@ -202,6 +179,10 @@
                         <div class="form-group mb-3">
                             <label for="keterangan_status_proyek" class="form-label">Keterangan Status Proyek</label>
                             <textarea name="keterangan_status_proyek" id="keterangan_status_proyek" class="form-control" rows="3"></textarea>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="updated_at" class="form-label">Terakhir Diperbarui</label>
+                            <input type="text" id="updated_at" class="form-control" disabled>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -252,15 +233,16 @@ $(document).ready(function() {
 
     $('.btn-edit').click(function() {
         var id = $(this).data('id');
-        var url = "{{ route('getProyekData', ':id') }}";
-        url = url.replace(':id', id);
-
-        $.get(url, function(data) {
-            $('#status_proyek').val(data.status_proyek);
-            $('#keterangan_status_proyek').val(data.keterangan_status_proyek);
-            $('#editForm').attr('action', "{{ route('adminstratorlistdataproyek.update', ':id') }}".replace(':id', id));
-            $('#editModal').modal('show');
-        });
+        var status = $(this).data('status');
+        var keterangan = $(this).data('keterangan');
+        var updatedAt = $(this).data('updated_at');
+        
+        $('#status_proyek').val(status);
+        $('#keterangan_status_proyek').val(keterangan);
+        $('#updated_at').val(updatedAt);
+        $('#editForm').attr('action', "{{ route('adminstratorlistdataproyek.update', ':id') }}".replace(':id', id));
+        
+        $('#editModal').modal('show');
     });
 });
 </script>
