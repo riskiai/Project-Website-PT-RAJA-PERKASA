@@ -304,7 +304,6 @@
 <!-- Projects End -->
 
 <!-- Testimonial Start -->
-<!-- Testimonial Start -->
 <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -312,17 +311,13 @@
             <h1 class="display-5 mb-5">Apa Kata Client ?</h1>
         </div>
         <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
-            @foreach($testimonis as $testimoni)
-                <div class="testimonial-item text-center" data-dot="
-                    @if(!empty($testimoni->image))
-                        <img class='img-fluid' src='{{ asset($testimoni->image == 'default.png' ? 'img/' . $testimoni->image : 'storage/photo-testimoni/' . $testimoni->image) }}' alt='{{ $testimoni->new_user_name ?? $testimoni->user->name }}' style='max-width: 390px; max-height: 300px; margin-bottom: 10px; gap:20px !important;'>
-                    @else
-                        <img class='img-fluid' src='{{ asset('img/default.png') }}' alt='{{ $testimoni->new_user_name ?? $testimoni->user->name }}' style='max-width: 390px; max-height: 300px; margin-bottom: 10px; gap:20px !important;'>
-                    @endif
-                ">
+            @foreach ($testimonis as $testimoni)
+                @php
+                    $images = explode(',', $testimoni->image);
+                @endphp
+                <div class="testimonial-item text-center" data-dot="<img class='img-fluid' src='{{ asset('storage/photo-testimoni/' . $images[0]) }}' alt=''>">
                     <p class="fs-5">{!! $testimoni->comment !!}</p>
-                    <h4>{{ $testimoni->new_user_name ?? $testimoni->user->name }}</h4>
-                    <span class="text-orange">{{ $testimoni->mitra->name_mitra }}</span> <br>
+                    <h4>{{ $testimoni->user ? $testimoni->user->name : $testimoni->new_user_name }}</h4>
                     <span class="text-orange">{{ $testimoni->position }}</span>
                 </div>
             @endforeach
@@ -330,8 +325,7 @@
     </div>
 </div>
 
-
-
+<!-- Testimonial End -->
 
 <!-- Mitra Kerja Start -->
 <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
