@@ -411,6 +411,24 @@
 
 @section('script')
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const comments = document.querySelectorAll('.testimonial-item p');
+
+    comments.forEach(comment => {
+        const words = comment.innerHTML.split(' ');
+        let formattedComment = '';
+        
+        for (let i = 0; i < words.length; i++) {
+            formattedComment += words[i] + ' ';
+            if ((i + 1) % 50 === 0) {
+                formattedComment += '<br>';
+            }
+        }
+
+        comment.innerHTML = formattedComment.trim();
+    });
+});
+
 $(document).ready(function(){
     $(".header-carousel").owlCarousel({
         singleItem: true,
