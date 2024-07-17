@@ -10,7 +10,7 @@
     max-width: 600px; /* Tentukan lebar maksimum untuk container */
     margin: 0 auto; /* Pusatkan container di halaman */
     overflow: hidden;
-    padding: 0 15px; /* Tambahkan padding untuk memberikan spasi di sisi kiri dan kanan */
+   
 }
     
     .testimonial-item-wrapper {
