@@ -312,18 +312,16 @@
         </div>
         <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
             @foreach($testimonis as $testimoni)
-            <div class="testimonial-item text-center" data-dot="<img class='img-fluid' src='{{ Storage::url('photo-testimoni/'.$testimoni->image) }}' alt='{{ $testimoni->new_user_name ?? $testimoni->user->name }}'>">
-                <p class="fs-5">{!! $testimoni->comment !!}</p>
-                <h4>{{ $testimoni->new_user_name ?? $testimoni->user->name }}</h4>
-                <span class="text-orange">{{ $testimoni->position }}</span>
-            </div>
+                <div class="testimonial-item text-center" data-dot="<img class='img-fluid' src='{{ Storage::url('photo-testimoni/'.$testimoni->image) }}' alt='{{ $testimoni->new_user_name ?? $testimoni->user->name }}'>">
+                    <p class="fs-5">{!! $testimoni->comment !!}</p>
+                    <h4>{{ $testimoni->new_user_name ?? $testimoni->user->name }}</h4>
+                    <span class="text-orange">{{ $testimoni->position }}</span>
+                </div>
             @endforeach
         </div>
     </div>
 </div>
 <!-- Testimonial End -->
-
-
 
 <!-- Mitra Kerja Start -->
 <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
