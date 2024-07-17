@@ -314,13 +314,13 @@
             @foreach($testimonis as $testimoni)
                 <div class="testimonial-item text-center" data-dot="
                     @if(!empty($testimoni->image))
-                        <img class='img-fluid' src='{{ asset('storage/photo-testimoni/' . $testimoni->image) }}' alt='{{ $testimoni->getNamaClientAttribute() }}'>
+                        <img class='img-fluid' src='{{ asset('storage/photo-testimoni/' . $testimoni->image) }}' alt='{{ $testimoni->new_user_name ?? $testimoni->user->name }}'>
                     @else
-                        <img class='img-fluid' src='{{ asset('img/default.png') }}' alt='{{ $testimoni->getNamaClientAttribute() }}'>
+                        <img class='img-fluid' src='{{ asset('img/default.png') }}' alt='{{ $testimoni->new_user_name ?? $testimoni->user->name }}'>
                     @endif
                 ">
                     <p class="fs-5">{!! $testimoni->comment !!}</p>
-                    <h4>{{ $testimoni->getNamaClientAttribute() }}</h4>
+                    <h4>{{ $testimoni->new_user_name ?? $testimoni->user->name }}</h4>
                     <span class="text-orange">{{ $testimoni->mitra->name_mitra }}</span> <br>
                     <span class="text-orange">{{ $testimoni->position }}</span>
                 </div>
@@ -328,6 +328,7 @@
         </div>
     </div>
 </div>
+
 
 
 <!-- Mitra Kerja Start -->
