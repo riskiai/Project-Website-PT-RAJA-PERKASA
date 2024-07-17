@@ -2,6 +2,56 @@
 
 @section('style')
 <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <style>
+    .testimonial-container {
+    position: relative;
+    text-align: center; /* Memusatkan teks secara horizontal */
+    width: 100%; /* Mengatur lebar container sesuai kebutuhan */
+    max-width: 600px; /* Tentukan lebar maksimum untuk container */
+    margin: 0 auto; /* Pusatkan container di halaman */
+    overflow: hidden;
+    padding: 0 15px; /* Tambahkan padding untuk memberikan spasi di sisi kiri dan kanan */
+}
+    
+    .testimonial-item-wrapper {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+    }
+    
+    .testimonial-item {
+        min-width: 100%;
+        max-width: 600px; /* Tentukan lebar maksimum untuk testimoni */
+        margin: 0 auto; /* Pusatkan elemen testimoni */
+        box-sizing: border-box;
+        padding: 20px; /* Tambahkan padding untuk spasi internal */
+        background-color: #fff; /* Latar belakang testimoni */
+        border-radius: 10px; /* Opsional: Tambahkan border-radius untuk tampilan lebih halus */
+    }
+    
+    .testimonial-navigation {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        transform: translateY(-50%);
+    }
+    
+    .testimonial-navigation button {
+        background-color: #FE7A36;
+        border: none;
+        padding: 10px 20px;
+        color: white;
+        cursor: pointer;
+        font-size: 18px;
+    }
+    
+    .testimonial-navigation button:focus {
+        outline: none;
+    }
+    
+    </style>
+
 @endsection
 
 @section('content')
@@ -303,7 +353,6 @@
 </div>
 <!-- Projects End -->
 
-
 <!-- Testimonial Start -->
 <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
     <div class="container">
@@ -311,24 +360,27 @@
             <div class="mb-3 mx-auto" style="width: 60px; height: 2px; background-color: #FE7A36;"></div>
             <h1 class="display-5 mb-5">Apa Kata Client ?</h1>
         </div>
-        <div class="row g-4">
-            @foreach ($testimonis as $testimoni)
-                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="testimonial-container">
+            <div class="testimonial-item-wrapper">
+                @foreach ($testimonis as $testimoni)
                     <div class="testimonial-item text-center bg-light p-4">
                         @if($testimoni->image)
-                            <img class="img-fluid rounded-circle mb-3" src="{{ asset('storage/photo-testimoni/' . $testimoni->image) }}" alt="" style="width: 80px; height: 80px; object-fit: cover;">
+                            <img class="img-fluid rounded-circle mb-3" src="{{ asset('storage/photo-testimoni/' . $testimoni->image) }}" alt="" style="width: 100px; height: 100px; object-fit: cover;">
                         @endif
                         <p class="fs-5 mb-3">{!! $testimoni->comment !!}</p>
                         <h4>{{ $testimoni->user ? $testimoni->user->name : $testimoni->new_user_name }}</h4>
                         <span class="text-orange">{{ $testimoni->position }}</span>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
+            <div class="testimonial-navigation">
+                <button class="prev">❮</button>
+                <button class="next">❯</button>
+            </div>
         </div>
     </div>
 </div>
 <!-- Testimonial End -->
-
 
 <!-- Mitra Kerja Start -->
 <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
@@ -368,12 +420,24 @@ $(document).ready(function(){
         transitionStyle: "fade"
     });
 
-    $(".testimonial-carousel").owlCarousel({
-        singleItem: true,
-        autoPlay: 5000,
-        navigation: false,
-        pagination: true
+    let currentIndex = 0;
+    const items = document.querySelectorAll('.testimonial-item');
+    const totalItems = items.length;
+
+    document.querySelector('.next').addEventListener('click', function() {
+        currentIndex = (currentIndex + 1) % totalItems;
+        updateTestimonial();
     });
+
+    document.querySelector('.prev').addEventListener('click', function() {
+        currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+        updateTestimonial();
+    });
+
+    function updateTestimonial() {
+        const offset = -currentIndex * 100;
+        document.querySelector('.testimonial-item-wrapper').style.transform = `translateX(${offset}%)`;
+    }
 
     $("#portfolio-flters li").on('click', function () {
         $("#portfolio-flters li").removeClass('active');
