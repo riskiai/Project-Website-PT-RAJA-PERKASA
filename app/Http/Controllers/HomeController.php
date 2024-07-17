@@ -21,6 +21,8 @@ class HomeController extends Controller
         $testimonis = Testimoni::with(['user', 'mitra'])->where('status_testimoni', 'active')->get();
         $mitras = Mitra::where('status_mitra', 'active')->get();
 
+        
+
         return view('Pengunjung.index', compact('data', 'testimonis', 'mitras'));
     }
 }

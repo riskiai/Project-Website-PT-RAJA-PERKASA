@@ -313,9 +313,9 @@
         <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
             @foreach ($testimonis as $testimoni)
                 @php
-                    $images = explode(',', $testimoni->image);
+                    $images = !empty($testimoni->image) ? explode(',', $testimoni->image) : ['default.png'];
                 @endphp
-                <div class="testimonial-item text-center" data-dot="<img class='img-fluid' src='{{ asset('storage/photo-testimoni/' . $images[0]) }}' alt=''>">
+                <div class="testimonial-item text-center" data-dot="<img class='img-fluid' src='{{ asset($images[0] == 'default.png' ? 'img/' . $images[0] : 'storage/photo-testimoni/' . $images[0]) }}' alt=''>">
                     <p class="fs-5">{!! $testimoni->comment !!}</p>
                     <h4>{{ $testimoni->user ? $testimoni->user->name : $testimoni->new_user_name }}</h4>
                     <span class="text-orange">{{ $testimoni->position }}</span>
@@ -324,7 +324,6 @@
         </div>
     </div>
 </div>
-
 <!-- Testimonial End -->
 
 <!-- Mitra Kerja Start -->
