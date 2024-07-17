@@ -304,6 +304,7 @@
 <!-- Projects End -->
 
 <!-- Testimonial Start -->
+<!-- Testimonial Start -->
 <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
@@ -314,9 +315,9 @@
             @foreach($testimonis as $testimoni)
                 <div class="testimonial-item text-center" data-dot="
                     @if(!empty($testimoni->image))
-                        <img class='img-fluid' src='{{ asset('storage/photo-testimoni/' . $testimoni->image) }}' alt='{{ $testimoni->new_user_name ?? $testimoni->user->name }}'>
+                        <img class='img-fluid' src='{{ asset($testimoni->image == 'default.png' ? 'img/' . $testimoni->image : 'storage/photo-testimoni/' . $testimoni->image) }}' alt='{{ $testimoni->new_user_name ?? $testimoni->user->name }}' style='max-width: 390px; max-height: 300px; margin-bottom: 10px; gap:20px !important;'>
                     @else
-                        <img class='img-fluid' src='{{ asset('img/default.png') }}' alt='{{ $testimoni->new_user_name ?? $testimoni->user->name }}'>
+                        <img class='img-fluid' src='{{ asset('img/default.png') }}' alt='{{ $testimoni->new_user_name ?? $testimoni->user->name }}' style='max-width: 390px; max-height: 300px; margin-bottom: 10px; gap:20px !important;'>
                     @endif
                 ">
                     <p class="fs-5">{!! $testimoni->comment !!}</p>
@@ -328,6 +329,7 @@
         </div>
     </div>
 </div>
+
 
 
 
