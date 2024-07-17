@@ -9,16 +9,21 @@ class Mitra extends Model
 {
     use HasFactory;
 
-    protected $table = 'mitras';
+    protected $table = 'mitras'; // Pastikan nama tabel benar
 
     protected $fillable = [
         'name_mitra',
+        'status_mitra',
         'image',
-        'status_mitra'
     ];
 
     public function users()
     {
-        return $this->hasMany(User::class, 'mitra_id');
+        return $this->hasMany(User::class, 'mitra_id', 'id');
+    }
+
+    public function testimonis()
+    {
+        return $this->hasMany(Testimoni::class, 'mitra_id');
     }
 }

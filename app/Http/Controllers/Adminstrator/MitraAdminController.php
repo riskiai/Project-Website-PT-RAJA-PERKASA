@@ -27,7 +27,7 @@ class MitraAdminController extends Controller
 
         $data = $query->get();
 
-        return view('Adminstrator.mitra.list', compact('data','request'));
+        return view('Adminstrator.mitra.list', compact('data', 'request'));
     }
 
     public function create() {
@@ -95,7 +95,7 @@ class MitraAdminController extends Controller
             if ($request->hasFile('image')) {
                 // Hapus gambar yang lama
                 Storage::delete(explode(',', $data->image));
-                
+
                 // Simpan gambar yang baru
                 $images = [];
                 foreach ($request->file('image') as $file) {
@@ -114,10 +114,12 @@ class MitraAdminController extends Controller
         return redirect()->back()->with('error', 'Data not found.');
     }
 
-    public function delete(Request $request, $id){
+
+    public function delete(Request $request, $id)
+    {
         $data = Mitra::find($id);
-    
-        if($data){
+        
+        if($data) {
             // Hapus gambar dari penyimpanan
             if (!empty($data->image)) {
                 $images = explode(',', $data->image);
@@ -125,11 +127,19 @@ class MitraAdminController extends Controller
                     Storage::delete('public/photo-mitra/' . $image);
                 }
             }
-            
+
+            // Set mitra_id menjadi NULL di tabel users yang terkait
+            $data->users()->update(['mitra_id' => null]);
+
+            // Set mitra_id menjadi NULL di tabel testimonis yang terkait
+            $data->testimonis()->update(['mitra_id' => null]);
+
             // Hapus data dari database
             $data->delete();
         }
-    
-        return redirect()->route('mitralist');
+
+        return redirect()->route('mitralist')->with('success', 'Data Deleted successfully.');
     }
+
+    
 }

@@ -382,14 +382,11 @@ Route::middleware(['auth', 'user-access:owner'])->group(function () {
    Route::get('/owner/manajemen/showkaryawanlist/{id}', [DataUsersController::class, 'ownershowkaryawanlist'])->name('ownershowkaryawanlist');
 
    // PIC Perusahaan
-    // PIC Perusahaan
-Route::get('/owner/manajemen/picperusahaan', [DataUsersController::class, 'picperusahaanlist'])->name('picperusahaanlist');
-Route::post('/owner/users/picperusahaan/edit/{id}', [DataUsersController::class, 'editpicperusahaanproses'])->name('editpicperusahaanproses');
-Route::get('/owner/manajemen/picperusahaan/{id}', [DataUsersController::class, 'ownershowpicperusahaanlist'])->name('ownershowpicperusahaanlist');
-Route::get('/owner/users/picperusahaan/data/{id}', [DataUsersController::class, 'getKerjasamaData'])->name('getKerjasamaData');
+    Route::get('/owner/manajemen/picperusahaan', [DataUsersController::class, 'picperusahaanlist'])->name('picperusahaanlist');
+    Route::post('/owner/users/picperusahaan/edit/{id}', [DataUsersController::class, 'editpicperusahaanproses'])->name('editpicperusahaanproses');
+    Route::get('/owner/manajemen/picperusahaan/{id}', [DataUsersController::class, 'ownershowpicperusahaanlist'])->name('ownershowpicperusahaanlist');
+    Route::get('/owner/users/picperusahaan/data/{id}', [DataUsersController::class, 'getKerjasamaData'])->name('getKerjasamaData');
 
-
-   
    /* Data Proyek */
     Route::get('/owner/manajemen/proyek', [DataProyekController::class, 'proyeklistowner'])->name('proyeklistowner');
     Route::post('/owner/listdataproyek/update/{id}', [DataProyekController::class, 'ownerlistdataproyekupdate'])->name('ownerlistdataproyek.update');

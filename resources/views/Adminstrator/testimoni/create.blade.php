@@ -3,9 +3,20 @@
 @section('styles')
 
 <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <style type="text/css">
     .ck-editor__editable_inline {
         height: 300px;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: #444;
+        line-height: 28px;
+    }
+    .select2-container .select2-selection--single {
+        height: 36px;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 36px;
     }
 </style>
 
@@ -28,7 +39,7 @@
             <div class="col-lg-3 col-sm-6 col-12">
               <div class="form-group">
                 <label>Status Testimoni</label>
-                <select name="status_testimoni" class="select">
+                <select name="status_testimoni" class="select select2">
                   <option value="active">Active</option>
                   <option value="nonactive">In Active</option>
                 </select>
@@ -36,18 +47,23 @@
             </div>
             <div class="col-lg-3 col-sm-6 col-12">
               <div class="form-group">
-                <label>Nama Client</label>
-                <select name="user_id" class="select">
+                <label>Nama Client PIC Perusahaan</label>
+                <select name="user_id" class="select select2">
+                  <option value="">Pilih Nama Client yang Sudah Ada</option>
                   @foreach($clients as $client)
                     <option value="{{ $client->id }}">{{ $client->name }}</option>
                   @endforeach
                 </select>
               </div>
+              <div class="form-group">
+                <label>Atau Masukkan Nama Perwakilan Mitra Perusahaan</label>
+                <input type="text" name="new_user_name" class="form-control" placeholder="Nama Client Baru" />
+              </div>
             </div>
             <div class="col-lg-3 col-sm-6 col-12">
               <div class="form-group">
-                <label>Nama Mitra</label>
-                <select name="mitra_id" class="select">
+                <label>Nama Mitra Perusahaan</label>
+                <select name="mitra_id" class="select select2">
                   @foreach($mitras as $mitra)
                     <option value="{{ $mitra->id }}">{{ $mitra->name_mitra }}</option>
                   @endforeach
@@ -87,6 +103,7 @@
 
 @section('scripts')
 
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
 $(document).ready(function() {
     // Inisialisasi CKEditor pada modal tambah data
@@ -96,6 +113,12 @@ $(document).ready(function() {
             console.error(error);
         });
 
+    // Inisialisasi Select2
+    $('.select2').select2({
+        tags: true,
+        placeholder: "Select or type",
+        allowClear: true
+    });
 });
 </script>
 @endsection

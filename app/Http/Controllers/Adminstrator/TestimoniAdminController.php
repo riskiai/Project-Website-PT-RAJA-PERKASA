@@ -28,9 +28,13 @@ class TestimoniAdminController extends Controller
     }
 
     public function create() {
-        // Ambil semua mitra dan pengguna dengan role client
-        $mitras = Mitra::all();
-        $clients = User::whereHas('role', function($query) {
+        // Ambil semua mitra yang memiliki status_pic_perusahaan 'client'
+        $mitras = Mitra::whereHas('users', function($query) {
+            $query->where('status_pic_perusahaan', 'client');
+        })->get();
+        
+        // Ambil semua pengguna dengan role client dan status_pic_perusahaan client
+        $clients = User::where('status_pic_perusahaan', 'client')->whereHas('role', function($query) {
             $query->where('role_name', 'client');
         })->get();
 
@@ -40,17 +44,20 @@ class TestimoniAdminController extends Controller
     public function createproses(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required|exists:users,id',
+            'user_id' => 'nullable|exists:users,id|required_without:new_user_name',
+            'new_user_name' => 'nullable|required_without:user_id|string|max:255',
             'mitra_id' => 'required|exists:mitras,id',
-            'position' => 'required',
-            'comment' => 'required',
-            'status_testimoni' => 'required',
+            'position' => 'required|string|max:255',
+            'comment' => 'required|string',
+            'status_testimoni' => 'required|in:active,nonactive',
             'image.*' => 'required|mimes:png,jpg,jpeg|max:2048', // 'image.*' for multiple images
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator);
         }
+
+        $userId = $request->user_id;
 
         // Save images
         $images = [];
@@ -64,7 +71,8 @@ class TestimoniAdminController extends Controller
 
         // Create new data
         Testimoni::create([
-            'user_id' => $request->user_id,
+            'user_id' => $userId,
+            'new_user_name' => $request->new_user_name,
             'mitra_id' => $request->mitra_id,
             'position' => $request->position,
             'comment' => $request->comment,
@@ -78,8 +86,11 @@ class TestimoniAdminController extends Controller
     public function edit(Request $request, $id)
     {
         $data = Testimoni::find($id);
-        $mitras = Mitra::all();
-        $clients = User::whereHas('role', function($query) {
+        $mitras = Mitra::whereHas('users', function($query) {
+            $query->where('status_pic_perusahaan', 'client');
+        })->get();
+        
+        $clients = User::where('status_pic_perusahaan', 'client')->whereHas('role', function($query) {
             $query->where('role_name', 'client');
         })->get();
 
@@ -93,12 +104,13 @@ class TestimoniAdminController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required|exists:users,id',
+            'user_id' => 'nullable|exists:users,id|required_without:new_user_name',
+            'new_user_name' => 'nullable|required_without:user_id|string|max:255',
             'mitra_id' => 'required|exists:mitras,id',
-            'position' => 'required',
-            'comment' => 'required',
-            'status_testimoni' => 'required',
-            'image.*' => 'mimes:png,jpg,jpeg|max:2048',// 'image.*' untuk menangani multiple gambar
+            'position' => 'required|string|max:255',
+            'comment' => 'required|string',
+            'status_testimoni' => 'required|in:active,nonactive',
+            'image.*' => 'mimes:png,jpg,jpeg|max:2048', // 'image.*' for multiple images
         ]);
 
         if ($validator->fails()) {
@@ -109,6 +121,7 @@ class TestimoniAdminController extends Controller
 
         if ($data) {
             $data->user_id = $request->user_id;
+            $data->new_user_name = $request->new_user_name;
             $data->mitra_id = $request->mitra_id;
             $data->position = $request->position;
             $data->comment = $request->comment;

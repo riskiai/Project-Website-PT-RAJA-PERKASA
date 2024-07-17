@@ -12,6 +12,16 @@ class Testimoni extends Model
     protected $guarded = ['id'];
     protected $table = 'testimonis';
 
+    protected $fillable = [
+        'user_id',
+        'mitra_id',
+        'position',
+        'comment',
+        'status_testimoni',
+        'image',
+        'new_user_name'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -24,7 +34,7 @@ class Testimoni extends Model
 
     public function getNamaClientAttribute()
     {
-        return $this->user ? $this->user->name : null;
+        return $this->user ? $this->user->name : $this->new_user_name;
     }
 
     public function getNamaMitraAttribute()

@@ -1,12 +1,11 @@
 @extends('Adminstrator.Componentsadminstrator.app')
 
 @section('content')
-
 <div class="page-wrapper">
   <div class="content">
     <div class="page-header">
       <div class="page-title">
-        <h4>List Data Mitra Perusahaan Di PT Raja Perkasa </h4>
+        <h4>List Data Mitra Perusahaan Di PT Raja Perkasa</h4>
       </div>
       {{-- <div class="page-btn">
         <a href="{{ route('mitracreate') }}" class="btn btn-added">
@@ -129,33 +128,31 @@
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $item->name_mitra }}</td>
                 <td>
-                  @if(!empty($item->image))
-                    @php
-                      $images = explode(',', $item->image);
-                    @endphp
-                    @foreach($images as $image)
-                      <img src="{{ asset('storage/photo-mitra/' . $image) }}" alt="img" style="max-width: 100px; max-height: 100px; margin-bottom: 10px;">
-                    @endforeach
-                  @endif
+                  @php
+                    $images = !empty($item->image) ? explode(',', $item->image) : ['default.png'];
+                  @endphp
+                  @foreach($images as $image)
+                    <img src="{{ asset($image == 'default.png' ? 'img/' . $image : 'storage/photo-mitra/' . $image) }}" alt="img" style="max-width: 100px; max-height: 100px; margin-bottom: 10px;">
+                  @endforeach
                 </td>
                 <td>{{ $item->created_at->format('Y-m-d') }}</td>
                 <td>
                   @if($item->status_mitra == 'active')
                     <span class="badges bg-lightgreen">Active</span>
                   @else
-                    <span class="badges bg-lightred">In Active</span>
+                    <span class="badges bg-lightred">Inactive</span>
                   @endif
                 </td>
                 <td>
                   <a class="me-3" href="{{ route('mitraedit', $item->id) }}">
                     <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
                   </a>
-                  <form action="{{ route('mitradelete', ['id' => $item->id]) }}" method="POST" style="display: inline;">
+                  <button class="btn btn-link" onclick="confirmDelete({{ $item->id }})">
+                    <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
+                  </button>
+                  <form id="delete-form-{{ $item->id }}" action="{{ route('mitradelete', ['id' => $item->id]) }}" method="POST" style="display: none;">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-link" onclick="return confirm('Are you sure you want to delete this item?');">
-                      <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                    </button>
                   </form>
                 </td>
               </tr>
@@ -168,4 +165,37 @@
   </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Konfirmasi Hapus</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Apakah Anda yakin ingin menghapus data ini?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteButton">Hapus</button>
+      </div>
+    </div>
+  </div>
+</div>
+@endsection
+
+@section('scripts')
+<script>
+  function confirmDelete(id) {
+    $('#confirmDeleteButton').attr('onclick', 'deleteData(' + id + ')');
+    $('#deleteModal').modal('show');
+  }
+
+  function deleteData(id) {
+    document.getElementById('delete-form-' + id).submit();
+  }
+</script>
 @endsection

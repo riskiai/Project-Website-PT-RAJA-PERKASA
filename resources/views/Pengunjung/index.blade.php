@@ -1,5 +1,9 @@
 @extends('Pengunjung.Components.app')
 
+@section('style')
+<link href="{{ asset('css/style.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 
 <!-- Carousel Start -->
@@ -19,7 +23,6 @@
                 </div>
             </div>
         </div>
-
         <div class="owl-carousel-item position-relative">
             <img class="img-fluid" src="{{ asset('img/kosn.jpg') }}" alt="">
             <div class="carousel-inner">
@@ -37,7 +40,6 @@
     </div>
 </div>
 <!-- Carousel End -->
-
 
 <!-- Facts Start -->
 <div class="container-xxl py-5">
@@ -89,8 +91,7 @@
         </div>
     </div>
 </div>
-<!-- Facts Start -->
-
+<!-- Facts End -->
 
 <!-- About Start -->
 <div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
@@ -130,14 +131,13 @@
                             </div>
                         </div>
                     </div>
-                    <a href="{{ route('tentangpengunjung') }}" class="btn btn-primary rounded-pill py-3 px-5">Baca Selangkapnya</a>
+                    <a href="{{ route('tentangpengunjung') }}" class="btn btn-primary rounded-pill py-3 px-5">Baca Selengkapnya</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <!-- About End -->
-
 
 <!-- Jasa Start -->
 <div class="container-xxl py-5">
@@ -191,7 +191,6 @@
     </div>
 </div>
 <!-- Jasa End -->
-
 
 <!-- Feature Start -->
 <div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
@@ -260,7 +259,6 @@
 </div>
 <!-- Feature End -->
 
-
 <!-- Projects Start -->
 <div class="container-xxl py-5">
     <div class="container">
@@ -268,7 +266,7 @@
             <div class="mb-3 mx-auto" style="width: 60px; height: 2px; background-color: #FE7A36;"></div>
             <h1 class="display-5 mb-5">Project Proyek Kami</h1>
         </div>
-        <div class="row mt-n2 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="row mt-n2 wow fadeInUp" data-wow-delay="0.3s">
             <div class="col-12 text-center">
                 <ul class="list-inline mb-5" id="portfolio-flters">
                     <li class="mx-2 active" data-filter="*">All</li>
@@ -278,200 +276,32 @@
             </div>
         </div>
         <div class="row g-4 portfolio-container">
-            <div class="col-lg-4 col-md-6 portfolio-item first wow fadeInUp" data-wow-delay="0.1s">
-                <div class="portfolio-inner">
-                    <img class="img-fluid w-100" src="img/service-1.jpg" alt="">
-                    <div class="text-center p-4">
-                        <p class="text-orange mb-2">Proyek Konstruksi</p>
-                        <h5 class="lh-base mb-0">OVERHAUL TANKI 42-T-501 A</h5>
-                    </div>
-                    <div class="portfolio-text text-center bg-white p-4">
-                        <p class="text-orange mb-2">Proyek Konstruksi</p>
-                        <h5 class="lh-base mb-3">OVERHAUL TANKI 42-T-501 A</h5>
-                        <div class="d-flex justify-content-center">
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar1.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar2.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar3.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar4.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+            @foreach($data as $proyek)
+                <div class="col-lg-4 col-md-6 portfolio-item {{ $proyek->status_progres_proyek == 'selesai' ? 'first' : 'second' }} wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="portfolio-inner">
+                        <img class="img-fluid w-100" src="img/service-1.jpg" alt="">
+                        <div class="text-center p-4">
+                            <p class="text-orange mb-2">{{ $proyek->title_proyek }}</p>
+                            <h5 class="lh-base mb-0">{{ $proyek->project_name }}</h5>
+                        </div>
+                        <div class="portfolio-text text-center bg-white p-4">
+                            <p class="text-orange mb-2">{{ $proyek->title_proyek }}</p>
+                            <h5 class="lh-base mb-3">{{ $proyek->project_name }}</h5>
+                            <div class="d-flex justify-content-center">
+                                @if(is_array($proyek->image))
+                                    @foreach($proyek->image as $img)
+                                        <a class="btn btn-square btn-primary rounded-circle mx-1" href="{{ Storage::url($img) }}" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                                    @endforeach
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
-                <div class="portfolio-inner">
-                    <img class="img-fluid w-100" src="img/service-1.jpg" alt="">
-                    <div class="text-center p-4">
-                        <p class="text-orange mb-2">Proyek Konstruksi</p>
-                        <h5 class="lh-base mb-0">PATCHING BOTTOM TANK 42-T-107 C</h5>
-                    </div>
-                    <div class="portfolio-text text-center bg-white p-4">
-                        <p class="text-orange mb-2">Proyek Konstruksi</p>
-                        <h5 class="lh-base mb-5">PATCHING BOTTOM TANK 42-T-107 C</h5>
-                        <div class="d-flex justify-content-center">
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar5.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar6.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar7.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar8.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 portfolio-item first wow fadeInUp" data-wow-delay="0.1s">
-                <div class="portfolio-inner">
-                    <img class="img-fluid w-100" src="img/service-1.jpg" alt="">
-                    <div class="text-center p-4">
-                        <p class="text-orange mb-2">Proyek Konstruksi</p>
-                        <h5 class="lh-base mb-0">PENGGANTIAN COLUMN GRIDER DAN PENGECATAN INTERNATIONAL ROOF (BACK SIDE) 42-T-304 B</h5>
-                    </div>
-                    <div class="portfolio-text text-center bg-white p-4">
-                        <p class="text-orange mb-2">Proyek Konstruksi</p>
-                        <h5 class="lh-base mb-3">PENGGANTIAN COLUMN GRIDER DAN PENGECATAN INTERNATIONAL ROOF (BACK SIDE) 42-T-304 B</h5>
-                        <div class="d-flex justify-content-center">
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar9.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar10.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar11.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar12.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
-                <div class="portfolio-inner">
-                    <img class="img-fluid w-100" src="img/service-1.jpg" alt="">
-                    <div class="text-center p-4">
-                        <p class="text-orange mb-2">Proyek Konstruksi</p>
-                        <h5 class="lh-base mb-0">PENGGANTIAN PARTIAL ROOF & NOZZLE 24-T-102</h5>
-                    </div>
-                    <div class="portfolio-text text-center bg-white p-4">
-                        <p class="text-orange mb-2">Proyek Konstruksi</p>
-                        <h5 class="lh-base mb-3">PENGGANTIAN PARTIAL ROOF & NOZZLE 24-T-102</h5>
-                        <div class="d-flex justify-content-center">
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar13.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar14.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 portfolio-item first wow fadeInUp" data-wow-delay="0.1s">
-                <div class="portfolio-inner">
-                    <img class="img-fluid w-100" src="img/service-1.jpg" alt="">
-                    <div class="text-center p-4">
-                        <p class="text-orange mb-2">Proyek Konstruksi</p>
-                        <h5 class="lh-base mb-0">RECOATING TANGKI DEMIN WATER 55-T-101 A,B, & C DI PERTAMINA RU VI BALONGAN</h5>
-                    </div>
-                    <div class="portfolio-text text-center bg-white p-4">
-                        <p class="text-orange mb-2">Proyek Konstruksi</p>
-                        <h5 class="lh-base mb-3">RECOATING TANGKI DEMIN WATER 55-T-101 A,B, & C DI PERTAMINA RU VI BALONGAN</h5>
-                        <div class="d-flex justify-content-center">
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar15.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar16.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar17.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.1s">
-                <div class="portfolio-inner">
-                    <img class="img-fluid w-100" src="img/service-1.jpg" alt="">
-                    <div class="text-center p-4">
-                        <p class="text-orange mb-2">Proyek Konstruksi</p>
-                        <h5 class="lh-base mb-0">REPAINTING SPERICAL TANK D-2101 A/B DAN REPAINTING PIPING</h5>
-                    </div>
-                    <div class="portfolio-text text-center bg-white p-4">
-                        <p class="text-orange mb-2">Proyek Konstruksi</p>
-                        <h5 class="lh-base mb-3">REPAINTING SPERICAL TANK D-2101 A/B DAN REPAINTING PIPING</h5>
-                        <div class="d-flex justify-content-center">
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar18.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar19.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar20.png" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                            <a class="btn btn-square btn-primary rounded-circle mx-1" href="img/gambar21.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </div>
 <!-- Projects End -->
-
-
-<!-- Team Start -->
-<div class="container-xxl py-5">
-    <div class="container">
-        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-            <div class=" mb-3 mx-auto" style="width: 60px; height: 2px; background-color: #FE7A36;"></div>
-            <h1 class="display-5 mb-5">Pekerja Handal Kami</h1>
-        </div>
-        <div class="row g-4">
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="team-item">
-                    <div class="overflow-hidden position-relative">
-                        <img class="img-fluid" src="img/team-1.jpg" alt="">
-                        <div class="team-social">
-                            <a class="btn btn-square btn-dark rounded-circle m-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square btn-dark rounded-circle m-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square btn-dark rounded-circle m-1" href=""><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center p-4">
-                        <h5 class="mb-0">Leornadi</h5>
-                        <span class="text-orange">Engineer</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="team-item">
-                    <div class="overflow-hidden position-relative">
-                        <img class="img-fluid" src="img/team-2.jpg" alt="">
-                        <div class="team-social">
-                            <a class="btn btn-square btn-dark rounded-circle m-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square btn-dark rounded-circle m-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square btn-dark rounded-circle m-1" href=""><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center p-4">
-                        <h5 class="mb-0">Leornadi</h5>
-                        <span class="text-orange">Engineer</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="team-item">
-                    <div class="overflow-hidden position-relative">
-                        <img class="img-fluid" src="img/team-3.jpg" alt="">
-                        <div class="team-social">
-                            <a class="btn btn-square btn-dark rounded-circle m-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square btn-dark rounded-circle m-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square btn-dark rounded-circle m-1" href=""><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center p-4">
-                        <h5 class="mb-0">Leornadi</h5>
-                        <span class="text-orange">Engineer</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                <div class="team-item">
-                    <div class="overflow-hidden position-relative">
-                        <img class="img-fluid" src="img/team-2.jpg" alt="">
-                        <div class="team-social">
-                            <a class="btn btn-square btn-dark rounded-circle m-1" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-square btn-dark rounded-circle m-1" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-square btn-dark rounded-circle m-1" href=""><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center p-4">
-                        <h5 class="mb-0">Leornadi</h5>
-                        <span class="text-orange">Engineer</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Team End -->
-
 
 <!-- Testimonial Start -->
 <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
@@ -481,21 +311,14 @@
             <h1 class="display-5 mb-5">Apa Kata Client ?</h1>
         </div>
         <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
-            <div class="testimonial-item text-center" data-dot="<img class='img-fluid' src='img/testimonial-1.jpg' alt=''>">
-                <p class="fs-5">Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
-                <h4>Riski Ahmad Ilham</h4>
-                <span class="text-orange">Manager PT Pertamina</span>
-            </div>
-            <div class="testimonial-item text-center" data-dot="<img class='img-fluid' src='img/testimonial-2.jpg' alt=''>">
-                <p class="fs-5">Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
-                <h4>Saeful Rahman</h4>
-                <span class="text-orange">CEO PT Elnusa</span>
-            </div>
-            <div class="testimonial-item text-center" data-dot="<img class='img-fluid' src='img/testimonial-3.jpg' alt=''>">
-                <p class="fs-5">Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
-                <h4>Samsul Rahman</h4>
-                <span class="text-orange">CEO PT IndoPelita</span>
-            </div>
+            @foreach($testimonis as $testimoni)
+                <div class="testimonial-item text-center" data-dot="<img class='img-fluid' src='{{ asset($testimoni->image == 'default.png' ? 'img/' . $testimoni->image : 'storage/photo-testimoni/' . $testimoni->image) }}' alt='{{ $testimoni->getNamaClientAttribute() }}'>">
+                    <p class="fs-5">{!! $testimoni->comment !!}</p>
+                    <h4>{{ $testimoni->getNamaClientAttribute() }}</h4>
+                    <span class="text-orange">{{ $testimoni->mitra->name_mitra }}</span> <br>
+                    <span class="text-orange">{{ $testimoni->position }}</span>
+                </div>
+            @endforeach
         </div>
     </div>
 </div>
@@ -505,28 +328,64 @@
 <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-            <div class=" mb-3 mx-auto" style="width: 100px; height: 2px; background-color: #FE7A36;"></div>
+            <div class="mb-3 mx-auto" style="width: 100px; height: 2px; background-color: #FE7A36;"></div>
             <h1 class="display-5 mb-5" style="margin-bottom: 70px;">Mitra Kerja</h1>
         </div>
-        <div class="image-mitra" style="margin-bottom: 50px;">
-            <img src="img/Picture1.png" alt="">
-            <img src="img/Picture2.png" alt="">
-            <img src="img/Picture3.png" alt="">
-            <img src="img/Picture4.png" alt="">
-        </div>
-        <div class="image-mitra" style="margin-bottom: 50px;">
-            <img src="img/Picture9.png" alt="">
-            <img src="img/Picture5.png" alt="">
-            <img src="img/Picture6.png" alt="">
-            <img src="img/Picture7.png" alt="">
-        </div>
-        <div class="image-mitra">
-            <img src="img/Picture8.png" alt="">
-            <img src="img/Picture10.png" alt="">
-            <img src="img/Picture11.png" alt="">
-        </div>
+        @if ($mitras->isNotEmpty())
+            @foreach ($mitras->chunk(4) as $chunk)
+                <div class="image-mitra" style="margin-bottom: 50px;">
+                    @foreach ($chunk as $mitra)
+                        @php
+                            $images = !empty($mitra->image) ? explode(',', $mitra->image) : ['default.png'];
+                        @endphp
+                        @foreach($images as $image)
+                            <img src="{{ asset($image == 'default.png' ? 'img/' . $image : 'storage/photo-mitra/' . $image) }}" alt="" style="max-width: 390px; max-height: 300px; margin-bottom: 10px; gap:20px !important;">
+                        @endforeach
+                    @endforeach
+                </div>
+            @endforeach
+        @endif
     </div>
 </div>
 <!-- Mitra Kerja End -->
 
+@endsection
+
+@section('script')
+<script>
+$(document).ready(function(){
+    $(".header-carousel").owlCarousel({
+        singleItem: true,
+        autoPlay: 5000,
+        navigation: true,
+        pagination: true,
+        transitionStyle: "fade"
+    });
+
+    $(".testimonial-carousel").owlCarousel({
+        singleItem: true,
+        autoPlay: 5000,
+        navigation: false,
+        pagination: true
+    });
+
+    $("#portfolio-flters li").on('click', function () {
+        $("#portfolio-flters li").removeClass('active');
+        $(this).addClass('active');
+        var filterValue = $(this).attr('data-filter');
+        $(".portfolio-container").isotope({
+            filter: filterValue
+        });
+    });
+
+    var $grid = $('.portfolio-container').isotope({
+        itemSelector: '.portfolio-item',
+        layoutMode: 'fitRows'
+    });
+
+    $grid.imagesLoaded().progress(function() {
+        $grid.isotope('layout');
+    });
+});
+</script>
 @endsection
