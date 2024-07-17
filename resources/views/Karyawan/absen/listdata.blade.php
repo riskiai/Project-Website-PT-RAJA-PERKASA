@@ -72,7 +72,7 @@
                       Tidak Hadir
                     @elseif(!$item->waktu_datang_kehadiran)
                       Tidak Hadir
-                  @elseif(\Carbon\Carbon::parse($item->waktu_datang_kehadiran)->gt(Carbon::createFromTime(8, 12, 0)))
+                  @elseif(\Carbon\Carbon::parse($item->waktu_datang_kehadiran)->gt(Carbon::createFromTime(8, 10, 0)))
                       Terlambat Absen
                     @else
                       Belum Absen Waktu Pulang

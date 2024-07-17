@@ -367,7 +367,7 @@
                         @if($testimoni->image)
                             <img class="img-fluid rounded-circle mb-3" src="{{ asset('storage/photo-testimoni/' . $testimoni->image) }}" alt="" style="width: 100px; height: 100px; object-fit: cover;">
                         @endif
-                        <p class="fs-5 mb-3">{!! $testimoni->comment !!}</p>
+                        <p class="fs-5 mb-1">{!! $testimoni->comment !!}</p>
                         <h4>{{ $testimoni->user ? $testimoni->user->name : $testimoni->new_user_name }}</h4>
                         <span class="text-orange">{{ $testimoni->position }}</span>
                     </div>
