@@ -315,16 +315,19 @@
                 @php
                     $images = !empty($testimoni->image) ? explode(',', $testimoni->image) : ['default.png'];
                 @endphp
-                <div class="testimonial-item text-center" data-dot="<img class='img-fluid' src='{{ asset($images[0] == 'default.png' ? 'img/' . $images[0] : 'storage/photo-testimoni/' . $images[0]) }}' alt=''>">
-                    <p class="fs-5">{!! $testimoni->comment !!}</p>
-                    <h4>{{ $testimoni->user ? $testimoni->user->name : $testimoni->new_user_name }}</h4>
-                    <span class="text-orange">{{ $testimoni->position }}</span>
-                </div>
+                @foreach ($images as $image)
+                    <div class="testimonial-item text-center" data-dot="<img class='img-fluid' src='{{ asset($image == 'default.png' ? 'img/' . $image : 'storage/photo-testimoni/' . $image) }}' alt=''>">
+                        <p class="fs-5">{!! $testimoni->comment !!}</p>
+                        <h4>{{ $testimoni->user ? $testimoni->user->name : $testimoni->new_user_name }}</h4>
+                        <span class="text-orange">{{ $testimoni->position }}</span>
+                    </div>
+                @endforeach
             @endforeach
         </div>
     </div>
 </div>
 <!-- Testimonial End -->
+
 
 <!-- Mitra Kerja Start -->
 <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
