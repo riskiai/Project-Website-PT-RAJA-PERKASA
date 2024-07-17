@@ -18,11 +18,6 @@ class HomeController extends Controller
             'brandPeralatan'
         ])->where('status_proyek', 'disetujui')->get();
 
-        // Decode image data for projects
-        foreach ($data as $proyek) {
-            $proyek->image = json_decode($proyek->image, true);
-        }
-
         $testimonis = Testimoni::with(['user', 'mitra'])->where('status_testimoni', 'active')->get();
 
         $mitras = Mitra::where('status_mitra', 'active')->get();

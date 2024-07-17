@@ -303,6 +303,7 @@
 </div>
 <!-- Projects End -->
 
+
 <!-- Testimonial Start -->
 <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
     <div class="container">
@@ -310,25 +311,23 @@
             <div class="mb-3 mx-auto" style="width: 60px; height: 2px; background-color: #FE7A36;"></div>
             <h1 class="display-5 mb-5">Apa Kata Client ?</h1>
         </div>
-        <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
-            @foreach($testimonis as $testimoni)
-                <div class="testimonial-item text-center" data-dot="<img class='img-fluid' src='{{ Storage::url('photo-testimoni/'.$testimoni->image) }}' alt='{{ $testimoni->new_user_name ?? $testimoni->user->name }}'>">
-                    <p class="fs-5">{!! $testimoni->comment !!}</p>
-                    <h4>{{ $testimoni->new_user_name ?? $testimoni->user->name }}</h4>
-                    <span class="text-orange">{{ $testimoni->position }}</span>
-                    @if($testimoni->image)
-                        <p>Image Path: {{ Storage::url('photo-testimoni/'.$testimoni->image) }}</p>
-                    @else
-                        <p>No Image Available</p>
-                    @endif
+        <div class="row g-4">
+            @foreach ($testimonis as $testimoni)
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="testimonial-item text-center bg-light p-4">
+                        @if($testimoni->image)
+                            <img class="img-fluid rounded-circle mb-3" src="{{ asset('storage/photo-testimoni/' . $testimoni->image) }}" alt="" style="width: 80px; height: 80px; object-fit: cover;">
+                        @endif
+                        <p class="fs-5 mb-3">{!! $testimoni->comment !!}</p>
+                        <h4>{{ $testimoni->user ? $testimoni->user->name : $testimoni->new_user_name }}</h4>
+                        <span class="text-orange">{{ $testimoni->position }}</span>
+                    </div>
                 </div>
             @endforeach
         </div>
     </div>
 </div>
 <!-- Testimonial End -->
-
-
 
 
 <!-- Mitra Kerja Start -->
