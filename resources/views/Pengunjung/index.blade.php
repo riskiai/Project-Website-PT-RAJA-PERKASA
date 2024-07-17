@@ -306,22 +306,22 @@
 <!-- Testimonial Start -->
 <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
     <div class="container">
-        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-            <div class="mb-3 mx-auto" style="width: 60px; height: 2px; background-color: #FE7A36;"></div>
-            <h1 class="display-5 mb-5">Apa Kata Client ?</h1>
-        </div>
-        <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
-            @foreach($testimonis as $testimoni)
-                <div class="testimonial-item text-center" data-dot="<img class='img-fluid' src='{{ asset($testimoni->image == 'default.png' ? 'img/' . $testimoni->image : 'storage/photo-testimoni/' . $testimoni->image) }}' alt='{{ $testimoni->getNamaClientAttribute() }}'>">
-                    <p class="fs-5">{!! $testimoni->comment !!}</p>
-                    <h4>{{ $testimoni->getNamaClientAttribute() }}</h4>
-                    <span class="text-orange">{{ $testimoni->mitra->name_mitra }}</span> <br>
-                    <span class="text-orange">{{ $testimoni->position }}</span>
-                </div>
-            @endforeach
-        </div>
+      <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+        <div class="mb-3 mx-auto" style="width: 60px; height: 2px; background-color: #FE7A36;"></div>
+        <h1 class="display-5 mb-5">Apa Kata Client ?</h1>
+      </div>
+      <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
+        @foreach($testimonis as $testimoni)
+          <div class="testimonial-item text-center" data-dot="<img class='img-fluid' src='{{ asset($testimoni->image == 'default.png' ? 'img/' . $testimoni->image : 'storage/photo-testimoni/' . $testimoni->image) }}' alt='{{ $testimoni->getNamaClientAttribute() }}'>">
+            <p class="fs-5">{!! $testimoni->comment !!}</p>
+            <h4>{{ $testimoni->getNamaClientAttribute() }}</h4>
+            <span class="text-orange">{{ $testimoni->mitra->name_mitra }}</span> <br>
+            <span class="text-orange">{{ $testimoni->position }}</span>
+          </div>
+        @endforeach
+      </div>
     </div>
-</div>
+  </div>
 <!-- Testimonial End -->
 
 <!-- Mitra Kerja Start -->
