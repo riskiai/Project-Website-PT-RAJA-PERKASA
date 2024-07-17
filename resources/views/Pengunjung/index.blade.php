@@ -7,7 +7,7 @@
     position: relative;
     text-align: center; /* Memusatkan teks secara horizontal */
     width: 100%; /* Mengatur lebar container sesuai kebutuhan */
-    max-width: 600px; /* Tentukan lebar maksimum untuk container */
+    max-width: 800px; /* Tentukan lebar maksimum untuk container */
     margin: 0 auto; /* Pusatkan container di halaman */
     overflow: hidden;
    
