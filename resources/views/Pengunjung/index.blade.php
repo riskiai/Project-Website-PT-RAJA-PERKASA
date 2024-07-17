@@ -316,12 +316,20 @@
                     <p class="fs-5">{!! $testimoni->comment !!}</p>
                     <h4>{{ $testimoni->new_user_name ?? $testimoni->user->name }}</h4>
                     <span class="text-orange">{{ $testimoni->position }}</span>
+                    @if($testimoni->image)
+                        <p>Image Path: {{ Storage::url('photo-testimoni/'.$testimoni->image) }}</p>
+                    @else
+                        <p>No Image Available</p>
+                    @endif
                 </div>
             @endforeach
         </div>
     </div>
 </div>
 <!-- Testimonial End -->
+
+
+
 
 <!-- Mitra Kerja Start -->
 <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">

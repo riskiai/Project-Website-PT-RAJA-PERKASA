@@ -25,11 +25,6 @@ class HomeController extends Controller
 
         $testimonis = Testimoni::with(['user', 'mitra'])->where('status_testimoni', 'active')->get();
 
-        // Decode image data for testimonials
-        foreach ($testimonis as $testimoni) {
-            $testimoni->image = json_decode($testimoni->image, true);
-        }
-
         $mitras = Mitra::where('status_mitra', 'active')->get();
 
         return view('Pengunjung.index', compact('data', 'testimonis', 'mitras'));
