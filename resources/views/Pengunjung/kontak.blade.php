@@ -43,7 +43,6 @@
     </div>
     <!-- Page Header End -->
 
-
     <!-- Contact Start -->
     <div class="container-fluid bg-light overflow-hidden px-lg-0">
         <div class="container contact px-lg-0 mt-5">
@@ -54,20 +53,28 @@
                             <h1 class="display-5 mb-4">Kontak Kami</h1>
                         </div>
                         <p class="mb-4" style="color: grey;">Hubungi kami untuk informasi lebih lanjut tentang layanan kami. Kami siap membantu Anda!</p>
-                        <ul class="list-unstyled">
-                            <button class="btn btn-one">Email</button>
-                            <li class="mb-4 text-one"><u>{{ $kontak->email }}</u></li>
-                            <button class="btn btn-one">Telefon</button>
-                            <li class="mb-4"><u>{{ $kontak->phone }}</u></li>
-                            <button class="btn btn-one">Alamat</button>
-                            <li class="mb-4 text-one"><u>{{ $kontak->alamat }}</u></li>
-                        </ul>
+                        @if ($kontak)
+                            <ul class="list-unstyled">
+                                <button class="btn btn-one">Email</button>
+                                <li class="mb-4 text-one"><u>{{ $kontak->email ?? 'Email tidak tersedia' }}</u></li>
+                                <button class="btn btn-one">Telefon</button>
+                                <li class="mb-4"><u>{{ $kontak->phone ?? 'Telepon tidak tersedia' }}</u></li>
+                                <button class="btn btn-one">Alamat</button>
+                                <li class="mb-4 text-one"><u>{{ $kontak->alamat ?? 'Alamat tidak tersedia' }}</u></li>
+                            </ul>
+                        @else
+                            <p class="mb-4" style="color: grey;">Informasi kontak tidak tersedia saat ini.</p>
+                        @endif
                     </div>
                 </div>
                 <div class="col-lg-6 pe-lg-0" style="min-height: 400px;">
                     <div class="position-relative h-100">
-                        <iframe class="position-absolute w-100 h-100" style="object-fit: cover;"
-                        src="{{ $kontak->links }}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        @if ($kontak && $kontak->links)
+                            <iframe class="position-absolute w-100 h-100" style="object-fit: cover;"
+                            src="{{ $kontak->links }}" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        @else
+                            <p class="text-center">Peta lokasi tidak tersedia saat ini.</p>
+                        @endif
                     </div>
                 </div>
             </div>
