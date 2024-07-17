@@ -311,22 +311,18 @@
             <h1 class="display-5 mb-5">Apa Kata Client ?</h1>
         </div>
         <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
-            @foreach ($testimonis as $testimoni)
-                @php
-                    $images = !empty($testimoni->image) ? explode(',', $testimoni->image) : ['default.png'];
-                @endphp
-                @foreach ($images as $image)
-                    <div class="testimonial-item text-center" data-dot="<img class='img-fluid' src='{{ asset($image == 'default.png' ? 'img/' . $image : 'storage/photo-testimoni/' . $image) }}' alt=''>">
-                        <p class="fs-5">{!! $testimoni->comment !!}</p>
-                        <h4>{{ $testimoni->user ? $testimoni->user->name : $testimoni->new_user_name }}</h4>
-                        <span class="text-orange">{{ $testimoni->position }}</span>
-                    </div>
-                @endforeach
+            @foreach($testimonis as $testimoni)
+            <div class="testimonial-item text-center" data-dot="<img class='img-fluid' src='{{ Storage::url('photo-testimoni/'.$testimoni->image) }}' alt='{{ $testimoni->new_user_name ?? $testimoni->user->name }}'>">
+                <p class="fs-5">{{ $testimoni->comment }}</p>
+                <h4>{{ $testimoni->new_user_name ?? $testimoni->user->name }}</h4>
+                <span class="text-orange">{{ $testimoni->position }}</span>
+            </div>
             @endforeach
         </div>
     </div>
 </div>
 <!-- Testimonial End -->
+
 
 
 <!-- Mitra Kerja Start -->

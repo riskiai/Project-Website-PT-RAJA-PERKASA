@@ -28,12 +28,10 @@ class TestimoniAdminController extends Controller
     }
 
     public function create() {
-        // Ambil semua mitra yang memiliki status_pic_perusahaan 'client'
         $mitras = Mitra::whereHas('users', function($query) {
             $query->where('status_pic_perusahaan', 'client');
         })->get();
         
-        // Ambil semua pengguna dengan role client dan status_pic_perusahaan client
         $clients = User::where('status_pic_perusahaan', 'client')->whereHas('role', function($query) {
             $query->where('role_name', 'client');
         })->get();
@@ -50,7 +48,7 @@ class TestimoniAdminController extends Controller
             'position' => 'required|string|max:255',
             'comment' => 'required|string',
             'status_testimoni' => 'required|in:active,nonactive',
-            'image.*' => 'required|mimes:png,jpg,jpeg|max:2048', // 'image.*' for multiple images
+            'image' => 'required|mimes:png,jpg,jpeg|max:2048', // Hanya satu gambar
         ]);
 
         if ($validator->fails()) {
@@ -59,14 +57,12 @@ class TestimoniAdminController extends Controller
 
         $userId = $request->user_id;
 
-        // Save images
-        $images = [];
-        if ($request->hasfile('image')) {
-            foreach ($request->file('image') as $file) {
-                $filename = date('Y-m-d') . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
-                $path = $file->storeAs('public/photo-testimoni', $filename); // Save image to storage
-                $images[] = $filename; // Collect file names
-            }
+        // Save image
+        $filename = null;
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = date('Y-m-d') . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('public/photo-testimoni', $filename); // Save image to storage
         }
 
         // Create new data
@@ -77,7 +73,7 @@ class TestimoniAdminController extends Controller
             'position' => $request->position,
             'comment' => $request->comment,
             'status_testimoni' => $request->status_testimoni,
-            'image' => implode(',', $images), // Save image file names as a string
+            'image' => $filename, // Save image file name as a string
         ]);
 
         return redirect()->route('testimonilist')->with('success', 'Testimoni created successfully.');
@@ -110,7 +106,7 @@ class TestimoniAdminController extends Controller
             'position' => 'required|string|max:255',
             'comment' => 'required|string',
             'status_testimoni' => 'required|in:active,nonactive',
-            'image.*' => 'mimes:png,jpg,jpeg|max:2048', // 'image.*' for multiple images
+            'image' => 'mimes:png,jpg,jpeg|max:2048', // Hanya satu gambar
         ]);
 
         if ($validator->fails()) {
@@ -131,20 +127,14 @@ class TestimoniAdminController extends Controller
             if ($request->hasFile('image')) {
                 // Hapus gambar yang lama
                 if (!empty($data->image)) {
-                    $oldImages = explode(',', $data->image);
-                    foreach ($oldImages as $oldImage) {
-                        Storage::delete('public/photo-testimoni/' . $oldImage);
-                    }
+                    Storage::delete('public/photo-testimoni/' . $data->image);
                 }
                 
                 // Simpan gambar yang baru
-                $images = [];
-                foreach ($request->file('image') as $file) {
-                    $filename = date('Y-m-d') . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
-                    $path = $file->storeAs('public/photo-testimoni', $filename); // Simpan gambar ke dalam storage
-                    $images[] = $filename; // Kumpulkan nama file
-                }
-                $data->image = implode(',', $images);
+                $file = $request->file('image');
+                $filename = date('Y-m-d') . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $path = $file->storeAs('public/photo-testimoni', $filename); // Simpan gambar ke dalam storage
+                $data->image = $filename;
             }
 
             $data->save();
@@ -161,10 +151,7 @@ class TestimoniAdminController extends Controller
         if($data){
             // Hapus gambar dari penyimpanan
             if (!empty($data->image)) {
-                $images = explode(',', $data->image);
-                foreach ($images as $image) {
-                    Storage::delete('public/photo-testimoni/' . $image);
-                }
+                Storage::delete('public/photo-testimoni/' . $data->image);
             }
             
             // Hapus data dari database

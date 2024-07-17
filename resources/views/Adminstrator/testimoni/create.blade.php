@@ -79,7 +79,7 @@
             <div class="col-lg-3 col-sm-6 col-12">
               <div class="form-group">
                 <label>File Image</label>
-                <input type="file" name="image[]" class="form-control" multiple required />
+                <input type="file" name="image" class="form-control" required />
               </div>
             </div>
             <div class="col-lg-12">
@@ -106,14 +106,12 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
 $(document).ready(function() {
-    // Inisialisasi CKEditor pada modal tambah data
     ClassicEditor
         .create(document.querySelector('#comment'))
         .catch(error => {
             console.error(error);
         });
 
-    // Inisialisasi Select2
     $('.select2').select2({
         tags: true,
         placeholder: "Select or type",
