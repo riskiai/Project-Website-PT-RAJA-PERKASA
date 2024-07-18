@@ -245,8 +245,6 @@ function breakText($text, $length = 40) {
 <!-- About End -->
 
 
-
-
 <!-- Jasa Start -->
 <div class="container-xxl py-5">
     <div class="container">
@@ -474,7 +472,9 @@ function breakText($text, $length = 40) {
                             <img class="img-fluid rounded-circle mb-3" src="{{ asset('storage/photo-testimoni/' . $testimoni->image) }}" alt="" style="width: 100px; height: 100px; object-fit: cover;">
                         @endif
                         <p class="fs-2 mb-1 comments">{!! breakText($testimoni->comment) !!}</p>
+                      
                         <h4>{{ $testimoni->user ? $testimoni->user->name : $testimoni->new_user_name }}</h4>
+                        <span class="text-orange">{{ $testimoni->mitra->name_mitra }}</span> <br>
                         <span class="text-orange">{{ $testimoni->position }}</span>
                     </div>
                 @endforeach
