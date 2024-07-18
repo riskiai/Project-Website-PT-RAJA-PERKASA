@@ -357,7 +357,7 @@
     font-size: 10px;
 }
 
-/*** Project Portfolio ***/
+/* Project Portfolio */
 #portfolio-flters li {
     display: inline-block;
     font-weight: 500;
@@ -377,20 +377,25 @@
     position: relative;
     overflow: hidden;
     box-shadow: 0 0 45px rgba(0, 0, 0, .07);
+    height: 100%; /* Ensures the card takes full height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .portfolio-inner img {
     width: 100%;
-    height: 200px;
+    height: 300px; /* Set fixed height for images */
     object-fit: cover;
+    border-top-left-radius: 10px; 
+    border-top-right-radius: 10px; 
 }
-
 
 .portfolio-inner:hover img {
     transform: scale(1.1);
 }
 
-.portfolio-inner .portfolio-text {
+.portfolio-text {
     position: absolute;
     width: 100%;
     left: 0;
@@ -403,6 +408,7 @@
     bottom: 0;
     opacity: 1;
 }
+
 
 
 /*** Quote ***/

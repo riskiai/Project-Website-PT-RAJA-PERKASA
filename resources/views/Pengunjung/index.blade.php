@@ -385,14 +385,14 @@ function breakText($text, $length = 40) {
                                     @foreach($proyek->image as $index => $img)
                                         <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
                                             <a href="{{ Storage::url($img) }}" data-lightbox="carousel-{{ $proyek->id }}">
-                                                <img class="img-fluid fixed-size" src="{{ Storage::url($img) }}" alt="Project Image">
+                                                <img class="img-fluid" src="{{ Storage::url($img) }}" alt="Project Image">
                                             </a>
                                         </div>
                                     @endforeach
                                 @else
                                     <div class="carousel-item active">
                                         <a href="img/default.jpg" data-lightbox="carousel-{{ $proyek->id }}">
-                                            <img class="img-fluid fixed-size" src="img/default.jpg" alt="Default Image">
+                                            <img class="img-fluid" src="img/default.jpg" alt="Default Image">
                                         </a>
                                     </div>
                                 @endif
@@ -414,7 +414,7 @@ function breakText($text, $length = 40) {
                             <p class="text-orange mb-2" style="font-size: 15px;">{{ $proyek->title_proyek }}</p>
                             <h2 class="lh-base mb-3" style="font-size: 15px; !important">{{ $proyek->project_name }}</h2>
                             <div class="d-flex justify-content-center">
-                                <button class="btn btn-primary view-details" data-toggle="modal" data-target="#detailModal{{ $proyek->id }}" data-id="{{ $proyek->id }}">Detail Data Proyek</button>
+                                <button class="btn btn-primary view-details" data-id="{{ $proyek->id }}" data-bs-toggle="modal" data-bs-target="#detailModal{{ $proyek->id }}">Detail Data Proyek</button>
                             </div>
                         </div>
                     </div>
@@ -447,6 +447,7 @@ function breakText($text, $length = 40) {
         </div>
     </div>
 </div>
+
 <!-- Projects End -->
 
 
