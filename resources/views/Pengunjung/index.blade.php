@@ -129,9 +129,10 @@ function breakText($text, $length = 40) {
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-12 col-lg-8 text-center">
-                            <h1 class="display-3 text-white animated slideInDown mb-4">Layanan Pemasangan Ubin & Pengecatan Profesional</h1>
-                            <p class="fs-5 text-white mb-4 pb-2">Kami menawarkan layanan pemasangan ubin dan pengecatan berkualitas tinggi untuk proyek-proyek besar Anda. Dengan tim ahli kami, hasilnya pasti memuaskan dan sesuai dengan harapan Anda.</p>
-                            <a href="" class="btn btn-primary rounded-pill py-md-3 px-md-5 me-3 animated slideInLeft">Baca Selengkapnya</a>                            
+                            <h1 class="display-3 text-white animated slideInDown mb-4">Jasa Tiling & Cat Profesional</h1>
+                            <p class="fs-5 text-white mb-4 pb-2">Kami menawarkan jasa tiling dan cat berkualitas tinggi untuk proyek-proyek besar Anda. Dengan tim ahli kami, hasilnya pasti memuaskan dan sesuai dengan harapan Anda.</p>
+                            <a href="" class="btn btn-primary rounded-pill py-md-3 px-md-5 me-3 animated slideInLeft">Baca Selengkapnya</a>
+                                                    
                         </div>
                     </div>
                 </div>
