@@ -59,7 +59,7 @@
                 <tr>
                   <td>{{ $index + 1 }}</td>
                   <td>{{ $item->user->name }}</td>
-                  <td>{{ $item->user->divisi->divisi_name }}</td>
+                  <td>{{ $item->user->divisi->divisi_name ?? 'Tidak ada divisi' }}</td>
                   <td>{{ \Carbon\Carbon::parse($item->tanggal_absen)->translatedFormat('j F Y') }}</td>
                   <td>
                     @if($item->waktu_pulang_kehadiran)
