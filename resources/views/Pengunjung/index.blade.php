@@ -35,7 +35,7 @@ function breakText($text, $length = 40) {
 
 .testimonial-navigation {
     position: absolute;
-    top: 55%;
+    top: 52%;
     width: 100%;
     display: flex;
     justify-content: space-between;
