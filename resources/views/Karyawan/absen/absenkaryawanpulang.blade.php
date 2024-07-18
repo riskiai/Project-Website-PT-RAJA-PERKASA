@@ -88,7 +88,7 @@
         const pulangTimeAlert = document.getElementById('pulangTimeAlert');
         const alertDismissed = localStorage.getItem('pulangTimeAlertDismissed');
 
-        if (now.getHours() > 1 || (now.getHours() === 1 && now.getMinutes() >= 48)) {
+        if (now.getHours() > 0 || (now.getHours() === 1 && now.getMinutes() >= 49)) {
             if (!alertDismissed) {
                 pulangTimeAlert.style.display = 'block';
                 setTimeout(() => {
