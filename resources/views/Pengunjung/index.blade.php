@@ -39,7 +39,7 @@ function breakText($text, $length = 40) {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    transform: translateY(-40%);
+    transform: translateY(-35%) !important;
 }
 
 .testimonial-navigation button {
