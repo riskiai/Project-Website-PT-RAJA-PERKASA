@@ -474,14 +474,14 @@
 
 
 /*** Testimonial ***/
-.testimonial-carousel {
+/* .testimonial-carousel {
     display: flex !important;
     flex-direction: column-reverse;
     max-width: 700px;
     margin: 0 auto;
-}
+} */
 
-.testimonial-carousel .owl-dots {
+/* .testimonial-carousel .owl-dots {
     height: 100px;
     display: flex;
     align-items: center;
@@ -534,7 +534,9 @@
 
 .testimonial-carousel .owl-dots .owl-dot.active img {
     opacity: 1;
-}
+} */
+
+
 
 
 /* Mitra Kerja */

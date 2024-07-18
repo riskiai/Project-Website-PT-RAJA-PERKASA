@@ -1,57 +1,90 @@
+@php
+function breakText($text, $length = 40) {
+    return wordwrap($text, $length, "\n", true);
+}
+@endphp
+
 @extends('Pengunjung.Components.app')
 
 @section('style')
 <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <style>
-    .testimonial-container {
+<style>
+.testimonial-container {
     position: relative;
-    text-align: center; /* Memusatkan teks secara horizontal */
-    width: 100%; /* Mengatur lebar container sesuai kebutuhan */
-    max-width: 800px; /* Tentukan lebar maksimum untuk container */
-    margin: 0 auto; /* Pusatkan container di halaman */
+    text-align: center; 
+    width: 100%; 
+    max-width: 800px;
+    margin: 0 auto;
     overflow: hidden;
-   
 }
-    
-    .testimonial-item-wrapper {
-        display: flex;
-        transition: transform 0.5s ease-in-out;
+
+.testimonial-item-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.testimonial-item {
+    min-width: 100%;
+    max-width: 600px; 
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 20px; 
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.testimonial-navigation {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+}
+
+.testimonial-navigation button {
+    background-color: #FE7A36;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.testimonial-navigation button:focus {
+    outline: none;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+    .testimonial-item p {
+        font-size: 15px !important; /* Adjust the font size as needed */
+        word-break: break-word;
+        white-space: pre-wrap;
     }
-    
+
     .testimonial-item {
-        min-width: 100%;
-        max-width: 600px; /* Tentukan lebar maksimum untuk testimoni */
-        margin: 0 auto; /* Pusatkan elemen testimoni */
-        box-sizing: border-box;
-        padding: 20px; /* Tambahkan padding untuk spasi internal */
-        background-color: #fff; /* Latar belakang testimoni */
-        border-radius: 10px; /* Opsional: Tambahkan border-radius untuk tampilan lebih halus */
+        padding: 10px !important; /* Adjust the padding if needed */
     }
-    
-    .testimonial-navigation {
-        position: absolute;
-        top: 50%;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        transform: translateY(-50%);
-    }
-    
+
     .testimonial-navigation button {
         background-color: #FE7A36;
         border: none;
         padding: 10px 20px;
         color: white;
         cursor: pointer;
-        font-size: 18px;
+        font-size: 10px;
     }
-    
-    .testimonial-navigation button:focus {
-        outline: none;
-    }
-    
-    </style>
 
+    .testimonial-item h4 {
+        font-size: 16px !important; /* Adjust the name font size if needed */
+    }
+
+    .testimonial-item span {
+        font-size: 14px !important; /* Adjust the position font size if needed */
+    }
+}
+</style>
 @endsection
 
 @section('content')
@@ -367,7 +400,7 @@
                         @if($testimoni->image)
                             <img class="img-fluid rounded-circle mb-3" src="{{ asset('storage/photo-testimoni/' . $testimoni->image) }}" alt="" style="width: 100px; height: 100px; object-fit: cover;">
                         @endif
-                        <p class="fs-5 mb-1">{!! $testimoni->comment !!}</p>
+                        <p class="fs-2 mb-1 comments">{!! breakText($testimoni->comment) !!}</p>
                         <h4>{{ $testimoni->user ? $testimoni->user->name : $testimoni->new_user_name }}</h4>
                         <span class="text-orange">{{ $testimoni->position }}</span>
                     </div>
@@ -381,6 +414,7 @@
     </div>
 </div>
 <!-- Testimonial End -->
+
 
 <!-- Mitra Kerja Start -->
 <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
@@ -397,7 +431,7 @@
                             $images = !empty($mitra->image) ? explode(',', $mitra->image) : ['default.png'];
                         @endphp
                         @foreach($images as $image)
-                            <img src="{{ asset($image == 'default.png' ? 'img/' . $image : 'storage/photo-mitra/' . $image) }}" alt="" style="max-width: 390px; max-height: 300px; margin-bottom: 10px; gap:20px !important;">
+                            <img src="{{ asset($image == 'default.png' ? 'img/' . $image : 'storage/photo-mitra/' . $image) }}" alt="" style="max-width: 420px; max-height: 420px; margin-bottom: 10px; gap:20px !important;">
                         @endforeach
                     @endforeach
                 </div>
@@ -456,6 +490,7 @@ $(document).ready(function(){
     $grid.imagesLoaded().progress(function() {
         $grid.isotope('layout');
     });
+
 });
 </script>
 @endsection
