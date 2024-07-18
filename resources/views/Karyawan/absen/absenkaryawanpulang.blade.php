@@ -89,7 +89,7 @@
         const today = now.toISOString().split('T')[0]; // Format YYYY-MM-DD
         const alertClosedDate = localStorage.getItem('pulangTimeAlertClosedDate');
 
-        if ((now.getHours() >= 2 && now.getMinutes() >= 6) && alertClosedDate !== today) {
+        if ((now.getHours() >= 2 && now.getMinutes() >= 8) && alertClosedDate !== today) {
             pulangTimeAlert.style.display = 'block';
         } else {
             pulangTimeAlert.style.display = 'none';
