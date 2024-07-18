@@ -273,7 +273,7 @@ function breakText($text, $length = 40) {
                         <img class="img-fluid" src="{{ asset('img/icon/fix.png') }}" alt="Icon">
                     </div>
                     <h4 class="mb-3">Konstruksi Umum</h4>
-                    <p class="mb-4">PT Raja Perkasa adalah mitra terpercaya dalam layanan konstruksi umum. Kami menyediakan solusi terbaik untuk berbagai proyek, dari bangunan komersial hingga infrastruktur publik.</p>
+                    <p class="mb-4">PT Raja Perkasa adalah mitra terpercaya dalam layanan konstruksi umum. Kami menyediakan solusi terbaik untuk berbagai proyek.</p>
                     <a class="btn" href="{{ route('jasalink') }}"><i class="fa fa-arrow-right text-white me-3"></i>Baca Selengkapnya</a>
                 </div>
             </div>
@@ -283,7 +283,7 @@ function breakText($text, $length = 40) {
                         <img class="img-fluid" src="{{ asset('img/icon/labour-consulting.png') }}" alt="Icon">
                     </div>
                     <h4 class="mb-3">Konsultasi Proyek</h4>
-                    <p class="mb-4">PT Raja Perkasa adalah mitra terpercaya dalam layanan konstruksi umum. Kami menyediakan solusi terbaik untuk berbagai proyek, dari bangunan komersial hingga infrastruktur publik.</p>
+                    <p class="mb-4">PT Raja Perkasa menyediakan layanan konsultasi proyek profesional dan terpercaya.</p>
                     <a class="btn" href="{{ route('jasalink') }}"><i class="fa fa-arrow-right text-white me-3"></i>Baca Selengkapnya</a>
                 </div>
             </div>
