@@ -15,7 +15,7 @@
     }
 
     .modal-dialog {
-        max-width: 600px; /* Atur ukuran maksimum modal */
+        max-width: 610px; /* Atur ukuran maksimum modal */
     }
 </style>
 @endsection

@@ -99,7 +99,7 @@ function breakText($text, $length = 40) {
     padding-left: 5px; /* Adjust padding as needed */
 }
 .modal-dialog {
-    max-width: 600px; /* Set maximum modal size */
+    max-width: 610px; /* Set maximum modal size */
 }
 </style>
 @endsection
