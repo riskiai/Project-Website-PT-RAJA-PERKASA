@@ -86,10 +86,9 @@
 
         @if(!$alreadyCheckedOut)
         const pulangTimeAlert = document.getElementById('pulangTimeAlert');
-        const today = now.toISOString().split('T')[0]; // Format YYYY-MM-DD
-        const alertClosedDate = localStorage.getItem('pulangTimeAlertClosedDate');
+        const alertClosed = sessionStorage.getItem('pulangTimeAlertClosed');
 
-        if ((now.getHours() >= 2 && now.getMinutes() >= 8) && alertClosedDate !== today) {
+        if ((now.getHours() >= 2 && now.getMinutes() >= 12) && !alertClosed) {
             pulangTimeAlert.style.display = 'block';
         } else {
             pulangTimeAlert.style.display = 'none';
@@ -104,11 +103,9 @@
         @if(!$alreadyCheckedOut)
         const pulangTimeAlert = document.getElementById('pulangTimeAlert');
         const closeButton = pulangTimeAlert.querySelector('.btn-close');
-        
+
         closeButton.addEventListener('click', function () {
-            const now = new Date();
-            const today = now.toISOString().split('T')[0]; // Format YYYY-MM-DD
-            localStorage.setItem('pulangTimeAlertClosedDate', today);
+            sessionStorage.setItem('pulangTimeAlertClosed', 'true');
         });
         @endif
     });
