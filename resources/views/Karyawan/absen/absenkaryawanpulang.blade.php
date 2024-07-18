@@ -86,14 +86,23 @@
 
         @if(!$alreadyCheckedOut)
         const pulangTimeAlert = document.getElementById('pulangTimeAlert');
+        const alertDismissed = localStorage.getItem('pulangTimeAlertDismissed');
+
         if (now.getHours() > 0 || (now.getHours() === 0 && now.getMinutes() >= 51)) {
-            pulangTimeAlert.style.display = 'block';
-            setTimeout(() => {
-                pulangTimeAlert.style.display = 'none';
-            }, 10000); // Notifikasi akan hilang setelah 10 detik
+            if (!alertDismissed) {
+                pulangTimeAlert.style.display = 'block';
+                setTimeout(() => {
+                    pulangTimeAlert.style.display = 'none';
+                    localStorage.setItem('pulangTimeAlertDismissed', 'true');
+                }, 10000); // Notifikasi akan hilang setelah 10 detik
+            }
         } else {
             pulangTimeAlert.style.display = 'none';
         }
+
+        document.querySelector('.btn-close').addEventListener('click', function () {
+            localStorage.setItem('pulangTimeAlertDismissed', 'true');
+        });
         @endif
     }
 

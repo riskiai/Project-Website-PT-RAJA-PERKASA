@@ -79,7 +79,7 @@
                                 'manajer' => 'storage/manajer/photo-profile/',
                                 'owner' => 'storage/owner/photo-profile/',
                                 'hrd' => 'storage/hrd/photo-profile/',
-                                'karyawan' => 'storage/karyawan/photo-profile/',
+                                'karyawan' => 'storage/karyawan/foto_profile/',
                                 default => 'storage/unknown/photo-profile/',
                             };
                         @endphp
