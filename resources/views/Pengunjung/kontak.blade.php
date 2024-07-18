@@ -60,7 +60,7 @@
                                 <button class="btn btn-one">Telefon</button>
                                 <li class="mb-4"><u>{{ $kontak->phone ?? 'Telepon tidak tersedia' }}</u></li>
                                 <button class="btn btn-one">Alamat</button>
-                                <li class="mb-4 text-one"><u>{!! $kontak->alamat ?? 'Alamat tidak tersedia' !!}</u></li>
+                                <li class="mb-4 text-one"><u>{{ strip_tags($kontak->alamat ?? 'Alamat tidak tersedia') }}</u></li>
                             </ul>
                         @else
                             <p class="mb-4" style="color: grey;">Informasi kontak tidak tersedia saat ini.</p>
