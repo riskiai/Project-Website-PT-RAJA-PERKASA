@@ -12,8 +12,8 @@ use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
-    public function index(Request $request)
-    {
+        public function index(Request $request)
+        {
         // Total Karyawan
         $totalKaryawan = User::whereHas('role', function($query) {
             $query->where('role_name', 'karyawan');
@@ -39,13 +39,13 @@ class DashboardController extends Controller
             $proyekByStatusAndYear[$currentYear] = collect([]);
         }
 
-        // Data Testimoni
-        $testimonis = Testimoni::with(['user', 'mitra'])->get();
+        // Data Testimoni dengan pagination
+        $testimonis = Testimoni::with(['user', 'mitra'])->paginate(3);
 
         // Data Proyek
         $proyeks = List_Data_Proyek::with(['materials', 'peralatan'])->get();
 
-        return view('Adminstrator.dashboard.dahshboard', compact(
+        return view('Karyawan.dashboard.dashboard', compact(
             'totalKaryawan', 
             'totalMitraPerusahaan', 
             'totalProyekSedangBerjalan', 
@@ -56,4 +56,5 @@ class DashboardController extends Controller
             'proyeks'
         ));
     }
+
 }

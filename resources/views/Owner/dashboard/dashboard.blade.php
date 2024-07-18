@@ -1,7 +1,6 @@
 @extends('Adminstrator.Componentsadminstrator.app')
 
 @section('styles')
-
 <style>
   .bar-sedangberjalan {
     background-color: #FF0000 !important; /* Merah untuk 'sedangberjalan' */
@@ -45,12 +44,15 @@
       vertical-align: baseline;
       border-radius: 0.25rem;
   }
-</style>
 
+  /* CSS untuk menjaga tinggi chart tetap stabil */
+  #proyek_chart {
+    height: 300px; /* atau nilai tinggi lainnya yang diinginkan */
+  }
+</style>
 @endsection
 
 @section('content')
-
 <div class="page-wrapper">
     <div class="content">
 
@@ -108,14 +110,6 @@
           <div class="card-header pb-0 d-flex justify-content-between align-items-center">
             <h5 class="card-title mb-0">Data Statistik Proyek Berdasarkan Status Progres dan Tahun</h5>
             <div class="graph-sets">
-              {{-- <ul>
-                <li>
-                  <span>Sedang Berjalan</span>
-                </li>
-                <li>
-                  <span>Selesai</span>
-                </li>
-              </ul> --}}
               <div class="dropdown">
                 <button class="btn btn-white btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                   {{ $currentYear }}
@@ -173,14 +167,17 @@
                           $images = explode(',', $testimoni->image);
                         @endphp
                         @foreach($images as $image)
-                          <img src="{{ asset('storage/photo-testimoni/' . $image) }}" alt="img" style="max-width: 100px; max-height: 100px; margin-bottom: 10px; border-radius: 50%;" class="product-img">
+                          <img src="{{ asset('storage/photo-testimoni/' . $image) }}" alt="img" style="max-width: 50px; max-height: 50px; margin-bottom: 10px; border-radius: 50%;" class="product-img">
                         @endforeach
                       @endif
-                    </td>                    
+                    </td>
                   </tr>
                   @endforeach
                 </tbody>
               </table>
+              <div class="d-flex justify-content-center">
+                {{ $testimonis->links() }}
+              </div>
             </div>
           </div>
         </div>
@@ -243,7 +240,6 @@
 
   </div>
 </div>
-
 @endsection
 
 @section('scripts')
@@ -275,7 +271,7 @@
       }],
       chart: {
         type: 'bar',
-        height: 250,
+        height: 350, // Tetapkan tinggi chart secara eksplisit
         events: {
           dataPointMouseEnter: function(event, chartContext, config) {
             var pointClass = colorClasses[config.dataPointIndex];
@@ -286,7 +282,7 @@
       plotOptions: {
         bar: {
           horizontal: false,
-          columnWidth: '40%',
+          columnWidth: '20%',
           endingShape: 'rounded'
         },
       },
