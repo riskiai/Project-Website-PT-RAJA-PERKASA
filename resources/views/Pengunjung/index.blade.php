@@ -58,7 +58,7 @@ function breakText($text, $length = 40) {
 /* Media query for mobile devices */
 @media (max-width: 768px) {
     .testimonial-item p {
-        font-size: 15px !important; /* Adjust the font size as needed */
+        font-size: 13px !important; /* Adjust the font size as needed */
         word-break: break-word;
         white-space: pre-wrap;
     }
