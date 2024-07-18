@@ -73,7 +73,7 @@ function breakText($text, $length = 40) {
         padding: 10px 20px;
         color: white;
         cursor: pointer;
-        font-size: 10px;
+        font-size: 14px;
     }
 
     .testimonial-item h4 {
