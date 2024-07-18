@@ -283,7 +283,7 @@ function breakText($text, $length = 40) {
                         <img class="img-fluid" src="{{ asset('img/icon/labour-consulting.png') }}" alt="Icon">
                     </div>
                     <h4 class="mb-3">Konsultasi Proyek</h4>
-                    <p class="mb-4">PT Raja Perkasa menyediakan layanan konsultasi proyek profesional dan terpercaya.kami membantu mengelola proyek konstruksi dengan baik.</p>
+                    <p class="mb-4">PT Raja Perkasa menyediakan layanan konsultasi proyek profesional dan terpercaya, kami siap membantu anda.</p>
                     <a class="btn" href="{{ route('jasalink') }}"><i class="fa fa-arrow-right text-white me-3"></i>Baca Selengkapnya</a>
                 </div>
             </div>
