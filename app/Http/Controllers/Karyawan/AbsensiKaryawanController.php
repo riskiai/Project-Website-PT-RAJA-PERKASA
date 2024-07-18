@@ -155,7 +155,7 @@ class AbsensiKaryawanController extends Controller
         $karyawanRoleId = 6;
         $karyawan = User::where('role_id', $karyawanRoleId)->get();
         $currentDate = Carbon::today();
-        $cutoffTime = Carbon::today()->setTime(0, 35, 0); // Cutoff time is 8 PM
+        $cutoffTime = Carbon::today()->setTime(0, 36, 0); // Cutoff time is 8 PM
 
         if (Carbon::now()->gte($cutoffTime)) {
             foreach ($karyawan as $k) {

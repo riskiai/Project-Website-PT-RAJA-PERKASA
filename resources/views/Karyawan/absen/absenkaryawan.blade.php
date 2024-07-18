@@ -138,7 +138,7 @@
         const minAbsenTime = new Date();
         minAbsenTime.setHours(0, 33, 0);
         const maxAbsenTime = new Date();
-        maxAbsenTime.setHours(0, 33, 0);
+        maxAbsenTime.setHours(0, 35, 0);
 
         const absenTimeAlert = document.getElementById('absenTimeAlert');
         const alreadyAbsence = @json($alreadyAbsence);
@@ -192,7 +192,7 @@
             const minAbsenTime = new Date();
             minAbsenTime.setHours(0, 33, 0);
             const maxAbsenTime = new Date();
-            maxAbsenTime.setHours(0, 33, 0);
+            maxAbsenTime.setHours(0, 35, 0);
 
             if (now < minAbsenTime) {
                 alert('Absen masuk hanya dapat dilakukan mulai pukul 08:10 WIB.');
