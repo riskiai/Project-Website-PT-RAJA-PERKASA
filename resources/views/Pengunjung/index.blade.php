@@ -253,8 +253,8 @@ function breakText($text, $length = 40) {
                         <img class="img-fluid" src="{{ asset('img/icon/project-management.png') }}" alt="Icon">
                     </div>
                     <h4 class="mb-3">Manajemen Proyek</h4>
-                    <p class="mb-4">Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem</p>
-                    <a class="btn" href="{{ route('jasa') }}"><i class="fa fa-arrow-right text-white me-3"></i>Baca Selengkapnya</a>
+                    <p class="mb-4">PT Raja Perkasa menyediakan layanan manajemen proyek komprehensif untuk mengelola dan mengkoordinasikan setiap tahap proyek konstruksi Anda.</p>
+                    <a class="btn" href="{{ route('jasalink') }}"><i class="fa fa-arrow-right text-white me-3"></i>Baca Selengkapnya</a>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.3s">
@@ -263,8 +263,8 @@ function breakText($text, $length = 40) {
                         <img class="img-fluid" src="{{ asset('img/icon/graphic-design.png') }}" alt="Icon">
                     </div>
                     <h4 class="mb-3">Desain & Rekayasa</h4>
-                    <p class="mb-4">Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem</p>
-                    <a class="btn" href="{{ route('jasa') }}"><i class="fa fa-arrow-right text-white me-3"></i>Baca Selengkapnya</a>
+                    <p class="mb-4">PT Raja Perkasa menawarkan layanan desain dan rekayasa yang inovatif untuk memenuhi kebutuhan proyek konstruksi Anda.</p>
+                    <a class="btn" href="{{ route('jasalink') }}"><i class="fa fa-arrow-right text-white me-3"></i>Baca Selengkapnya</a>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.5s">
@@ -273,8 +273,8 @@ function breakText($text, $length = 40) {
                         <img class="img-fluid" src="{{ asset('img/icon/fix.png') }}" alt="Icon">
                     </div>
                     <h4 class="mb-3">Konstruksi Umum</h4>
-                    <p class="mb-4">Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem</p>
-                    <a class="btn" href="{{ route('jasa') }}"><i class="fa fa-arrow-right text-white me-3"></i>Baca Selengkapnya</a>
+                    <p class="mb-4">PT Raja Perkasa adalah mitra terpercaya dalam layanan konstruksi umum. Kami menyediakan solusi terbaik untuk berbagai proyek, dari bangunan komersial hingga infrastruktur publik.</p>
+                    <a class="btn" href="{{ route('jasalink') }}"><i class="fa fa-arrow-right text-white me-3"></i>Baca Selengkapnya</a>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.7s">
@@ -283,8 +283,8 @@ function breakText($text, $length = 40) {
                         <img class="img-fluid" src="{{ asset('img/icon/labour-consulting.png') }}" alt="Icon">
                     </div>
                     <h4 class="mb-3">Konsultasi Proyek</h4>
-                    <p class="mb-4">Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem</p>
-                    <a class="btn" href="{{ route('jasa') }}"><i class="fa fa-arrow-right text-white me-3"></i>Baca Selengkapnya</a>
+                    <p class="mb-4">PT Raja Perkasa adalah mitra terpercaya dalam layanan konstruksi umum. Kami menyediakan solusi terbaik untuk berbagai proyek, dari bangunan komersial hingga infrastruktur publik.</p>
+                    <a class="btn" href="{{ route('jasalink') }}"><i class="fa fa-arrow-right text-white me-3"></i>Baca Selengkapnya</a>
                 </div>
             </div>
         </div>

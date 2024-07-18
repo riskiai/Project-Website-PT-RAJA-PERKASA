@@ -63,7 +63,7 @@ Route::post('/register_prosess', [RegisterController::class, 'registerproses'])-
     // Tentang PT Raja Perkasa
     Route::get('/tentang', [TentangController::class, 'index'])->name('tentangpengunjung');
     // Jasa PT Raja Perkasa
-    Route::get('/jasa', [JasaController::class, 'index'])->name('jasa');
+    Route::get('/jasa', [JasaController::class, 'index'])->name('jasalink');
     // Project PT Raja Perkasa
     Route::get('/project', [ProjectController::class, 'index']);
     // Kontak PT Raja Perkasa
