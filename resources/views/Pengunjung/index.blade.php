@@ -35,11 +35,11 @@ function breakText($text, $length = 40) {
 
 .testimonial-navigation {
     position: absolute;
-    top: 50%;
+    top: 55%;
     width: 100%;
     display: flex;
     justify-content: space-between;
-    transform: translateY(-35%) !important;
+    transform: translateY(-38%) !important;
 }
 
 .testimonial-navigation button {
