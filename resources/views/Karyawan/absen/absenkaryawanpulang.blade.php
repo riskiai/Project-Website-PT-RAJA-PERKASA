@@ -86,9 +86,8 @@
 
         @if(!$alreadyCheckedOut)
         const pulangTimeAlert = document.getElementById('pulangTimeAlert');
-        const alertClosed = sessionStorage.getItem('pulangTimeAlertClosed');
 
-        if ((now.getHours() >= 2 && now.getMinutes() >= 12) && !alertClosed) {
+        if (now.getHours() >= 2 && now.getMinutes() >= 16) {
             pulangTimeAlert.style.display = 'block';
         } else {
             pulangTimeAlert.style.display = 'none';
@@ -99,15 +98,6 @@
     document.addEventListener('DOMContentLoaded', function () {
         updateTime(); // Set initial time
         setInterval(updateTime, 1000); // Update time every second
-
-        @if(!$alreadyCheckedOut)
-        const pulangTimeAlert = document.getElementById('pulangTimeAlert');
-        const closeButton = pulangTimeAlert.querySelector('.btn-close');
-
-        closeButton.addEventListener('click', function () {
-            sessionStorage.setItem('pulangTimeAlertClosed', 'true');
-        });
-        @endif
     });
 </script>
 @endsection
