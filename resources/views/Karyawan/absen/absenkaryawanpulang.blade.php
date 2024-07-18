@@ -43,12 +43,12 @@
                                 <label>Divisi Name</label>
                                 <input type="text" name="divisi_name" class="form-control" value="{{ $user->divisi->divisi_name }}" readonly />
                             </div>
-                        @else
+                            @else
                             <div class="form-group">
                                 <label>Divisi Name</label>
                                 <input type="text" name="divisi_name" class="form-control" value="N/A" readonly />
                             </div>
-                        @endif   
+                            @endif   
                         </div>
                         <div class="col-lg-6 col-sm-12 mt-4">
                             <div class="form-group">
@@ -86,7 +86,10 @@
 
         @if(!$alreadyCheckedOut)
         const pulangTimeAlert = document.getElementById('pulangTimeAlert');
-        if (now.getHours() > 1 || (now.getHours() === 1 && now.getMinutes() >= 51)) {
+        const today = now.toISOString().split('T')[0]; // Format YYYY-MM-DD
+        const alertClosedDate = localStorage.getItem('pulangTimeAlertClosedDate');
+
+        if ((now.getHours() > 1 || (now.getHours() === 1 && now.getMinutes() >= 58)) && alertClosedDate !== today) {
             pulangTimeAlert.style.display = 'block';
             setTimeout(() => {
                 pulangTimeAlert.style.display = 'none';
@@ -100,6 +103,17 @@
     document.addEventListener('DOMContentLoaded', function () {
         updateTime(); // Set initial time
         setInterval(updateTime, 1000); // Update time every second
+
+        @if(!$alreadyCheckedOut)
+        const pulangTimeAlert = document.getElementById('pulangTimeAlert');
+        const closeButton = pulangTimeAlert.querySelector('.btn-close');
+        
+        closeButton.addEventListener('click', function () {
+            const now = new Date();
+            const today = now.toISOString().split('T')[0]; // Format YYYY-MM-DD
+            localStorage.setItem('pulangTimeAlertClosedDate', today);
+        });
+        @endif
     });
 </script>
 @endsection
