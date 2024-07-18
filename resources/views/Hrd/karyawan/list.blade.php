@@ -59,14 +59,13 @@
                   <a class="me-3" href="{{ route('karyawanedit', $item->id) }}">
                     <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
                   </a>
-               
                   <a href="{{ route('showkaryawanlist',  ['id' => $item->id]) }}" title="Melihat Data Detail List Proyek">
                     <i class="fas fa-eye text-dark"></i>
                   </a>
                   <button type="button" class="btn btn-link text-dark btn-delete" data-id="{{ $item->id }}" title="Menghapus Data">
                     <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
                   </button>
-                  <form id="deleteForm-{{ $item->id }}" action="{{ route('karyawandelete', $item->id) }}" method="POST" style="display: none;">
+                  <form id="deleteForm-{{ $item->id }}" action="{{ route('hrdkaryawandelete', $item->id) }}" method="POST" style="display: none;">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-link text-dark">

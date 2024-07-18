@@ -288,14 +288,15 @@ Route::middleware(['auth', 'user-access:hrd'])->group(function () {
    Route::post('/hrd/divisi/update/{id}', [ManajemenKaryawanController::class, 'update'])->name('divisi.update');
    Route::delete('/hrd/divisi/{id}', [ManajemenKaryawanController::class, 'delete'])->name('ddivisidelete');
 
-    /* Manajemen Data Karyawan */
+   /* Manajemen Data Karyawan */
     Route::get('/hrd/manajemen/karyawan', [ManajemenKaryawanController::class, 'karyawanlist'])->name('karyawanlist');
     Route::get('/hrd/manajemen/showkaryawan/{id}', [ManajemenKaryawanController::class, 'showkaryawanlist'])->name('showkaryawanlist');
     Route::get('/hrd/manajemen/karyawan/create', [ManajemenKaryawanController::class, 'karyawancreate'])->name('karyawancreate');
     Route::post('/hrd/manajemen/karyawan/createproses', [ManajemenKaryawanController::class, 'karyawancreateproses'])->name('karyawancreateproses');  
     Route::get('/hrd/karyawan/{id}/edit', [ManajemenKaryawanController::class, 'editkaryawan'])->name('karyawanedit');
     Route::post('/hrd/karyawan/update/{id}', [ManajemenKaryawanController::class, 'updatekaryawan'])->name('karyawan.update');
-   Route::delete('/hrd/karyawan/{id}', [ManajemenKaryawanController::class, 'karyawandelete'])->name('karyawandelete');
+    Route::delete('/hrd/manajemen/karyawan/delete/{id}', [ManajemenKaryawanController::class, 'hrdkaryawandelete'])->name('hrdkaryawandelete');
+
 
    /* Data Pengunduran Diri Karyawan */
    Route::get('/hrd/listpengundurandirikaryawan', [PengunduranDiriKaryawanController::class, 'listpengundurandirikaryawan'])->name('listpengundurandirikaryawan');

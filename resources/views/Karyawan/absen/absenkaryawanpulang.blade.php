@@ -11,17 +11,20 @@
         <div class="card">
             <div class="card-body">
                 @if(session('success'))
-                    <div class="alert alert-success">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @elseif(session('error'))
-                    <div class="alert alert-danger">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         {{ session('error') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                 @endif
                 @if(!$alreadyCheckedOut)
-                <div id="pulangTimeAlert" class="alert alert-warning" style="display:none;">
+                <div id="pulangTimeAlert" class="alert alert-warning alert-dismissible fade show" style="display:none;" role="alert">
                     Sekarang sudah memasuki waktu setelah jam 14:20. Anda bisa pulang sekarang atau melanjutkan lembur.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 @endif
                 <form action="{{ route('prosesabsenkaryawanpulang') }}" method="POST" enctype="multipart/form-data">
@@ -83,8 +86,11 @@
 
         @if(!$alreadyCheckedOut)
         const pulangTimeAlert = document.getElementById('pulangTimeAlert');
-        if (now.getHours() > 17 || (now.getHours() === 17 && now.getMinutes() >= 1)) {
+        if (now.getHours() > 14 || (now.getHours() === 14 && now.getMinutes() >= 20)) {
             pulangTimeAlert.style.display = 'block';
+            setTimeout(() => {
+                pulangTimeAlert.style.display = 'none';
+            }, 10000); // Notifikasi akan hilang setelah 10 detik
         } else {
             pulangTimeAlert.style.display = 'none';
         }

@@ -23,6 +23,7 @@ class User extends Authenticatable
         'alamat',
         'tgl_lahir',
         'jk',
+        'file_foto',
         'file_ktp',
         'status_user',
         'status_pic_perusahaan',

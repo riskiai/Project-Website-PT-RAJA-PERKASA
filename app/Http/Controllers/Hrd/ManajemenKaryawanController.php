@@ -7,6 +7,7 @@ use App\Models\Divisi;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ManajemenKaryawanController extends Controller
 {
@@ -52,10 +53,18 @@ class ManajemenKaryawanController extends Controller
 
     public function delete($id) {
         $divisi = Divisi::findOrFail($id);
-        $divisi->delete();
-
+    
+        if($divisi) {
+            // Set divisi_id menjadi NULL di tabel users yang terkait
+            $divisi->users()->update(['divisi_id' => null]);
+    
+            // Hapus data dari database
+            $divisi->delete();
+        }
+    
         return redirect()->route('divisilist')->with('success', 'Data Divisi berhasil dihapus.');
     }
+    
 
      /* Data Karyawan */
      public function karyawanlist() {
@@ -68,14 +77,14 @@ class ManajemenKaryawanController extends Controller
         return view('Hrd.karyawan.list', compact('data'));
     }
 
-    public function showkaryawanlist($id)
-    {
+    public function showkaryawanlist($id) {
         $user = User::findOrFail($id);
         $divisi = Divisi::all();
 
         return view('Hrd.karyawan.show', compact('user', 'divisi'));
     }
 
+    
     public function karyawancreate() {
         $divisi = Divisi::all();
         return view('Hrd.karyawan.create', compact('divisi'));
@@ -96,7 +105,7 @@ class ManajemenKaryawanController extends Controller
             'file_ktp' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        $file_foto = $request->file('file_foto')->store('karyawan/foto', 'public');
+        $file_foto = $request->file('file_foto')->store('karyawan/foto_profile', 'public');
         $file_ktp = $request->file('file_ktp')->store('karyawan/ktp', 'public');
 
         User::create([
@@ -141,14 +150,22 @@ class ManajemenKaryawanController extends Controller
             'file_ktp' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        $file_foto = $user->file_foto;
         if ($request->hasFile('file_foto')) {
-            $file_foto = $request->file('file_foto')->store('karyawan/foto', 'public');
+            if ($user->file_foto) {
+                Storage::disk('public')->delete($user->file_foto);
+            }
+            $file_foto = $request->file('file_foto')->store('karyawan/foto_profile', 'public');
+        } else {
+            $file_foto = $user->file_foto;
         }
 
-        $file_ktp = $user->file_ktp;
         if ($request->hasFile('file_ktp')) {
+            if ($user->file_ktp) {
+                Storage::disk('public')->delete($user->file_ktp);
+            }
             $file_ktp = $request->file('file_ktp')->store('karyawan/ktp', 'public');
+        } else {
+            $file_ktp = $user->file_ktp;
         }
 
         $user->update([
@@ -169,10 +186,19 @@ class ManajemenKaryawanController extends Controller
         return redirect()->route('karyawanlist')->with('success', 'Data karyawan berhasil diperbarui.');
     }
 
-    public function karyawandelete($id) {
-        $user = User::findOrFail($id);
-        $user->delete();
-        return redirect()->route('karyawanlist')->with('success', 'Data karyawan berhasil dihapus.');
+    public function hrdkaryawandelete($id)
+    {
+        $user = User::find($id);
+    
+        if($user) {
+            // Set user_id menjadi NULL di tabel absen_karyawans yang terkait
+            $user->absens()->update(['user_id' => null]);
+    
+            // Hapus data dari database
+            $user->delete();
+        }
+    
+        return redirect()->route('karyawanlist')->with('success', 'Karyawan berhasil dihapus.');
     }
     
 }

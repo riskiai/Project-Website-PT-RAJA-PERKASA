@@ -16,6 +16,6 @@ class Divisi extends Model
     ];
 
     public function users() {
-        return $this->hasOne('users');
+        return $this->hasMany(User::class, 'divisi_id');
     }
 }
