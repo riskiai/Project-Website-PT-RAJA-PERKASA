@@ -200,14 +200,18 @@ function breakText($text, $length = 40) {
         <div class="row g-0 mx-lg-0">
             <div class="col-lg-6 ps-lg-0" style="min-height: 400px;">
                 <div class="position-relative h-100">
-                    <img class="position-absolute img-fluid w-100 h-100" src="{{ asset('img/kons21.jpg') }}" style="object-fit: cover;" alt="">
+                    @if(!empty($tentangImages) && count($tentangImages) > 0)
+                        <img class="position-absolute img-fluid w-100 h-100" src="{{ asset('storage/photo-tentangpt/' . $tentangImages[0]) }}" style="object-fit: cover;" alt="">
+                    @else
+                        <img class="position-absolute img-fluid w-100 h-100" src="{{ asset('img/default-image.jpg') }}" style="object-fit: cover;" alt="Default Image">
+                    @endif
                 </div>
             </div>
             <div class="col-lg-6 about-text py-5 wow fadeIn" data-wow-delay="0.5s">
                 <div class="p-lg-5 pe-lg-0">
                     <div class="mb-3" style="width: 60px; height: 2px; background-color: #FE7A36;"></div>
                     <h1 class="display-5 mb-4">Tentang Kami</h1>
-                    <p class="mb-4 pb-2">PT Raja Perkasa adalah Perusahaan yang bergerak dibidang Industrial Supplier, General Contraktor dan Mekanikal. Telah mendapat kepercayaan yang tinggi dari Relasi dan Client perusahaan, terbukti telah berhasil dalam bekerja sama dan bermitra dengan Perusahaan Nasional seperti dengan PT.</p>
+                    <p class="mb-4 pb-2">{{ $tentang->short_description }}</p>
                     <div class="row g-4 mb-4 pb-3">
                         <div class="col-sm-6 wow fadeIn" data-wow-delay="0.1s">
                             <div class="d-flex align-items-center">
@@ -215,7 +219,7 @@ function breakText($text, $length = 40) {
                                     <img class="img-fluid" src="{{ asset('img/icon/happy-client.png') }}" alt="Icon">
                                 </div>
                                 <div class="ms-4">
-                                    <h2 class="mb-1" data-toggle="counter-up">20</h2>
+                                    <h2 class="mb-1" data-toggle="counter-up">{{ $happyClients }}</h2>
                                     <p class="fw-medium text-orange mb-0">Happy Clients</p>
                                 </div>
                             </div>
@@ -226,7 +230,7 @@ function breakText($text, $length = 40) {
                                     <img class="img-fluid" src="{{ asset('img/icon/checkmark.png') }}" alt="Icon">
                                 </div>
                                 <div class="ms-4">
-                                    <h2 class="mb-1" data-toggle="counter-up">20</h2>
+                                    <h2 class="mb-1" data-toggle="counter-up">{{ $projectsDone }}</h2>
                                     <p class="fw-medium text-orange mb-0">Projects Done</p>
                                 </div>
                             </div>
@@ -239,6 +243,9 @@ function breakText($text, $length = 40) {
     </div>
 </div>
 <!-- About End -->
+
+
+
 
 <!-- Jasa Start -->
 <div class="container-xxl py-5">

@@ -33,7 +33,7 @@
                 <p>Hubungi kami untuk informasi lebih lanjut tentang layanan kami.</p>
                 <div class="position-relative w-100">
                     <input class="form-control bg-transparent border-secondary w-100 py-3 ps-4 pe-5" type="text" placeholder="Email Anda">
-                    <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">Regsiter</button>
+                    <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">Register</button>
                 </div>
             </div>
         </div>
