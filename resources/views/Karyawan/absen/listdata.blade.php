@@ -2,22 +2,23 @@
 
 @section('content')
 
+@php
+    use Carbon\Carbon;
+@endphp
+
+
 <div class="page-wrapper">
   <div class="content">
     <div class="page-header">
       <div class="page-title">
-        <h4>List Data Karyawan PT Raja Perkasa</h4>
-      </div>
-      <div class="page-btn">
-        <a href="{{ route('karyawancreate') }}" class="btn btn-added">
-          Tambah Data Karyawan
-        </a>
+        <h4>List Data Absen Karyawan PT Raja Perkasa</h4>
       </div>
     </div>
 
     <div class="card">
       <div class="card-body">
-        <div class="table-top">
+        @include('Karyawan.absen.components_absen.navbar')
+        <div class="table-top mt-3">
           <div class="search-set">
             <div class="search-path">
               <a class="btn btn-filter" id="filter_search">
@@ -33,69 +34,70 @@
           </div>
         </div>
 
+        @if(session('success'))
+          <div class="alert alert-success">
+            {{ session('success') }}
+          </div>
+        @endif
         <div class="table-responsive">
           <table class="table datanew text-center">
             <thead>
               <tr>
                 <th>No</th>
                 <th>Nama Karyawan</th>
-                <th>Email</th>
                 <th>Divisi</th>
-                <th>Created At</th>
-                <th>Updated At</th>
-                <th>Action</th>
+                <th>Tanggal Absen</th>
+                <th>Status Absen</th>
+                <th>Waktu Datang</th>
+                <th>Waktu Pulang</th>
+                <th>Bukti Kehadiran</th>
+                <th>Surat Izin/Sakit</th>
               </tr>
             </thead>
             <tbody>
-              @foreach($data as $index => $item)
-              <tr>
-                <td>{{ $index + 1 }}</td>
-                <td>{{ $item->name }}</td>
-                <td>{{ $item->email }}</td>
-                <td>{{ $item->divisi ? $item->divisi->divisi_name : '-' }}</td>
-                <td>{{ $item->created_at->format('Y-m-d') }}</td>
-                <td>{{ $item->updated_at->format('Y-m-d') }}</td>
-                <td>
-                  <a class="me-3" href="{{ route('karyawanedit', $item->id) }}">
-                    <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
-                  </a>
-                  <a href="{{ route('showkaryawanlist',  ['id' => $item->id]) }}" title="Melihat Data Detail List Proyek">
-                    <i class="fas fa-eye text-dark"></i>
-                  </a>
-                  <button type="button" class="btn btn-link text-dark btn-delete" data-id="{{ $item->id }}" title="Menghapus Data">
-                    <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                  </button>
-                  <form id="deleteForm-{{ $item->id }}" action="{{ route('hrdkaryawandelete', $item->id) }}" method="POST" style="display: none;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-link text-dark">
-                      <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
-                    </button>
-                  </form>
-                </td>
-              </tr>
+              @foreach($absens as $index => $item)
+                <tr>
+                  <td>{{ $index + 1 }}</td>
+                  <td>{{ $item->user->name }}</td>
+                  <td>{{ $item->user->divisi->divisi_name ?? 'Tidak ada divisi' }}</td>
+                  <td>{{ \Carbon\Carbon::parse($item->tanggal_absen)->translatedFormat('j F Y') }}</td>
+                  <td>
+                    @if($item->waktu_pulang_kehadiran)
+                      Hadir
+                    @elseif($item->status_absensi == 'izin')
+                      Izin
+                    @elseif($item->status_absensi == 'sakit')
+                      Sakit
+                    @elseif(\Carbon\Carbon::parse($item->tanggal_absen)->diffInHours(\Carbon\Carbon::now()) >= 24 && \Carbon\Carbon::now()->gte(\Carbon\Carbon::today()->setTime(0, 51, 0)))
+                      Tidak Hadir
+                    @elseif(!$item->waktu_datang_kehadiran)
+                      Tidak Hadir
+                  @elseif(\Carbon\Carbon::parse($item->waktu_datang_kehadiran)->gt(Carbon::createFromTime(0, 51, 0)))
+                      Terlambat Absen
+                    @else
+                      Belum Absen Waktu Pulang
+                    @endif
+                  </td>
+                  <td>{{ $item->waktu_datang_kehadiran ? \Carbon\Carbon::parse($item->waktu_datang_kehadiran)->format('H:i:s') : '-' }}</td>
+                  <td>{{ $item->waktu_pulang_kehadiran ? \Carbon\Carbon::parse($item->waktu_pulang_kehadiran)->format('H:i:s') : '-' }}</td>
+                  <td>
+                    @if($item->bukti_kehadiran)
+                      <a href="{{ asset('storage/' . $item->bukti_kehadiran) }}" target="_blank">Lihat Bukti</a>
+                    @else
+                      -
+                    @endif
+                  </td>
+                  <td>
+                    @if($item->surat_izin_sakit)
+                      <a href="{{ asset('storage/' . $item->surat_izin_sakit) }}" target="_blank">Lihat Surat Izin/Sakit</a>
+                    @else
+                      -
+                    @endif
+                  </td>
+                </tr>
               @endforeach
             </tbody>
           </table>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal Konfirmasi Hapus -->
-  <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="deleteConfirmModalLabel">Konfirmasi Penghapusan</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          Apakah Anda yakin ingin menghapus item ini?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-          <button type="button" class="btn btn-danger" id="confirmDeleteButton">Hapus</button>
         </div>
       </div>
     </div>
@@ -118,6 +120,15 @@ $(document).ready(function() {
         if (deleteFormId) {
             $('#deleteForm-' + deleteFormId).submit();
         }
+    });
+
+    $('.edit-btn').click(function() {
+        var id = $(this).data('id');
+        var status = $(this).data('status');
+        
+        $('#status_cuti').val(status);
+        $('#editForm').attr('action', '/hrd/listcutikaryawanupdate/' + id);
+        $('#editModal').modal('show');
     });
 });
 </script>
