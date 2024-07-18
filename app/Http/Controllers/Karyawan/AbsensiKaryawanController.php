@@ -44,7 +44,7 @@ class AbsensiKaryawanController extends Controller
 
        
         $minAbsenTime = Carbon::createFromTime(1, 45, 0);
-        $maxAbsenTime = Carbon::createFromTime(1, 46, 0);
+        $maxAbsenTime = Carbon::createFromTime(1, 48, 0);
 
         if ($currentTime->lt($minAbsenTime)) {
             return redirect()->back()->with('error', 'Absen masuk hanya dapat dilakukan mulai pukul 08:00 WIB.');
