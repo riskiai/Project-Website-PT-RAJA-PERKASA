@@ -3,62 +3,107 @@
 namespace App\Http\Controllers\Hrd;
 
 use Carbon\Carbon;
+use App\Models\Cuti;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Testimoni;
 use Illuminate\Http\Request;
+use App\Models\AbsenKaryawan;
+use App\Models\Pengundurandiri;
 use App\Models\List_Data_Proyek;
-use App\Models\Document_Kerjasama_Client;
 use App\Http\Controllers\Controller;
+use App\Models\ListPeringatanKaryawan;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Document_Kerjasama_Client;
 
 class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-    // Total Karyawan
-    $totalKaryawan = User::whereHas('role', function($query) {
-        $query->where('role_name', 'karyawan');
-    })->count();
+        // Total Karyawan
+        $totalKaryawan = User::whereHas('role', function($query) {
+            $query->where('role_name', 'karyawan');
+        })->count();
 
-    // Total Mitra Perusahaan
-    $totalMitraPerusahaan = Document_Kerjasama_Client::where('status_kerjasama', 'diterima')->count();
+        // Total Mitra Perusahaan
+        $totalMitraPerusahaan = Document_Kerjasama_Client::where('status_kerjasama', 'diterima')->count();
 
-    // Total Proyek Sedang Berjalan
-    $totalProyekSedangBerjalan = List_Data_Proyek::where('status_progres_proyek', 'sedangberjalan')->count();
+        // Total Proyek Sedang Berjalan
+        $totalProyekSedangBerjalan = List_Data_Proyek::where('status_progres_proyek', 'sedangberjalan')->count();
 
-    // Total Proyek Selesai
-    $totalProyekSelesai = List_Data_Proyek::where('status_progres_proyek', 'selesai')->count();
+        // Total Proyek Selesai
+        $totalProyekSelesai = List_Data_Proyek::where('status_progres_proyek', 'selesai')->count();
 
-    // Data untuk Chart Proyek Berdasarkan Tahun dan Status Progres
-    $currentYear = date('Y');
-    $proyekByStatusAndYear = List_Data_Proyek::selectRaw('YEAR(created_at) as year, status_progres_proyek, COUNT(*) as total')
-        ->groupBy('year', 'status_progres_proyek')
-        ->get()
-        ->groupBy('year');
+        // Data Kehadiran Keseluruhan
+        $totalKehadiranKeseluruhan = AbsenKaryawan::where('status_absensi', 'hadir')->count();
 
-    if (!isset($proyekByStatusAndYear[$currentYear])) {
-        $proyekByStatusAndYear[$currentYear] = collect([]);
+        // Data Ketidakhadiran Keseluruhan
+        $totalKetidakhadiranKeseluruhan = AbsenKaryawan::where('status_absensi', 'tidak_hadir')->count();
+
+        // Data Cuti
+        $totalCuti = Cuti::where('status_cuti', 'disetujui')->count();
+
+        // Data Pengunduran Diri
+        $totalPengundurandiri = Pengundurandiri::where('status_pengunduran_diri', 'disetujui')->count();
+
+        // Function to format status_absensi values
+        function formatStatusAbsensi($status) {
+            $formatted = str_replace('_', ' ', $status);
+            return ucwords($formatted);
+        }
+
+        // Data Kehadiran dan Ketidakhadiran per Bulan
+        $currentMonth = date('Y-m');
+        $kehadiranByMonth = AbsenKaryawan::selectRaw('DATE_FORMAT(tanggal_absen, "%Y-%m") as month, status_absensi, COUNT(*) as total')
+            ->groupBy('month', 'status_absensi')
+            ->get()
+            ->groupBy('month')
+            ->map(function ($monthData) {
+                return $monthData->map(function ($data) {
+                    $data->status_absensi = formatStatusAbsensi($data->status_absensi);
+                    return $data;
+                });
+            });
+
+        if (!isset($kehadiranByMonth[$currentMonth])) {
+            $kehadiranByMonth[$currentMonth] = collect([]);
+        }
+
+        // Data Cuti per Karyawan
+        $cutiKaryawan = Cuti::with('user')
+            ->selectRaw('user_id, COUNT(*) as total_cuti, status_cuti')
+            ->groupBy('user_id', 'status_cuti')
+            ->get();
+
+        // Data Peringatan Karyawan
+        $peringatanKaryawan = ListPeringatanKaryawan::with('user')
+            ->selectRaw('user_id, jenis_peringatan, status_karyawan, COUNT(*) as total_peringatan')
+            ->groupBy('user_id', 'jenis_peringatan', 'status_karyawan')
+            ->get();
+
+        // Data Testimoni dengan pagination
+        $testimonis = Testimoni::with(['user', 'mitra'])->paginate(3);
+
+        // Data Proyek
+        $proyeks = List_Data_Proyek::with(['materials', 'peralatan'])->get();
+
+        return view('Hrd.dashboard.dashboard', compact(
+            'totalKaryawan', 
+            'totalMitraPerusahaan', 
+            'totalProyekSedangBerjalan', 
+            'totalProyekSelesai',
+            'totalKehadiranKeseluruhan',
+            'totalKetidakhadiranKeseluruhan',
+            'totalCuti',
+            'totalPengundurandiri',
+            'kehadiranByMonth',
+            'currentMonth',
+            'cutiKaryawan',
+            'peringatanKaryawan',
+            'testimonis',
+            'proyeks'
+        ));
     }
-
-    // Data Testimoni dengan pagination
-    $testimonis = Testimoni::with(['user', 'mitra'])->paginate(3);
-
-    // Data Proyek
-    $proyeks = List_Data_Proyek::with(['materials', 'peralatan'])->get();
-
-    return view('Karyawan.dashboard.dashboard', compact(
-        'totalKaryawan', 
-        'totalMitraPerusahaan', 
-        'totalProyekSedangBerjalan', 
-        'totalProyekSelesai',
-        'proyekByStatusAndYear',
-        'currentYear',
-        'testimonis',
-        'proyeks'
-    ));
-}
-
 
     public function edithrdProfile($id) {
         $user = User::findOrFail($id);

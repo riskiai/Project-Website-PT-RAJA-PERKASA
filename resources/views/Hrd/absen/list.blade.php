@@ -52,8 +52,8 @@
               @foreach($absens as $index => $item)
               <tr>
                 <td>{{ $index + 1 }}</td>
-                <td>{{ $item->user->name }}</td>
-                <td>{{ $item->user->divisi->divisi_name ?? 'N/A' }}</td>
+                <td>{{ optional($item->user)->name ?? 'Tidak ada nama' }}</td>
+                <td>{{ $item->user->divisi->divisi_name ?? 'Tidak Ada Divisi' }}</td>
                 <td>{{ \Carbon\Carbon::parse($item->tanggal_absen)->translatedFormat('j F Y') }}</td>
                 <td>
                     @if($item->waktu_datang_kehadiran && !$item->waktu_pulang_kehadiran && \Carbon\Carbon::now()->diffInHours($item->waktu_datang_kehadiran) < 24)
