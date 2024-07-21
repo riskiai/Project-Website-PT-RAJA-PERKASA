@@ -43,8 +43,8 @@ class AbsensiKaryawanController extends Controller
         $currentTime = Carbon::now();
 
        
-        $minAbsenTime = Carbon::createFromTime(10, 25, 0);
-        $maxAbsenTime = Carbon::createFromTime(10, 28, 0);
+        $minAbsenTime = Carbon::createFromTime(8, 0, 0);
+        $maxAbsenTime = Carbon::createFromTime(8, 10, 0);
 
         if ($currentTime->lt($minAbsenTime)) {
             return redirect()->back()->with('error', 'Absen masuk hanya dapat dilakukan mulai pukul 08:00 WIB.');
@@ -155,7 +155,7 @@ class AbsensiKaryawanController extends Controller
         $karyawanRoleId = 6;
         $karyawan = User::where('role_id', $karyawanRoleId)->get();
         $currentDate = Carbon::today();
-        $cutoffTime = Carbon::today()->setTime(10, 28, 0); // Cutoff time is 8 PM
+        $cutoffTime = Carbon::today()->setTime(10, 30, 0); // Cutoff time is 8 PM
 
         if (Carbon::now()->gte($cutoffTime)) {
             foreach ($karyawan as $k) {
