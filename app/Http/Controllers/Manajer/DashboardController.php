@@ -47,7 +47,7 @@ class DashboardController extends Controller
     // Data Proyek
     $proyeks = List_Data_Proyek::with(['materials', 'peralatan'])->get();
 
-    return view('Karyawan.dashboard.dashboard', compact(
+    return view('Manajer.dashboard.dashboard', compact(
         'totalKaryawan', 
         'totalMitraPerusahaan', 
         'totalProyekSedangBerjalan', 
