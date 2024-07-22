@@ -45,7 +45,7 @@ class DashboardController extends Controller
     $testimonis = Testimoni::with(['user', 'mitra'])->paginate(3);
 
     // Data Proyek
-    $proyeks = List_Data_Proyek::with(['materials', 'peralatan'])->get();
+    $proyeks = List_Data_Proyek::with(['materials', 'peralatan', 'bidangproyeks'])->get();
 
     return view('Owner.dashboard.dashboard', compact(
         'totalKaryawan', 

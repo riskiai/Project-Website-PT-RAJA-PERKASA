@@ -193,8 +193,8 @@
             <thead>
               <tr>
                 <th>No</th>
-                <th>Nama Proyek</th>
-                <th>Project Name</th>
+                <th>Nama Project Proyek</th>
+                <th>Bidang Pekerjaan Proyek</th>
                 <th>Client Mitra Perusahaan</th>
                 <th>Main Contractor</th>
                 <th>Nama Materials</th>
@@ -207,8 +207,8 @@
               @foreach($proyeks as $proyek)
               <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $proyek->title_proyek }}</td>
                 <td>{{ $proyek->project_name }}</td>
+                <td>{{ $proyek->bidangproyeks->nama_bidang_pekerjaan_proyek ?? "Tidak Ada Data" }}</td>
                 <td>{{ $proyek->client_name }}</td>
                 <td>{{ $proyek->main_contractor }}</td>
                 <td>{{ $proyek->materials->nama_materials ?? '-' }}</td>
