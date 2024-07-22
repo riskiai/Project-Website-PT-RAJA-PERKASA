@@ -131,7 +131,7 @@
       <div class="col-lg-5 col-sm-12 col-12 d-flex">
         <div class="card flex-fill">
           <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-            <h4 class="card-title mb-0">Testimoni Client Untuk PT Raja Perkasa</h4>
+            <h4 class="card-title mb-0">Testimoni Client Mitra Perusahaan Untuk PT Raja Perkasa</h4>
             <div class="dropdown">
               <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false" class="dropset">
                 <i class="fa fa-ellipsis-v"></i>
@@ -148,8 +148,8 @@
                 <thead>
                   <tr>
                     <th>No</th>
-                    <th>Nama Client</th>
-                    <th>Nama Mitra</th>
+                    <th>Nama PIC Client</th>
+                    <th>Nama Mitra Perusahaan</th>
                     <th>Komentar</th>
                     <th>Gambar PIC Perusahaan</th>
                   </tr>
