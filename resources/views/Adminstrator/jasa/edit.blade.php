@@ -34,12 +34,12 @@
                   </select>
                 </div>
               </div>
-              {{-- <div class="col-lg-3 col-sm-6 col-12">
+              <div class="col-lg-3 col-sm-6 col-12">
                 <div class="form-group">
-                  <label>Title</label>
-                  <input type="text" name="title" class="form-control" value="{{ $data->title }}" />
+                  <label>Nama Jasa</label>
+                  <input type="text" name="nama_jasa" class="form-control" value="{{ $data->nama_jasa }}" />
                 </div>
-              </div> --}}
+              </div>
               <div class="col-lg-6 col-sm-6 col-12">
                 <div class="form-group">
                     <label>File Image</label>
@@ -68,7 +68,7 @@
               </div>
               <div class="col-lg-12">
                 <button type="submit" class="btn btn-submit me-2">Submit</button>
-                <a href="{{ route('tentanglist') }}" class="btn btn-cancel">Cancel</a>
+                <a href="{{ route('jasalist') }}" class="btn btn-cancel">Cancel</a>
               </div>
             </div>
           </form>

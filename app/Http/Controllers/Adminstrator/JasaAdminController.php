@@ -30,7 +30,7 @@ class JasaAdminController extends Controller
     public function createproses(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            // 'title' => 'required',
+            'nama_jasa' => 'required',
             'short_description' => 'required',
             'detail_description' => 'required',
             'status_jasa' => 'required',
@@ -53,7 +53,7 @@ class JasaAdminController extends Controller
 
         // Buat data baru
         Jasa::create([
-            // 'title' => $request->title,
+            'nama_jasa' => $request->title,
             'short_description' => $request->short_description,
             'detail_description' => $request->detail_description,
             'status_jasa' => $request->status_jasa,
@@ -74,7 +74,7 @@ class JasaAdminController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            // 'title' => 'required',
+            'nama_jasa' => 'required',
             'short_description' => 'required',
             'detail_description' => 'required',
             'status_jasa' => 'required',
@@ -88,7 +88,7 @@ class JasaAdminController extends Controller
         $data = Jasa::find($id);
 
         if ($data) {
-            // $data->title = $request->title;
+            $data->nama_jasa = $request->nama_jasa;
             $data->short_description = $request->short_description;
             $data->detail_description = $request->detail_description;
             $data->status_jasa = $request->status_jasa;

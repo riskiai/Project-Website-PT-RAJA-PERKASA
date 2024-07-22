@@ -53,7 +53,7 @@
                 <th>Komentar</th>
                 <th>Gambar Testimoni Client PIC</th>
                 <th>Created Date</th>
-                <th>Status</th>
+                <th>Status Testimoni</th>
                 <th>Action</th>
               </tr>
             </thead>

@@ -48,7 +48,7 @@
                 <th>Detail Description</th>
                 <th>File Image</th>
                 <th>Created Date</th>
-                <th>Status</th>
+                <th>Status Tentang PT Raja Perkasa</th>
                 <th>Action</th>
               </tr>
             </thead>

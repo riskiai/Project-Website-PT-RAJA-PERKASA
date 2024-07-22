@@ -35,12 +35,12 @@
                 </select>
               </div>
             </div>
-            {{-- <div class="col-lg-6 col-sm-6 col-12">
+            <div class="col-lg-6 col-sm-6 col-12">
               <div class="form-group">
-                <label>Title</label>
-                <input type="text" name="title" class="form-control" />
+                <label>Nama Jasa</label>
+                <input type="text" name="nama_jasa" class="form-control" />
               </div>
-            </div> --}}
+            </div>
             <div class="col-lg-6 col-sm-6 col-12">
               <div class="form-group">
                   <label>File Image</label>

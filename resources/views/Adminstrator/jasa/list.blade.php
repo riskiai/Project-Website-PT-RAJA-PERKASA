@@ -135,12 +135,12 @@
                   </label>
                 </th>
                 <th>No</th>
-                {{-- <th>Title</th> --}}
+                <th>Nama Jasa</th>
                 <th>Short Description</th>
                 <th>Detail Description</th>
                 <th>File Image</th>
                 <th>Created Date</th>
-                <th>Status</th>
+                <th>Status Jasa</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -154,7 +154,7 @@
                       </label>
                   </td>
                   <td>{{ $index + 1 }}</td>
-                  {{-- <td>{{ $item->title }}</td> --}}
+                  <td>{{ $item->nama_jasa ?? "Tidak Ada Data" }}</td>
                   <td>{{ \Illuminate\Support\Str::limit($item->short_description, 20) }}</td>
                   <td>{{ \Illuminate\Support\Str::limit(strip_tags($item->detail_description), 30) }}</td>
                   <td>

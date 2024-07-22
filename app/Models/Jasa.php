@@ -12,6 +12,7 @@ class Jasa extends Model
 
     protected $fillable = [
         // 'title',
+        'nama_jasa',
         'short_description',
         'detail_description',
         'status_jasa',
