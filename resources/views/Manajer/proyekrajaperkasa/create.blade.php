@@ -34,16 +34,22 @@
                 <div class="row">
                     <div class="col-lg-6 col-sm-6 col-12">
                         <div class="form-group">
-                            <label>Nama Proyek</label>
-                            <input type="text" name="title_proyek" class="form-control" value="{{ old('title_proyek') }}" required />
-                            @error('title_proyek')
+                            <label>Bidang Pekerjaan Proyek</label>
+                            <select name="bidangproyek_id" class="select" required>
+                                @foreach($bidangproyeks as $bidangproyek)
+                                    <option value="{{ $bidangproyek->id }}" {{ old('bidangproyek_id') == $bidangproyek->id ? 'selected' : '' }}>
+                                        {{ $bidangproyek->nama_bidang_pekerjaan_proyek }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('bidangproyek_id')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
                     <div class="col-lg-6 col-sm-6 col-12">
                         <div class="form-group">
-                            <label>Project Proyek</label>
+                            <label>Nama Project Proyek</label>
                             <input type="text" name="project_name" class="form-control" value="{{ old('project_name') }}" required />
                             @error('project_name')
                                 <span class="text-danger">{{ $message }}</span>
@@ -59,7 +65,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-lg_6 col-sm-6 col-12">
+                    <div class="col-lg-6 col-sm-6 col-12">
                         <div class="form-group">
                             <label>Main Contractor</label>
                             <input type="text" name="main_contractor" class="form-control" value="{{ old('main_contractor') }}" required />
@@ -104,7 +110,6 @@
                             @enderror
                         </div>
                     </div>
-                 
                     
                     <div class="col-lg-6 col-sm-6 col-12">
                         <div class="form-group">
@@ -230,11 +235,11 @@
 @section('scripts')
 <script>
 $(document).ready(function() {
-ClassicEditor
-    .create(document.querySelector('#detail_description'))
-    .catch(error => {
-        console.error(error);
-    });
+    ClassicEditor
+        .create(document.querySelector('#detail_description'))
+        .catch(error => {
+            console.error(error);
+        });
 });
 </script>
 @endsection

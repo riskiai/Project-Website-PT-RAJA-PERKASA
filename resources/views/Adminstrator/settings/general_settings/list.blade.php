@@ -119,7 +119,7 @@
                     <table class="table datanew">
                         <thead>
                             <tr>
-                                <th>No</th>
+                                {{-- <th>No</th> --}}
                                 <th>Phone</th>
                                 <th>Email</th>
                                 <th>Tanggal Kerja</th>
@@ -132,7 +132,7 @@
                         <tbody>
                             @foreach($data as $index => $item)
                             <tr>
-                                <td>{{ $index + 1 }}</td>
+                                {{-- <td>{{ $index + 1 }}</td> --}}
                                 <td>{{ $item->phone }}</td>
                                 <td>{{ $item->email }}</td>
                                 <td>{{ $item->tanggal_kerja }}</td>

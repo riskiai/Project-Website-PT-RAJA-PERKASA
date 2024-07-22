@@ -96,8 +96,8 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Proyek</th>
-                                <th>Project Name</th>
+                                <th>Nama Project Proyek</th>
+                                <th>Bidang Pekerjaan Proyek</th>
                                 <th>Client</th>
                                 <th>Main Contractor</th>
                                 <th>Nama Materials</th>
@@ -112,8 +112,8 @@
                             @foreach($data as $index => $item)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
-                                <td>{{ $item->title_proyek }}</td>
                                 <td>{{ $item->project_name }}</td>
+                                <td>{{ $item->bidangproyeks->nama_bidang_pekerjaan_proyek ?? "Tidak Ada Data" }}</td>
                                 <td>{{ $item->client_name }}</td>
                                 <td>{{ $item->main_contractor }}</td>
                                 <td>{{ $item->materials->nama_materials ?? 'N/A' }}</td>

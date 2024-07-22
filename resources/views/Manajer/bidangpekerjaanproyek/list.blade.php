@@ -6,12 +6,11 @@
   <div class="content">
     <div class="page-header">
       <div class="page-title">
-        <h4>List Data Testimoni Di PT Raja Perkasa</h4>
+        <h4>List Data Bidang Pekerjaan Proyek</h4>
       </div>
       <div class="page-btn">
-        <a href="{{ route('testimonicreate') }}" class="btn btn-added">
-          <img src="{{ asset('assets/img/icons/plus.svg') }}" class="me-2" alt="img" />
-          Tambah Data Testimoni Di PT Raja Perkasa
+        <a href="{{ route('bidangpekerjaanproyek.create') }}" class="btn btn-added">
+          Tambah Data Bidang Pekerjaan Proyek
         </a>
       </div>
     </div>
@@ -23,9 +22,7 @@
             <div class="search-path">
               <a class="btn btn-filter" id="filter_search">
                 <img src="{{ asset('assets/img/icons/filter.svg') }}" alt="img" />
-                <span
-                  ><img src="{{ asset('assets/img/icons/closes.svg') }}" alt="img"
-                /></span>
+                <span><img src="{{ asset('assets/img/icons/closes.svg') }}" alt="img" /></span>
               </a>
             </div>
             <div class="search-input">
@@ -37,68 +34,44 @@
         </div>
 
         <div class="table-responsive">
-          <table class="table datanew">
+          <table class="table datanew text-center">
             <thead>
               <tr>
-                <th>
-                  <label class="checkboxs">
-                    <input type="checkbox" id="select-all" />
-                    <span class="checkmarks"></span>
-                  </label>
-                </th>
                 <th>No</th>
-                <th>Nama PIC Client Perusahaan</th>
-                <th>Nama Mitra Perusahaan</th>
-                <th>Jabatan</th>
-                <th>Komentar</th>
-                <th>Gambar Testimoni Client</th>
-                <th>Created Date</th>
-                <th>Status Testimoni</th>
+                <th>Nama Bidang Pekerjaan Proyek</th>
+                <th>Status Bidang Pekerjaan Proyek</th>
+                <th>Created At</th>
+                <th>Updated At</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
               @foreach($data as $index => $item)
               <tr>
-                <td>
-                  <label class="checkboxs">
-                    <input type="checkbox" />
-                    <span class="checkmarks"></span>
-                  </label>
-                </td>
                 <td>{{ $index + 1 }}</td>
-                <td>{{ $item->nama_client }}</td>
-                <td>{{ $item->nama_mitra }}</td>
-                <td>{{ $item->position }}</td>
-                <td>{!! $item->comment !!}</td>
+                <td>{{ $item->nama_bidang_pekerjaan_proyek }}</td>
                 <td>
-                  @if(!empty($item->image))
-                    @php
-                      $images = explode(',', $item->image);
-                    @endphp
-                    @foreach($images as $image)
-                      <img src="{{ asset('storage/photo-testimoni/' . $image) }}" alt="img" style="max-width: 100px; max-height: 100px; margin-bottom: 10px;">
-                    @endforeach
+                  @if($item->status_bidang_pekerjaan_proyek == 'active')
+                  <span class="badges bg-lightgreen">Active</span>
+                  @else
+                  <span class="badges bg-lightred">Non Active</span>
                   @endif
                 </td>
                 <td>{{ $item->created_at->format('Y-m-d') }}</td>
+                <td>{{ $item->updated_at->format('Y-m-d') }}</td>
                 <td>
-                  @if($item->status_testimoni == 'active')
-                    <span class="badges bg-lightgreen">Active</span>
-                  @else
-                    <span class="badges bg-lightred">In Active</span>
-                  @endif
-                </td>
-                <td>
-                  <a class="me-3" href="{{ route('testimoniedit', $item->id) }}">
+                  <a class="me-3" href="{{ route('bidangpekerjaanproyek.edit', $item->id) }}">
                     <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />
                   </a>
                   <button type="button" class="btn btn-link text-dark btn-delete" data-id="{{ $item->id }}" title="Menghapus Data">
-                    <i class="fas fa-trash-alt text-dark"></i>
+                    <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
                   </button>
-                  <form id="deleteForm-{{ $item->id }}" action="{{ route('testimonidelete', ['id' => $item->id]) }}" method="POST" style="display: none;">
-                      @csrf
-                      @method('DELETE')
+                  <form id="deleteForm-{{ $item->id }}" action="{{ route('bidangpekerjaanproyek.destroy', $item->id) }}" method="POST" style="display: none;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-link text-dark">
+                      <img src="{{ asset('assets/img/icons/delete.svg') }}" alt="img" />
+                    </button>
                   </form>
                 </td>
               </tr>
@@ -109,9 +82,9 @@
       </div>
     </div>
   </div>
-  
-   <!-- Modal Konfirmasi Hapus -->
-   <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+
+  <!-- Modal Konfirmasi Hapus -->
+  <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -128,7 +101,6 @@
       </div>
     </div>
   </div>
-
 </div>
 
 @endsection

@@ -379,11 +379,13 @@
 
                   <li class="submenu">
                       <a href="javascript:void(0);"
-                         ><i data-feather="bar-chart-2"></i> <span>List Data Proyek</span>
+                         ><i data-feather="bar-chart-2"></i> <span>Data Proyek</span>
                           <span class="menu-arrow"></span
                       ></a>
                       <ul>
-                          <li class="{{ Request::is('listdataproyek*') ? 'active' : '' }}"><a href="{{ route('listdataproyek') }}">List Data</a></li>
+                          <li class="{{ Request::is('listdataproyek*') ? 'active' : '' }}"><a href="{{ route('listdataproyek') }}">List Data Proyek</a></li>
+                          <li class="{{ Request::is('bidangpekerjaanproyek.list*') ? 'active' : '' }}"><a href="{{ route('bidangpekerjaanproyek.list') }}">Bidang Pekerjaan Proyek</a></li>
+                          
                       </ul>
                   </li>
 

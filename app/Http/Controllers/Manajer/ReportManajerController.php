@@ -21,7 +21,8 @@ class ReportManajerController extends Controller
             'materials',
             'brandMaterials',
             'peralatan',
-            'brandPeralatan'
+            'brandPeralatan',
+            'bidangproyeks'
         ])->get();
 
         return view('Manajer.report.reportdatalistproyek', compact('data'));

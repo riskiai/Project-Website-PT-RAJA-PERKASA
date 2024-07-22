@@ -13,7 +13,8 @@ class ProjectController extends Controller
             'materials',
             'brandMaterials',
             'peralatan',
-            'brandPeralatan'
+            'brandPeralatan',
+            'bidangproyeks'
         ])->where('status_proyek', 'disetujui')->get();
 
         // Decode image data

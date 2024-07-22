@@ -14,7 +14,8 @@ class ProyekAdminController extends Controller
             'materials',
             'brandMaterials',
             'peralatan',
-            'brandPeralatan'
+            'brandPeralatan',
+            'bidangproyeks'
         ])->orderBy('updated_at', 'desc')->get();
 
         return view('Adminstrator.proyek.list', compact('data'));

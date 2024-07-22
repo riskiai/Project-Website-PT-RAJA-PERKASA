@@ -17,7 +17,8 @@ class DataListProyekWithStyle implements FromView, WithEvents
             'materials',
             'brandMaterials',
             'peralatan',
-            'brandPeralatan'
+            'brandPeralatan',
+            'bidangproyeks'
         ])->get();
 
         return view('Manajer.report.dataproyeks.export', ['proyeks' => $proyeks]);

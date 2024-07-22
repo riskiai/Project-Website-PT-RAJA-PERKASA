@@ -5,12 +5,12 @@
     <div class="content">
         <div class="page-header">
             <div class="page-title">
-                <h4>List Data Users Internal PT Raja Perkasa</h4>
+                <h4>List Data Users Internal Role Pekerjaan Di PT Raja Perkasa</h4>
             </div>
             <div class="page-btn">
                 <a href="{{ route('userscreate') }}" class="btn btn-added">
                     <img src="{{ asset('assets/img/icons/plus.svg') }}" class="me-2" alt="img" />
-                    Tambah Data Users PT Raja Perkasa
+                    Tambah Data Users Internal Role Pekerjaan PT Raja Perkasa
                 </a>
             </div>
         </div>
@@ -107,7 +107,7 @@
                                 <th class="text-center">Nama</th>
                                 <th class="text-center">Email</th>
                                 <th class="text-center">Divisi Pekerjaan</th>
-                                <th class="text-center">Role Pekerjaan</th>
+                                <th class="text-center">Role Kerja Website</th>
                                 <th class="text-center">Status User</th>
                                 <th class="text-center">Action</th>
                             </tr>

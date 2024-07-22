@@ -63,14 +63,14 @@
                                     @foreach($proyek->image as $index => $img)
                                         <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
                                             <a href="{{ Storage::url($img) }}" data-lightbox="carousel-{{ $proyek->id }}">
-                                                <img class="img-fluid fixed-size" src="{{ Storage::url($img) }}" alt="Project Image">
+                                                <img class="img-fluid" src="{{ Storage::url($img) }}" alt="Project Image">
                                             </a>
                                         </div>
                                     @endforeach
                                 @else
                                     <div class="carousel-item active">
                                         <a href="img/default.jpg" data-lightbox="carousel-{{ $proyek->id }}">
-                                            <img class="img-fluid fixed-size" src="img/default.jpg" alt="Default Image">
+                                            <img class="img-fluid" src="img/default.jpg" alt="Default Image">
                                         </a>
                                     </div>
                                 @endif
@@ -85,14 +85,18 @@
                             </button>
                         </div>
                         <div class="text-center p-4">
-                            <p class="text-orange mb-2" style="font-size: 15px;">{{ $proyek->title_proyek }}</p>
+                            <label for="" class="lh-base" style="font-size: 15px; color:#000000; font-weight:bold;">Nama Project Proyek :</label>
                             <h2 class="lh-base mb-3" style="font-size: 15px; !important">{{ $proyek->project_name }}</h2>
+                            <label for="" class="lh-base text-orange"  style="font-size: 15px;  ">Bidang Pekerjaan Proyek : </label>
+                            <p class="text-orange mb-2" style="font-size: 15px;">{{ $proyek->bidangproyeks->nama_bidang_pekerjaan_proyek ?? "Tidak Ada Data" }}</p>
                         </div>
                         <div class="portfolio-text text-center bg-white p-4">
-                            <p class="text-orange mb-2" style="font-size: 15px;">{{ $proyek->title_proyek }}</p>
+                            <label for="" class="lh-base" style="font-size: 15px; color:#000000; font-weight:bold;">Nama Project Proyek :</label>
                             <h2 class="lh-base mb-3" style="font-size: 15px; !important">{{ $proyek->project_name }}</h2>
+                            <label for="" class="lh-base text-orange"  style="font-size: 15px;  ">Bidang Pekerjaan Proyek : </label>
+                            <p class="text-orange mb-2" style="font-size: 15px;">{{ $proyek->bidangproyeks->nama_bidang_pekerjaan_proyek ?? "Tidak Ada Data" }}</p>
                             <div class="d-flex justify-content-center">
-                                <button class="btn btn-primary view-details" data-id="{{ $proyek->id }}">Detail Data Proyek</button>
+                                <button class="btn btn-primary view-details" data-id="{{ $proyek->id }}" data-bs-toggle="modal" data-bs-target="#detailModal{{ $proyek->id }}">Detail Data Proyek</button>
                             </div>
                         </div>
                     </div>
@@ -107,7 +111,8 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <div class="detail-item"><strong>Nama Proyek:</strong> <span>{{ $proyek->project_name }}</span></div>
+                                <div class="detail-item"><strong>Nama Project Proyek:</strong> <span>{{ $proyek->project_name }}</span></div>
+                                <div class="detail-item"><strong>Bidang Pekerjaan Proyek:</strong> <span>{{ $proyek->bidangproyeks->nama_bidang_pekerjaan_proyek ?? "Tidak Ada Data" }}</span></div>
                                 <div class="detail-item"><strong>Nama Klien:</strong> <span>{{ $proyek->client_name }}</span></div>
                                 <div class="detail-item"><strong>Kontraktor Utama:</strong> <span>{{ $proyek->main_contractor }}</span></div>
                                 <div class="detail-item"><strong>Scope:</strong> <span>{{ $proyek->scope }}</span></div>
@@ -125,6 +130,7 @@
         </div>
     </div>
 </div>
+
 <!-- Projects End -->
 
 @endsection

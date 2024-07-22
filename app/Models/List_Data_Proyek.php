@@ -13,7 +13,7 @@ class List_Data_Proyek extends Model
     protected $table = 'list__data__proyeks';
 
     protected $fillable = [
-        'user_id', 'materials_id', 'brand__materials_id', 'peralatans_id', 
+        'user_id', 'bidangproyek_id', 'materials_id', 'brand__materials_id', 'peralatans_id', 
         'brand__peralatans_id', 'title_proyek', 'project_name', 'client_name', 
         'main_contractor', 'scope', 'start_date_proyek', 'end_date_proyek', 
         'value', 'po', 'handover', 'image', 'status_progres_proyek', 
@@ -27,6 +27,11 @@ class List_Data_Proyek extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function bidangproyeks()
+    {
+        return $this->belongsTo(BidangProyek::class, 'bidangproyek_id');
     }
 
     public function materials()

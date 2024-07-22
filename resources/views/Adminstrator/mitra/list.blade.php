@@ -110,7 +110,7 @@
                 </th>
                 <th>No</th>
                 <th>Nama Mitra Perusahaan</th>
-                <th>Image Mitra Perusahaan</th>
+                <th>Gambar Mitra Perusahaan</th>
                 <th>Created Date</th>
                 <th>Status Mitra</th>
                 <th>Action</th>

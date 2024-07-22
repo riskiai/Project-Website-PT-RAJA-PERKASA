@@ -31,16 +31,17 @@
           <div class="row">
             <div class="col-lg-6 col-sm-12 col-12">
               <div class="form-group">
-                <label>Title Proyek</label>
-                <input type="text" class="form-control" value="{{ $proyek->title_proyek }}" readonly>
+                <label>Nama Project Proyek</label>
+                <input type="text" class="form-control" value="{{ $proyek->project_name }}" readonly>
               </div>
             </div>
             <div class="col-lg-6 col-sm-12 col-12">
               <div class="form-group">
-                <label>Nama Proyek</label>
-                <input type="text" class="form-control" value="{{ $proyek->project_name }}" readonly>
+                <label>Bidang Pekerjaan Proyek</label>
+                <input type="text" class="form-control" value="{{ $proyek->bidangproyeks->nama_bidang_pekerjaan_proyek ?? "Tidak Ada Data" }}" readonly>
               </div>
             </div>
+            
             <div class="col-lg-6 col-sm-12 col-12">
               <div class="form-group">
                 <label>Nama Klien</label>

@@ -8,48 +8,54 @@ use Illuminate\Http\Request;
 use App\Models\Brand_Materials;
 use App\Models\Brand_Peralatan;
 use App\Models\List_Data_Proyek;
+use App\Models\BidangProyek;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
 class ManajerProyekListProyekController extends Controller
 {
-    public function listdataproyek() {
+    public function listdataproyek()
+    {
         $data = List_Data_Proyek::with([
             'materials',
             'brandMaterials',
             'peralatan',
-            'brandPeralatan'
+            'brandPeralatan',
+            'bidangproyeks'
         ])->get();
 
         return view('Manajer.proyekrajaperkasa.list', compact('data'));
     }
 
-    public function showlistdataproyek($id) {
+    public function showlistdataproyek($id)
+    {
         $proyek = List_Data_Proyek::with([
             'materials',
             'brandMaterials',
             'peralatan',
-            'brandPeralatan'
+            'brandPeralatan',
+            'bidangproyeks'
         ])->findOrFail($id);
 
         return view('Manajer.proyekrajaperkasa.show', compact('proyek'));
     }
 
-    public function listdataproyekcreate() 
+    public function listdataproyekcreate()
     {
         $materials = Materials::all();
         $peralatans = Peralatan::all();
         $brand_materials = Brand_Materials::all();
         $brand_peralatans = Brand_Peralatan::all();
-        
-        return view('Manajer.proyekrajaperkasa.create', compact('materials', 'peralatans', 'brand_materials', 'brand_peralatans'));
+        $bidangproyeks = BidangProyek::all();
+
+        return view('Manajer.proyekrajaperkasa.create', compact('materials', 'peralatans', 'brand_materials', 'brand_peralatans', 'bidangproyeks'));
     }
 
-    public function listdataproyekcreateproses(Request $request) 
+    public function listdataproyekcreateproses(Request $request)
     {
         $request->validate([
-            'title_proyek' => 'required|string|max:255',
+            'bidangproyek_id' => 'required|exists:bidang_proyeks,id',
             'project_name' => 'required|string|max:255',
             'client_name' => 'required|string|max:255',
             'main_contractor' => 'required|string|max:255',
@@ -67,22 +73,22 @@ class ManajerProyekListProyekController extends Controller
             'brand__materials_id' => 'required|exists:brand__materials,id',
             'brand__peralatans_id' => 'required|exists:brand__peralatans,id',
         ]);
-    
+
         DB::beginTransaction();
-    
+
         try {
             $poPath = $request->file('po')->store('public/po');
             $handoverPath = $request->file('handover')->store('public/handover');
             $imagePaths = [];
-    
+
             if ($request->hasFile('image')) {
                 foreach ($request->file('image') as $image) {
                     $imagePaths[] = $image->store('public/proyek/image');
                 }
             }
-    
+
             $proyek = List_Data_Proyek::create([
-                'title_proyek' => $request->title_proyek,
+                'bidangproyek_id' => $request->bidangproyek_id,
                 'project_name' => $request->project_name,
                 'client_name' => $request->client_name,
                 'main_contractor' => $request->main_contractor,
@@ -99,9 +105,9 @@ class ManajerProyekListProyekController extends Controller
                 'brand__materials_id' => $request->brand__materials_id,
                 'brand__peralatans_id' => $request->brand__peralatans_id,
             ]);
-    
+
             DB::commit();
-    
+
             return redirect()->route('listdataproyek')->with('success', 'Project created successfully.');
         } catch (\Exception $e) {
             DB::rollback();
@@ -109,19 +115,22 @@ class ManajerProyekListProyekController extends Controller
         }
     }
 
-    public function listdataproyekedit($id) {
+    public function listdataproyekedit($id)
+    {
         $proyek = List_Data_Proyek::findOrFail($id);
         $materials = Materials::all();
         $peralatans = Peralatan::all();
         $brand_materials = Brand_Materials::all();
         $brand_peralatans = Brand_Peralatan::all();
-        
-        return view('Manajer.proyekrajaperkasa.edit', compact('proyek', 'materials', 'peralatans', 'brand_materials', 'brand_peralatans'));
+        $bidangproyeks = BidangProyek::all();
+
+        return view('Manajer.proyekrajaperkasa.edit', compact('proyek', 'materials', 'peralatans', 'brand_materials', 'brand_peralatans', 'bidangproyeks'));
     }
 
-    public function listdataproyekupdate(Request $request, $id) {
+    public function listdataproyekupdate(Request $request, $id)
+    {
         $request->validate([
-            'title_proyek' => 'required|string|max:255',
+            'bidangproyek_id' => 'required|exists:bidang_proyeks,id',
             'project_name' => 'required|string|max:255',
             'client_name' => 'required|string|max:255',
             'main_contractor' => 'required|string|max:255',
@@ -172,7 +181,7 @@ class ManajerProyekListProyekController extends Controller
             }
 
             $proyek->update([
-                'title_proyek' => $request->title_proyek,
+                'bidangproyek_id' => $request->bidangproyek_id,
                 'project_name' => $request->project_name,
                 'client_name' => $request->client_name,
                 'main_contractor' => $request->main_contractor,

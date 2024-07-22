@@ -33,6 +33,7 @@ use App\Http\Controllers\Karyawan\DataPeringatanKaryawanController;
 use App\Http\Controllers\Karyawan\PengajuanCutiController;
 use App\Http\Controllers\Karyawan\PengajuanDiriController;
 use App\Http\Controllers\Manajer\DashboardController as ManajerDashboardController;
+use App\Http\Controllers\Manajer\ManajerBidangPekerjaProyekController;
 use App\Http\Controllers\Manajer\ManajerProyekListProyekController;
 use App\Http\Controllers\Manajer\ManajerProyekMaterialsController;
 use App\Http\Controllers\Manajer\ManajerProyekPeralatanController;
@@ -239,6 +240,16 @@ Route::middleware(['auth', 'user-access:manajer'])->group(function () {
        Route::delete('/manajerproyek/listdatamaterials/{id}', [ManajerProyekMaterialsController::class, 'listdatadelete'])->name('listdatamaterialsdelete');
  
          // Data Proyek
+         /* List Data Bidang Pekerjaan Proyek */
+        Route::get('/manajerproyek/bidangpekerjaanproyek', [ManajerBidangPekerjaProyekController::class, 'index'])->name('bidangpekerjaanproyek.list');
+        Route::get('/manajerproyek/bidangpekerjaanproyek/create', [ManajerBidangPekerjaProyekController::class, 'create'])->name('bidangpekerjaanproyek.create');
+        Route::post('/manajerproyek/bidangpekerjaanproyek', [ManajerBidangPekerjaProyekController::class, 'store'])->name('bidangpekerjaanproyek.store');
+        Route::get('/manajerproyek/bidangpekerjaanproyek/{id}/edit', [ManajerBidangPekerjaProyekController::class, 'edit'])->name('bidangpekerjaanproyek.edit');
+        Route::put('/manajerproyek/bidangpekerjaanproyek/{id}', [ManajerBidangPekerjaProyekController::class, 'update'])->name('bidangpekerjaanproyek.update');
+        Route::delete('/manajerproyek/bidangpekerjaanproyek/{id}', [ManajerBidangPekerjaProyekController::class, 'destroy'])->name('bidangpekerjaanproyek.destroy');
+
+
+         /* List Data Proyek */
          Route::get('/manajerproyek/listdataproyek', [ManajerProyekListProyekController::class, 'listdataproyek'])->name('listdataproyek');
          Route::get('/manajerproyek/listdataproyek/show/{id}', [ManajerProyekListProyekController::class, 'showlistdataproyek'])->name('showlistdataproyek');
          Route::get('/manajerproyek/listdataproyek/create', [ManajerProyekListProyekController::class,'listdataproyekcreate'])->name('listdataproyekcreate');
