@@ -83,7 +83,7 @@
                         </div>
                     </div>
                     <div class="col-lg-12">
-                        <a href="{{ route('karyawanlist') }}" class="btn btn-cancel">Kembali</a>
+                        <a href="{{ route('ownerkaryawanlist') }}" class="btn btn-cancel">Kembali</a>
                     </div>
                 </div>
             </div>

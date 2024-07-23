@@ -110,7 +110,7 @@
                 <th>TKDN</th>
                 <th>TKDN Certificate</th>
                 <th>Expired Date</th>
-                <th>Status</th>
+                <th>Status List Materials</th>
                 {{-- <th>Created At</th>
                 <th>Updated At</th> --}}
                 {{-- <th>Action</th> --}}

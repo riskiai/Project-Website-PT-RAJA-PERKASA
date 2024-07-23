@@ -13,7 +13,7 @@
             <th style="{{ $styleHeadMain }}">Ownership</th>
             <th style="{{ $styleHeadMain }}">Certificate By</th>
             <th style="{{ $styleHeadMain }}">Unit Quantity</th>
-            <th style="{{ $styleHeadMain }}">Status</th>
+            <th style="{{ $styleHeadMain }}">Status List Peralatan</th>
         </tr>
     </thead>
     <tbody>

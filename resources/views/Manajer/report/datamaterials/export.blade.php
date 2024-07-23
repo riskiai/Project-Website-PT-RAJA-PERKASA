@@ -13,7 +13,7 @@
             <th style="{{ $styleHeadMain }}">TKDN</th>
             <th style="{{ $styleHeadMain }}">TKDN Certificate</th>
             <th style="{{ $styleHeadMain }}">Expired Date</th>
-            <th style="{{ $styleHeadMain }}">Status</th>
+            <th style="{{ $styleHeadMain }}">Status List Materials</th>
         </tr>
     </thead>
     <tbody>

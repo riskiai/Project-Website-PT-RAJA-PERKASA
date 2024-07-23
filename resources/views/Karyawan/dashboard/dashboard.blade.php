@@ -194,7 +194,7 @@
   <!-- Data Peringatan Karyawan Section -->
   <div class="card mb-0">
     <div class="card-body">
-      <h4 class="card-title">Data Peringatan Karyawan PT Raja Perkasa</h4>
+      <h4 class="card-title">Data Peringatan Anda Sebagai Karyawan Di PT Raja Perkasa</h4>
       <div class="table-responsive dataview">
         <table class="table datatable">
           <thead>

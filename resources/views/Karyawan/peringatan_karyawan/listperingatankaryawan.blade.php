@@ -32,7 +32,7 @@
           <table class="table datanew text-center">
             <thead>
               <tr>
-                <th>No</th>
+                {{-- <th>No</th> --}}
                 <th>Nama Karyawan</th>
                 <th>Divisi</th>
                 <th>Cuti Berapa Kali</th>
@@ -47,7 +47,7 @@
             <tbody>
               @foreach($data as $index => $item)
               <tr>
-                <td>{{ $index + 1 }}</td>
+                {{-- <td>{{ $index + 1 }}</td> --}}
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->divisi_name }}</td>
                 <td>{{ $item->cuti_berapakali }}</td>

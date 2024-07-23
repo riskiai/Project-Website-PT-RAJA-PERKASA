@@ -109,7 +109,7 @@
                 <th>Ownership</th>
                 <th>Certificate By</th>
                 <th>Unit Quantity</th>
-                <th>Status</th>
+                <th>Status List Peralatan</th>
                 <th>Action</th>
               </tr>
             </thead>
