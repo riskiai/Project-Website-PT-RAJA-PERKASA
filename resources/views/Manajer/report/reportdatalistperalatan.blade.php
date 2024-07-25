@@ -8,11 +8,11 @@
       <div class="page-title">
         <h4>List Data Peralatan PT Raja Perkasa</h4>
       </div>
-      <div class="page-btn">
+      {{-- <div class="page-btn">
         <a href="{{ route('listdataperalatancreate') }}" class="btn btn-added">
           Tambah Data Peralatan
         </a>
-      </div>
+      </div> --}}
     </div>
 
     <div class="card">
