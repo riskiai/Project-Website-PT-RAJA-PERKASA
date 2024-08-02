@@ -232,7 +232,7 @@ class UsersAdminController extends Controller
         $data = User::whereHas('role', function ($query) {
             $query->where('role_name', 'client');
         })
-        ->select('id', 'name', 'email', 'no_hp', 'file_foto', 'file_ktp', 'status_user', 'mitra_id', 'status_pic_perusahaan')
+        ->select('id', 'name', 'email', 'no_hp', 'file_foto', 'file_ktp', 'status_user', 'mitra_id', 'status_pic_perusahaan', 'created_at')
         ->with(['documentKerjasamaClient', 'mitra'])
         ->get();
 

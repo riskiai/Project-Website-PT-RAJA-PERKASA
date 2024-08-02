@@ -82,7 +82,7 @@
           <thead>
             <tr>
               <th class="text-center">No</th>
-              <th>Tanggal Perwakilan PIC Perusahaan Daftar</th>
+              <th class="text-center">Tanggal Perwakilan PIC Perusahaan Daftar</th>
               <th class="text-center">Nama PIC</th>
               <th class="text-center">Nama Perusahaan</th>
               <th class="text-center">Email PIC</th>
@@ -99,7 +99,7 @@
             @foreach($data as $index => $item)
             <tr>
               <td>{{ $index + 1 }}</td>
-              <td>{{ $item->created_at->format('Y-m-d') }}</td>
+              <td>{{ $item->created_at ? $item->created_at->format('Y-m-d') : 'Tidak Ada Data' }}</td>
               <td>{{ $item->name }}</td>
               <td>{{ $item->mitra ? $item->mitra->name_mitra : '-' }}</td>
               <td>{{ $item->email }}</td>
