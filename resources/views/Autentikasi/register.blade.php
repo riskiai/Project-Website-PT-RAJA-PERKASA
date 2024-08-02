@@ -142,7 +142,7 @@
             <i class="fas fa-user-plus fa-5x"></i>
             <h2>Selamat Datang Di Website PT Raja Perkasa</h2>
          
-            <p>Daftarkan Segera Sebagai Client Mitra Kami! <br> Sudah Punya Akun? Silahkan Login Terlebih Dahulu!</p>
+            <p>Daftarkan Segera Sebagai Mitra Perusahaan Kami! <br> Sudah Punya Akun? Silahkan Login Terlebih Dahulu!</p>
             <a href="{{ route('login') }}"><button>Login <i class="fas fa-arrow-circle-right"></i></button></a> 
         </div>
     </div>  
