@@ -82,12 +82,13 @@
           <thead>
             <tr>
               <th class="text-center">No</th>
+    
               <th class="text-center">Nama PIC</th>
               <th class="text-center">Nama Perusahaan</th>
               <th class="text-center">Email PIC</th>
               <th class="text-center">Nomor Handphone</th>
-              <th class="text-center">File Foto</th>
-              <th class="text-center">File KTP</th>
+              <th class="text-center">Gambar Foto</th>
+              <th class="text-center">Gambar KTP</th>
               <th class="text-center">Status User</th>
               <th class="text-center">Status PIC Perusahaan</th>
               <th class="text-center">Status Dokumen <br> Kerja Sama Mitra</th>
@@ -98,6 +99,7 @@
             @foreach($data as $index => $item)
             <tr>
               <td>{{ $index + 1 }}</td>
+             
               <td>{{ $item->name }}</td>
               <td>{{ $item->mitra ? $item->mitra->name_mitra : '-' }}</td>
               <td>{{ $item->email }}</td>

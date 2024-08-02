@@ -413,7 +413,7 @@ function breakText($text, $length = 40) {
                             </button>
                         </div>
                         <div class="text-center p-4">
-                            <label for="" class="lh-base" style="font-size: 15px; color:#000000; font-weight:bold;">Nama Project Proyek :</label>
+                            <label for="" class="lh-base" style="font-size: 15px; color:#000000; font-weight:bold;">Nama Proyek :</label>
                             <h2 class="lh-base mb-3" style="font-size: 15px; !important">{{ $proyek->project_name }}</h2>
                             <label for="" class="lh-base text-orange"  style="font-size: 15px;  ">Bidang Pekerjaan Proyek : </label>
                             <p class="text-orange mb-2" style="font-size: 15px;">{{ $proyek->bidangproyeks->nama_bidang_pekerjaan_proyek ?? "Tidak Ada Data" }}</p>

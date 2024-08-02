@@ -114,7 +114,7 @@
                 <th>Telefon</th>
                 <th>Link</th>
                 <th>Alamat</th>
-                <th>Created Date</th>
+                {{-- <th>Created Date</th> --}}
                 <th>Status Kontak</th>
                 <th>Action</th>
               </tr>
@@ -135,7 +135,7 @@
                   <iframe src="{{ $item->links }}" width="100" height="100" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </td>
                 <td>{!! $item->alamat !!}</td>
-                <td>{{ $item->created_at->format('Y-m-d') }}</td>
+                {{-- <td>{{ $item->created_at->format('Y-m-d') }}</td> --}}
                 <td>
                   @if($item->status_kontak == 'active')
                   <span class="badges bg-lightgreen">Active</span>

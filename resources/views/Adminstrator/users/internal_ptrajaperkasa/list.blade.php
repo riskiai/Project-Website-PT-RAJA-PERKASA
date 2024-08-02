@@ -104,10 +104,10 @@
                         <thead>
                             <tr>
                                 <th class="text-center">No</th>
-                                <th class="text-center">Nama</th>
+                                <th class="text-center">Nama Lengkap</th>
                                 <th class="text-center">Email</th>
                                 <th class="text-center">Divisi Pekerjaan</th>
-                                <th class="text-center">Role Kerja Website</th>
+                                <th class="text-center">Role Di Website</th>
                                 <th class="text-center">Status User</th>
                                 <th class="text-center">Action</th>
                             </tr>

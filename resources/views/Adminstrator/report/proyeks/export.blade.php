@@ -7,7 +7,8 @@
     <thead>
         <tr>
             <th style="{{ $styleHeadMain }}">No</th>
-            <th style="{{ $styleHeadMain }}">Nama Project Proyek</th>
+            <th style="{{ $styleHeadMain }}">Proyek Disetujui Tanggal</th>
+            <th style="{{ $styleHeadMain }}">Nama Proyek</th>
             <th style="{{ $styleHeadMain }}">Bidang Pekerjaan Proyek</th>
             <th style="{{ $styleHeadMain }}">Client</th>
             <th style="{{ $styleHeadMain }}">Main Contractor</th>
@@ -23,6 +24,7 @@
         @foreach ($proyeks as $index => $proyek)
             <tr>
                 <td style="{{ $styleBodyMain }}">{{ $index + 1 }}</td>
+                <td style="{{ $styleBodyMain }}">{{ $proyek->updated_at->format('Y-m-d')}}</td>
                 <td style="{{ $styleBodyMain }}">{{ $proyek->project_name }}</td>
                 <td style="{{ $styleBodyMain }}">{{ $proyek->bidangproyeks->nama_bidang_pekerjaan_proyek ?? "Tidak Ada Data" }}</td>
                 <td style="{{ $styleBodyMain }}">{{ $proyek->client_name }}</td>

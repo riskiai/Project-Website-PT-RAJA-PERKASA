@@ -96,15 +96,16 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Project Proyek</th>
+                                <th>Proyek Disetujui Tanggal</th>
+                                <th>Nama Proyek</th>
                                 <th>Bidang Pekerjaan Proyek</th>
                                 <th>Client</th>
                                 <th>Main Contractor</th>
                                 <th>Nama Materials</th>
                                 <th>Nama Peralatan</th>
-                                <th>Status Progres</th>
+                                <th>Status Progress Proyek</th>
                                 <th>Status Proyek</th>
-                                <th>Updated At</th>
+                               
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -112,6 +113,7 @@
                             @foreach($data as $index => $item)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
+                                <td>{{ $item->updated_at->format('Y-m-d') }}</td>
                                 <td>{{ $item->project_name }}</td>
                                 <td>{{ $item->bidangproyeks->nama_bidang_pekerjaan_proyek ?? "Tidak Ada Data" }}</td>
                                 <td>{{ $item->client_name }}</td>
@@ -134,7 +136,7 @@
                                         <span class="badges bg-lightorange">Belum Dicek</span>
                                     @endif
                                 </td>
-                                <td>{{ $item->updated_at }}</td>
+                                 
                                 <td class="action-icons">
                                     <a href="#" class="btn btn-link btn-edit" 
                                        data-id="{{ $item->id }}" 

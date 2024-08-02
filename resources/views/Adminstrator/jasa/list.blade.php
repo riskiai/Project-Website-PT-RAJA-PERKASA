@@ -138,8 +138,8 @@
                 <th>Nama Jasa</th>
                 <th>Short Description</th>
                 <th>Detail Description</th>
-                <th>File Image</th>
-                <th>Created Date</th>
+                <th>Gambar Jasa</th>
+                {{-- <th>Created Date</th> --}}
                 <th>Status Jasa</th>
                 <th>Action</th>
               </tr>
@@ -173,7 +173,7 @@
                         @endforeach
                     @endif
                 </td>          
-                <td>{{ $item->created_at->format('Y-m-d') }}</td>
+                {{-- <td>{{ $item->created_at->format('Y-m-d') }}</td> --}}
                   <td>
                     @if($item->status_jasa == 'active')
                     <span class="badges bg-lightgreen">Active</span>

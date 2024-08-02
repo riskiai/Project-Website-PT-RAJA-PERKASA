@@ -111,7 +111,7 @@
                 <th>No</th>
                 <th>Nama Mitra Perusahaan</th>
                 <th>Gambar Mitra Perusahaan</th>
-                <th>Created Date</th>
+                {{-- <th>Created Date</th> --}}
                 <th>Status Mitra</th>
                 <th>Action</th>
               </tr>
@@ -135,7 +135,7 @@
                     <img src="{{ asset($image == 'default.png' ? 'img/' . $image : 'storage/photo-mitra/' . $image) }}" alt="img" style="max-width: 100px; max-height: 100px; margin-bottom: 10px;">
                   @endforeach
                 </td>
-                <td>{{ $item->created_at->format('Y-m-d') }}</td>
+                {{-- <td>{{ $item->created_at->format('Y-m-d') }}</td> --}}
                 <td>
                   @if($item->status_mitra == 'active')
                     <span class="badges bg-lightgreen">Active</span>

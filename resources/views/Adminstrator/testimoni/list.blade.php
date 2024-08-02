@@ -52,7 +52,7 @@
                 <th>Jabatan</th>
                 <th>Komentar</th>
                 <th>Gambar Testimoni Client</th>
-                <th>Created Date</th>
+                {{-- <th>Created Date</th> --}}
                 <th>Status Testimoni</th>
                 <th>Action</th>
               </tr>
@@ -81,7 +81,7 @@
                     @endforeach
                   @endif
                 </td>
-                <td>{{ $item->created_at->format('Y-m-d') }}</td>
+                {{-- <td>{{ $item->created_at->format('Y-m-d') }}</td> --}}
                 <td>
                   @if($item->status_testimoni == 'active')
                     <span class="badges bg-lightgreen">Active</span>

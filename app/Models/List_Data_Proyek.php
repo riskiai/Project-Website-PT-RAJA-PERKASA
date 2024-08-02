@@ -17,7 +17,7 @@ class List_Data_Proyek extends Model
         'brand__peralatans_id', 'title_proyek', 'project_name', 'client_name', 
         'main_contractor', 'scope', 'start_date_proyek', 'end_date_proyek', 
         'value', 'po', 'handover', 'image', 'status_progres_proyek', 
-        'status_proyek', 'keterangan_status_proyek'
+        'status_proyek', 'keterangan_status_proyek', 'updated_at'
     ];
 
     protected $casts = [

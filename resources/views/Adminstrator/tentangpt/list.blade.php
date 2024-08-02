@@ -46,8 +46,8 @@
                 {{-- <th>No</th> --}}
                 <th>Short Description</th>
                 <th>Detail Description</th>
-                <th>File Image</th>
-                <th>Created Date</th>
+                <th>Gambar Tentang PT</th>
+                {{-- <th>Created Date</th> --}}
                 <th>Status Tentang PT Raja Perkasa</th>
                 <th>Action</th>
               </tr>
@@ -74,7 +74,7 @@
                     @endforeach
                   @endif
                 </td>
-                <td>{{ $item->created_at->format('Y-m-d') }}</td>
+                {{-- <td>{{ $item->created_at->format('Y-m-d') }}</td> --}}
                 <td>
                   @if($item->status_tentang == 'active')
                     <span class="badges bg-lightgreen">Active</span>

@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Divisi;
+use App\Models\Testimoni;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -343,6 +344,9 @@ public function editclientproses(Request $request, $id)
             return redirect()->route('userslisteclient')->with('error', 'Pengguna tidak ditemukan.');
         }
 
+        // Set user_id menjadi NULL di tabel testimonis yang terkait
+        Testimoni::where('user_id', $id)->update(['user_id' => null]);
+
         // Hapus dokumen kerjasama terkait
         Document_Kerjasama_Client::where('user_id', $id)->delete();
 
@@ -351,4 +355,5 @@ public function editclientproses(Request $request, $id)
 
         return redirect()->route('userslisteclient')->with('success', 'Pengguna dan dokumen kerjasama berhasil dihapus.');
     }
+
 }

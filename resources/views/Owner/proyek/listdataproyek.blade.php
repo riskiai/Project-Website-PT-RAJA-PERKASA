@@ -118,6 +118,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>Proyek Disetujui Tanggal</th>
                                 <th>Nama Project Proyek</th>
                                 <th>Bidang Pekerjaan Proyek</th>
                                 <th>Client</th>
@@ -133,6 +134,7 @@
                             @foreach($data as $index => $item)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
+                                <td>{{ $item->updated_at->format('Y-m-d') }}</td>
                                 <td>{{ $item->project_name }}</td>
                                 <td>{{ $item->bidangproyeks->nama_bidang_pekerjaan_proyek ?? "Tidak Ada Data" }}</td>
                                 <td>{{ $item->client_name }}</td>
