@@ -111,7 +111,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <div class="detail-item"><strong>Nama Project Proyek:</strong> <span>{{ $proyek->project_name }}</span></div>
+                                <div class="detail-item"><strong>Nama Proyek:</strong> <span>{{ $proyek->project_name }}</span></div>
                                 <div class="detail-item"><strong>Bidang Pekerjaan Proyek:</strong> <span>{{ $proyek->bidangproyeks->nama_bidang_pekerjaan_proyek ?? "Tidak Ada Data" }}</span></div>
                                 <div class="detail-item"><strong>Nama Klien:</strong> <span>{{ $proyek->client_name }}</span></div>
                                 <div class="detail-item"><strong>Kontraktor Utama:</strong> <span>{{ $proyek->main_contractor }}</span></div>
