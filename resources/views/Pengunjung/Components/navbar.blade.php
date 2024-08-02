@@ -135,7 +135,7 @@
             <a href="{{ url('/home') }}" class="nav-item nav-link">Beranda</a>
             <a href="{{ url('/tentang') }}" class="nav-item nav-link">Tentang</a>
             <a href="{{ url('/jasa') }}" class="nav-item nav-link">Jasa</a>
-            <a href="{{ url('/project') }}" class="nav-item nav-link">Project</a>
+            <a href="{{ url('/project') }}" class="nav-item nav-link">Proyek</a>
             <a href="{{ url('/kontak') }}" class="nav-item nav-link">Kontak</a>
             @auth
             @if(Auth::user()->role->role_name === 'client')
