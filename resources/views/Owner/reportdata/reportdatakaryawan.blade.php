@@ -27,7 +27,8 @@
         justify-content: flex-end;
     }
     .filter-reset-buttons .btn {
-        margin-right: 20px;
+        /* margin-right: 20px; */
+        gap: 10px;
     }
     @media (max-width: 576px) {
         .filter-reset-buttons {
