@@ -39,8 +39,7 @@
               <tr>
                 <th>No</th>
                 <th>Nama Divisi</th>
-                <th>Created At</th>
-                <th>Updated At</th>
+                <th>Dibuat Di Tanggal</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -50,7 +49,7 @@
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $item->divisi_name }}</td>
                 <td>{{ $item->created_at->format('Y-m-d') }}</td>
-                <td>{{ $item->updated_at->format('Y-m-d') }}</td>
+                {{-- <td>{{ $item->updated_at->format('Y-m-d') }}</td> --}}
                 <td>
                   <a class="me-3" href="{{ route('divisiedit', $item->id) }}">
                     <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />

@@ -7,6 +7,7 @@
     <thead>
         <tr>
             <th style="{{ $styleHeadMain }}">No</th>
+            <th style="{{ $styleHeadMain }}">Tanggal Perwakilan PIC Perusahaan Daftar</th> 
             <th style="{{ $styleHeadMain }}">Nama</th>
             <th style="{{ $styleHeadMain }}">Email</th>
             <th style="{{ $styleHeadMain }}">No HP</th>
@@ -15,12 +16,14 @@
             <th style="{{ $styleHeadMain }}">Status PIC Perusahaan</th>
             <th style="{{ $styleHeadMain }}">Keterangan Kerjasama</th>
             <th style="{{ $styleHeadMain }}">Status Dokument Kerja Sama Mitra</th>
+        
         </tr>
     </thead>
     <tbody>
         @foreach ($users as $index => $user)
             <tr>
                 <td style="{{ $styleBodyMain }}">{{ $index + 1 }}</td>
+                <td style="{{ $styleBodyMain }}">{{ $user->created_at->format('Y-m-d') }}</td>
                 <td style="{{ $styleBodyMain }}">{{ $user->name }}</td>
                 <td style="{{ $styleBodyMain }}">{{ $user->email }}</td>
                 <td style="{{ $styleBodyMain }}">{{ $user->no_hp }}</td>
@@ -37,6 +40,7 @@
                         No Data
                     @endif
                 </td>
+                
             </tr>
         @endforeach
     </tbody>

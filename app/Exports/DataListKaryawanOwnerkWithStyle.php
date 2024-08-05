@@ -10,13 +10,33 @@ use Maatwebsite\Excel\Events\AfterSheet;
 
 class DataListKaryawanOwnerkWithStyle implements FromView, WithEvents
 {
+    protected $filters;
+
+    public function __construct($filters)
+    {
+        $this->filters = $filters;
+    }
+
     public function view(): View
     {
-        $data = User::with('divisi')
-        ->whereHas('role', function($query) {
-            $query->where('role_name', 'karyawan');
-        })
-        ->get();
+        $query = User::with('divisi')
+            ->whereHas('role', function($query) {
+                $query->where('role_name', 'karyawan');
+            });
+
+        if (isset($this->filters['divisi_id']) && !empty($this->filters['divisi_id'])) {
+            $query->where('divisi_id', $this->filters['divisi_id']);
+        }
+
+        if (isset($this->filters['jk']) && !empty($this->filters['jk'])) {
+            $query->where('jk', $this->filters['jk']);
+        }
+
+        if (isset($this->filters['status_user']) && !empty($this->filters['status_user'])) {
+            $query->where('status_user', $this->filters['status_user']);
+        }
+
+        $data = $query->get();
 
         return view('Owner.reportdata.reportkaryawan.export', compact('data'));
     }

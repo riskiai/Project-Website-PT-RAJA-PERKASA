@@ -41,8 +41,9 @@
                 <th>Nama Karyawan</th>
                 <th>Email</th>
                 <th>Divisi</th>
-                <th>Created At</th>
-                <th>Updated At</th>
+                {{-- <th>Created At</th>
+                <th>Updated At</th> --}}
+                <th>Status User</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -53,8 +54,9 @@
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->email }}</td>
                 <td>{{ $item->divisi ? $item->divisi->divisi_name : '-' }}</td>
-                <td>{{ $item->created_at->format('Y-m-d') }}</td>
-                <td>{{ $item->updated_at->format('Y-m-d') }}</td>
+                <td>{{ $item->status_user }}</td>
+                {{-- <td>{{ $item->created_at->format('Y-m-d') }}</td>
+                <td>{{ $item->updated_at->format('Y-m-d') }}</td> --}}
                 <td>
                   <a class="me-3" href="{{ route('karyawanedit', $item->id) }}">
                     <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />

@@ -81,7 +81,7 @@ class ReportAdminController extends Controller
     }
     
     public function exportreportpicperusahaan(Request $request) {
-        $filters = $request->all(); // Menerima semua filter dari request
+        $filters = $request->all(); 
         return Excel::download(new PICPerusahaanExportWithStyle($filters), 'List_Style_picperusahaan.xlsx');
     }    
     
