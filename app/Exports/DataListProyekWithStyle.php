@@ -10,16 +10,40 @@ use Maatwebsite\Excel\Events\AfterSheet;
 
 class DataListProyekWithStyle implements FromView, WithEvents
 {
+    protected $filters;
+
+    public function __construct($filters)
+    {
+        $this->filters = $filters;
+    }
+
     public function view(): View
     {
-        // Ambil data proyek beserta relasinya
-        $proyeks = List_Data_Proyek::with([
+        $query = List_Data_Proyek::with([
             'materials',
             'brandMaterials',
             'peralatan',
-            'brandPeralatan',
-            'bidangproyeks'
-        ])->get();
+            'brandPeralatan'
+        ]);
+
+        if (isset($this->filters['updated_at']) && !empty($this->filters['updated_at'])) {
+            $query->whereDate('updated_at', date('Y-m-d', strtotime($this->filters['updated_at'])));
+        }
+
+        if (isset($this->filters['bidangproyek_id']) && !empty($this->filters['bidangproyek_id'])) {
+            $query->where('bidangproyek_id', $this->filters['bidangproyek_id']);
+        }
+
+        if (isset($this->filters['status_progres_proyek']) && !empty($this->filters['status_progres_proyek'])) {
+            $query->where('status_progres_proyek', $this->filters['status_progres_proyek']);
+        }
+
+        if (isset($this->filters['status_proyek']) && !empty($this->filters['status_proyek'])) {
+            $query->where('status_proyek', $this->filters['status_proyek']);
+        }
+
+        $proyeks = $query->get();
+
 
         return view('Manajer.report.dataproyeks.export', ['proyeks' => $proyeks]);
     }
@@ -42,6 +66,7 @@ class DataListProyekWithStyle implements FromView, WithEvents
                 $sheet->getColumnDimension('I')->setWidth(20);
                 $sheet->getColumnDimension('J')->setWidth(15);
                 $sheet->getColumnDimension('K')->setWidth(20);
+                $sheet->getColumnDimension('L')->setWidth(15);
 
                 // Set wrap text for description column
                 $sheet->getStyle('A:K')->getAlignment()->setWrapText(true);

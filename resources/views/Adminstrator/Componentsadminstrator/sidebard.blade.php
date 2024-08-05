@@ -128,37 +128,37 @@
               </li>
           @endif
 
-          @if(auth()->check() && auth()->user()->role->role_name === 'admin')
-          <li class="submenu">
-              <a href="javascript:void(0);"
-                 ><i data-feather="file-text"></i> <span>Report Data</span>
-                  <span class="menu-arrow"></span
-              ></a>
-              <ul>
-                  <li class="{{ Request::is('reportproyek*') ? 'active' : '' }}"><a href="{{ route('reportproyek') }}">Report Data List Proyek PT Raja Perkasa</a></li>
-                  {{-- <li class="{{ Request::is('reportkaryawanlist*') ? 'active' : '' }}"><a href="">Report Data Karyawan PT Raja Perkasa</a></li> --}}
-                  <li class="{{ Request::is('reportuserspicperusahaan*') ? 'active' : '' }}"><a href="{{ route('reportuserspicperusahaan') }}">Report Data PIC Perusahaan Client Mitra PT Raja Perkasa</a></li>
-                  {{-- <li class="{{ Request::is('reportmitralist*') ? 'active' : '' }}"><a href="">Report Data Mitra PT Raja Perkasa</a></li> --}}
-              </ul>
-          </li>
-      @endif
+        @if(auth()->check() && auth()->user()->role->role_name === 'admin')
+        <li class="submenu">
+            <a href="javascript:void(0);">
+                <img src="{{ asset('assets/img/icons/settings.svg') }}" alt="img" />
+                <span>Settings</span>
+                <span class="menu-arrow"></span>
+            </a>
+            <ul>
+                <li class="{{ Request::is('settings*') ? 'active' : '' }}">
+                    <a href="{{ route('settings') }}">General Settings</a>
+                </li>
+                <li class="{{ Request::is('settings_title*') ? 'active' : '' }}">
+                    <a href="{{ route('settings_title') }}">Settings Title</a>
+                </li>
+            </ul>
+        </li>
+        @endif
 
-      @if(auth()->check() && auth()->user()->role->role_name === 'admin')
-      <li class="submenu">
-          <a href="javascript:void(0);">
-              <img src="{{ asset('assets/img/icons/settings.svg') }}" alt="img" />
-              <span>Settings</span>
-              <span class="menu-arrow"></span>
-          </a>
-          <ul>
-              <li class="{{ Request::is('settings*') ? 'active' : '' }}">
-                  <a href="{{ route('settings') }}">General Settings</a>
-              </li>
-              <li class="{{ Request::is('settings_title*') ? 'active' : '' }}">
-                <a href="{{ route('settings_title') }}">Settings Title</a>
-            </li>
-          </ul>
-      </li>
+        @if(auth()->check() && auth()->user()->role->role_name === 'admin')
+        <li class="submenu">
+            <a href="javascript:void(0);"
+            ><i data-feather="file-text"></i> <span>Report Data</span>
+                <span class="menu-arrow"></span
+            ></a>
+            <ul>
+                <li class="{{ Request::is('reportproyek*') ? 'active' : '' }}"><a href="{{ route('reportproyek') }}">Report Data List Proyek PT Raja Perkasa</a></li>
+                {{-- <li class="{{ Request::is('reportkaryawanlist*') ? 'active' : '' }}"><a href="">Report Data Karyawan PT Raja Perkasa</a></li> --}}
+                <li class="{{ Request::is('reportuserspicperusahaan*') ? 'active' : '' }}"><a href="{{ route('reportuserspicperusahaan') }}">Report Data PIC Perusahaan Client Mitra PT Raja Perkasa</a></li>
+                {{-- <li class="{{ Request::is('reportmitralist*') ? 'active' : '' }}"><a href="">Report Data Mitra PT Raja Perkasa</a></li> --}}
+            </ul>
+        </li>
     @endif
 
           @if(auth()->check() && auth()->user()->role->role_name === 'owner')

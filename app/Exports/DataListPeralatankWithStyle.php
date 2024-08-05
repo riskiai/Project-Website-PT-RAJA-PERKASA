@@ -10,13 +10,39 @@ use Maatwebsite\Excel\Events\AfterSheet;
 
 class DataListPeralatankWithStyle implements FromView, WithEvents
 {
+    protected $filters;
+
+    public function __construct($filters)
+    {
+        $this->filters = $filters;
+    }
+
     public function view(): View
     {
-        // Ambil data peralatan beserta relasinya
-        $data = List_Peralatan::with([
+        $query = List_Peralatan::with([
             'peralatan',
             'brand_peralatan'
-        ])->get();
+        ]);
+
+        // Filter by created_at range
+        if (isset($this->filters['created_at_start']) && !empty($this->filters['created_at_start']) &&
+            isset($this->filters['created_at_end']) && !empty($this->filters['created_at_end'])) {
+            $startDate = date('Y-m-d', strtotime($this->filters['created_at_start']));
+            $endDate = date('Y-m-d', strtotime($this->filters['created_at_end']));
+            $query->whereBetween('created_at', [$startDate, $endDate]);
+        }
+
+        // Filter by brand peralatan
+        if (isset($this->filters['brand_peralatan_id']) && !empty($this->filters['brand_peralatan_id'])) {
+            $query->where('brand__peralatans_id', $this->filters['brand_peralatan_id']);
+        }
+
+        // Filter by tahun beli peralatan
+        // if (isset($this->filters['tahun_beli_peralatans']) && !empty($this->filters['tahun_beli_peralatans'])) {
+        //     $query->whereYear('tahun_beli_peralatans', $this->filters['tahun_beli_peralatans']);
+        // }
+
+        $data = $query->get();
 
         return view('Manajer.report.dataperalatan.export', ['data' => $data]);
     }

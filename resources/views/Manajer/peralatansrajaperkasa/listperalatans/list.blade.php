@@ -19,12 +19,12 @@
       <div class="card-body">
         <div class="table-top">
           <div class="search-set">
-            <div class="search-path">
+            {{-- <div class="search-path">
               <a class="btn btn-filter" id="filter_search">
                 <img src="{{ asset('assets/img/icons/filter.svg') }}" alt="img" />
                 <span><img src="{{ asset('assets/img/icons/closes.svg') }}" alt="img" /></span>
               </a>
-            </div>
+            </div> --}}
             <div class="search-input">
               <a class="btn btn-searchset">
                 <img src="{{ asset('assets/img/icons/search-white.svg') }}" alt="img" />
@@ -103,12 +103,14 @@
             <thead>
               <tr>
                 <th>No</th>
+                <th>Di Input Tanggal</th>
                 <th>Nama Peralatan</th>
-                <th>Brand</th>
+                <th>Brand Peralatan</th>
                 <th>Capacity</th>
                 <th>Ownership</th>
                 <th>Certificate By</th>
                 <th>Unit Quantity</th>
+                <th>Tahun Beli Peralatan</th>
                 <th>Status List Peralatan</th>
                 <th>Action</th>
               </tr>
@@ -117,12 +119,14 @@
               @foreach($data as $index => $item)
               <tr>
                 <td>{{ $index + 1 }}</td>
+                <td>{{ $item->created_at->format('Y-m-d') }}</td>
                 <td>{{ $item->peralatan->nama_peralatan }}</td>
                 <td>{{ $item->brand_peralatan->nama_brand_peralatan }}</td>
                 <td>{{ $item->capacity }}</td>
                 <td>{{ $item->ownership }}</td>
                 <td>{{ $item->certificate_by }}</td>
                 <td>{{ $item->unit_qty }}</td>
+                <td>{{ \Carbon\Carbon::parse($item->tahun_beli_peralatans)->format('Y') }}</td>
                 <td>
                   @if($item->status_list_peralatans == 'active')
                   <span class="badges bg-lightgreen">Active</span>

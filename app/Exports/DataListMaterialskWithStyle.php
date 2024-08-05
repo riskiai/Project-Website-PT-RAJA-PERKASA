@@ -10,13 +10,42 @@ use Maatwebsite\Excel\Events\AfterSheet;
 
 class DataListMaterialskWithStyle implements FromView, WithEvents
 {
+    protected $filters;
+
+    public function __construct($filters)
+    {
+        $this->filters = $filters;
+    }
+
     public function view(): View
     {
-        // Ambil data proyek beserta relasinya
-        $data = List_Materials::with([
+        $query = List_Materials::with([
             'materials',
             'brand_materials'
-        ])->get();
+        ]);
+
+        // Filter by created_at range
+        if (isset($this->filters['created_at_start']) && !empty($this->filters['created_at_start']) &&
+            isset($this->filters['created_at_end']) && !empty($this->filters['created_at_end'])) {
+            $startDate = date('Y-m-d', strtotime($this->filters['created_at_start']));
+            $endDate = date('Y-m-d', strtotime($this->filters['created_at_end']));
+            $query->whereBetween('created_at', [$startDate, $endDate]);
+        }
+
+        // Filter by expired_materials_date range
+        if (isset($this->filters['expired_materials_start']) && !empty($this->filters['expired_materials_start']) &&
+            isset($this->filters['expired_materials_end']) && !empty($this->filters['expired_materials_end'])) {
+            $startDate = date('Y-m-d', strtotime($this->filters['expired_materials_start']));
+            $endDate = date('Y-m-d', strtotime($this->filters['expired_materials_end']));
+            $query->whereBetween('expired_materials_date', [$startDate, $endDate]);
+        }
+
+        // Filter by brand materials
+        if (isset($this->filters['brand_materials_id']) && !empty($this->filters['brand_materials_id'])) {
+            $query->where('brand__materials_id', $this->filters['brand_materials_id']);
+        }
+
+        $data = $query->get();
 
         return view('Manajer.report.datamaterials.export', ['data' => $data]);
     }

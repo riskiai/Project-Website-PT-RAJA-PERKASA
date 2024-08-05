@@ -19,12 +19,12 @@
       <div class="card-body">
         <div class="table-top">
           <div class="search-set">
-            <div class="search-path">
+            {{-- <div class="search-path">
               <a class="btn btn-filter" id="filter_search">
                 <img src="{{ asset('assets/img/icons/filter.svg') }}" alt="img" />
                 <span><img src="{{ asset('assets/img/icons/closes.svg') }}" alt="img" /></span>
               </a>
-            </div>
+            </div> --}}
             <div class="search-input">
               <a class="btn btn-searchset">
                 <img src="{{ asset('assets/img/icons/search-white.svg') }}" alt="img" />
@@ -103,15 +103,14 @@
             <thead>
               <tr>
                 <th>No</th>
+                <th>Di Input Tanggal</th>
                 <th>Nama Materials</th>
                 <th>Brand Materials</th>
                 <th>Country</th>
                 <th>TKDN</th>
                 <th>TKDN Certificate</th>
-                <th>Expired Date</th>
+                <th>Tanggal Kadaluarsa Material</th>
                 <th>Status List Materials</th>
-                <th>Created At</th>
-                <th>Updated At</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -119,6 +118,7 @@
               @foreach($data as $index => $item)
               <tr>
                 <td>{{ $index + 1 }}</td>
+                <td>{{ $item->created_at->format('Y-m-d') }}</td>
                 <td>{{ $item->materials->nama_materials }}</td>
                 <td>{{ $item->brand_materials->nama_brand_materials }}</td>
                 <td>{{ $item->countries }}</td>
@@ -140,8 +140,8 @@
                   <span class="badges bg-lightred">Nonactive</span>
                   @endif
                 </td>
-                <td>{{ $item->created_at->format('Y-m-d') }}</td>
-                <td>{{ $item->updated_at->format('Y-m-d') }}</td>
+              
+                {{-- <td>{{ $item->updated_at->format('Y-m-d') }}</td> --}}
                 <td>
                   <a class="me-3" href="{{ route('listdatamaterialsedit', $item->id) }}">
                     <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />

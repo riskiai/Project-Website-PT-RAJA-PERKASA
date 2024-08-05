@@ -248,7 +248,6 @@ Route::middleware(['auth', 'user-access:manajer'])->group(function () {
         Route::put('/manajerproyek/bidangpekerjaanproyek/{id}', [ManajerBidangPekerjaProyekController::class, 'update'])->name('bidangpekerjaanproyek.update');
         Route::delete('/manajerproyek/bidangpekerjaanproyek/{id}', [ManajerBidangPekerjaProyekController::class, 'destroy'])->name('bidangpekerjaanproyek.destroy');
 
-
          /* List Data Proyek */
          Route::get('/manajerproyek/listdataproyek', [ManajerProyekListProyekController::class, 'listdataproyek'])->name('listdataproyek');
          Route::get('/manajerproyek/listdataproyek/show/{id}', [ManajerProyekListProyekController::class, 'showlistdataproyek'])->name('showlistdataproyek');
