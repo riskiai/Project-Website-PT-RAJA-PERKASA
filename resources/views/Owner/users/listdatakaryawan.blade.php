@@ -39,10 +39,10 @@
               <tr>
                 <th>No</th>
                 <th>Nama Karyawan</th>
-                <th>Email</th>
-                <th>Divisi</th>
-                <th>Created At</th>
-                <th>Updated At</th>
+                    <th>Email</th>
+                    <th>Divisi</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Status User</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -53,8 +53,8 @@
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->email }}</td>
                 <td>{{ $item->divisi ? $item->divisi->divisi_name : '-' }}</td>
-                <td>{{ $item->created_at->format('Y-m-d') }}</td>
-                <td>{{ $item->updated_at->format('Y-m-d') }}</td>
+                <td>{{ $item->jk == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
+                <td>{{ $item->status_user }}</td>
                 <td>
                   <a class="me-3" href="{{ route('ownershowkaryawanlist',  ['id' => $item->id]) }}" title="Melihat Data Detail Karyawan PT Raja Perkasa">
                         <i class="fas fa-eye text-dark"></i>
