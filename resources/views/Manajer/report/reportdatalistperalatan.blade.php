@@ -84,25 +84,28 @@
               <div class="col-lg-3 col-sm-6 col-12">
                 <div class="form-group">
                   <div class="input-groupicon">
+                    <label for="">Filter Berdasarkan Input Data Peralatan</label>
                     <input type="text" class="datetimepicker cal-icon" id="created_at_start" name="created_at_start" placeholder="Tanggal Input Mulai" />
-                    <div class="addonset">
+                    {{-- <div class="addonset">
                       <img src="{{ asset('assets/img/icons/calendars.svg') }}" alt="img" />
-                    </div>
+                    </div> --}}
                   </div>
                 </div>
               </div>
               <div class="col-lg-3 col-sm-6 col-12">
                 <div class="form-group">
                   <div class="input-groupicon">
+                    <label for="">Sampai Dengan Tanggal</label>
                     <input type="text" class="datetimepicker cal-icon" id="created_at_end" name="created_at_end" placeholder="Tanggal Input Akhir" />
-                    <div class="addonset">
+                    {{-- <div class="addonset">
                       <img src="{{ asset('assets/img/icons/calendars.svg') }}" alt="img" />
-                    </div>
+                    </div> --}}
                   </div>
                 </div>
               </div>
               <div class="col-lg-3 col-sm-6 col-12">
                 <div class="form-group">
+                  <label for="">Filter Berdasarkan Brand Peralatan</label>
                   <select class="select" id="brand_peralatan_id" name="brand_peralatan_id">
                     <option value="">Pilih Brand Peralatan</option>
                     @foreach($brandPeralatans as $brand)
@@ -113,6 +116,7 @@
               </div>
               <div class="col-lg-3 col-sm-6 col-12">
                 <div class="form-group">
+                  <label for="">Filter Berdasarkan Tahun Beli Peralatan</label>
                   <select class="select" id="tahun_beli_peralatans" name="tahun_beli_peralatans">
                     <option value="">Pilih Tahun Beli Peralatan</option>
                     @foreach($tahunBeliPeralatans as $tahun)

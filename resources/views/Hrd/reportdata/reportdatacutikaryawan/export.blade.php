@@ -25,8 +25,18 @@
                 <td style="{{ $styleBodyMain }}">{{ $item->user->name }}</td>
                 <td style="{{ $styleBodyMain }}">{{ $item->user->divisi->divisi_name ?? 'N/A' }}</td>
                 <td style="{{ $styleBodyMain }}">{{ $item->alasan_cuti }}</td>
-                <td style="{{ $styleBodyMain }}">{{ ucfirst($item->status_cuti) }}</td>
+                {{-- <td >{{ ucfirst($item->status_cuti) }}</td> --}}
+                <td style="{{ $styleBodyMain }}">
+                    @if($item->status_cuti === 'belumdicek')
+                        Belum Dicek
+                    @elseif($item->status_cuti === 'disetujui')
+                        Disetujui
+                    @elseif($item->status_cuti === 'tidak_disetujui')
+                        Tidak Disetujui
+                    @endif
+                </td>
                 <td style="{{ $styleBodyMain }}">{{ $item->lokasi_area_kerja }}</td>
+              
                 <td style="{{ $styleBodyMain }}">{{ \Carbon\Carbon::parse($item->pengambilan_cuti_tgl)->translatedFormat('j F Y') }}</td>
                 <td style="{{ $styleBodyMain }}">{{ \Carbon\Carbon::parse($item->masuk_kembali_tgl)->translatedFormat('j F Y') }}</td>
                 <td style="{{ $styleBodyMain }}">

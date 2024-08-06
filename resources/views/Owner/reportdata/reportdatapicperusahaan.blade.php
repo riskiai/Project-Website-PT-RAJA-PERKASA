@@ -76,26 +76,29 @@
                             <div class="col-lg-3 col-sm-6 col-12">
                               <div class="form-group">
                                   <div class="input-groupicon">
+                                      <label for="">Filter Berdasarkan Perwakilan PIC Daftar</label>
                                       <input type="text" class="datetimepicker cal-icon" id="created_at_start" name="created_at_start" placeholder="Rentang Mulai PIC Mitra Daftar" />
-                                      <div class="addonset">
+                                      {{-- <div class="addonset">
                                           <img src="{{ asset('assets/img/icons/calendars.svg') }}" alt="img" />
-                                      </div>
+                                      </div> --}}
                                   </div>
                               </div>
                           </div>
                           <div class="col-lg-3 col-sm-6 col-12">
                               <div class="form-group">
                                   <div class="input-groupicon">
+                                      <label for="">Sampai Dengan Tanggal</label>
                                       <input type="text" class="datetimepicker cal-icon" id="created_at_end" name="created_at_end" placeholder="Rentang Berakhir PIC Mitra Daftar" />
-                                      <div class="addonset">
+                                      {{-- <div class="addonset">
                                           <img src="{{ asset('assets/img/icons/calendars.svg') }}" alt="img" />
-                                      </div>
+                                      </div> --}}
                                   </div>
                               </div>
                           </div>
                           
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
+                                    <label for="">Filter Berdasarkan Status PIC Perusahaan</label>
                                     <select class="select" id="status_pic_perusahaan" name="status_pic_perusahaan">
                                         <option value="">Pilih Status PIC Perusahaan</option>
                                         <option value="calon_client">Calon Client</option>
@@ -105,6 +108,7 @@
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
+                                    <label for="">Filter Berdasarkan Status Kerjasama Mitra</label>
                                     <select class="select" id="status_kerjasama" name="status_kerjasama">
                                         <option value="">Pilih Status Kerjasama Mitra</option>
                                         <option value="ditunggu">Ditunggu</option>

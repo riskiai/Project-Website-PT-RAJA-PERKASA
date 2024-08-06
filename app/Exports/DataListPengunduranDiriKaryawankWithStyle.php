@@ -10,9 +10,30 @@ use Maatwebsite\Excel\Events\AfterSheet;
 
 class DataListPengunduranDiriKaryawankWithStyle implements FromView, WithEvents
 {
+    protected $filters;
+
+    public function __construct($filters)
+    {
+        $this->filters = $filters;
+    }
+
     public function view(): View
     {
-        $data = Pengundurandiri::with(['user.divisi'])->get();
+        $query = Pengundurandiri::with(['user.divisi']);
+
+        // Filter by status_pengunduran_diri
+        if (isset($this->filters['status_pengunduran_diri']) && !empty($this->filters['status_pengunduran_diri'])) {
+            $query->where('status_pengunduran_diri', $this->filters['status_pengunduran_diri']);
+        }
+
+        // Filter by divisi
+        if (isset($this->filters['divisi_id']) && !empty($this->filters['divisi_id'])) {
+            $query->whereHas('user.divisi', function($q) {
+                $q->where('id', $this->filters['divisi_id']);
+            });
+        }
+
+        $data = $query->get();
 
         return view('Hrd.reportdata.reportdatapengundurandirikaryawan.export', compact('data'));
     }

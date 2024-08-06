@@ -23,7 +23,16 @@
                 <td style="{{ $styleBodyMain }}">{{ $item->user->name }}</td>
                 <td style="{{ $styleBodyMain }}">{{ $item->user->divisi->divisi_name ?? 'N/A' }}</td>
                 <td style="{{ $styleBodyMain }}">{{ $item->alasan_pengunduran_diri }}</td>
-                <td style="{{ $styleBodyMain }}">{{ ucfirst($item->status_pengunduran_diri) }}</td>
+                {{-- <td >{{ ucfirst($item->status_pengunduran_diri) }}</td> --}}
+                <td style="{{ $styleBodyMain }}">
+                    @if($item->status_pengunduran_diri === 'belumdicek')
+                        Belum Dicek
+                    @elseif($item->status_pengunduran_diri === 'disetujui')
+                        Disetujui
+                    @elseif($item->status_pengunduran_diri === 'tidak_disetujui')
+                        Tidak Disetujui
+                    @endif
+                </td>
                 <td style="{{ $styleBodyMain }}">
                     @if($item->file_pengunduran_diri)
                         <a href="{{ asset('storage/'.$item->file_pengunduran_diri) }}" target="_blank">Lihat File</a>

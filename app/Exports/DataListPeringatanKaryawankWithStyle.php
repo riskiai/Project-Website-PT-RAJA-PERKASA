@@ -10,13 +10,40 @@ use Maatwebsite\Excel\Events\AfterSheet;
 
 class DataListPeringatanKaryawankWithStyle implements FromView, WithEvents
 {
+    protected $filters;
+
+    public function __construct($filters)
+    {
+        $this->filters = $filters;
+    }
+
     public function view(): View
     {
-        $karyawans = User::with(['absens', 'cutis', 'divisi', 'listPeringatanKaryawans'])
+        $query = User::with(['absens', 'cutis', 'divisi', 'listPeringatanKaryawans'])
             ->whereHas('role', function ($query) {
                 $query->where('role_name', 'karyawan');
-            })
-            ->get();
+            });
+
+        // Filter by jenis_peringatan
+        if (isset($this->filters['jenis_peringatan']) && !empty($this->filters['jenis_peringatan'])) {
+            $query->whereHas('listPeringatanKaryawans', function ($q) {
+                $q->where('jenis_peringatan', $this->filters['jenis_peringatan']);
+            });
+        }
+
+        // Filter by divisi
+        if (isset($this->filters['divisi_id']) && !empty($this->filters['divisi_id'])) {
+            $query->whereHas('divisi', function($q) {
+                $q->where('id', $this->filters['divisi_id']);
+            });
+        }
+
+        // Filter by status_karyawan
+        if (isset($this->filters['status_karyawan']) && !empty($this->filters['status_karyawan'])) {
+            $query->where('status_user', $this->filters['status_karyawan']);
+        }
+
+        $karyawans = $query->get();
 
         $data = $karyawans->map(function ($karyawan) {
             $tidakHadirCount = $karyawan->absens ? $karyawan->absens->where('status_absensi', 'tidak_hadir')->count() : 0;

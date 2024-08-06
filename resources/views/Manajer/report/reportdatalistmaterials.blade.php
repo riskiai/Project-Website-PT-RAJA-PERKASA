@@ -84,45 +84,50 @@
               <div class="col-lg-3 col-sm-6 col-12">
                 <div class="form-group">
                   <div class="input-groupicon">
+                    <label for="">Filter Berdasarkan Input Data Materials</label>
                     <input type="text" class="datetimepicker cal-icon" id="created_at_start" name="created_at_start" placeholder="Tanggal Input Mulai" />
-                    <div class="addonset">
+                    {{-- <div class="addonset">
                       <img src="{{ asset('assets/img/icons/calendars.svg') }}" alt="img" />
-                    </div>
+                    </div> --}}
                   </div>
                 </div>
               </div>
               <div class="col-lg-3 col-sm-6 col-12">
                 <div class="form-group">
                   <div class="input-groupicon">
+                    <label for="">Sampai Dengan Tanggal</label>
                     <input type="text" class="datetimepicker cal-icon" id="created_at_end" name="created_at_end" placeholder="Tanggal Input Akhir" />
-                    <div class="addonset">
+                    {{-- <div class="addonset">
                       <img src="{{ asset('assets/img/icons/calendars.svg') }}" alt="img" />
-                    </div>
+                    </div> --}}
                   </div>
                 </div>
               </div>
               <div class="col-lg-3 col-sm-6 col-12">
                 <div class="form-group">
                   <div class="input-groupicon">
+                    <label for="">Filter Berdasarkan Kadaluarsa Materials</label>
                     <input type="text" class="datetimepicker cal-icon" id="expired_materials_start" name="expired_materials_start" placeholder="Tanggal Kadaluarsa Mulai" />
-                    <div class="addonset">
+                    {{-- <div class="addonset">
                       <img src="{{ asset('assets/img/icons/calendars.svg') }}" alt="img" />
-                    </div>
+                    </div> --}}
                   </div>
                 </div>
               </div>
               <div class="col-lg-3 col-sm-6 col-12">
                 <div class="form-group">
                   <div class="input-groupicon">
+                    <label for="">Sampai Dengan Tanggal</label>
                     <input type="text" class="datetimepicker cal-icon" id="expired_materials_end" name="expired_materials_end" placeholder="Tanggal Kadaluarsa Akhir" />
-                    <div class="addonset">
+                    {{-- <div class="addonset">
                       <img src="{{ asset('assets/img/icons/calendars.svg') }}" alt="img" />
-                    </div>
+                    </div> --}}
                   </div>
                 </div>
               </div>
               <div class="col-lg-3 col-sm-6 col-12">
                 <div class="form-group">
+                  <label for="">Filter Berdasarka Brand Materials</label>
                   <select class="select" id="brand_materials_id" name="brand_materials_id">
                     <option value="">Pilih Brand Materials</option>
                     @foreach($brandMaterials as $brand)

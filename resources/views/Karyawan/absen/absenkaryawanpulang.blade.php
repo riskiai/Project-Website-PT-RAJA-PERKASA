@@ -40,19 +40,19 @@
                         <div class="col-lg-6 col-sm-12 mt-4">
                             @if($user->divisi)
                             <div class="form-group">
-                                <label>Divisi Name</label>
+                                <label>Nama Divisi</label>
                                 <input type="text" name="divisi_name" class="form-control" value="{{ $user->divisi->divisi_name }}" readonly />
                             </div>
                             @else
                             <div class="form-group">
-                                <label>Divisi Name</label>
+                                <label>Nama Divisi</label>
                                 <input type="text" name="divisi_name" class="form-control" value="N/A" readonly />
                             </div>
                             @endif   
                         </div>
                         <div class="col-lg-6 col-sm-12 mt-4">
                             <div class="form-group">
-                                <label>Tanggal Absen</label>
+                                <label>Tanggal Rekapitulasi Kehadiran</label>
                                 <input type="date" name="tanggal_absen" id="tanggal_absen" class="form-control" required />
                             </div>
                         </div>

@@ -85,15 +85,17 @@
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <div class="input-groupicon">
+                                        <label for="">Filter Berdasarkan Tanggal Proyek Disetujui </label>
                                         <input type="text" class="datetimepicker cal-icon" id="updated_at" name="updated_at" placeholder="Disetujui Tanggal " />
-                                        <div class="addonset">
+                                        {{-- <div class="addonset">
                                             <img src="{{ asset('assets/img/icons/calendars.svg') }}" alt="img" />
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
+                                    <label for="">Filter Berdasarkan Bidang Proyek</label>
                                     <select class="select" id="bidangproyek_id" name="bidangproyek_id">
                                         <option value="">Pilih Bidang Proyek</option>
                                         @foreach($bidangProyeks as $bidang)
@@ -104,6 +106,7 @@
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
+                                    <label for="">Filter Berdasarkan Status Progress Proyek</label>
                                     <select class="select" id="status_progres_proyek" name="status_progres_proyek">
                                         <option value="">Pilih Status Progres</option>
                                         <option value="sedangberjalan">Sedang Berjalan</option>
@@ -113,6 +116,7 @@
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
+                                    <label for="">Filter Berdasarkan Status Proyek</label>
                                     <select class="select" id="status_proyek" name="status_proyek">
                                         <option value="">Pilih Status Proyek</option>
                                         <option value="disetujui">Disetujui</option>

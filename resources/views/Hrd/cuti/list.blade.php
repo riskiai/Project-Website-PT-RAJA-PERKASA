@@ -12,6 +12,21 @@
 
     <div class="card">
       <div class="card-body">
+        <div class="table-top">
+          <div class="search-set">
+            {{-- <div class="search-path">
+              <a class="btn btn-filter" id="filter_search">
+                <img src="{{ asset('assets/img/icons/filter.svg') }}" alt="img" />
+                <span><img src="{{ asset('assets/img/icons/closes.svg') }}" alt="img" /></span>
+              </a>
+            </div> --}}
+            <div class="search-input">
+              <a class="btn btn-searchset">
+                <img src="{{ asset('assets/img/icons/search-white.svg') }}" alt="img" />
+              </a>
+            </div>
+          </div>
+        </div>
         @if(session('success'))
           <div class="alert alert-success">
             {{ session('success') }}
@@ -27,8 +42,8 @@
                 <th>Alasan Cuti</th>
                 <th>Status Cuti</th>
                 <th>File Cuti</th>
-                <th>Created At</th>
-                <th>Updated At</th>
+                <th>Tanggal Pengambilan Cuti</th>
+                <th>Tanggal Masuk Kembali</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -49,8 +64,8 @@
                     @endif
                 </td>
                 <td><a href="{{ asset('storage/'.$item->file_cuti) }}" target="_blank">Lihat File</a></td>
-                <td>{{ $item->created_at->format('Y-m-d') }}</td>
-                <td>{{ $item->updated_at->format('Y-m-d') }}</td>
+                <td>{{ \Carbon\Carbon::parse($item->pengambilan_cuti_tgl)->translatedFormat('j F Y') }}</td>
+                <td>{{ \Carbon\Carbon::parse($item->masuk_kembali_tgl)->translatedFormat('j F Y') }}</td>
                 <td>
                   <a class="me-3 edit-btn" href="#" data-id="{{ $item->id }}" data-status="{{ $item->status_cuti }}">
                     <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />

@@ -46,8 +46,8 @@
                 <th>No</th>
                 <th>Nama Karyawan</th>
                 <th>Divisi</th>
-                <th>Tanggal Absen</th>
-                <th>Status Absen</th>
+                <th>Tanggal Rekapitulasi Kehadiran</th>
+                <th>Status Kehadiran</th>
                 <th>Waktu Datang</th>
                 <th>Waktu Pulang</th>
                 <th>Bukti Kehadiran</th>

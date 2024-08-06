@@ -12,6 +12,22 @@
 
     <div class="card">
       <div class="card-body">
+        <div class="table-top">
+          <div class="search-set">
+            {{-- <div class="search-path">
+              <a class="btn btn-filter" id="filter_search">
+                <img src="{{ asset('assets/img/icons/filter.svg') }}" alt="img" />
+                <span><img src="{{ asset('assets/img/icons/closes.svg') }}" alt="img" /></span>
+              </a>
+            </div> --}}
+            <div class="search-input">
+              <a class="btn btn-searchset">
+                <img src="{{ asset('assets/img/icons/search-white.svg') }}" alt="img" />
+              </a>
+            </div>
+          </div>
+        </div>
+
         @if(session('success'))
           <div class="alert alert-success">
             {{ session('success') }}
@@ -27,8 +43,8 @@
                 <th>Alasan Pengunduran Diri</th>
                 <th>Status Pengunduran Diri</th>
                 <th>File Pengunduran Diri</th>
-                <th>Created At</th>
-                <th>Updated At</th>
+                {{-- <th>Created At</th>
+                <th>Updated At</th> --}}
                 <th>Action</th>
               </tr>
             </thead>
@@ -49,8 +65,8 @@
                     @endif
                 </td>
                 <td><a href="{{ asset('storage/'.$item->file_pengunduran_diri) }}" target="_blank">Lihat File</a></td>
-                <td>{{ $item->created_at->format('Y-m-d') }}</td>
-                <td>{{ $item->updated_at->format('Y-m-d') }}</td>
+                {{-- <td>{{ $item->created_at->format('Y-m-d') }}</td>
+                <td>{{ $item->updated_at->format('Y-m-d') }}</td> --}}
                 <td>
                   <a class="me-3 edit-btn" href="#" data-id="{{ $item->id }}" data-status="{{ $item->status_pengunduran_diri }}">
                     <img src="{{ asset('assets/img/icons/edit.svg') }}" alt="img" />

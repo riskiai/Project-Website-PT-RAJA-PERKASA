@@ -84,6 +84,7 @@
                 <div class="row">
                   <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
+                      <label for="">Filter Berdasarkan Divisi</label>
                       <select class="select" id="divisi_id" name="divisi_id">
                         <option value="">Pilih Divisi</option>
                         @foreach($divisis as $divisi)
@@ -94,6 +95,7 @@
                   </div>
                   <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
+                      <label for="">Filter Berdasarkan Jenis Kelamin</label>
                       <select class="select" id="jk" name="jk">
                         <option value="">Pilih Jenis Kelamin</option>
                         <option value="L">Laki-laki</option>
@@ -103,6 +105,7 @@
                   </div>
                   <div class="col-lg-3 col-sm-6 col-12">
                     <div class="form-group">
+                      <label for="">Filter Berdasarkan Status User Karyawan</label>
                       <select class="select" id="status_user" name="status_user">
                         <option value="">Pilih Status User</option>
                         <option value="active">Active</option>
