@@ -43,7 +43,7 @@
                 <th>Divisi</th>
                 {{-- <th>Created At</th>
                 <th>Updated At</th> --}}
-                <th>Status User</th>
+                <th>Status Karyawan</th>
                 <th>Action</th>
               </tr>
             </thead>
