@@ -160,7 +160,7 @@ function breakText($text, $length = 40) {
                     </div>
                     <h5 class="text-white" style="font-size: 20px;">Pembangunan Gedung</h5>
                     <hr class="w-25">
-                    <span>Vero elitr justo clita lorem ipsum dolor at sed stet sit diam rebum ipsum et diam justo clita et</span>
+                    <span>Menangani pembangunan gedung komersial dan residensial, termasuk perencanaan, desain, dan konstruksi untuk memenuhi standar kualitas dan keamanan yang tinggi.</span>
                 </div>
             </div>
             <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.3s">
@@ -173,7 +173,7 @@ function breakText($text, $length = 40) {
                     </div>
                     <h5 class="text-white" style="font-size: 20px;">Pembangunan Infrastruktur Energi</h5>
                     <hr class="w-25">
-                    <span>Vero elitr justo clita lorem ipsum dolor at sed stet sit diam rebum ipsum et diam justo clita et</span>
+                    <span>Melaksanakan proyek pembangunan infrastruktur energi, termasuk pembangkit listrik, jaringan distribusi, dan fasilitas penyimpanan energi untuk mendukung kebutuhan energi yang berkelanjutan.</span>
                 </div>
             </div>
             <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay="0.5s">
@@ -186,13 +186,14 @@ function breakText($text, $length = 40) {
                     </div>
                     <h5 class="text-white" style="font-size: 20px;">Pembangunan Infrastruktur Perminyakan & Gas</h5>
                     <hr class="w-25">
-                    <span>Vero elitr justo clita lorem ipsum dolor at sed stet sit diam rebum ipsum et diam justo clita et</span>
+                    <span>Mengembangkan infrastruktur untuk industri perminyakan dan gas, termasuk fasilitas pengeboran, pengolahan, dan penyimpanan, untuk mendukung operasional yang efisien dan aman.</span>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <!-- Facts End -->
+
 
 <!-- About Start -->
 <div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
