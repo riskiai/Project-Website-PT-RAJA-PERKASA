@@ -23,7 +23,7 @@
                 @endif
                 @if(!$alreadyCheckedOut)
                 <div id="pulangTimeAlert" class="alert alert-warning alert-dismissible fade show" style="display:none;" role="alert">
-                    Sekarang sudah memasuki waktu setelah jam 14:20. Anda bisa pulang sekarang atau melanjutkan lembur.
+                    Sekarang sudah memasuki waktu setelah jam 16.30 Anda bisa pulang sekarang atau melanjutkan lembur.
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 @endif
@@ -87,7 +87,7 @@
         @if(!$alreadyCheckedOut)
         const pulangTimeAlert = document.getElementById('pulangTimeAlert');
 
-        if (now.getHours() >= 21 && now.getMinutes() >= 45) {
+        if (now.getHours() >= 23 && now.getMinutes() >= 7) {
             pulangTimeAlert.style.display = 'block';
         } else {
             pulangTimeAlert.style.display = 'none';
