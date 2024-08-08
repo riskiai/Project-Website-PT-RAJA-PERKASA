@@ -36,16 +36,16 @@
 
         @foreach($data as $item)
           @if($item->jenis_peringatan == 'peringatan_peneguran')
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
               Peringatan Peneguran: Karyawan {{ $item->name }} telah tidak hadir sebanyak {{ $item->tidak_hadirnya }} kali dan cuti sebanyak {{ $item->cuti_berapakali }} kali.
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
           @elseif($item->jenis_peringatan == 'peringatan_pemanggilan')
-            <div class="alert alert-dark alert-dismissible fade show" role="alert">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
               Peringatan Pemanggilan: Karyawan {{ $item->name }} telah tidak hadir sebanyak {{ $item->tidak_hadirnya }} kali dan cuti sebanyak {{ $item->cuti_berapakali }} kali.
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-          @elseif($item->jenis_peringatan == 'peringatan_pemberhentian')
+          @elseif($item->jenis_peringatan == 'peringatan_pemberhentian')  
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
               Peringatan Pemberhentian: Karyawan {{ $item->name }} telah tidak hadir sebanyak {{ $item->tidak_hadirnya }} kali dan cuti sebanyak {{ $item->cuti_berapakali }} kali.
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
