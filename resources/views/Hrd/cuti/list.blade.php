@@ -51,8 +51,8 @@
               @foreach($data as $index => $item)
               <tr>
                 <td>{{ $index + 1 }}</td>
-                <td>{{ $item->user->name }}</td>
-                <td>{{ $item->user->divisi->divisi_name }}</td>
+                <td>{{ $item->user->name ?? "Tidak Ada Data"}}</td>
+                <td>{{ $item->user->divisi->divisi_name ?? "Tidak Ada Data" }}</td>
                 <td>{{ $item->alasan_cuti }}</td>
                 <td>
                     @if($item->status_cuti === 'belumdicek')

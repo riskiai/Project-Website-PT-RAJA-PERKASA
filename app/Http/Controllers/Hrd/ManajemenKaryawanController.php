@@ -186,19 +186,32 @@ class ManajemenKaryawanController extends Controller
         return redirect()->route('karyawanlist')->with('success', 'Data karyawan berhasil diperbarui.');
     }
 
-    public function hrdkaryawandelete($id)
+        public function hrdkaryawandelete($id)
     {
         $user = User::find($id);
-    
-        if($user) {
-            // Set user_id menjadi NULL di tabel absen_karyawans yang terkait
+
+        if ($user) {
+            // Set user_id menjadi NULL di tabel cutis yang terkait
+            $user->cutis()->update(['user_id' => null]);
+
+            // Set user_id menjadi NULL di tabel absens yang terkait
             $user->absens()->update(['user_id' => null]);
-    
+
+            // Set user_id menjadi NULL di tabel pengundurandiris yang terkait
+            $user->pengundurandiri()->update(['user_id' => null]);
+
+            $user->listPeringatanKaryawans()->update(['user_id' => null]);
+
+            // Set user_id menjadi NULL di tabel lain yang terkait
+            // Tambahkan update yang diperlukan untuk tabel lain
+
             // Hapus data dari database
             $user->delete();
         }
-    
+
         return redirect()->route('karyawanlist')->with('success', 'Karyawan berhasil dihapus.');
     }
+
+    
     
 }

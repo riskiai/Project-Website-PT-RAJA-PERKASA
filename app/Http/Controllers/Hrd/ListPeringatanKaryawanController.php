@@ -24,11 +24,11 @@ class ListPeringatanKaryawanController extends Controller
             $cutiCount = $karyawan->cutis->count();
 
             $jenisPeringatan = null;
-            if ($tidakHadirCount >= 3 && $cutiCount >= 3) {
+            if ($tidakHadirCount >= 3 || $cutiCount >= 3) {
                 $jenisPeringatan = 'peringatan_pemberhentian';
-            } elseif ($tidakHadirCount >= 2 && $cutiCount >= 2) {
+            } elseif ($tidakHadirCount >= 2 || $cutiCount >= 2) {
                 $jenisPeringatan = 'peringatan_pemanggilan';
-            } elseif ($tidakHadirCount >= 1 && $cutiCount >= 1) {
+            } elseif ($tidakHadirCount >= 1 || $cutiCount >= 1) {
                 $jenisPeringatan = 'peringatan_peneguran';
             }
 
