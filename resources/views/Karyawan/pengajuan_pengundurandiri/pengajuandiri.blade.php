@@ -40,7 +40,7 @@
 
                 @if(!$pengunduranTerakhir)
                     <div class="alert alert-info">
-                        Anda belum mengajukan pengunduran diri. Silakan <a href="{{ url('/path/to/contoh-format-pengunduran-diri.pdf') }}" target="_blank">download contoh format pengunduran diri</a> dan ajukan permohonan pengunduran diri Anda.
+                        Anda belum mengajukan pengunduran diri. Silakan <a href="https://docs.google.com/document/d/1QlTFZ7MSEM6zxIXFlxzwmy7TmU8hbEGy/edit?usp=sharing&ouid=100067878945190770414&rtpof=true&sd=true" target="_blank">download contoh format pengunduran diri</a> dan ajukan permohonan pengunduran diri Anda.
                     </div>
                 @endif
 

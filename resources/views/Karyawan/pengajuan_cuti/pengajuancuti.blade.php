@@ -38,7 +38,7 @@
             <div class="card-body">
                 @if($pengajuan->isEmpty())
                     <div class="alert alert-info">
-                        Anda belum mengajukan cuti. Silakan <a href="{{ url('/path/to/contoh-format-izin-cuti.pdf') }}" target="_blank">download contoh format izin cuti</a> dan ajukan permohonan cuti Anda.
+                        Anda belum mengajukan cuti. Silakan <a href="https://docs.google.com/document/d/1QlTFZ7MSEM6zxIXFlxzwmy7TmU8hbEGy/edit?usp=sharing&ouid=100067878945190770414&rtpof=true&sd=true" target="_blank">download contoh format izin cuti</a> dan ajukan permohonan cuti Anda.
                     </div>
                 @endif
 

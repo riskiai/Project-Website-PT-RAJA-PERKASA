@@ -194,7 +194,7 @@
               @foreach($peringatanKaryawan as $peringatan)
               <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $peringatan->user->name }}</td>
+                <td>{{ $peringatan->user->name ?? "Tidak Ada Data" }}</td>
                 <td>{{ ucwords(str_replace('_', ' ', $peringatan->jenis_peringatan)) }}</td>
                 <td>{{ ucwords($peringatan->status_karyawan) }}</td>
                 <td>{{ $peringatan->total_peringatan }}</td>
