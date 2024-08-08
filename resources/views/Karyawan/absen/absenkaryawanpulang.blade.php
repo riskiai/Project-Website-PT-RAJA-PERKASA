@@ -87,7 +87,7 @@
         @if(!$alreadyCheckedOut)
         const pulangTimeAlert = document.getElementById('pulangTimeAlert');
 
-        if (now.getHours() >= 23 && now.getMinutes() >= 57) {
+        if (now.getHours() >= 13 && now.getMinutes() >= 47) {
             pulangTimeAlert.style.display = 'block';
         } else {
             pulangTimeAlert.style.display = 'none';
