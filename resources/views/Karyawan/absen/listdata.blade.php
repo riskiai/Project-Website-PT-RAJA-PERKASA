@@ -68,11 +68,11 @@
                       Izin
                     @elseif($item->status_absensi == 'sakit')
                       Sakit
-                    @elseif(\Carbon\Carbon::parse($item->tanggal_absen)->diffInHours(\Carbon\Carbon::now()) >= 24 && \Carbon\Carbon::now()->gte(\Carbon\Carbon::today()->setTime(13, 50, 0)))
+                    @elseif(\Carbon\Carbon::parse($item->tanggal_absen)->diffInHours(\Carbon\Carbon::now()) >= 24 && \Carbon\Carbon::now()->gte(\Carbon\Carbon::today()->setTime(14, 10, 0)))
                       Tidak Hadir
                     @elseif(!$item->waktu_datang_kehadiran)
                       Tidak Hadir
-                  @elseif(\Carbon\Carbon::parse($item->waktu_datang_kehadiran)->gt(Carbon::createFromTime(13, 47, 0)))
+                  @elseif(\Carbon\Carbon::parse($item->waktu_datang_kehadiran)->gt(Carbon::createFromTime(14, 7, 0)))
                       Terlambat Absen
                     @else
                       Belum Absen Waktu Pulang
