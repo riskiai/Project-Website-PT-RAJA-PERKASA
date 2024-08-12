@@ -9,6 +9,7 @@ class BidangProyek extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
     protected $table = 'bidang_proyeks';
 
     protected $fillable = [
