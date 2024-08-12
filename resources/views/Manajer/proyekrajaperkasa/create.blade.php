@@ -143,8 +143,10 @@
                         <div class="form-group">
                             <label>Status Progres Proyek</label>
                             <select name="status_progres_proyek" class="select" required>
-                                <option value="sedangberjalan" {{ old('status_progres_proyek') == 'sedangberjalan' ? 'selected' : '' }}>Sedang Berjalan</option>
-                                <option value="selesai" {{ old('status_progres_proyek') == 'selesai' ? 'selected' : '' }}>Selesai</option>
+                                <option value="Perencanaan" {{ old('status_progres_proyek') == 'Perencanaan' ? 'selected' : '' }}>Perencanaan</option>
+                                <option value="SedangBerlangsung" {{ old('status_progres_proyek') == 'SedangBerlangsung' ? 'selected' : '' }}>Sedang Berlangsung</option>
+                                <option value="Penyelesaian" {{ old('status_progres_proyek') == 'Penyelesaian' ? 'selected' : '' }}>Penyelesaian</option>
+                                <option value="Pemeliharaan" {{ old('status_progres_proyek') == 'Pemeliharaan' ? 'selected' : '' }}>Pemeliharaan</option>
                             </select>
                             @error('status_progres_proyek')
                                 <span class="text-danger">{{ $message }}</span>

@@ -168,13 +168,19 @@
                                 <td>{{ $item->main_contractor }}</td>
                                 <td>{{ $item->materials->nama_materials ?? 'N/A' }}</td>
                                 <td>{{ $item->peralatan->nama_peralatan ?? 'N/A' }}</td>
-                                <td>
-                                    @if($item->status_progres_proyek == 'sedangberjalan')
-                                        <span class="badges bg-lightorange">Sedang Berjalan</span>
+                                <td style="{{ $styleBodyMain }}">
+                                    @if($proyek->status_progres_proyek == 'Perencanaan')
+                                        Perencanaan
+                                    @elseif($proyek->status_progres_proyek == 'SedangBerlangsung')
+                                        Sedang Berlangsung
+                                    @elseif($proyek->status_progres_proyek == 'Penyelesaian')
+                                        Penyelesaian
+                                    @elseif($proyek->status_progres_proyek == 'Pemeliharaan')
+                                        Pemeliharaan
                                     @else
-                                        <span class="badges bg-lightgreen">Selesai</span>
+                                        Tidak Diketahui
                                     @endif
-                                </td>
+                                </td>    
                                 <td>
                                     @if($item->status_proyek == 'disetujui')
                                         <span class="badges bg-lightgreen">Disetujui</span>

@@ -5,17 +5,17 @@
     .modal-body .detail-item {
         display: flex;
         justify-content: space-between;
-        padding: 0.3rem 0; /* Sesuaikan padding sesuai kebutuhan */
+        padding: 0.3rem 0;
     }
     .modal-body .detail-item strong {
         min-width: 120px;
     }
     .modal-body .detail-item span {
-        padding-left: 5px; /* Kurangi padding sesuai kebutuhan */
+        padding-left: 5px;
     }
 
     .modal-dialog {
-        max-width: 610px; /* Atur ukuran maksimum modal */
+        max-width: 610px;
     }
 </style>
 @endsection
@@ -55,7 +55,10 @@
         </div>
         <div class="row g-4 portfolio-container">
             @foreach($data as $proyek)
-                <div class="col-lg-4 col-md-6 portfolio-item {{ $proyek->status_progres_proyek == 'selesai' ? 'first' : 'second' }} wow fadeInUp" data-wow-delay="0.1s">
+                <div class="col-lg-4 col-md-6 portfolio-item 
+                    {{ in_array($proyek->status_progres_proyek, ['Penyelesaian', 'Pemeliharaan']) ? 'first' : 
+                       (in_array($proyek->status_progres_proyek, ['Perencanaan', 'SedangBerlangsung']) ? 'second' : '') }} 
+                    wow fadeInUp" data-wow-delay="0.1s">
                     <div class="portfolio-inner">
                         <div id="carousel{{ $proyek->id }}" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
@@ -119,6 +122,21 @@
                                 <div class="detail-item"><strong>Tanggal Mulai:</strong> <span>{{ $proyek->start_date_proyek }}</span></div>
                                 <div class="detail-item"><strong>Tanggal Selesai:</strong> <span>{{ $proyek->end_date_proyek }}</span></div>
                                 <div class="detail-item"><strong>Nilai Proyek:</strong> <span>{{ format_indo_currency($proyek->value) }}</span></div>
+                                <div class="detail-item"><strong>Status Progres:</strong> 
+                                    <span>
+                                        @if($proyek->status_progres_proyek == 'Perencanaan')
+                                            Perencanaan
+                                        @elseif($proyek->status_progres_proyek == 'SedangBerlangsung')
+                                            Sedang Berlangsung
+                                        @elseif($proyek->status_progres_proyek == 'Penyelesaian')
+                                            Penyelesaian
+                                        @elseif($proyek->status_progres_proyek == 'Pemeliharaan')
+                                            Pemeliharaan
+                                        @else
+                                            Tidak Diketahui
+                                        @endif
+                                    </span>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

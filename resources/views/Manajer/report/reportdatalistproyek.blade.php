@@ -169,10 +169,14 @@
                                 <td>{{ $item->materials->nama_materials ?? 'N/A' }}</td>
                                 <td>{{ $item->peralatan->nama_peralatan ?? 'N/A' }}</td>
                                 <td>
-                                    @if($item->status_progres_proyek == 'sedangberjalan')
-                                        <span class="badges bg-lightorange">Sedang Berjalan</span>
-                                    @else
-                                        <span class="badges bg-lightgreen">Selesai</span>
+                                    @if($item->status_progres_proyek == 'Perencanaan')
+                                        <span class="badges bg-lightorange">Perencanaan</span>
+                                    @elseif($item->status_progres_proyek == 'SedangBerlangsung')
+                                        <span class="badges   bg-lightorange">Sedang Berlangsung</span>
+                                    @elseif($item->status_progres_proyek == 'Penyelesaian')
+                                        <span class="badges  bg-lightgreen">Penyelesaian</span>
+                                    @elseif($item->status_progres_proyek == 'Pemeliharaan')
+                                        <span class="badges bg-lightgreen">Pemeliharaan</span>
                                     @endif
                                 </td>
                                 <td>

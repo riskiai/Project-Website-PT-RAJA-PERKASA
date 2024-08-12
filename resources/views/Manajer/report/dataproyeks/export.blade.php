@@ -32,12 +32,18 @@
                 <td style="{{ $styleBodyMain }}">{{ $proyek->peralatan->nama_peralatan ?? 'N/A' }}</td>
                 <td style="{{ $styleBodyMain }}">{{ $proyek->brandPeralatan->nama_brand_peralatan ?? 'N/A' }}</td>
                 <td style="{{ $styleBodyMain }}">
-                    @if($proyek->status_progres_proyek == 'sedangberjalan')
-                        Sedang Berjalan
+                    @if($proyek->status_progres_proyek == 'Perencanaan')
+                        Perencanaan
+                    @elseif($proyek->status_progres_proyek == 'SedangBerlangsung')
+                        Sedang Berlangsung
+                    @elseif($proyek->status_progres_proyek == 'Penyelesaian')
+                        Penyelesaian
+                    @elseif($proyek->status_progres_proyek == 'Pemeliharaan')
+                        Pemeliharaan
                     @else
-                        Selesai
+                        Tidak Diketahui
                     @endif
-                </td>
+                </td>    
                 <td style="{{ $styleBodyMain }}">
                     @if($proyek->status_proyek == 'disetujui')
                         Disetujui

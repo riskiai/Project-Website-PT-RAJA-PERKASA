@@ -371,7 +371,7 @@ function breakText($text, $length = 40) {
     <div class="container">
         <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
             <div class="mb-3 mx-auto" style="width: 60px; height: 2px; background-color: #FE7A36;"></div>
-            <h1 class="display-5 mb-5">Project Proyek Kami</h1>
+            <h1 class="display-5 mb-5">Portfolio Proyek Kami</h1>
         </div>
         <div class="row mt-n2 wow fadeInUp" data-wow-delay="0.3s">
             <div class="col-12 text-center">
@@ -384,7 +384,10 @@ function breakText($text, $length = 40) {
         </div>
         <div class="row g-4 portfolio-container">
             @foreach($data as $proyek)
-                <div class="col-lg-4 col-md-6 portfolio-item {{ $proyek->status_progres_proyek == 'selesai' ? 'first' : 'second' }} wow fadeInUp" data-wow-delay="0.1s">
+                <div class="col-lg-4 col-md-6 portfolio-item 
+                    {{ in_array($proyek->status_progres_proyek, ['Penyelesaian', 'Pemeliharaan']) ? 'first' : 
+                       (in_array($proyek->status_progres_proyek, ['Perencanaan', 'SedangBerlangsung']) ? 'second' : '') }} 
+                    wow fadeInUp" data-wow-delay="0.1s">
                     <div class="portfolio-inner">
                         <div id="carousel{{ $proyek->id }}" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner">
@@ -448,6 +451,21 @@ function breakText($text, $length = 40) {
                                 <div class="detail-item"><strong>Tanggal Mulai:</strong> <span>{{ $proyek->start_date_proyek }}</span></div>
                                 <div class="detail-item"><strong>Tanggal Selesai:</strong> <span>{{ $proyek->end_date_proyek }}</span></div>
                                 <div class="detail-item"><strong>Nilai Proyek:</strong> <span>{{ format_indo_currency($proyek->value) }}</span></div>
+                                <div class="detail-item"><strong>Status Progres:</strong> 
+                                    <span>
+                                        @if($proyek->status_progres_proyek == 'Perencanaan')
+                                            Perencanaan
+                                        @elseif($proyek->status_progres_proyek == 'SedangBerlangsung')
+                                            Sedang Berlangsung
+                                        @elseif($proyek->status_progres_proyek == 'Penyelesaian')
+                                            Penyelesaian
+                                        @elseif($proyek->status_progres_proyek == 'Pemeliharaan')
+                                            Pemeliharaan
+                                        @else
+                                            Tidak Diketahui
+                                        @endif
+                                    </span>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -461,6 +479,7 @@ function breakText($text, $length = 40) {
 </div>
 
 <!-- Projects End -->
+
 
 
 <!-- Testimonial Start -->

@@ -38,7 +38,7 @@
             <div class="col-lg-6 col-sm-12 col-12">
               <div class="form-group">
                 <label>Bidang Pekerjaan Proyek</label>
-                <input type="text" class="form-control" value="{{ $proyek->bidangproyeks->nama_bidang_pekerjaan_proyek ?? "Tidak Ada Data" }}" readonly>
+                <input type="text" class="form-control" value="{{ $proyek->bidangproyeks->nama_bidang_pekerjaan_proyek ?? 'Tidak Ada Data' }}" readonly>
               </div>
             </div>
             <div class="col-lg-6 col-sm-12 col-12">
@@ -80,13 +80,20 @@
             <div class="col-lg-6 col-sm-12 col-12">
                 <div class="form-group">
                   <label>Status Progres Proyek</label>
-                  <input type="text" class="form-control" value="{{ $proyek->status_progres_proyek == 'sedangberjalan' ? 'Sedang Berjalan' : 'Selesai' }}" readonly>
+                  <input type="text" class="form-control" 
+                         value="{{ $proyek->status_progres_proyek == 'Perencanaan' ? 'Perencanaan' : 
+                                   ($proyek->status_progres_proyek == 'SedangBerlangsung' ? 'Sedang Berlangsung' : 
+                                   ($proyek->status_progres_proyek == 'Penyelesaian' ? 'Penyelesaian' : 
+                                   'Pemeliharaan')) }}" readonly>
                 </div>
             </div>
             <div class="col-lg-6 col-sm-12 col-12">
                 <div class="form-group">
                   <label>Status Proyek</label>
-                  <input type="text" class="form-control" value="{{ $proyek->status_proyek == 'disetujui' ? 'Disetujui' : ($proyek->status_proyek == 'tidak_disetujui' ? 'Tidak Disetujui' : 'Belum Dicek') }}" readonly>
+                  <input type="text" class="form-control" 
+                         value="{{ $proyek->status_proyek == 'disetujui' ? 'Disetujui' : 
+                                   ($proyek->status_proyek == 'tidak_disetujui' ? 'Tidak Disetujui' : 
+                                   'Belum Dicek') }}" readonly>
                 </div>
             </div>
             <div class="col-lg-6 col-sm-12 col-12">

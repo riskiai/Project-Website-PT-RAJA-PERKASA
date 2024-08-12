@@ -35,7 +35,7 @@ return new class extends Migration
             $table->string('handover')->nullable();
             $table->string('po')->nullable();
             $table->text('image')->nullable();
-            $table->enum('status_progres_proyek', ['sedangberjalan', 'selesai'])->nullable()->default('sedangberjalan');
+            $table->enum('status_progres_proyek', ['Perencanaan', 'SedangBerlangsung', 'Penyelesaian', 'Pemeliharaan'])->nullable()->default('Perencanaan');
             $table->enum('status_proyek', ['disetujui', 'tidak_disetujui', 'belumdicek'])->nullable()->default('belumdicek');
             $table->timestamps();
         });
