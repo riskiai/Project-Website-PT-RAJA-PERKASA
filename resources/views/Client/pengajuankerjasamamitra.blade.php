@@ -205,7 +205,7 @@ $profileCompleted = $user->file_foto !== null;
                             <label for="file_profile_perusahaan" class="form-label text-dark"><strong>09. Profil Perusahaan</strong></label>
                             <p class="form-label">(Lampirkan Profile Perusahaan)</p>
                             @if(isset($dataKerjasama->dataLegalitas->file_profile_perusahaan))
-                                <p><a style="color: orange;" href="{{ asset('storage/' . $dataKerjasama->dataLegalitas->file_profile_perusahaan) }}" target="_blank">Lihat/Unduh Profil Perusahaan</a></p>
+                                <p><a style="color: rgb(30, 27, 23);" href="{{ asset('storage/' . $dataKerjasama->dataLegalitas->file_profile_perusahaan) }}" target="_blank">Lihat/Unduh Profil Perusahaan</a></p>
                             @endif
                             <div class="mb-3">
                                 <input class="form-control" type="file" id="file_profile_perusahaan" name="file_profile_perusahaan">

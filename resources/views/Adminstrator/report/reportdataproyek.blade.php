@@ -169,18 +169,19 @@
                                 <td>{{ $item->materials->nama_materials ?? 'N/A' }}</td>
                                 <td>{{ $item->peralatan->nama_peralatan ?? 'N/A' }}</td>
                                 <td style="{{ $styleBodyMain }}">
-                                    @if($proyek->status_progres_proyek == 'Perencanaan')
+                                    @if($item->status_progres_proyek == 'Perencanaan')
                                         Perencanaan
-                                    @elseif($proyek->status_progres_proyek == 'SedangBerlangsung')
+                                    @elseif($item->status_progres_proyek == 'SedangBerlangsung')
                                         Sedang Berlangsung
-                                    @elseif($proyek->status_progres_proyek == 'Penyelesaian')
+                                    @elseif($item->status_progres_proyek == 'Penyelesaian')
                                         Penyelesaian
-                                    @elseif($proyek->status_progres_proyek == 'Pemeliharaan')
+                                    @elseif($item->status_progres_proyek == 'Pemeliharaan')
                                         Pemeliharaan
                                     @else
                                         Tidak Diketahui
                                     @endif
-                                </td>    
+                                </td>
+                                
                                 <td>
                                     @if($item->status_proyek == 'disetujui')
                                         <span class="badges bg-lightgreen">Disetujui</span>

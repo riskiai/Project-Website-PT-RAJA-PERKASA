@@ -40,7 +40,9 @@ class ReportAdminController extends Controller
         $data = $query->get();
         $bidangProyeks = BidangProyek::all(); // Get all project fields for the filter
 
-        return view('Adminstrator.report.reportdataproyek', compact('data', 'bidangProyeks'));
+        $styleBodyMain = "font-weight: bold;";
+
+        return view('Adminstrator.report.reportdataproyek', compact('data', 'bidangProyeks', 'styleBodyMain'));
     }
 
     public function exportreportproyek(Request $request) {
