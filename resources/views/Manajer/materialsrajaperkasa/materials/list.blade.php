@@ -104,6 +104,7 @@
               <tr>
                 <th>No</th>
                 <th>Nama Materials</th>
+                <th>Jumlah Stok Materials</th>
                 <th>Status Materials</th>
                 <th>Di Input Tanggal</th>
                 <th>Action</th>
@@ -114,6 +115,7 @@
               <tr>
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $item->nama_materials }}</td>
+                <td>{{ $item->qty }}</td>
                 <td>
                   @if($item->status_materials == 'tersedia')
                   <span class="badges bg-lightgreen">Tersedia</span>

@@ -105,6 +105,7 @@
               <tr>
                 <th>No</th>
                 <th>Nama Peralatan</th>
+                <th>Jumlah Stok Peralatan</th>
                 <th>Status Peralatan</th>
                 <th>Di Input Tanggal</th>
                 <th>Action</th>
@@ -115,6 +116,7 @@
               <tr>
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $item->nama_peralatan }}</td>
+                <td>{{ $item->qty }}</td>
                 <td>
                   @if($item->status_peralatans == 'berfungsi')
                   <span class="badges bg-lightgreen">Berfungsi</span>

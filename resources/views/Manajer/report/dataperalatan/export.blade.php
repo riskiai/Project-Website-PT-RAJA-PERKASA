@@ -8,6 +8,7 @@
         <tr>
             <th style="{{ $styleHeadMain }}">No</th>
             <th style="{{ $styleHeadMain }}">Nama Peralatan</th>
+            <th style="{{ $styleHeadMain }}">Jumlah Stok Peralatan</th>
             <th style="{{ $styleHeadMain }}">Brand</th>
             <th style="{{ $styleHeadMain }}">Capacity</th>
             <th style="{{ $styleHeadMain }}">Ownership</th>
@@ -21,6 +22,7 @@
             <tr>
                 <td style="{{ $styleBodyMain }}">{{ $index + 1 }}</td>
                 <td style="{{ $styleBodyMain }}">{{ $item->peralatan->nama_peralatan }}</td>
+                <td style="{{ $styleBodyMain }}">{{ $item->peralatan->qty }}</td>
                 <td style="{{ $styleBodyMain }}">{{ $item->brand_peralatan->nama_brand_peralatan }}</td>
                 <td style="{{ $styleBodyMain }}">{{ $item->capacity }}</td>
                 <td style="{{ $styleBodyMain }}">{{ $item->ownership }}</td>

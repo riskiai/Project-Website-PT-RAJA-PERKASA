@@ -28,11 +28,13 @@ class ManajerProyekMaterialsController extends Controller
     {
         $request->validate([
             'nama_materials' => 'required|string|max:255',
+            'qty' => 'required|string|max:255',
             'status_materials' => 'required|in:tersedia,tidak_tersedia',
         ]);
 
         Materials::create([
             'nama_materials' => $request->nama_materials,
+            'qty' => $request->qty,
             'status_materials' => $request->status_materials,
         ]);
 
@@ -49,12 +51,14 @@ class ManajerProyekMaterialsController extends Controller
     {
         $request->validate([
             'nama_materials' => 'required|string|max:255',
+            'qty' => 'required|string|max:255',
             'status_materials' => 'required|in:tersedia,tidak_tersedia',
         ]);
 
         $materials = Materials::findOrFail($id);
         $materials->update([
             'nama_materials' => $request->nama_materials,
+            'qty' => $request->qty,
             'status_materials' => $request->status_materials,
         ]);
 

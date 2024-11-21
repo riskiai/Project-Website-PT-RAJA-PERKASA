@@ -30,12 +30,14 @@ class ManajerProyekPeralatanController extends Controller
         // Validasi data
         $request->validate([
             'nama_peralatan' => 'required|string|max:255',
+            'qty' => 'required|string|max:255',
             'status_peralatans' => 'required|in:berfungsi,tidakberfungsi',
         ]);
 
         // Simpan data ke database
         Peralatan::create([
             'nama_peralatan' => $request->nama_peralatan,
+            'qty' => $request->qty,
             'status_peralatans' => $request->status_peralatans,
         ]);
 
@@ -60,6 +62,7 @@ class ManajerProyekPeralatanController extends Controller
         $peralatan = Peralatan::findOrFail($id);
         $peralatan->update([
             'nama_peralatan' => $request->nama_peralatan,
+            'qty' => $request->qty,
             'status_peralatans' => $request->status_peralatans,
         ]);
 

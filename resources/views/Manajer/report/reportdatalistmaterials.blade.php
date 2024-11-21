@@ -159,6 +159,7 @@
                 <th>No</th>
                 <th>Di Input Tanggal</th>
                 <th>Nama Materials</th>
+                <th>Jumlah Stok Materials</th>
                 <th>Brand Materials</th>
                 <th>Country</th>
                 <th>TKDN</th>
@@ -173,6 +174,7 @@
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $item->created_at->format('Y-m-d') }}</td>
                 <td>{{ $item->materials->nama_materials }}</td>
+                <td>{{ $item->materials->qty }}</td>
                 <td>{{ $item->brand_materials->nama_brand_materials }}</td>
                 <td>{{ $item->countries }}</td>
                 <td>{{ $item->tkdn }}</td>

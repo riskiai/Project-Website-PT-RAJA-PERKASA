@@ -148,6 +148,7 @@
                 <th>No</th>
                 <th>Di Input Tanggal</th>
                 <th>Nama Peralatan</th>
+                <th>Jumlah Stok Peralatan</th>
                 <th>Brand Peralatan</th>
                 <th>Capacity</th>
                 <th>Ownership</th>
@@ -163,6 +164,7 @@
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $item->created_at->format('Y-m-d') }}</td>
                 <td>{{ $item->peralatan->nama_peralatan }}</td>
+                <td>{{ $item->peralatan->qty }}</td>
                 <td>{{ $item->brand_peralatan->nama_brand_peralatan }}</td>
                 <td>{{ $item->capacity }}</td>
                 <td>{{ $item->ownership }}</td>

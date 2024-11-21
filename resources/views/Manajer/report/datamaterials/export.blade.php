@@ -8,6 +8,7 @@
         <tr>
             <th style="{{ $styleHeadMain }}">No</th>
             <th style="{{ $styleHeadMain }}">Nama Materials</th>
+            <th style="{{ $styleHeadMain }}">Jumlah Stok Materials</th>
             <th style="{{ $styleHeadMain }}">Brand Materials</th>
             <th style="{{ $styleHeadMain }}">Country</th>
             <th style="{{ $styleHeadMain }}">TKDN</th>
@@ -21,6 +22,7 @@
             <tr>
                 <td style="{{ $styleBodyMain }}">{{ $index + 1 }}</td>
                 <td style="{{ $styleBodyMain }}">{{ $item->materials->nama_materials }}</td>
+                <td style="{{ $styleBodyMain }}">{{ $item->materials->qty }}</td>
                 <td style="{{ $styleBodyMain }}">{{ $item->brand_materials->nama_brand_materials }}</td>
                 <td style="{{ $styleBodyMain }}">{{ $item->countries }}</td>
                 <td style="{{ $styleBodyMain }}">{{ $item->tkdn }}</td>

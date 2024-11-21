@@ -59,6 +59,7 @@ class DataListMaterialskWithStyle implements FromView, WithEvents
                 $sheet->getStyle('A1:H1')->getAlignment()->setVertical('center');
                 $sheet->getColumnDimension('A')->setWidth(10);
                 $sheet->getColumnDimension('B')->setWidth(30);
+                $sheet->getColumnDimension('B')->setWidth(10);
                 $sheet->getColumnDimension('C')->setWidth(30);
                 $sheet->getColumnDimension('D')->setWidth(15);
                 $sheet->getColumnDimension('E')->setWidth(10);

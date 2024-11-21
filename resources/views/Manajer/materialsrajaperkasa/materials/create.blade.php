@@ -30,6 +30,12 @@
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
+                                <label>Jumlah Stok Peralatan</label>
+                                <input type="text" name="qty" class="form-control" required />
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6 col-12">
+                            <div class="form-group">
                                 <label>Status Materials</label>
                                 <select name="status_materials" class="select">
                                     <option value="tersedia">Tersedia</option>
