@@ -66,6 +66,15 @@
                         </div>
                         <div class="col-lg-3 col-sm-6 col-12">
                             <div class="form-group">
+                                <label>Tools Certificate Materials</label>
+                                <input type="file" name="tools_certificate_materials" class="form-control" accept="application/pdf" />
+                                @if($listMaterial->tools_certificate_materials)
+                                    <a href="{{ Storage::url($listMaterial->tools_certificate_materials) }}" target="_blank">Download</a>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="form-group">
                                 <label>Expired Date</label>
                                 <input type="date" name="expired_materials_date" class="form-control" value="{{ $listMaterial->expired_materials_date }}" required />
                             </div>

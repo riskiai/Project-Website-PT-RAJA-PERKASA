@@ -44,7 +44,8 @@
                                 </ul>
                             
                                 <p>
-                                    Jika masih kurang informasi, Anda dapat mengunduh CV lengkap dari PT Raja Perkasa <a href="https://docs.google.com/presentation/d/1tCgQE4kh8XORP_lpYXe9UAURTXL7z_5O/edit?usp=sharing&ouid=101356198688871281323&rtpof=true&sd=true" class="text-orange " target="_blank"><u>Klik CV PT Raja Perkasa</u></a>.
+                                    {{-- https://docs.google.com/presentation/d/1tCgQE4kh8XORP_lpYXe9UAURTXL7z_5O/edit?usp=sharing&ouid=101356198688871281323&rtpof=true&sd=true --}}
+                                    Jika masih kurang informasi, Anda dapat mengunduh CV lengkap dari PT Raja Perkasa <a href="#" class="text-orange " target="_blank"><u>Klik Company Profile PT Raja Perkasa</u></a>.
                                 </p>
                             </p>  
                             
@@ -60,7 +61,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-4 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.5s">
+                            {{-- <div class="col-lg-4 col-md-6 portfolio-item second wow fadeInUp" data-wow-delay="0.5s">
                                 <div class="portfolio-inner">
                                     <img class="img-fluid w-100" src="img/sertif1.png" alt="">
                                     <div class="text-center p-4">
@@ -77,7 +78,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="col-sm-4 wow fadeIn" data-wow-delay="0.3s">
                                 <div class="d-flex align-items-center">

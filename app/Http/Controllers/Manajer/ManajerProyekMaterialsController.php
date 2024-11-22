@@ -158,6 +158,7 @@ class ManajerProyekMaterialsController extends Controller
              'countries' => 'required|string|max:255',
              'tkdn' => 'required|string|max:255',
              'tknd_certificate' => 'required|mimes:pdf',
+             'tools_certificate_materials' => 'required|mimes:pdf',
              'expired_materials_date' => 'required|date',
              'status_list_materials' => 'required|in:active,nonactive',
          ]);
@@ -172,6 +173,14 @@ class ManajerProyekMaterialsController extends Controller
          } else {
              $filePath = null;
          }
+
+         if ($request->hasFile('tools_certificate_materials')) {
+            $file = $request->file('tools_certificate_materials');
+            $filename = 'tools_certificate_materials_' . Str::slug($material->nama_materials, '_') . '.pdf';
+            $filePath = $file->storeAs('public/tools_certificate_materials', $filename);
+        } else {
+            $filePath = null;
+        }
  
          List_Materials::create([
              'user_id' => auth()->user()->id,
@@ -180,6 +189,7 @@ class ManajerProyekMaterialsController extends Controller
              'countries' => $request->countries,
              'tkdn' => $request->tkdn,
              'tknd_certificate' => $filePath,
+             'tools_certificate_materials' => $filePath,
              'expired_materials_date' => $request->expired_materials_date,
              'status_list_materials' => $request->status_list_materials,
          ]);
@@ -203,6 +213,7 @@ class ManajerProyekMaterialsController extends Controller
             'countries' => 'required|string|max:255',
             'tkdn' => 'required|string|max:255',
             'tknd_certificate' => 'nullable|mimes:pdf',
+            'tools_certificate_materials' => 'required|mimes:pdf',
             'expired_materials_date' => 'required|date',
             'status_list_materials' => 'required|in:active,nonactive',
         ]);
@@ -218,6 +229,16 @@ class ManajerProyekMaterialsController extends Controller
             $filename = 'tkdn_certificate_' . Str::slug($material->nama_materials, '_') . '.pdf';
             $filePath = $file->storeAs('public/tkdn_certificates', $filename);
             $listMaterial->tknd_certificate = $filePath;
+        }
+        
+        if ($request->hasFile('tools_certificate_materials')) {
+            if ($listMaterial->tools_certificate_materials) {
+                Storage::delete($listMaterial->tools_certificate_materials);
+            }
+            $file = $request->file('tools_certificate_materials');
+            $filename = 'tools_certificate_materials_' . Str::slug($material->nama_materials, '_') . '.pdf';
+            $filePath = $file->storeAs('public/tools_certificate_materials', $filename);
+            $listMaterial->tools_certificate_materials = $filePath;
         }
 
         $listMaterial->update([

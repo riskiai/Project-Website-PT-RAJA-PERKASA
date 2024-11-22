@@ -109,6 +109,7 @@
                 <th>Country</th>
                 <th>TKDN</th>
                 <th>TKDN Certificate</th>
+                <th>Tools Certificate Materials</th>
                 <th>Tanggal Kadaluarsa Material</th>
                 <th>Status List Materials</th>
                 <th>Action</th>
@@ -127,6 +128,15 @@
                   @if($item->tknd_certificate)
                     <a href="{{ Storage::url($item->tknd_certificate) }}" target="_blank">
                       {{ 'tkdn_certificate_' . Str::slug($item->materials->nama_materials, '_') . '.pdf' }}
+                    </a>
+                  @else
+                    N/A
+                  @endif
+                </td>
+                <td>
+                  @if($item->tools_certificate_materials)
+                    <a href="{{ Storage::url($item->tools_certificate_materials) }}" target="_blank">
+                      {{ 'tools_certificate_materials_' . Str::slug($item->materials->nama_materials, '_') . '.pdf' }}
                     </a>
                   @else
                     N/A

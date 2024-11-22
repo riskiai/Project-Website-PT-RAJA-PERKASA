@@ -62,6 +62,16 @@
             </div>
             <div class="col-lg-6 col-sm-12 col-12">
               <div class="form-group">
+                <label>Tools Certificate Materials</label>
+                @if($listMaterial->tools_certificate_materials)
+                  <a href="{{ Storage::url($listMaterial->tools_certificate_materials) }}" target="_blank" class="form-control" readonly>{{ 'tools_certificate_materials_' . Str::slug($listMaterial->materials->nama_materials, '_') . '.pdf' }}</a>
+                @else
+                  <input type="text" class="form-control" value="N/A" readonly>
+                @endif
+              </div>
+            </div>
+            <div class="col-lg-6 col-sm-12 col-12">
+              <div class="form-group">
                 <label>Expired Date</label>
                 <input type="date" class="form-control" value="{{ $listMaterial->expired_materials_date }}" readonly>
               </div>
